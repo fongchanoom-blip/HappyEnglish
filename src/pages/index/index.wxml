@@ -1,0 +1,118 @@
+<!-- HappyEnglish - 首页 -->
+<view class="container">
+  <!-- 顶部欢迎区 -->
+  <view class="header">
+    <view class="welcome">
+      <text class="title">HappyEnglish</text>
+      <text class="subtitle">中考英语备考助手</text>
+    </view>
+    <view class="streak">
+      <text class="streak-num">{{progress.streak}}</text>
+      <text class="streak-unit">天连续</text>
+    </view>
+  </view>
+
+  <!-- 鼓励语 -->
+  <view class="encouragement">
+    <text>{{encouragement}}</text>
+  </view>
+
+  <!-- 学习进度卡片 -->
+  <view class="progress-card">
+    <view class="card-title">
+      <text>学习进度</text>
+      <text class="accuracy">正确率 {{progress.accuracy}}%</text>
+    </view>
+    <view class="progress-item">
+      <view class="progress-info">
+        <text class="label">词汇掌握</text>
+        <text class="count">{{progress.wordsLearned}}/{{progress.wordsTotal}}</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress.wordsLearned / progress.wordsTotal * 100}}%"></view>
+      </view>
+    </view>
+    <view class="progress-item">
+      <view class="progress-info">
+        <text class="label">语法理解</text>
+        <text class="count">{{progress.grammarLearned}}/{{progress.grammarTotal}}</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill green" style="width: {{progress.grammarLearned / progress.grammarTotal * 100}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 每日目标 -->
+  <view class="daily-goal">
+    <view class="goal-header">
+      <text class="goal-title">今日目标</text>
+      <text class="goal-progress">{{dailyGoal.completed}}/{{dailyGoal.words}} 词</text>
+    </view>
+    <view class="goal-bar">
+      <view class="goal-fill" style="width: {{dailyGoal.completed / dailyGoal.words * 100 > 100 ? 100 : dailyGoal.completed / dailyGoal.words * 100}}%"></view>
+    </view>
+  </view>
+
+  <!-- 学习模式选择 -->
+  <view class="study-modes">
+    <view class="section-title">开始学习</view>
+    <view class="modes-grid">
+      <view
+        wx:for="{{studyModes}}"
+        wx:key="id"
+        class="mode-item"
+        style="background-color: {{item.color}}"
+        bindtap="onSelectMode"
+        data-mode="{{item.id}}"
+      >
+        <view class="mode-icon icon-{{item.icon}}"></view>
+        <text class="mode-name">{{item.name}}</text>
+        <text class="mode-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-links">
+    <view class="section-title">快捷入口</view>
+    <view class="links-row">
+      <view
+        wx:for="{{quickLinks}}"
+        wx:key="text"
+        class="link-item"
+        bindtap="onQuickLink"
+        data-index="{{index}}"
+      >
+        <text class="link-text">{{item.text}}</text>
+        <view class="link-badge" wx:if="{{item.count > 0}}">
+          <text>{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 语音学习按钮 -->
+  <view class="voice-section">
+    <button class="voice-btn" bindtap="voiceLearn">
+      <text class="voice-icon">🎤</text>
+      <text>语音学习</text>
+    </button>
+  </view>
+
+  <!-- 统计数据 -->
+  <view class="stats-section">
+    <view class="stat-item">
+      <text class="stat-num">{{stats.todayWords}}</text>
+      <text class="stat-label">今日词汇</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.todayTime}}</text>
+      <text class="stat-label">今日分钟</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.totalTime}}</text>
+      <text class="stat-label">累计分钟</text>
+    </view>
+  </view>
+</view>
