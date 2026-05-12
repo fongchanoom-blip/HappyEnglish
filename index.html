@@ -6,299 +6,288 @@
   <meta name="description" content="HappyEnglish - 中考英语备考助手，帮助初中生高效复习英语词汇和语法">
   <title>HappyEnglish - 中考英语备考助手</title>
   <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-  <div id="app">
-    <!-- Vue SPA 容器 -->
-    <div id="homeApp"></div>
-  </div>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="assets/js/app.js"></script>
-  <script src="src/js/router.js"></script>
-  <script type="module">
-    // 导入 store 模块
-    import './src/js/store.js';
-
-    // 初始化数据库
-    window.db.init().then(() => {
-      console.log('数据库初始化完成');
-    });
-
-    // 从 app.js 获取词汇数据
-    const vocabulary = window.vocabulary;
-
-    // 导入掌握度模块
-    import('./src/js/level.js').then(module => {
-      const { calculateWordLevel, getWordsByLevel } = module;
-      window.getWordsByLevel = getWordsByLevel;
-      window.calculateWordLevel = calculateWordLevel;
-
-      // 准备词汇数据（合并 highFrequency 和 basic）
-      const allWords = [
-        ...(vocabulary?.highFrequency || []),
-        ...(vocabulary?.basic || [])
-      ];
-      window.vocabulary = { ...vocabulary, words: allWords };
-
-      // 创建首页 Vue 组件
-      const homeApp = {
-        data() {
-          return {
-            level: 1,
-            points: 0,
-            learnedWords: 0,
-            accuracy: 0,
-            streak: 0,
-            goodWords: [],
-            weakWords: []
-          };
-        },
-        computed: {
-          hasProgress() {
-            return this.learnedWords > 0;
-          }
-        },
-        methods: {
-          getSize(word) {
-            const wrongCount = word.progress?.wrongCount || 0;
-            if (wrongCount <= 1) return 'large';
-            if (wrongCount <= 3) return 'medium';
-            if (wrongCount <= 5) return 'small';
-            return 'tiny';
-          },
-          startTest() {
-            window.router.navigate('/test');
-          },
-          testWord(word) {
-            window.router.navigate('/test?word=' + word.id);
-          },
-          goTest() { window.router.navigate('/test'); },
-          goReview() { window.router.navigate('/review'); },
-          goProfile() { window.router.navigate('/profile'); },
-          async loadData() {
-            // 加载 userState 数据
-            if (window.userState) {
-              this.level = window.userState.level || 1;
-              this.points = window.userState.points || 0;
-              this.streak = window.userState.stats?.maxStreak || 0;
-            }
-
-            // 加载词汇掌握度
-            if (typeof getWordsByLevel === 'function' && window.db) {
-              const allProgress = await window.db.getAllProgress() || [];
-              const allWords = window.vocabulary?.words || [];
-              const grouped = getWordsByLevel(allProgress, allWords);
-
-              this.goodWords = [...grouped.master, ...grouped.familiar];
-              this.weakWords = [...grouped.weak, ...grouped.unknown];
-              this.learnedWords = allWords.length;
-
-              let correct = 0, total = 0;
-              allProgress.forEach(p => {
-                correct += p.correctCount || 0;
-                total += (p.correctCount || 0) + (p.wrongCount || 0);
-              });
-              this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-            }
-          }
-        },
-        mounted() {
-          this.loadData();
-          window.addEventListener('route-change', () => this.loadData());
-        },
-        template: `
-          <div class="home-page" id="homeApp">
-            <!-- 顶部欢迎 -->
-            <div class="header">
-              <div class="welcome">
-                <h1>HappyEnglish</h1>
-                <p>中考英语备考助手</p>
-              </div>
-              <div class="level-badge" @click="goProfile">
-                <span>Lv.{{ level }}</span>
-                <span class="points">{{ points }}分</span>
-              </div>
-            </div>
-
-            <!-- 统计卡片 -->
-            <div class="stats-cards">
-              <div class="stat-card">
-                <div class="stat-num">{{ learnedWords }}</div>
-                <div class="stat-label">已学词</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-num">{{ accuracy }}%</div>
-                <div class="stat-label">正确率</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-num">{{ streak }}</div>
-                <div class="stat-label">连击</div>
-              </div>
-            </div>
-
-            <!-- 开始测试按钮 -->
-            <button class="btn btn-primary start-btn" @click="startTest">
-              {{ hasProgress ? '继续学习' : '开始测试' }}
-            </button>
-
-            <!-- 热力词云 -->
-            <div class="word-cloud-section">
-              <h3>掌握较好 <span class="count">({{ goodWords.length }}词)</span></h3>
-              <div class="word-cloud green">
-                <span
-                  v-for="word in goodWords"
-                  :key="word.id"
-                  :class="'size-' + getSize(word)"
-                  :style="{ color: word.level === 'master' ? '#1e8449' : '#67C23A' }"
-                  @click="testWord(word)"
-                >
-                  {{ word.word }}
-                </span>
-                <div v-if="goodWords.length === 0" class="empty-tip">
-                  还没有掌握很好的词，继续加油！
-                </div>
-              </div>
-
-              <h3 style="margin-top: 24px;">需要加强 <span class="count">({{ weakWords.length }}词)</span></h3>
-              <div class="word-cloud red">
-                <span
-                  v-for="word in weakWords"
-                  :key="word.id"
-                  :class="'size-' + getSize(word)"
-                  :style="{ color: word.level === 'unknown' ? '#c0392b' : '#e74c3c' }"
-                  @click="testWord(word)"
-                >
-                  {{ word.word }}
-                </span>
-                <div v-if="weakWords.length === 0" class="empty-tip">
-                  太棒了！薄弱词已清空！
-                </div>
-              </div>
-            </div>
-
-            <!-- 底部导航 -->
-            <div class="tab-bar">
-              <div class="tab-item active">
-                <span class="icon">🏠</span>
-                <span class="text">首页</span>
-              </div>
-              <div class="tab-item" @click="goTest">
-                <span class="icon">📝</span>
-                <span class="text">测试</span>
-              </div>
-              <div class="tab-item" @click="goReview">
-                <span class="icon">📖</span>
-                <span class="text">复习</span>
-              </div>
-              <div class="tab-item" @click="goProfile">
-                <span class="icon">👤</span>
-                <span class="text">我的</span>
-              </div>
-            </div>
-          </div>
-        `
-      };
-
-      Vue.createApp(homeApp).mount('#homeApp');
-    });
-  </script>
   <style>
-    .home-page { padding: 16px; padding-bottom: 80px; }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .welcome h1 { font-size: 24px; color: var(--primary); margin: 0; }
-    .welcome p { font-size: 14px; color: var(--text-secondary); margin: 4px 0 0; }
-    .level-badge {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      gap: 8px;
-    }
-    .level-badge .points {
-      opacity: 0.9;
-      font-size: 12px;
-    }
-
-    .stats-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .stat-card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
+    .level-badge { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .stats-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .stat-card { background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
     .stat-label { font-size: 12px; color: var(--text-secondary); }
-
-    .start-btn {
-      width: 100%;
-      padding: 16px;
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .word-cloud-section {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .word-cloud-section h3 {
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
-    .word-cloud-section .count {
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-weight: normal;
-    }
-
-    .word-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 16px;
-      background: #F5F7FA;
-      border-radius: 12px;
-      min-height: 80px;
-    }
-    .word-cloud span {
-      cursor: pointer;
-      padding: 4px 10px;
-      border-radius: 6px;
-      transition: transform 0.2s;
-    }
+    .btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--primary); color: white; margin-bottom: 20px; }
+    .word-cloud-section { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+    .word-cloud-section h3 { font-size: 16px; margin-bottom: 12px; }
+    .word-cloud-section .count { font-size: 12px; color: var(--text-secondary); font-weight: normal; }
+    .word-cloud { display: flex; flex-wrap: wrap; gap: 10px; padding: 16px; background: #F5F7FA; border-radius: 12px; min-height: 80px; }
+    .word-cloud span { cursor: pointer; padding: 4px 10px; border-radius: 6px; transition: transform 0.2s; }
     .word-cloud span:hover { transform: scale(1.1); }
-    .word-cloud.green span { background: rgba(103, 194, 58, 0.1); }
-    .word-cloud.red span { background: rgba(245, 108, 108, 0.1); }
-
+    .word-cloud.green span { background: rgba(103, 194, 58, 0.1); color: var(--success); }
+    .word-cloud.red span { background: rgba(245, 108, 108, 0.1); color: var(--danger); }
     .size-large { font-size: 28px; font-weight: 700; }
     .size-medium { font-size: 20px; font-weight: 600; }
     .size-small { font-size: 16px; }
     .size-tiny { font-size: 13px; }
-
-    .empty-tip {
-      width: 100%;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 14px;
-      padding: 20px;
-    }
+    .empty-tip { width: 100%; text-align: center; color: var(--text-secondary); font-size: 14px; padding: 20px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .welcome h1 { font-size: 24px; color: var(--primary); margin: 0; }
+    .welcome p { font-size: 14px; color: var(--text-secondary); margin: 4px 0 0; }
   </style>
+</head>
+<body>
+  <div class="container">
+    <div id="app">
+      <div class="loading" v-if="loading">加载中...</div>
+      <div v-else>
+        <!-- 顶部欢迎 -->
+        <div class="header">
+          <div class="welcome">
+            <h1>HappyEnglish</h1>
+            <p>中考英语备考助手</p>
+          </div>
+          <div class="level-badge" @click="goPage('profile')">
+            <span>Lv.{{ level }}</span>
+            <span>{{ points }}分</span>
+          </div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-num">{{ learnedWords }}</div>
+            <div class="stat-label">已学词</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">{{ accuracy }}%</div>
+            <div class="stat-label">正确率</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">{{ streak }}</div>
+            <div class="stat-label">连击</div>
+          </div>
+        </div>
+
+        <!-- 开始测试按钮 -->
+        <button class="btn btn-primary" @click="startTest">
+          {{ hasProgress ? '继续学习' : '开始测试' }}
+        </button>
+
+        <!-- 热力词云 -->
+        <div class="word-cloud-section">
+          <h3>掌握较好 <span class="count">({{ goodWords.length }}词)</span></h3>
+          <div class="word-cloud green">
+            <span
+              v-for="word in goodWords"
+              :key="word.id"
+              :class="'size-' + getSize(word)"
+              :style="{ color: word.level === 'master' ? '#1e8449' : '#67C23A' }"
+              @click="testWord(word)"
+            >
+              {{ word.word }}
+            </span>
+            <div v-if="goodWords.length === 0" class="empty-tip">
+              还没有掌握很好的词，继续加油！
+            </div>
+          </div>
+
+          <h3 style="margin-top: 24px;">需要加强 <span class="count">({{ weakWords.length }}词)</span></h3>
+          <div class="word-cloud red">
+            <span
+              v-for="word in weakWords"
+              :key="word.id"
+              :class="'size-' + getSize(word)"
+              :style="{ color: word.level === 'unknown' ? '#c0392b' : '#e74c3c' }"
+              @click="testWord(word)"
+            >
+              {{ word.word }}
+            </span>
+            <div v-if="weakWords.length === 0" class="empty-tip">
+              太棒了！薄弱词已清空！
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <span class="icon">🏠</span>
+            <span class="text">首页</span>
+          </div>
+          <div class="tab-item" @click="goPage('test')">
+            <span class="icon">📝</span>
+            <span class="text">测试</span>
+          </div>
+          <div class="tab-item" @click="goPage('review')">
+            <span class="icon">📖</span>
+            <span class="text">复习</span>
+          </div>
+          <div class="tab-item" @click="goPage('profile')">
+            <span class="icon">👤</span>
+            <span class="text">我的</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    // 词汇数据
+    const vocabulary = {
+      highFrequency: [
+        { id: 'word_001', word: 'able', phonetic: '/ˈeɪbl/', translation: '能够', category: 'adj' },
+        { id: 'word_002', word: 'about', phonetic: '/əˈbaʊt/', translation: '关于', category: 'prep' },
+        { id: 'word_003', word: 'above', phonetic: '/əˈbʌv/', translation: '在...上面', category: 'prep' },
+        { id: 'word_004', word: 'abroad', phonetic: '/əˈbrɔːd/', translation: '在国外', category: 'adv' },
+        { id: 'word_005', word: 'accept', phonetic: '/əkˈsept/', translation: '接受', category: 'v' },
+        { id: 'word_006', word: 'achieve', phonetic: '/əˈtʃiːv/', translation: '达到', category: 'v' },
+        { id: 'word_007', word: 'across', phonetic: '/əˈkrɒs/', translation: '穿过', category: 'prep' },
+        { id: 'word_008', word: 'action', phonetic: '/ˈækʃn/', translation: '行动', category: 'n' },
+        { id: 'word_009', word: 'active', phonetic: '/ˈæktɪv/', translation: '积极的', category: 'adj' },
+        { id: 'word_010', word: 'activity', phonetic: '/ækˈtɪvəti/', translation: '活动', category: 'n' },
+        { id: 'word_011', word: 'back', phonetic: '/bæk/', translation: '背部', category: 'n' },
+        { id: 'word_012', word: 'bad', phonetic: '/bæd/', translation: '坏的', category: 'adj' },
+        { id: 'word_013', word: 'ball', phonetic: '/bɔːl/', translation: '球', category: 'n' },
+        { id: 'word_014', word: 'bank', phonetic: '/bæŋk/', translation: '银行', category: 'n' },
+        { id: 'word_015', word: 'base', phonetic: '/beɪs/', translation: '基础', category: 'n' },
+        { id: 'word_016', word: 'call', phonetic: '/kɔːl/', translation: '打电话', category: 'v' },
+        { id: 'word_017', word: 'can', phonetic: '/kæn/', translation: '能', category: 'modal' },
+        { id: 'word_018', word: 'car', phonetic: '/kɑː/', translation: '汽车', category: 'n' },
+        { id: 'word_019', word: 'card', phonetic: '/kɑːd/', translation: '卡片', category: 'n' },
+        { id: 'word_020', word: 'care', phonetic: '/keə/', translation: '关心', category: 'n' }
+      ],
+      basic: [
+        { id: 'basic_001', word: 'day', phonetic: '/deɪ/', translation: '天', category: 'n' },
+        { id: 'basic_002', word: 'deal', phonetic: '/diːl/', translation: '处理', category: 'v' },
+        { id: 'basic_003', word: 'dear', phonetic: '/dɪə/', translation: '亲爱的', category: 'adj' },
+        { id: 'basic_004', word: 'death', phonetic: '/deθ/', translation: '死亡', category: 'n' },
+        { id: 'basic_005', word: 'decide', phonetic: '/dɪˈsaɪd/', translation: '决定', category: 'v' }
+      ]
+    };
+
+    // 合并所有词汇
+    const allWords = [...vocabulary.highFrequency, ...vocabulary.basic];
+
+    // 掌握度计算
+    function calculateWordLevel(progress) {
+      if (!progress || !progress.totalTests) return 'unknown';
+      const accuracy = (progress.correctCount / progress.totalTests) * 100;
+      if (accuracy >= 90 && progress.wrongCount <= 1) return 'master';
+      if (accuracy >= 70) return 'familiar';
+      if (accuracy >= 40) return 'weak';
+      return 'unknown';
+    }
+
+    function getWordsByLevel(allProgress, allWords) {
+      const levels = { master: [], familiar: [], weak: [], unknown: [] };
+      allWords.forEach(word => {
+        const progress = allProgress.find(p => p.wordId === word.id) || {};
+        const level = calculateWordLevel(progress);
+        levels[level].push({ ...word, progress, level });
+      });
+      return levels;
+    }
+
+    // IndexedDB 操作
+    const db = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 1);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+          request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', { keyPath: 'wordId' });
+            if (!db.objectStoreNames.contains('stats')) db.createObjectStore('stats', { keyPath: 'id' });
+          };
+        });
+      },
+      async getAllProgress() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readonly');
+          const store = tx.objectStore('progress');
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      }
+    };
+
+    // 用户状态
+    const userState = {
+      level: 1,
+      points: 0,
+      stats: { maxStreak: 0 }
+    };
+
+    // Vue 应用
+    const app = Vue.createApp({
+      data() {
+        return {
+          loading: true,
+          level: 1,
+          points: 0,
+          streak: 0,
+          learnedWords: 0,
+          accuracy: 0,
+          goodWords: [],
+          weakWords: []
+        };
+      },
+      computed: {
+        hasProgress() {
+          return this.learnedWords > 0;
+        }
+      },
+      methods: {
+        getSize(word) {
+          const wrongCount = word.progress?.wrongCount || 0;
+          if (wrongCount <= 1) return 'large';
+          if (wrongCount <= 3) return 'medium';
+          if (wrongCount <= 5) return 'small';
+          return 'tiny';
+        },
+        startTest() {
+          window.location.href = 'test.html';
+        },
+        testWord(word) {
+          window.location.href = 'test.html?word=' + word.id;
+        },
+        goPage(page) {
+          window.location.href = page + '.html';
+        },
+        async loadData() {
+          try {
+            await db.init();
+            const allProgress = await db.getAllProgress();
+            const grouped = getWordsByLevel(allProgress, allWords);
+
+            this.goodWords = [...grouped.master, ...grouped.familiar];
+            this.weakWords = [...grouped.weak, ...grouped.unknown];
+            this.learnedWords = allWords.length;
+            this.level = userState.level;
+            this.points = userState.points;
+            this.streak = userState.stats?.maxStreak || 0;
+
+            let correct = 0, total = 0;
+            allProgress.forEach(p => {
+              correct += p.correctCount || 0;
+              total += (p.correctCount || 0) + (p.wrongCount || 0);
+            });
+            this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+          } catch (e) {
+            console.error('加载数据失败:', e);
+          } finally {
+            this.loading = false;
+          }
+        }
+      },
+      mounted() {
+        this.loadData();
+      }
+    });
+
+    app.mount('#app');
+  </script>
 </body>
 </html>

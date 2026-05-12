@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复习 - HappyEnglish</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    :root { --primary: #4A90D9; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; --text-primary: #303133; --text-secondary: #909399; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: var(--bg-page); min-height: 100vh; }
+    .container { max-width: 750px; margin: 0 auto; padding: 16px; padding-bottom: 80px; }
+    .header { display: flex; align-items: center; margin-bottom: 20px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .header h2 { margin-left: 12px; font-size: 18px; }
+    .stats-bar { display: flex; gap: 12px; margin-bottom: 16px; }
+    .stat { flex: 1; background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat .num { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .stat .label { font-size: 12px; color: var(--text-secondary); }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+    .filter-bar button { flex: 1; padding: 10px; background: white; border: 1px solid #E4E7ED; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .filter-bar button.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .words-list { display: flex; flex-direction: column; gap: 12px; }
+    .word-card { background: white; border-radius: 12px; padding: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .word-card:active { transform: scale(0.98); }
+    .word-main { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .word-text { font-size: 20px; font-weight: 600; }
+    .word-level { padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+    .word-level.weak { background: rgba(230, 162, 60, 0.1); color: #E6A23C; }
+    .word-level.unknown { background: rgba(245, 108, 108, 0.1); color: #F56C6C; }
+    .word-sub { display: flex; gap: 12px; margin-bottom: 8px; }
+    .phonetic { color: var(--text-secondary); font-size: 14px; }
+    .translation { color: var(--primary); font-size: 16px; }
+    .word-stats { font-size: 12px; color: var(--text-secondary); }
+    .empty-state { text-align: center; padding: 40px; }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-text { color: var(--text-secondary); }
+    .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: var(--text-secondary); cursor: pointer; }
+    .tab-item.active { color: var(--primary); }
+    .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
+    .tab-item .text { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="app">
+      <div class="header">
+        <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+        <h2>错题复习</h2>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="num">{{ weakWords.length }}</div>
+          <div class="label">薄弱词</div>
+        </div>
+        <div class="stat">
+          <div class="num">{{ unknownWords.length }}</div>
+          <div class="label">陌生词</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <button :class="{active: filter === 'all'}" @click="filter = 'all'">全部</button>
+        <button :class="{active: filter === 'weak'}" @click="filter = 'weak'">薄弱</button>
+        <button :class="{active: filter === 'unknown'}" @click="filter = 'unknown'">陌生</button>
+      </div>
+
+      <div class="words-list">
+        <div
+          v-for="word in filteredWords"
+          :key="word.id"
+          class="word-card"
+          @click="goTest(word)"
+        >
+          <div class="word-main">
+            <span class="word-text">{{ word.word }}</span>
+            <span class="word-level" :class="word.level">
+              {{ levelLabels[word.level] || word.level }}
+            </span>
+          </div>
+          <div class="word-sub">
+            <span class="phonetic">{{ word.phonetic }}</span>
+            <span class="translation">{{ word.translation }}</span>
+          </div>
+          <div class="word-stats">错误 {{ word.progress?.wrongCount || 0 }} 次</div>
+        </div>
+
+        <div v-if="filteredWords.length === 0" class="empty-state">
+          <div class="empty-icon">🎉</div>
+          <div class="empty-text">太棒了！没有薄弱词！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="tab-bar">
+      <div class="tab-item" onclick="window.location.href='index.html'">
+        <span class="icon">🏠</span>
+        <span class="text">首页</span>
+      </div>
+      <div class="tab-item" onclick="window.location.href='test.html'">
+        <span class="icon">📝</span>
+        <span class="text">测试</span>
+      </div>
+      <div class="tab-item active">
+        <span class="icon">📖</span>
+        <span class="text">复习</span>
+      </div>
+      <div class="tab-item" onclick="window.location.href='profile.html'">
+        <span class="icon">👤</span>
+        <span class="text">我的</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const vocabulary = [
+      { id: 'w001', word: 'able', phonetic: '/ˈeɪbl/', translation: '能够', level: 'unknown' },
+      { id: 'w002', word: 'about', phonetic: '/əˈbaʊt/', translation: '关于', level: 'unknown' },
+      { id: 'w003', word: 'above', phonetic: '/əˈbʌv/', translation: '在...上面', level: 'unknown' },
+      { id: 'w004', word: 'abroad', phonetic: '/əˈbrɔːd/', translation: '在国外', level: 'unknown' },
+      { id: 'w005', word: 'accept', phonetic: '/əkˈsept/', translation: '接受', level: 'unknown' },
+      { id: 'w006', word: 'achieve', phonetic: '/əˈtʃiːv/', translation: '达到', level: 'unknown' },
+      { id: 'w007', word: 'across', phonetic: '/əˈkrɒs/', translation: '穿过', level: 'unknown' },
+      { id: 'w008', word: 'action', phonetic: '/ˈækʃn/', translation: '行动', level: 'unknown' },
+      { id: 'w009', word: 'active', phonetic: '/ˈæktɪv/', translation: '积极的', level: 'unknown' },
+      { id: 'w010', word: 'activity', phonetic: '/ækˈtɪvəti/', translation: '活动', level: 'unknown' },
+      { id: 'w011', word: 'back', phonetic: '/bæk/', translation: '背部', level: 'unknown' },
+      { id: 'w012', word: 'bad', phonetic: '/bæd/', translation: '坏的', level: 'unknown' },
+      { id: 'w013', word: 'ball', phonetic: '/bɔːl/', translation: '球', level: 'unknown' },
+      { id: 'w014', word: 'bank', phonetic: '/bæŋk/', translation: '银行', level: 'unknown' },
+      { id: 'w015', word: 'base', phonetic: '/beɪs/', translation: '基础', level: 'unknown' },
+      { id: 'w016', word: 'call', phonetic: '/kɔːl/', translation: '打电话', level: 'unknown' },
+      { id: 'w017', word: 'can', phonetic: '/kæn/', translation: '能', level: 'unknown' },
+      { id: 'w018', word: 'car', phonetic: '/kɑː/', translation: '汽车', level: 'unknown' },
+      { id: 'w019', word: 'card', phonetic: '/kɑːd/', translation: '卡片', level: 'unknown' },
+      { id: 'w020', word: 'care', phonetic: '/keə/', translation: '关心', level: 'unknown' }
+    ];
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          filter: 'all',
+          weakWords: vocabulary.filter(w => w.level === 'weak'),
+          unknownWords: vocabulary.filter(w => w.level === 'unknown'),
+          levelLabels: { master: '精通', familiar: '熟悉', weak: '薄弱', unknown: '陌生' }
+        };
+      },
+      computed: {
+        filteredWords() {
+          if (this.filter === 'all') return [...this.weakWords, ...this.unknownWords];
+          if (this.filter === 'weak') return this.weakWords;
+          if (this.filter === 'unknown') return this.unknownWords;
+          return [];
+        }
+      },
+      methods: {
+        goTest(word) {
+          window.location.href = 'test.html?word=' + word.id;
+        }
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>

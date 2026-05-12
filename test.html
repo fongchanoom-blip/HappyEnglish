@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试 - HappyEnglish</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    :root { --primary: #4A90D9; --success: #67C23A; --danger: #F56C6C; --text-primary: #303133; --text-secondary: #909399; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: var(--bg-page); min-height: 100vh; }
+    .container { max-width: 750px; margin: 0 auto; padding: 16px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .mode-toggle { display: flex; gap: 8px; }
+    .mode-toggle button { padding: 8px 16px; border: 1px solid var(--primary); background: white; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .mode-toggle button.active { background: var(--primary); color: white; }
+    .streak { padding: 8px 16px; background: #FFF3E0; border-radius: 20px; font-size: 18px; }
+    .question-card { background: white; border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+    .prompt { color: var(--text-secondary); font-size: 14px; margin-bottom: 8px; }
+    .question { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 24px; }
+    .answer-input { width: 100%; padding: 16px; font-size: 20px; text-align: center; border: 2px solid #E4E7ED; border-radius: 12px; outline: none; margin-bottom: 16px; }
+    .answer-input:focus { border-color: var(--primary); }
+    .answer-input.correct { border-color: var(--success); background: #F0F9EB; }
+    .answer-input.wrong { border-color: var(--danger); background: #FEF0F0; }
+    .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--primary); color: white; }
+    .result { padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
+    .result.correct { background: #F0F9EB; }
+    .result.wrong { background: #FEF0F0; }
+    .result-icon { font-size: 48px; margin-bottom: 8px; }
+    .result-text { font-size: 20px; font-weight: 600; }
+    .correct-answer { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+    .stats { display: flex; justify-content: space-around; padding: 16px; background: white; border-radius: 12px; }
+    .stat { font-size: 14px; color: var(--text-secondary); }
+    .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: var(--text-secondary); cursor: pointer; }
+    .tab-item.active { color: var(--primary); }
+    .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
+    .tab-item .text { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="app">
+      <div class="header">
+        <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+        <div class="mode-toggle">
+          <button :class="{active: mode === 'cn2en'}" @click="mode = 'cn2en'">中→英</button>
+          <button :class="{active: mode === 'en2cn'}" @click="mode = 'en2cn'">英→中</button>
+        </div>
+        <div class="streak">🔥 {{ streak }}</div>
+      </div>
+
+      <div class="question-card" v-if="!finished">
+        <div class="prompt">{{ mode === 'cn2en' ? '请输入对应的英文单词' : '请输入对应的中文意思' }}</div>
+        <div class="question">{{ currentWord[mode === 'cn2en' ? 'translation' : 'word'] }}</div>
+        <input
+          type="text"
+          v-model="answer"
+          @keyup.enter="submitAnswer"
+          class="answer-input"
+          :class="{correct: showResult && isCorrect, wrong: showResult && !isCorrect}"
+          placeholder="输入答案后按回车"
+          autofocus
+        />
+        <button class="btn btn-primary" @click="submitAnswer" :disabled="!answer">确认</button>
+      </div>
+
+      <div class="result" :class="isCorrect ? 'correct' : 'wrong'" v-if="showResult">
+        <div class="result-icon">{{ isCorrect ? '✓' : '✗' }}</div>
+        <div class="result-text">{{ isCorrect ? '正确！' : '错误' }}</div>
+        <div class="correct-answer" v-if="!isCorrect">
+          正确答案：{{ mode === 'cn2en' ? currentWord.word : currentWord.translation }}
+        </div>
+      </div>
+
+      <div v-if="finished" class="question-card">
+        <div class="result-icon">🎉</div>
+        <div class="result-text">一轮完成！</div>
+        <div class="stats" style="margin-top: 20px;">
+          <div class="stat">正确: {{ correctCount }}</div>
+          <div class="stat">错误: {{ wrongCount }}</div>
+          <div class="stat">正确率: {{ accuracyPercent }}%</div>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='index.html'">返回首页</button>
+      </div>
+
+      <div class="stats" v-if="!finished">
+        <div class="stat">正确: {{ correctCount }}</div>
+        <div class="stat">错误: {{ wrongCount }}</div>
+        <div class="stat">正确率: {{ accuracyPercent }}%</div>
+      </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="tab-bar">
+      <div class="tab-item" onclick="window.location.href='index.html'">
+        <span class="icon">🏠</span>
+        <span class="text">首页</span>
+      </div>
+      <div class="tab-item active">
+        <span class="icon">📝</span>
+        <span class="text">测试</span>
+      </div>
+      <div class="tab-item" onclick="window.location.href='review.html'">
+        <span class="icon">📖</span>
+        <span class="text">复习</span>
+      </div>
+      <div class="tab-item" onclick="window.location.href='profile.html'">
+        <span class="icon">👤</span>
+        <span class="text">我的</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const words = [
+      { id: 'w001', word: 'able', translation: '能够' },
+      { id: 'w002', word: 'about', translation: '关于' },
+      { id: 'w003', word: 'above', translation: '在...上面' },
+      { id: 'w004', word: 'abroad', translation: '在国外' },
+      { id: 'w005', word: 'accept', translation: '接受' },
+      { id: 'w006', word: 'achieve', translation: '达到' },
+      { id: 'w007', word: 'across', translation: '穿过' },
+      { id: 'w008', word: 'action', translation: '行动' },
+      { id: 'w009', word: 'active', translation: '积极的' },
+      { id: 'w010', word: 'activity', translation: '活动' },
+      { id: 'w011', word: 'back', translation: '背部' },
+      { id: 'w012', word: 'bad', translation: '坏的' },
+      { id: 'w013', word: 'ball', translation: '球' },
+      { id: 'w014', word: 'bank', translation: '银行' },
+      { id: 'w015', word: 'base', translation: '基础' },
+      { id: 'w016', word: 'call', translation: '打电话' },
+      { id: 'w017', word: 'can', translation: '能' },
+      { id: 'w018', word: 'car', translation: '汽车' },
+      { id: 'w019', word: 'card', translation: '卡片' },
+      { id: 'w020', word: 'care', translation: '关心' }
+    ];
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          mode: 'cn2en',
+          words: [...words].sort(() => Math.random() - 0.5),
+          currentIndex: 0,
+          answer: '',
+          showResult: false,
+          isCorrect: false,
+          correctCount: 0,
+          wrongCount: 0,
+          streak: 0,
+          finished: false
+        };
+      },
+      computed: {
+        currentWord() {
+          return this.words[this.currentIndex] || {};
+        },
+        accuracyPercent() {
+          const total = this.correctCount + this.wrongCount;
+          return total > 0 ? Math.round((this.correctCount / total) * 100) : 0;
+        }
+      },
+      methods: {
+        submitAnswer() {
+          if (!this.answer.trim()) return;
+
+          const correct = this.answer.trim().toLowerCase() ===
+            (this.mode === 'cn2en'
+              ? this.currentWord.word.toLowerCase()
+              : this.currentWord.translation);
+
+          this.isCorrect = correct;
+          this.showResult = true;
+
+          if (correct) {
+            this.correctCount++;
+            this.streak++;
+          } else {
+            this.wrongCount++;
+            this.streak = 0;
+          }
+
+          setTimeout(() => {
+            this.showResult = false;
+            this.answer = '';
+            this.currentIndex++;
+            if (this.currentIndex >= this.words.length) {
+              this.finished = true;
+            }
+          }, 1000);
+        }
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>
