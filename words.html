@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>词汇学习 - HappyEnglish</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, #4A90D9 0%, #6BA3E0 100%);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* 学习模式切换 */
+    .mode-tabs {
+      display: flex;
+      padding: 12px 16px;
+      gap: 8px;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .mode-tab {
+      flex: 1;
+      padding: 10px 12px;
+      text-align: center;
+      background: #F5F7FA;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .mode-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* 单词卡片 */
+    .word-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin: 16px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .word-text {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .word-phonetic {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .word-translation {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .word-part {
+      display: inline-block;
+      background: rgba(74, 144, 217, 0.1);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    /* 播放按钮 */
+    .play-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-size: 28px;
+      margin: 16px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(74, 144, 217, 0.4);
+      transition: all 0.3s;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .play-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* 例句 */
+    .example-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .example-title {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .example-text {
+      font-size: 16px;
+      color: var(--text-primary);
+      line-height: 1.6;
+      background: #F5F7FA;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .example-translation {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    /* 考点 */
+    .exam-point-section {
+      margin-top: 16px;
+    }
+
+    .exam-point-title {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .exam-point-tag {
+      display: inline-block;
+      background: rgba(230, 162, 60, 0.1);
+      color: var(--warning);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 4px;
+    }
+
+    /* 导航按钮 */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-btn.prev {
+      background: #F5F7FA;
+      color: var(--text-secondary);
+    }
+
+    .nav-btn.next {
+      background: var(--primary);
+      color: white;
+    }
+
+    .nav-btn.know {
+      background: var(--success);
+      color: white;
+    }
+
+    .nav-btn.unknown {
+      background: var(--danger);
+      color: white;
+    }
+
+    /* 单词列表 */
+    .word-list {
+      padding: 16px;
+    }
+
+    .word-item {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .word-item:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .word-item-info {
+      flex: 1;
+    }
+
+    .word-item-word {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .word-item-phonetic {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .word-item-translation {
+      font-size: 14px;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .word-item-status {
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .status-new {
+      background: rgba(144, 147, 153, 0.1);
+      color: var(--info);
+    }
+
+    .status-learning {
+      background: rgba(230, 162, 60, 0.1);
+      color: var(--warning);
+    }
+
+    .status-mastered {
+      background: rgba(103, 194, 58, 0.1);
+      color: var(--success);
+    }
+
+    /* 搜索栏 */
+    .search-bar {
+      padding: 12px 16px;
+      background: white;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #E4E7ED;
+      border-radius: 24px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* 分类筛选 */
+    .category-filter {
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      background: white;
+    }
+
+    .category-tag {
+      padding: 8px 16px;
+      background: #F5F7FA;
+      border: none;
+      border-radius: 16px;
+      font-size: 13px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .category-tag.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* 学习模式容器 */
+    .learn-container {
+      display: block;
+    }
+
+    .list-container {
+      display: none;
+    }
+
+    /* 隐藏/显示 */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面头部 -->
+  <div class="page-header">
+    <div class="page-title">
+      <button class="back-btn" onclick="history.back()">←</button>
+      <span>词汇学习</span>
+    </div>
+  </div>
+
+  <!-- 模式切换 -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchMode('learn')">学习模式</button>
+    <button class="mode-tab" onclick="switchMode('list')">词汇列表</button>
+    <button class="mode-tab" onclick="switchMode('search')">搜索</button>
+  </div>
+
+  <!-- 学习模式 -->
+  <div class="learn-container" id="learnContainer">
+    <div class="word-card">
+      <div class="word-part" id="wordPart">adj.</div>
+      <div class="word-text" id="wordText" onclick="speakWord()">ability</div>
+      <div class="word-phonetic" id="wordPhonetic">/əˈbɪləti/</div>
+      <button class="play-btn" onclick="speakWord()">🔊</button>
+      <div class="word-translation" id="wordTranslation">能力</div>
+
+      <div class="example-section" id="exampleSection">
+        <div class="example-title">例句</div>
+        <div class="example-text" id="exampleText">The ability to learn is important.</div>
+        <div class="example-translation" id="exampleTranslation">学习能力很重要。</div>
+      </div>
+
+      <div class="exam-point-section" id="examPointSection">
+        <div class="exam-point-title">考点</div>
+        <div id="examPoints">
+          <span class="exam-point-tag">have the ability to do sth</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn prev" onclick="prevWord()">← 上一个</button>
+      <button class="nav-btn unknown" onclick="markUnknown()">不认识</button>
+      <button class="nav-btn know" onclick="markKnown()">认识 ✓</button>
+      <button class="nav-btn next" onclick="nextWord()">下一个 →</button>
+    </div>
+  </div>
+
+  <!-- 词汇列表 -->
+  <div class="list-container" id="listContainer">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="搜索单词..." id="searchInput" oninput="filterWords()">
+    </div>
+    <div class="category-filter">
+      <button class="category-tag active" onclick="filterByCategory('all')">全部</button>
+      <button class="category-tag" onclick="filterByCategory('noun')">名词</button>
+      <button class="category-tag" onclick="filterByCategory('verb')">动词</button>
+      <button class="category-tag" onclick="filterByCategory('adj')">形容词</button>
+      <button class="category-tag" onclick="filterByCategory('adv')">副词</button>
+      <button class="category-tag" onclick="filterByCategory('prep')">介词</button>
+    </div>
+    <div class="word-list" id="wordList">
+      <!-- 动态生成 -->
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    // 当前状态
+    let currentMode = 'learn';
+    let currentIndex = 0;
+    let currentCategory = 'all';
+    let allWords = [];
+
+    // 初始化
+    function init() {
+      allWords = [...vocabulary.highFrequency, ...vocabulary.basic];
+      renderWordList();
+      loadWord();
+    }
+
+    // 切换模式
+    function switchMode(mode) {
+      // 更新标签样式
+      document.querySelectorAll('.mode-tab').forEach((tab, index) => {
+        tab.classList.remove('active');
+        if ((mode === 'learn' && index === 0) ||
+            (mode === 'list' && index === 1) ||
+            (mode === 'search' && index === 2)) {
+          tab.classList.add('active');
+        }
+      });
+
+      // 切换内容
+      const learnContainer = document.getElementById('learnContainer');
+      const listContainer = document.getElementById('listContainer');
+
+      if (mode === 'learn') {
+        learnContainer.style.display = 'block';
+        listContainer.style.display = 'none';
+      } else {
+        learnContainer.style.display = 'none';
+        listContainer.style.display = 'block';
+      }
+
+      currentMode = mode;
+    }
+
+    // 加载单词
+    function loadWord() {
+      if (allWords.length === 0) return;
+
+      const word = allWords[currentIndex];
+
+      document.getElementById('wordText').textContent = word.word;
+      document.getElementById('wordPhonetic').textContent = word.phonetic;
+      document.getElementById('wordTranslation').textContent = word.translation;
+      document.getElementById('wordPart').textContent = word.partOfSpeech;
+
+      // 例句
+      if (word.examples && word.examples.length > 0) {
+        const example = word.examples[0];
+        document.getElementById('exampleText').textContent = example.split('。')[0] + '.';
+        document.getElementById('exampleTranslation').textContent = example.split('。')[1] || '';
+        document.getElementById('exampleSection').style.display = 'block';
+      } else {
+        document.getElementById('exampleSection').style.display = 'none';
+      }
+
+      // 考点
+      if (word.examPoints && word.examPoints.length > 0) {
+        const pointsHtml = word.examPoints.map(p => `<span class="exam-point-tag">${p}</span>`).join('');
+        document.getElementById('examPoints').innerHTML = pointsHtml;
+        document.getElementById('examPointSection').style.display = 'block';
+      } else {
+        document.getElementById('examPointSection').style.display = 'none';
+      }
+    }
+
+    // 发音
+    function speakWord() {
+      const word = allWords[currentIndex];
+      if (word) {
+        app.speak(word.word, function() {
+          console.log('播放完成');
+        });
+      }
+    }
+
+    // 上一个
+    function prevWord() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadWord();
+      } else {
+        app.showToast('已经是第一个了');
+      }
+    }
+
+    // 下一个
+    function nextWord() {
+      if (currentIndex < allWords.length - 1) {
+        currentIndex++;
+        loadWord();
+      } else {
+        app.showToast('已经学完了所有词汇！');
+      }
+    }
+
+    // 标记为认识
+    function markKnown() {
+      const word = allWords[currentIndex];
+      if (word) {
+        app.recordWordLearn(word.id, true);
+        app.showToast('太棒了！继续加油！');
+        nextWord();
+      }
+    }
+
+    // 标记为不认识
+    function markUnknown() {
+      const word = allWords[currentIndex];
+      if (word) {
+        app.recordWordLearn(word.id, false);
+        app.showToast('没关系，再复习一下');
+        // 延迟后自动播放发音，帮助记忆
+        setTimeout(() => {
+          speakWord();
+        }, 500);
+      }
+    }
+
+    // 渲染单词列表
+    function renderWordList() {
+      const listContainer = document.getElementById('wordList');
+      let words = allWords;
+
+      // 分类筛选
+      if (currentCategory !== 'all') {
+        words = words.filter(w => w.category === currentCategory);
+      }
+
+      // 搜索筛选
+      const searchText = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+      if (searchText) {
+        words = words.filter(w =>
+          w.word.toLowerCase().includes(searchText) ||
+          w.translation.includes(searchText)
+        );
+      }
+
+      // 获取学习进度
+      const progress = app.getProgress();
+
+      // 生成HTML
+      listContainer.innerHTML = words.map(word => {
+        const wordProgress = progress.words[word.id];
+        let statusClass = 'status-new';
+        let statusText = '新词';
+
+        if (wordProgress) {
+          if (wordProgress.status === 'mastered') {
+            statusClass = 'status-mastered';
+            statusText = '已掌握';
+          } else if (wordProgress.status === 'learning') {
+            statusClass = 'status-learning';
+            statusText = '学习中';
+          }
+        }
+
+        return `
+          <div class="word-item" onclick="goToWord('${word.word}')">
+            <div class="word-item-info">
+              <div class="word-item-word">${word.word}</div>
+              <div class="word-item-phonetic">${word.phonetic}</div>
+              <div class="word-item-translation">${word.translation}</div>
+            </div>
+            <span class="word-item-status ${statusClass}">${statusText}</span>
+          </div>
+        `;
+      }).join('');
+
+      if (words.length === 0) {
+        listContainer.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-secondary);">没有找到匹配的单词</div>';
+      }
+    }
+
+    // 跳转到指定单词
+    function goToWord(wordText) {
+      const index = allWords.findIndex(w => w.word.toLowerCase() === wordText.toLowerCase());
+      if (index !== -1) {
+        currentIndex = index;
+        switchMode('learn');
+        loadWord();
+      }
+    }
+
+    // 分类筛选
+    function filterByCategory(category) {
+      currentCategory = category;
+
+      // 更新标签样式
+      document.querySelectorAll('.category-tag').forEach(tag => {
+        tag.classList.remove('active');
+        if (tag.textContent === getCategoryName(category) ||
+            (category === 'all' && tag.textContent === '全部')) {
+          tag.classList.add('active');
+        }
+      });
+
+      renderWordList();
+    }
+
+    // 获取分类名称
+    function getCategoryName(category) {
+      const names = {
+        'all': '全部',
+        'noun': '名词',
+        'verb': '动词',
+        'adj': '形容词',
+        'adv': '副词',
+        'prep': '介词',
+        'conj': '连词',
+        'pron': '代词'
+      };
+      return names[category] || category;
+    }
+
+    // 搜索过滤
+    function filterWords() {
+      renderWordList();
+    }
+
+    // 页面加载后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 检查URL参数
+      const filter = app.getUrlParam('filter');
+      if (filter === 'unmastered') {
+        // 筛选未掌握的单词
+        allWords = allWords.filter(w => {
+          const progress = app.getProgress();
+          const wordProgress = progress.words[w.id];
+          return !wordProgress || wordProgress.status !== 'mastered';
+        });
+      } else if (filter === 'highfreq') {
+        allWords = vocabulary.highFrequency;
+      }
+
+      init();
+    });
+  </script>
+</body>
+</html>

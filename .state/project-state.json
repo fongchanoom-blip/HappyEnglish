@@ -1,0 +1,50 @@
+{
+  "projectName": "HappyEnglish",
+  "version": "1.0",
+  "lastUpdated": "2026-05-12T12:00:00Z",
+  "status": "规划中",
+  "description": "儿童英语学习微信小程序",
+  "phase": "初始化",
+  "progress": {
+    "docs": 0,
+    "code": 0,
+    "audio": 0,
+    "test": 0
+  },
+  "todo": [
+    {
+      "id": 1,
+      "content": "创建PRD文档",
+      "status": "pending",
+      "priority": "P0"
+    },
+    {
+      "id": 2,
+      "content": "创建技术方案文档",
+      "status": "pending",
+      "priority": "P0"
+    },
+    {
+      "id": 3,
+      "content": "设计数据库结构",
+      "status": "pending",
+      "priority": "P1"
+    },
+    {
+      "id": 4,
+      "content": "设计UI原型",
+      "status": "pending",
+      "priority": "P1"
+    }
+  ],
+  "issues": [],
+  "decisions": [],
+  "nextActions": [
+    "确认项目定位和核心功能"
+  ],
+  "metadata": {
+    "createdAt": "2026-05-12T12:00:00Z",
+    "lastSession": null,
+    "totalSessions": 0
+  }
+}
