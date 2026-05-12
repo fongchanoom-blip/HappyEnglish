@@ -5,14 +5,21 @@
  * 适用：初中生中考英语备考
  */
 
+// 加载词汇数据
+const vocabulary = require('./data/vocabulary.js');
+
 App({
   onLaunch() {
     console.log('HappyEnglish 小程序启动');
+    console.log('词汇总数:', vocabulary.words.length);
     this.loadUserData();
   },
 
   globalData: {
     userInfo: null,
+
+    // 词汇数据
+    vocabulary: vocabulary,
 
     // 学习进度
     learningProgress: {
@@ -26,7 +33,7 @@ App({
     currentQuestion: null,
 
     // 统计数据
-    totalWords: 1600,     // 核心词汇量
+    totalWords: 50,       // 核心词汇量（初始化50词）
     totalGrammar: 50,      // 语法知识点
     learnedWords: 0,
     masteredWords: 0,
