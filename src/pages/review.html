@@ -1,0 +1,310 @@
+<div class="review-page" id="reviewApp">
+  <!-- 顶部 -->
+  <div class="header">
+    <button class="btn-back" @click="goBack">← 返回</button>
+    <h2>错题复习</h2>
+    <button class="btn-export" @click="exportWords">导出</button>
+  </div>
+
+  <!-- 统计 -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="num">{{ weakWords.length }}</span>
+      <span class="label">薄弱词</span>
+    </div>
+    <div class="stat">
+      <span class="num">{{ unknownWords.length }}</span>
+      <span class="label">陌生词</span>
+    </div>
+  </div>
+
+  <!-- 筛选 -->
+  <div class="filter-bar">
+    <button
+      :class="{active: filter === 'all'}"
+      @click="filter = 'all'"
+    >全部</button>
+    <button
+      :class="{active: filter === 'weak'}"
+      @click="filter = 'weak'"
+    >薄弱</button>
+    <button
+      :class="{active: filter === 'unknown'}"
+      @click="filter = 'unknown'"
+    >陌生</button>
+  </div>
+
+  <!-- 错题列表 -->
+  <div class="words-list">
+    <div
+      v-for="word in filteredWords"
+      :key="word.id"
+      class="word-card"
+      @click="showWord(word)"
+    >
+      <div class="word-main">
+        <span class="word-text">{{ word.word }}</span>
+        <span class="word-level" :class="word.level">
+          {{ levelLabels[word.level] }}
+        </span>
+      </div>
+      <div class="word-sub">
+        <span class="phonetic">{{ word.phonetic }}</span>
+        <span class="translation">{{ word.translation }}</span>
+      </div>
+      <div class="word-stats">
+        错误 {{ word.progress?.wrongCount || 0 }} 次
+      </div>
+    </div>
+
+    <div v-if="filteredWords.length === 0" class="empty-state">
+      <div class="empty-icon">🎉</div>
+      <div class="empty-text">太棒了！没有薄弱词！</div>
+    </div>
+  </div>
+
+  <!-- 单词详情弹窗 -->
+  <div v-if="selectedWord" class="modal" @click.self="selectedWord = null">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="word-text">{{ selectedWord.word }}</span>
+        <button class="close-btn" @click="selectedWord = null">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="phonetic">{{ selectedWord.phonetic }}</div>
+        <div class="translation">{{ selectedWord.translation }}</div>
+        <div class="stats">
+          <span>错误次数：{{ selectedWord.progress?.wrongCount || 0 }}</span>
+          <span>正确次数：{{ selectedWord.progress?.correctCount || 0 }}</span>
+        </div>
+        <button class="btn btn-primary" @click="testWord(selectedWord)">
+          开始测试
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.review-page { padding: 16px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.header h2 { font-size: 18px; }
+.btn-back {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--primary);
+  cursor: pointer;
+}
+.btn-export {
+  padding: 6px 12px;
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stat {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.stat .num { font-size: 24px; font-weight: 700; color: var(--primary); }
+.stat .label { font-size: 12px; color: var(--text-secondary); }
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.filter-bar button {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  border: 1px solid #E4E7ED;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.filter-bar button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.words-list { display: flex; flex-direction: column; gap: 12px; }
+.word-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+}
+.word-card:active { transform: scale(0.98); }
+.word-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.word-text { font-size: 20px; font-weight: 600; }
+.word-level {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.word-level.master { background: rgba(103, 194, 58, 0.1); color: #67C23A; }
+.word-level.familiar { background: rgba(64, 158, 255, 0.1); color: #409EFF; }
+.word-level.weak { background: rgba(230, 162, 60, 0.1); color: #E6A23C; }
+.word-level.unknown { background: rgba(245, 108, 108, 0.1); color: #F56C6C; }
+
+.word-sub {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.phonetic { color: var(--text-secondary); font-size: 14px; }
+.translation { color: var(--primary); font-size: 16px; }
+.word-stats { font-size: 12px; color: var(--text-secondary); }
+
+.empty-state { text-align: center; padding: 40px; }
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-text { color: var(--text-secondary); }
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 90%;
+  max-width: 320px;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-header .word-text { font-size: 24px; }
+.close-btn {
+  width: 28px; height: 28px;
+  background: #F5F7FA;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-body { text-align: center; }
+.modal-body .phonetic { color: var(--text-secondary); margin-bottom: 8px; }
+.modal-body .translation { font-size: 20px; color: var(--primary); margin-bottom: 16px; }
+.modal-body .stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+</style>
+
+<script>
+// 初始化 Vue 应用
+function initReviewApp() {
+  const reviewApp = {
+    data() {
+      return {
+        filter: 'all',
+        weakWords: [],
+        unknownWords: [],
+        selectedWord: null,
+        levelLabels: {
+          master: '精通',
+          familiar: '熟悉',
+          weak: '薄弱',
+          unknown: '陌生'
+        }
+      };
+    },
+    computed: {
+      filteredWords() {
+        if (this.filter === 'all') {
+          return [...this.weakWords, ...this.unknownWords];
+        }
+        if (this.filter === 'weak') return this.weakWords;
+        if (this.filter === 'unknown') return this.unknownWords;
+        return [];
+      }
+    },
+    methods: {
+      goBack() {
+        window.router.navigate('/');
+      },
+      showWord(word) {
+        this.selectedWord = word;
+      },
+      testWord(word) {
+        window.router.navigate('/test?word=' + word.id);
+      },
+      exportWords() {
+        const words = this.filteredWords;
+        if (words.length === 0) {
+          alert('没有可导出的词');
+          return;
+        }
+
+        let content = '单词\t音标\t中文\t等级\t错误次数\n';
+        words.forEach(w => {
+          content += `${w.word}\t${w.phonetic}\t${w.translation}\t${this.levelLabels[w.level] || w.level}\t${w.progress?.wrongCount || 0}\n`;
+        });
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'happyenglish-薄弱词本.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+      async loadData() {
+        if (window.getWordsByLevel && window.db) {
+          const allProgress = await window.db.getAllProgress() || [];
+          const allWords = window.vocabulary?.words || [];
+          const grouped = window.getWordsByLevel(allProgress, allWords);
+
+          this.weakWords = grouped.weak || [];
+          this.unknownWords = grouped.unknown || [];
+        }
+      }
+    },
+    mounted() {
+      this.loadData();
+    }
+  };
+
+  Vue.createApp(reviewApp).mount('#reviewApp');
+}
+
+// 导出初始化函数供 router.js 调用
+window.initReviewApp = initReviewApp;
+</script>

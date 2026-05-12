@@ -9,7 +9,8 @@ const routes = {
 // 路由到 HTML 文件的映射
 const routeFiles = {
   'home': null,  // 首页在主文件 index.html 中
-  'profile': 'src/pages/profile.html'
+  'profile': 'src/pages/profile.html',
+  'review': 'src/pages/review.html'
 };
 
 class Router {
@@ -61,6 +62,9 @@ class Router {
         // 重新初始化 Vue 应用
         if (window.initProfileApp) {
           window.initProfileApp();
+        }
+        if (window.initReviewApp) {
+          window.initReviewApp();
         }
       } catch (e) {
         console.error('加载页面失败:', e);
