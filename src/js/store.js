@@ -1,6 +1,9 @@
 // Vue响应式状态管理
 const { createApp, ref, computed } = Vue;
 
+// 导入掌握度模块
+import { calculateWordLevel, getWordsByLevel } from './level.js';
+
 const store = {
   // 用户状态
   user: ref(null),
@@ -17,6 +20,9 @@ const store = {
   // 徽章
   badges: ref([]),
   earnedBadges: ref([]),
+
+  // 词汇掌握等级
+  wordLevels: ref({}),
 
   // 方法
   addPoints(delta) {
@@ -50,6 +56,30 @@ const store = {
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2000);
+  },
+
+  // 更新单个词汇等级
+  updateWordLevel(wordId) {
+    const progress = window.db?.getProgress(wordId);
+    if (progress) {
+      const level = calculateWordLevel(progress);
+      this.wordLevels.value[wordId] = level;
+    }
+  },
+
+  // 获取所有词汇的等级分布
+  getLevelDistribution() {
+    const progress = window.db?.getAllProgress() || [];
+    const words = window.vocabulary?.words || [];
+    const grouped = getWordsByLevel(progress, words);
+
+    return {
+      master: grouped.master.length,
+      familiar: grouped.familiar.length,
+      weak: grouped.weak.length,
+      unknown: grouped.unknown.length,
+      total: words.length
+    };
   }
 };
 

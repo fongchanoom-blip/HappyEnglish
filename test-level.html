@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>掌握度算法测试</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1a1a2e; color: #eee; }
+    .pass { color: #67C23A; }
+    .fail { color: #F56C6C; }
+    h2 { color: #409EFF; }
+  </style>
+</head>
+<body>
+  <h1>掌握度算法测试</h1>
+  <div id="results"></div>
+  <script type="module">
+    import { calculateWordLevel, getWordSize, getWordsByLevel, getLevelReward, LEVEL_COLORS, LEVEL_LABELS } from './src/js/level.js';
+
+    const results = document.getElementById('results');
+
+    function log(message, pass = null) {
+      const p = document.createElement('p');
+      if (pass === true) p.className = 'pass';
+      if (pass === false) p.className = 'fail';
+      p.textContent = message;
+      results.appendChild(p);
+    }
+
+    // 测试 calculateWordLevel
+    log('=== calculateWordLevel 测试 ===');
+    const testCases = [
+      { correctCount: 9, wrongCount: 1, totalTests: 10, expected: 'master' },
+      { correctCount: 7, wrongCount: 3, totalTests: 10, expected: 'familiar' },
+      { correctCount: 5, wrongCount: 5, totalTests: 10, expected: 'weak' },
+      { correctCount: 3, wrongCount: 7, totalTests: 10, expected: 'weak' },
+      { correctCount: 2, wrongCount: 8, totalTests: 10, expected: 'unknown' },
+      { correctCount: 0, wrongCount: 0, totalTests: 0, expected: 'unknown' }
+    ];
+
+    let allPass = true;
+    testCases.forEach(tc => {
+      const result = calculateWordLevel(tc);
+      const pass = result === tc.expected;
+      if (!pass) allPass = false;
+      log(`${pass ? '✓' : '✗'} correct:${tc.correctCount} wrong:${tc.wrongCount} tests:${tc.totalTests} -> ${result} (expected: ${tc.expected})`, pass);
+    });
+
+    // 测试 getWordSize
+    log('');
+    log('=== getWordSize 测试 ===');
+    const sizeTests = [
+      { wrongCount: 0, expected: 'large' },
+      { wrongCount: 1, expected: 'large' },
+      { wrongCount: 2, expected: 'medium' },
+      { wrongCount: 3, expected: 'medium' },
+      { wrongCount: 4, expected: 'small' },
+      { wrongCount: 5, expected: 'small' },
+      { wrongCount: 6, expected: 'tiny' },
+    ];
+    sizeTests.forEach(t => {
+      const result = getWordSize(t.wrongCount);
+      const pass = result === t.expected;
+      if (!pass) allPass = false;
+      log(`${pass ? '✓' : '✗'} wrongCount:${t.wrongCount} -> ${result} (expected: ${t.expected})`, pass);
+    });
+
+    // 测试 getWordsByLevel
+    log('');
+    log('=== getWordsByLevel 测试 ===');
+    const mockWords = [
+      { id: 1, word: 'apple' },
+      { id: 2, word: 'banana' },
+      { id: 3, word: 'cherry' }
+    ];
+    const mockProgress = [
+      { wordId: 1, correctCount: 10, wrongCount: 0, totalTests: 10 }, // master
+      { wordId: 2, correctCount: 5, wrongCount: 2, totalTests: 7 }   // familiar (5/7 = 71%)
+    ];
+    const grouped = getWordsByLevel(mockProgress, mockWords);
+    log(`✓ 分组结果: master=${grouped.master.length}, familiar=${grouped.familiar.length}, weak=${grouped.weak.length}, unknown=${grouped.unknown.length}`);
+
+    // 测试 getLevelReward
+    log('');
+    log('=== getLevelReward 测试 ===');
+    const rewards = [
+      { level: 'master', expected: 5 },
+      { level: 'familiar', expected: 10 },
+      { level: 'weak', expected: 20 },
+      { level: 'unknown', expected: 30 }
+    ];
+    rewards.forEach(r => {
+      const result = getLevelReward(r.level);
+      const pass = result === r.expected;
+      if (!pass) allPass = false;
+      log(`${pass ? '✓' : '✗'} ${r.level} -> ${result} (expected: ${r.expected})`, pass);
+    });
+
+    // 验证常量
+    log('');
+    log('=== 常量验证 ===');
+    log(`LEVEL_COLORS: master=${LEVEL_COLORS.master}, familiar=${LEVEL_COLORS.familiar}, weak=${LEVEL_COLORS.weak}, unknown=${LEVEL_COLORS.unknown}`);
+    log(`LEVEL_LABELS: master=${LEVEL_LABELS.master}, familiar=${LEVEL_LABELS.familiar}, weak=${LEVEL_LABELS.weak}, unknown=${LEVEL_LABELS.unknown}`);
+
+    log('');
+    log(allPass ? '✓ 所有测试通过！' : '✗ 有测试失败！');
+  </script>
+</body>
+</html>
