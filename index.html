@@ -15,9 +15,10 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="src/js/router.js"></script>
-  <script src="src/js/store.js"></script>
-  <script src="src/js/db.js"></script>
   <script type="module">
+    // 导入 store 模块
+    import './src/js/store.js';
+
     // 初始化数据库
     window.db.init().then(() => {
       console.log('数据库初始化完成');
@@ -75,12 +76,14 @@
           goReview() { window.router.navigate('/review'); },
           goProfile() { window.router.navigate('/profile'); },
           async loadData() {
-            if (window.store) {
-              this.level = window.store.level?.value || 1;
-              this.points = window.store.points?.value || 0;
-              this.streak = window.store.streak?.value || 0;
+            // 加载 userState 数据
+            if (window.userState) {
+              this.level = window.userState.level || 1;
+              this.points = window.userState.points || 0;
+              this.streak = window.userState.stats?.maxStreak || 0;
             }
 
+            // 加载词汇掌握度
             if (typeof getWordsByLevel === 'function' && window.db) {
               const allProgress = await window.db.getAllProgress() || [];
               const allWords = window.vocabulary?.words || [];
@@ -113,6 +116,7 @@
               </div>
               <div class="level-badge" @click="goProfile">
                 <span>Lv.{{ level }}</span>
+                <span class="points">{{ points }}分</span>
               </div>
             </div>
 
@@ -217,6 +221,12 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      display: flex;
+      gap: 8px;
+    }
+    .level-badge .points {
+      opacity: 0.9;
+      font-size: 12px;
     }
 
     .stats-cards {

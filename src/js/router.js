@@ -6,9 +6,16 @@ const routes = {
   '/profile': 'profile'
 };
 
+// 路由到 HTML 文件的映射
+const routeFiles = {
+  'home': null,  // 首页在主文件 index.html 中
+  'profile': 'src/pages/profile.html'
+};
+
 class Router {
   constructor() {
     this.currentRoute = '/';
+    this.currentPage = null;
     window.addEventListener('hashchange', () => this.handleRoute());
   }
 
@@ -23,9 +30,45 @@ class Router {
     this.render();
   }
 
-  render() {
+  async render() {
     const componentName = routes[this.currentRoute] || 'home';
-    // 简单的路由切换，实际由Vue组件处理
+    const pageFile = routeFiles[componentName];
+
+    // 清除之前的页面
+    const app = document.getElementById('app');
+    if (app) {
+      app.innerHTML = '';
+    }
+
+    if (pageFile) {
+      // 加载独立的 HTML 页面
+      try {
+        const response = await fetch(pageFile);
+        const html = await response.text();
+        app.innerHTML = html;
+
+        // 执行内联的脚本
+        const scripts = app.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach(attr => {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+
+        // 重新初始化 Vue 应用
+        if (window.initProfileApp) {
+          window.initProfileApp();
+        }
+      } catch (e) {
+        console.error('加载页面失败:', e);
+        app.innerHTML = '<p>页面加载失败</p>';
+      }
+    }
+
+    // 触发路由变化事件
     window.dispatchEvent(new CustomEvent('route-change', { detail: this.currentRoute }));
   }
 

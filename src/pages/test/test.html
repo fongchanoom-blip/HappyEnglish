@@ -444,12 +444,23 @@
             console.error('保存进度失败:', e);
           }
 
-          // 更新连击
+          // 更新连击和奖励
           if (isAnswerCorrect) {
             correctCount.value++;
             streak.value++;
-            // 更新store
-            if (window.store) {
+
+            // 更新 userState 奖励系统
+            if (window.userState) {
+              // 计算词汇等级
+              const wordLevel = window.calculateWordLevel ? window.calculateWordLevel({
+                correctCount: (existing.correctCount || 0) + 1,
+                wrongCount: (existing.wrongCount || 0),
+                totalTests: (existing.totalTests || 0) + 1
+              }) : 'unknown';
+
+              // 添加积分
+              window.userState.onCorrectAnswer(wordLevel, streak.value);
+            } else if (window.store) {
               window.store.addPoints(10);
             }
           } else {
@@ -457,7 +468,9 @@
             streak.value = 0;
           }
 
-          if (window.store) {
+          if (window.userState) {
+            window.userState.checkBadgesUnlock();
+          } else if (window.store) {
             window.store.updateStreak(isAnswerCorrect);
           }
 
