@@ -136,3 +136,63 @@ export function calculateSegment(level) {
   if (level <= 30) return '星耀';
   return '王者';
 }
+
+// ============================================
+// 头像配置系统（简化版，使用 Emoji 展示）
+// ============================================
+
+// 头像配置
+export const AVATAR_CONFIG = {
+  // 头发样式（每20级换一次）
+  hair: [
+    { level: 0, name: '短发', emoji: '👦' },
+    { level: 20, name: '长发', emoji: '👧' },
+    { level: 40, name: '马尾', emoji: '🧑' },
+    { level: 60, name: '皇冠短发', emoji: '👑' }
+  ],
+
+  // 服装（每15级换一次）
+  cloth: [
+    { level: 0, name: '校服', emoji: '🎒' },
+    { level: 15, name: '运动服', emoji: '🏃' },
+    { level: 30, name: '正装', emoji: '🤵' },
+    { level: 50, name: '礼服', emoji: '👸' }
+  ],
+
+  // 配饰（每10级换一次）
+  accessory: [
+    { level: 0, name: '无', emoji: '' },
+    { level: 10, name: '红领巾', emoji: '🎗️' },
+    { level: 25, name: '眼镜', emoji: '👓' },
+    { level: 40, name: '奖牌', emoji: '🏅' },
+    { level: 60, name: '金冠', emoji: '👑' }
+  ]
+};
+
+// 获取当前等级的头像部件
+export function getAvatarParts(level) {
+  const getPartForLevel = (parts) => {
+    let result = parts[0];
+    for (const part of parts) {
+      if (level >= part.level) {
+        result = part;
+      }
+    }
+    return result;
+  };
+
+  return {
+    hair: getPartForLevel(AVATAR_CONFIG.hair),
+    cloth: getPartForLevel(AVATAR_CONFIG.cloth),
+    accessory: getPartForLevel(AVATAR_CONFIG.accessory)
+  };
+}
+
+// 头像展示组件数据
+export function getAvatarDisplay(level) {
+  return {
+    level,
+    segment: calculateSegment(level),
+    parts: getAvatarParts(level)
+  };
+}

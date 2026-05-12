@@ -85,6 +85,80 @@
       opacity: 0.9;
     }
 
+    /* 头像区域 */
+    .avatar-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none; /* 默认隐藏，在有头像时显示 */
+    }
+    .avatar-section.visible {
+      display: block;
+    }
+
+    .avatar-display {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .avatar-bg {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .avatar-bg.segment-青铜 { background: linear-gradient(135deg, #8B7355 0%, #A0896C 100%); }
+    .avatar-bg.segment-白银 { background: linear-gradient(135deg, #C0C0C0 0%, #D3D3D3 100%); }
+    .avatar-bg.segment-黄金 { background: linear-gradient(135deg, #FFD700 0%, #FFC125 100%); }
+    .avatar-bg.segment-铂金 { background: linear-gradient(135deg, #E5E4E2 0%, #B4C7D9 100%); }
+    .avatar-bg.segment-钻石 { background: linear-gradient(135deg, #B9F2FF 0%, #7FDBFF 100%); }
+    .avatar-bg.segment-星耀 { background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%); }
+    .avatar-bg.segment-王者 { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+
+    .level-ring {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: var(--primary);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .segment-info {
+      margin-bottom: 12px;
+    }
+    .segment-name { font-size: 18px; font-weight: 600; color: var(--primary); }
+    .segment-level { font-size: 12px; color: var(--text-secondary); margin-left: 4px; }
+
+    .avatar-level-progress {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    .avatar-progress-text { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+    .avatar-progress-bar {
+      background: #E8E8E8;
+      border-radius: 8px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .avatar-progress-fill {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 8px;
+      transition: width 0.3s;
+    }
+
     /* 统计卡片 */
     .stats-grid {
       display: grid;
@@ -255,7 +329,8 @@
             totalWords: 0,
             accuracy: 0
           },
-          levelProgress: { progress: 0, needed: 100, total: 100 }
+          levelProgress: { progress: 0, needed: 100, total: 100 },
+          showAvatar: false  // 控制头像显示
         };
       },
       computed: {
@@ -264,6 +339,55 @@
         },
         earnedCount() {
           return this.earnedBadges.length;
+        },
+        avatarParts() {
+          // 使用简化版头像配置
+          const hair = [
+            { level: 0, name: '短发', emoji: '👦' },
+            { level: 20, name: '长发', emoji: '👧' },
+            { level: 40, name: '马尾', emoji: '🧑' },
+            { level: 60, name: '皇冠短发', emoji: '👑' }
+          ];
+          const cloth = [
+            { level: 0, name: '校服', emoji: '🎒' },
+            { level: 15, name: '运动服', emoji: '🏃' },
+            { level: 30, name: '正装', emoji: '🤵' },
+            { level: 50, name: '礼服', emoji: '👸' }
+          ];
+          const accessory = [
+            { level: 0, name: '无', emoji: '' },
+            { level: 10, name: '红领巾', emoji: '🎗️' },
+            { level: 25, name: '眼镜', emoji: '👓' },
+            { level: 40, name: '奖牌', emoji: '🏅' },
+            { level: 60, name: '金冠', emoji: '👑' }
+          ];
+
+          const getPartForLevel = (parts) => {
+            let result = parts[0];
+            for (const part of parts) {
+              if (this.level >= part.level) {
+                result = part;
+              }
+            }
+            return result;
+          };
+
+          return {
+            hair: getPartForLevel(hair),
+            cloth: getPartForLevel(cloth),
+            accessory: getPartForLevel(accessory)
+          };
+        },
+        avatarProgress() {
+          // 计算当前等级到下一等级的进度
+          const currentLevelPoints = (this.level - 1) * 100;
+          const nextLevelPoints = this.level * 100;
+          const pointsInCurrentLevel = this.points - currentLevelPoints;
+          return {
+            current: Math.max(0, pointsInCurrentLevel),
+            needed: 100,
+            percent: Math.min(100, Math.max(0, (pointsInCurrentLevel / 100) * 100))
+          };
         }
       },
       methods: {
@@ -336,7 +460,7 @@
       },
       template: `
         <div class="profile-page">
-          <!-- 用户卡片 -->
+          <!-- 用户卡片（原有） -->
           <div class="user-card">
             <div class="level-badge">
               <span>Lv.{{ level }}</span>
@@ -352,6 +476,32 @@
             <div class="level-info">
               <span>已获得 {{ points }} 积分</span>
               <span>再得 {{ levelProgress.needed }} 分升级</span>
+            </div>
+          </div>
+
+          <!-- 头像展示区域 -->
+          <div class="avatar-section visible">
+            <div class="avatar-display">
+              <div class="avatar-bg" :class="'segment-' + segment">
+                <div class="avatar-emoji">
+                  {{ avatarParts.hair.emoji }} {{ avatarParts.cloth.emoji }}
+                </div>
+              </div>
+              <div class="level-ring">Lv.{{ level }}</div>
+            </div>
+
+            <div class="segment-info">
+              <span class="segment-name">{{ segment }}</span>
+              <span class="segment-level">段位</span>
+            </div>
+
+            <div class="avatar-level-progress">
+              <div class="avatar-progress-text">
+                {{ avatarProgress.current }} / {{ avatarProgress.needed }}
+              </div>
+              <div class="avatar-progress-bar">
+                <div class="avatar-progress-fill" :style="{width: avatarProgress.percent + '%'}"></div>
+              </div>
             </div>
           </div>
 
