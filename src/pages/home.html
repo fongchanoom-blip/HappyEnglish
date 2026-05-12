@@ -1,0 +1,261 @@
+<div class="home-page" id="homeApp">
+  <!-- 顶部欢迎 -->
+  <div class="header">
+    <div class="welcome">
+      <h1>HappyEnglish</h1>
+      <p>中考英语备考助手</p>
+    </div>
+    <div class="level-badge" @click="goProfile">
+      <span>Lv.{{ level }}</span>
+    </div>
+  </div>
+
+  <!-- 统计卡片 -->
+  <div class="stats-cards">
+    <div class="stat-card">
+      <div class="stat-num">{{ learnedWords }}</div>
+      <div class="stat-label">已学词</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ accuracy }}%</div>
+      <div class="stat-label">正确率</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">{{ streak }}</div>
+      <div class="stat-label">连击</div>
+    </div>
+  </div>
+
+  <!-- 开始测试按钮 -->
+  <button class="btn btn-primary start-btn" @click="startTest">
+    {{ hasProgress ? '继续学习' : '开始测试' }}
+  </button>
+
+  <!-- 热力词云 -->
+  <div class="word-cloud-section">
+    <h3>掌握较好 <span class="count">({{ goodWords.length }}词)</span></h3>
+    <div class="word-cloud green">
+      <template v-for="word in goodWords" :key="word.id">
+        <span
+          :class="'size-' + getSize(word)"
+          :style="{ color: word.level === 'master' ? '#1e8449' : '#67C23A' }"
+          @click="testWord(word)"
+        >
+          {{ word.word }}
+        </span>
+      </template>
+      <div v-if="goodWords.length === 0" class="empty-tip">
+        还没有掌握很好的词，继续加油！
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">需要加强 <span class="count">({{ weakWords.length }}词)</span></h3>
+    <div class="word-cloud red">
+      <template v-for="word in weakWords" :key="word.id">
+        <span
+          :class="'size-' + getSize(word)"
+          :style="{ color: word.level === 'unknown' ? '#c0392b' : '#e74c3c' }"
+          @click="testWord(word)"
+        >
+          {{ word.word }}
+        </span>
+      </template>
+      <div v-if="weakWords.length === 0" class="empty-tip">
+        太棒了！薄弱词已清空！
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部导航 -->
+  <div class="tab-bar">
+    <div class="tab-item active">
+      <span class="icon">🏠</span>
+      <span class="text">首页</span>
+    </div>
+    <div class="tab-item" @click="goTest">
+      <span class="icon">📝</span>
+      <span class="text">测试</span>
+    </div>
+    <div class="tab-item" @click="goReview">
+      <span class="icon">📖</span>
+      <span class="text">复习</span>
+    </div>
+    <div class="tab-item" @click="goProfile">
+      <span class="icon">👤</span>
+      <span class="text">我的</span>
+    </div>
+  </div>
+</div>
+
+<style>
+.home-page { padding: 16px; padding-bottom: 80px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.welcome h1 { font-size: 24px; color: var(--primary); margin: 0; }
+.welcome p { font-size: 14px; color: var(--text-secondary); margin: 4px 0 0; }
+.level-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 12px; color: var(--text-secondary); }
+
+.start-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.word-cloud-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.word-cloud-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.word-cloud-section .count {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: normal;
+}
+
+.word-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px;
+  background: #F5F7FA;
+  border-radius: 12px;
+  min-height: 80px;
+}
+.word-cloud span {
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+.word-cloud span:hover { transform: scale(1.1); }
+.word-cloud.green span { background: rgba(103, 194, 58, 0.1); }
+.word-cloud.red span { background: rgba(245, 108, 108, 0.1); }
+
+.size-large { font-size: 28px; font-weight: 700; }
+.size-medium { font-size: 20px; font-weight: 600; }
+.size-small { font-size: 16px; }
+.size-tiny { font-size: 13px; }
+
+.empty-tip {
+  width: 100%;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 20px;
+}
+</style>
+
+<script>
+// 导入掌握度模块
+import { calculateWordLevel, getWordsByLevel } from '../js/level.js';
+
+const homeApp = {
+  components: {},
+  data() {
+    return {
+      level: 1,
+      points: 0,
+      learnedWords: 0,
+      accuracy: 0,
+      streak: 0,
+      goodWords: [],
+      weakWords: []
+    };
+  },
+  computed: {
+    hasProgress() {
+      return this.learnedWords > 0;
+    }
+  },
+  methods: {
+    getSize(word) {
+      // 根据错误次数决定字号
+      const wrongCount = word.progress?.wrongCount || 0;
+      if (wrongCount <= 1) return 'large';
+      if (wrongCount <= 3) return 'medium';
+      if (wrongCount <= 5) return 'small';
+      return 'tiny';
+    },
+    startTest() {
+      window.router.navigate('/test');
+    },
+    testWord(word) {
+      // 跳转到测试并指定该词
+      window.router.navigate('/test?word=' + word.id);
+    },
+    goTest() { window.router.navigate('/test'); },
+    goReview() { window.router.navigate('/review'); },
+    goProfile() { window.router.navigate('/profile'); },
+    async loadData() {
+      // 从store和db加载数据
+      if (window.store) {
+        this.level = window.store.level?.value || 1;
+        this.points = window.store.points?.value || 0;
+        this.streak = window.store.streak?.value || 0;
+      }
+
+      // 加载掌握度分布
+      if (typeof getWordsByLevel === 'function' && window.db) {
+        await window.db.init();
+        const allProgress = await window.db.getAllProgress() || [];
+        const allWords = window.vocabulary?.words || [];
+        const grouped = getWordsByLevel(allProgress, allWords);
+
+        this.goodWords = [...grouped.master, ...grouped.familiar];
+        this.weakWords = [...grouped.weak, ...grouped.unknown];
+        this.learnedWords = allWords.length;
+
+        // 计算正确率
+        let correct = 0, total = 0;
+        allProgress.forEach(p => {
+          correct += p.correctCount || 0;
+          total += (p.correctCount || 0) + (p.wrongCount || 0);
+        });
+        this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+      }
+    }
+  },
+  mounted() {
+    this.loadData();
+    // 监听路由变化刷新数据
+    window.addEventListener('route-change', () => this.loadData());
+  }
+};
+
+export default homeApp;
+</script>

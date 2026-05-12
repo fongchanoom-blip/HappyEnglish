@@ -1,86 +1,114 @@
 // Vue响应式状态管理
 const { createApp, ref, computed } = Vue;
 
-// 导入掌握度模块
-import { calculateWordLevel, getWordsByLevel } from './level.js';
+// 导入掌握度模块 - 使用动态导入
+let getWordsByLevel, calculateWordLevel;
 
 const store = {
   // 用户状态
-  user: ref(null),
-  points: ref(0),
-  level: ref(1),
-  streak: ref(0),
-  maxStreak: ref(0),
+  user: null,
+  points: 0,
+  level: 1,
+  streak: 0,
+  maxStreak: 0,
 
   // 学习状态
-  learnedWords: ref(0),
-  masteredWords: ref(0),
-  accuracy: ref(0),
+  learnedWords: 0,
+  masteredWords: 0,
+  accuracy: 0,
 
   // 徽章
-  badges: ref([]),
-  earnedBadges: ref([]),
+  badges: [],
+  earnedBadges: [],
 
   // 词汇掌握等级
-  wordLevels: ref({}),
+  wordLevels: {},
 
   // 方法
+  init() {
+    // 加载存储的数据
+    this.load();
+  },
+
+  load() {
+    try {
+      const progress = app.getProgress();
+      this.streak = progress.streak || 0;
+
+      // 计算学习统计
+      const words = progress.words || {};
+      let total = 0, correct = 0;
+      for (let wordId in words) {
+        total++;
+        correct += words[wordId].correctCount || 0;
+      }
+      this.learnedWords = Object.keys(words).length;
+      this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+    } catch (e) {
+      console.error('加载存储失败', e);
+    }
+  },
+
   addPoints(delta) {
-    this.points.value += delta;
+    this.points += delta;
     // 检查升级
-    const newLevel = Math.floor(this.points.value / 100) + 1;
-    if (newLevel > this.level.value) {
-      this.level.value = newLevel;
+    const newLevel = Math.floor(this.points / 100) + 1;
+    if (newLevel > this.level) {
+      this.level = newLevel;
       this.showLevelUp();
     }
   },
 
   updateStreak(correct) {
     if (correct) {
-      this.streak.value++;
-      if (this.streak.value > this.maxStreak.value) {
-        this.maxStreak.value = this.streak.value;
+      this.streak++;
+      if (this.streak > this.maxStreak) {
+        this.maxStreak = this.streak;
       }
     } else {
-      this.streak.value = 0;
+      this.streak = 0;
     }
   },
 
   showLevelUp() {
-    // 显示升级提示
+    app.showToast('升级到 Lv.' + this.level + '！');
   },
 
   showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-  },
-
-  // 更新单个词汇等级
-  updateWordLevel(wordId) {
-    const progress = window.db?.getProgress(wordId);
-    if (progress) {
-      const level = calculateWordLevel(progress);
-      this.wordLevels.value[wordId] = level;
-    }
+    app.showToast(message);
   },
 
   // 获取所有词汇的等级分布
   getLevelDistribution() {
-    const progress = window.db?.getAllProgress() || [];
-    const words = window.vocabulary?.words || [];
-    const grouped = getWordsByLevel(progress, words);
+    const progress = app.getProgress();
+    const words = progress.words || {};
+
+    const levels = { master: 0, familiar: 0, weak: 0, unknown: 0 };
+    const allWords = window.vocabulary?.words || [];
+
+    // 统计有进度的词
+    allWords.forEach(word => {
+      const wordProgress = words[word.id];
+      if (wordProgress) {
+        const level = calculateWordLevel ? calculateWordLevel(wordProgress) : 'unknown';
+        levels[level]++;
+      }
+    });
 
     return {
-      master: grouped.master.length,
-      familiar: grouped.familiar.length,
-      weak: grouped.weak.length,
-      unknown: grouped.unknown.length,
-      total: words.length
+      master: levels.master,
+      familiar: levels.familiar,
+      weak: levels.weak,
+      unknown: levels.unknown,
+      total: allWords.length
     };
   }
 };
 
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+  store.init();
+});
+
+// 导出到全局
 window.store = store;
