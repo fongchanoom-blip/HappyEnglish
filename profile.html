@@ -6,22 +6,27 @@
   <title>我的 - HappyEnglish</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    :root { --primary: #4A90D9; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; --text-primary: #303133; --text-secondary: #909399; }
+    :root { --primary: #4A90D9; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, sans-serif; background: var(--bg-page); min-height: 100vh; }
     .container { max-width: 750px; margin: 0 auto; padding: 16px; padding-bottom: 80px; }
+
     .header { display: flex; align-items: center; margin-bottom: 20px; }
-    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .header h2 { margin-left: 12px; font-size: 18px; }
+
     .profile-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 24px; color: white; text-align: center; margin-bottom: 20px; }
     .avatar { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
     .level { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
     .points { font-size: 14px; opacity: 0.9; }
+
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
     .stat-card { background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .stat-card .num { font-size: 24px; font-weight: 700; color: var(--primary); }
-    .stat-card .label { font-size: 12px; color: var(--text-secondary); }
+    .stat-card .label { font-size: 12px; color: #909399; }
+
     .section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary); }
+
     .badges-list { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
     .badge-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #F5F7FA; }
     .badge-item:last-child { border-bottom: none; }
@@ -29,10 +34,14 @@
     .badge-icon.unlocked { background: linear-gradient(135deg, #FFD700, #FFA500); }
     .badge-info { flex: 1; }
     .badge-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-    .badge-desc { font-size: 12px; color: var(--text-secondary); }
+    .badge-desc { font-size: 12px; color: #909399; }
     .badge-status { font-size: 12px; color: var(--success); }
+
+    .ai-section { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .ai-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
+
     .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
-    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: var(--text-secondary); cursor: pointer; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: #909399; cursor: pointer; }
     .tab-item.active { color: var(--primary); }
     .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
     .tab-item .text { font-size: 12px; }
@@ -67,8 +76,15 @@
         </div>
       </div>
 
+      <div class="ai-section">
+        <div class="section-title">🤖 AI 助手</div>
+        <button class="ai-btn" onclick="window.location.href='index.html'">
+          生成 AI 学习报告
+        </button>
+      </div>
+
       <div class="badges-list">
-        <div class="section-title">已获徽章</div>
+        <div class="section-title">🏆 已获徽章</div>
         <div class="badge-item">
           <div class="badge-icon unlocked">🎯</div>
           <div class="badge-info">
@@ -78,47 +94,79 @@
           <div class="badge-status">已获得</div>
         </div>
         <div class="badge-item">
-          <div class="badge-icon">🔥</div>
+          <div class="badge-icon" :class="{unlocked: maxStreak >= 10}">🔥</div>
           <div class="badge-info">
             <div class="badge-name">连胜新星</div>
-            <div class="badge-desc">连续答对20题</div>
+            <div class="badge-desc">连续答对10题</div>
           </div>
-          <div class="badge-status" style="color: var(--text-secondary);">未获得</div>
+          <div class="badge-status" :style="maxStreak >= 10 ? '' : 'color: #909399'">
+            {{ maxStreak >= 10 ? '已获得' : '未获得' }}
+          </div>
         </div>
         <div class="badge-item">
-          <div class="badge-icon">📚</div>
+          <div class="badge-icon" :class="{unlocked: learnedWords >= 50}">📚</div>
           <div class="badge-info">
-            <div class="badge-name">连续学习</div>
-            <div class="badge-desc">连续3天学习</div>
+            <div class="badge-name">词汇达人</div>
+            <div class="badge-desc">学习50个单词</div>
           </div>
-          <div class="badge-status" style="color: var(--text-secondary);">未获得</div>
+          <div class="badge-status" :style="learnedWords >= 50 ? '' : 'color: #909399'">
+            {{ learnedWords >= 50 ? '已获得' : '未获得' }}
+          </div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-icon" :class="{unlocked: accuracy >= 90}">🎯</div>
+          <div class="badge-info">
+            <div class="badge-name">准确无误</div>
+            <div class="badge-desc">正确率达到90%</div>
+          </div>
+          <div class="badge-status" :style="accuracy >= 90 ? '' : 'color: #909399'">
+            {{ accuracy >= 90 ? '已获得' : '未获得' }}
+          </div>
         </div>
       </div>
     </div>
 
     <!-- 底部导航 -->
     <div class="tab-bar">
-      <div class="tab-item" onclick="window.location.href='index.html'">
-        <span class="icon">🏠</span>
-        <span class="text">首页</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='test.html'">
-        <span class="icon">📝</span>
-        <span class="text">测试</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='review.html'">
-        <span class="icon">📖</span>
-        <span class="text">复习</span>
-      </div>
-      <div class="tab-item active">
-        <span class="icon">👤</span>
-        <span class="text">我的</span>
-      </div>
+      <div class="tab-item" onclick="window.location.href='index.html'"><span class="icon">🏠</span><span class="text">首页</span></div>
+      <div class="tab-item" onclick="window.location.href='test.html'"><span class="icon">📝</span><span class="text">测试</span></div>
+      <div class="tab-item" onclick="window.location.href='review.html'"><span class="icon">📖</span><span class="text">复习</span></div>
+      <div class="tab-item active"><span class="icon">👤</span><span class="text">我的</span></div>
     </div>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
+    const db = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 2);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+        });
+      },
+      async getAllProgress() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readonly');
+          const store = tx.objectStore('progress');
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      },
+      async getStats() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('stats', 'readonly');
+          const store = tx.objectStore('stats');
+          const request = store.get('main');
+          request.onsuccess = () => resolve(request.result || { level: 1, points: 0, maxStreak: 0 });
+          request.onerror = () => reject(request.error);
+        });
+      }
+    };
+
     const app = Vue.createApp({
       data() {
         return {
@@ -129,19 +177,25 @@
           maxStreak: 0
         };
       },
-      mounted() {
-        // 从 localStorage 读取用户数据
-        const saved = localStorage.getItem('happyenglish_user');
-        if (saved) {
-          const user = JSON.parse(saved);
-          this.level = user.level || 1;
-          this.points = user.points || 0;
-          this.learnedWords = user.learnedWords || 0;
-          this.accuracy = user.accuracy || 0;
-          this.maxStreak = user.maxStreak || 0;
-        }
+      async mounted() {
+        await db.init();
+        const allProgress = await db.getAllProgress();
+        const stats = await db.getStats();
+
+        let correct = 0, total = 0;
+        allProgress.forEach(p => {
+          correct += p.correctCount || 0;
+          total += (p.correctCount || 0) + (p.wrongCount || 0);
+        });
+
+        this.learnedWords = allProgress.length;
+        this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+        this.level = stats.level || 1;
+        this.points = stats.points || 0;
+        this.maxStreak = stats.maxStreak || 0;
       }
     });
+
     app.mount('#app');
   </script>
 </body>

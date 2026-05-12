@@ -1,0 +1,16872 @@
+// HappyEnglish 词汇表 - 共 1675 个词
+// 格式: { id, word, phonetic, pos, translations[] }
+// translations 中的任意一个答案都视为正确
+
+const vocabulary = [
+  {
+    "id": "word_0001",
+    "word": "ability",
+    "phonetic": "ə'bɪləti",
+    "pos": "n",
+    "translations": [
+      "能力",
+      "才能"
+    ]
+  },
+  {
+    "id": "word_0002",
+    "word": "able",
+    "phonetic": "'eɪbl",
+    "pos": "adj",
+    "translations": [
+      "能够",
+      "有才能的"
+    ]
+  },
+  {
+    "id": "word_0003",
+    "word": "about",
+    "phonetic": "ə'baʊt",
+    "pos": "prep,adv",
+    "translations": [
+      "关于",
+      "大约",
+      "在各处"
+    ]
+  },
+  {
+    "id": "word_0004",
+    "word": "above",
+    "phonetic": "ə'bʌv",
+    "pos": "prep",
+    "translations": [
+      "在……上面",
+      "在上面"
+    ]
+  },
+  {
+    "id": "word_0005",
+    "word": "abroad",
+    "phonetic": "ə'brɔːd",
+    "pos": "adv",
+    "translations": [
+      "到"
+    ]
+  },
+  {
+    "id": "word_0006",
+    "word": "absent",
+    "phonetic": "'æbsənt",
+    "pos": "adj",
+    "translations": [
+      "缺席的",
+      "不在的",
+      "缺乏的"
+    ]
+  },
+  {
+    "id": "word_0007",
+    "word": "accept",
+    "phonetic": "ək'sept",
+    "pos": "v",
+    "translations": [
+      "接受",
+      "认可",
+      "同意"
+    ]
+  },
+  {
+    "id": "word_0008",
+    "word": "accident",
+    "phonetic": "'æksɪdənt",
+    "pos": "n",
+    "translations": [
+      "事故",
+      "意外"
+    ]
+  },
+  {
+    "id": "word_0009",
+    "word": "according",
+    "phonetic": "ə'kɔːdɪ ",
+    "pos": "adj",
+    "translations": [
+      "相符的",
+      "相应的",
+      "一"
+    ]
+  },
+  {
+    "id": "word_0010",
+    "word": "account",
+    "phonetic": "ə'kaʊnt",
+    "pos": "n",
+    "translations": [
+      "账户",
+      "账目",
+      "描述",
+      "解释",
+      "说明（原因）"
+    ]
+  },
+  {
+    "id": "word_0011",
+    "word": "ache",
+    "phonetic": "eɪk",
+    "pos": "n,v",
+    "translations": [
+      "疼痛",
+      "隐隐作痛"
+    ]
+  },
+  {
+    "id": "word_0012",
+    "word": "achieve",
+    "phonetic": "ə'tʃiːv",
+    "pos": "v",
+    "translations": [
+      "完成",
+      "达到",
+      "实现"
+    ]
+  },
+  {
+    "id": "word_0013",
+    "word": "across",
+    "phonetic": "ə'krɒs",
+    "pos": "prep,adv",
+    "translations": [
+      "穿过",
+      "横过",
+      "在对面"
+    ]
+  },
+  {
+    "id": "word_0014",
+    "word": "act",
+    "phonetic": "ækt",
+    "pos": "v",
+    "translations": [
+      "表演",
+      "行动",
+      "行为",
+      "法令",
+      "一段表演"
+    ]
+  },
+  {
+    "id": "word_0015",
+    "word": "action",
+    "phonetic": "'ækʃn",
+    "pos": "n",
+    "translations": [
+      "行动",
+      "行为",
+      "动作"
+    ]
+  },
+  {
+    "id": "word_0016",
+    "word": "active",
+    "phonetic": "'æktɪv",
+    "pos": "adj",
+    "translations": [
+      "活跃的",
+      "积极的"
+    ]
+  },
+  {
+    "id": "word_0017",
+    "word": "activity",
+    "phonetic": "æk'tɪvəti",
+    "pos": "n",
+    "translations": [
+      "活动"
+    ]
+  },
+  {
+    "id": "word_0018",
+    "word": "actor",
+    "phonetic": "'æktə(r)",
+    "pos": "n",
+    "translations": [
+      "演员"
+    ]
+  },
+  {
+    "id": "word_0019",
+    "word": "actually",
+    "phonetic": "'æktʃuəli",
+    "pos": "adv",
+    "translations": [
+      "实际上，事实上"
+    ]
+  },
+  {
+    "id": "word_0020",
+    "word": "ad",
+    "phonetic": "æd",
+    "pos": "abbr",
+    "translations": [
+      "广告"
+    ]
+  },
+  {
+    "id": "word_0021",
+    "word": "add",
+    "phonetic": "æd",
+    "pos": "v",
+    "translations": [
+      "增加",
+      "添加",
+      "补充说"
+    ]
+  },
+  {
+    "id": "word_0022",
+    "word": "address",
+    "phonetic": "ə'dres",
+    "pos": "n",
+    "translations": [
+      "地址",
+      "演说"
+    ]
+  },
+  {
+    "id": "word_0023",
+    "word": "admire",
+    "phonetic": "əd'maɪə(r)",
+    "pos": "v",
+    "translations": [
+      "欣赏",
+      "仰慕",
+      "钦佩",
+      "赞赏"
+    ]
+  },
+  {
+    "id": "word_0024",
+    "word": "adult",
+    "phonetic": "ə'dʌlt",
+    "pos": "adj",
+    "translations": [
+      "成年的",
+      "成人的",
+      "成人"
+    ]
+  },
+  {
+    "id": "word_0025",
+    "word": "advantage",
+    "phonetic": "əd'vɑːntɪdʒ",
+    "pos": "n",
+    "translations": [
+      "优点",
+      "有利条件"
+    ]
+  },
+  {
+    "id": "word_0026",
+    "word": "advice",
+    "phonetic": "əd'vaɪs",
+    "pos": "n",
+    "translations": [
+      "劝告",
+      "建议"
+    ]
+  },
+  {
+    "id": "word_0027",
+    "word": "advise",
+    "phonetic": "əd'vaɪz",
+    "pos": "v",
+    "translations": [
+      "劝告",
+      "建议"
+    ]
+  },
+  {
+    "id": "word_0028",
+    "word": "afford",
+    "phonetic": "ə'fɔːd",
+    "pos": "v",
+    "translations": [
+      "承担得起"
+    ]
+  },
+  {
+    "id": "word_0029",
+    "word": "afraid",
+    "phonetic": "ə'freɪd",
+    "pos": "adj",
+    "translations": [
+      "害怕的",
+      "担心的"
+    ]
+  },
+  {
+    "id": "word_0030",
+    "word": "after",
+    "phonetic": "'ɑːftə(r)",
+    "pos": "prep",
+    "translations": [
+      "在……后",
+      "在……以后"
+    ]
+  },
+  {
+    "id": "word_0031",
+    "word": "afternoon",
+    "phonetic": "'ɑːftə'nuːn",
+    "pos": "n",
+    "translations": [
+      "下午"
+    ]
+  },
+  {
+    "id": "word_0032",
+    "word": "again",
+    "phonetic": "ə'ɡen",
+    "pos": "adv",
+    "translations": [
+      "再一次",
+      "又一次"
+    ]
+  },
+  {
+    "id": "word_0033",
+    "word": "against",
+    "phonetic": "ə'ɡenst",
+    "pos": "prep",
+    "translations": [
+      "对……不利",
+      "反对",
+      "倚",
+      "紧靠"
+    ]
+  },
+  {
+    "id": "word_0034",
+    "word": "age",
+    "phonetic": "eɪdʒ",
+    "pos": "n",
+    "translations": [
+      "年龄",
+      "时代",
+      "老年"
+    ]
+  },
+  {
+    "id": "word_0035",
+    "word": "ago",
+    "phonetic": "ə'ɡəʊ",
+    "pos": "adv",
+    "translations": [
+      "以前"
+    ]
+  },
+  {
+    "id": "word_0036",
+    "word": "agree",
+    "phonetic": "ə'ɡriː",
+    "pos": "v",
+    "translations": [
+      "同意",
+      "赞成"
+    ]
+  },
+  {
+    "id": "word_0037",
+    "word": "ahead",
+    "phonetic": "ə'hed",
+    "pos": "adv",
+    "translations": [
+      "在前面",
+      "向前"
+    ]
+  },
+  {
+    "id": "word_0038",
+    "word": "AI",
+    "phonetic": "eɪ'aɪ",
+    "pos": "abbr",
+    "translations": [
+      "人工智能"
+    ]
+  },
+  {
+    "id": "word_0039",
+    "word": "aid",
+    "phonetic": "eɪd",
+    "pos": "n",
+    "translations": [
+      "帮助",
+      "援助",
+      "辅助工具"
+    ]
+  },
+  {
+    "id": "word_0040",
+    "word": "aim",
+    "phonetic": "eɪm",
+    "pos": "n",
+    "translations": [
+      "目标，目的",
+      "瞄准，对准",
+      "旨在，目的是"
+    ]
+  },
+  {
+    "id": "word_0041",
+    "word": "air",
+    "phonetic": "eə(r)",
+    "pos": "n",
+    "translations": [
+      "空气",
+      "空中"
+    ]
+  },
+  {
+    "id": "word_0042",
+    "word": "airport",
+    "phonetic": "'eəpɔːt",
+    "pos": "n",
+    "translations": [
+      "航空站",
+      "机场"
+    ]
+  },
+  {
+    "id": "word_0043",
+    "word": "alarm",
+    "phonetic": "ə'lɑːm",
+    "pos": "n",
+    "translations": [
+      "闹钟",
+      "警报"
+    ]
+  },
+  {
+    "id": "word_0044",
+    "word": "alive",
+    "phonetic": "ə'laɪv",
+    "pos": "adj",
+    "translations": [
+      "活着的",
+      "有生气的"
+    ]
+  },
+  {
+    "id": "word_0045",
+    "word": "all",
+    "phonetic": "ɔːl",
+    "pos": "adj",
+    "translations": [
+      "所有的",
+      "全部的",
+      "所有",
+      "全部"
+    ]
+  },
+  {
+    "id": "word_0046",
+    "word": "allow",
+    "phonetic": "ə'laʊ",
+    "pos": "v",
+    "translations": [
+      "允许",
+      "准许"
+    ]
+  },
+  {
+    "id": "word_0047",
+    "word": "almost",
+    "phonetic": "'ɔːlməʊst",
+    "pos": "adv",
+    "translations": [
+      "几乎",
+      "差不多"
+    ]
+  },
+  {
+    "id": "word_0048",
+    "word": "alone",
+    "phonetic": "ə'ləʊn",
+    "pos": "adj,adv",
+    "translations": [
+      "单独的",
+      "独自"
+    ]
+  },
+  {
+    "id": "word_0049",
+    "word": "along",
+    "phonetic": "ə'lɒ ",
+    "pos": "adv",
+    "translations": [
+      "向前",
+      "沿着",
+      "顺着"
+    ]
+  },
+  {
+    "id": "word_0050",
+    "word": "aloud",
+    "phonetic": "ə'laʊd",
+    "pos": "adv",
+    "translations": [
+      "大声地",
+      "出声地"
+    ]
+  },
+  {
+    "id": "word_0051",
+    "word": "already",
+    "phonetic": "ɔːl'redi",
+    "pos": "adv",
+    "translations": [
+      "已经"
+    ]
+  },
+  {
+    "id": "word_0052",
+    "word": "also",
+    "phonetic": "'ɔːlsəʊ",
+    "pos": "adv",
+    "translations": [
+      "也",
+      "同样"
+    ]
+  },
+  {
+    "id": "word_0053",
+    "word": "although",
+    "phonetic": "ɔːl'ðəʊ",
+    "pos": "conj",
+    "translations": [
+      "虽然",
+      "尽管"
+    ]
+  },
+  {
+    "id": "word_0054",
+    "word": "always",
+    "phonetic": "'ɔːlweɪz",
+    "pos": "adv",
+    "translations": [
+      "总是",
+      "永远"
+    ]
+  },
+  {
+    "id": "word_0055",
+    "word": "amazing",
+    "phonetic": "ə'meɪzɪ ",
+    "pos": "adj",
+    "translations": [
+      "令人大为惊奇的",
+      "令人"
+    ]
+  },
+  {
+    "id": "word_0056",
+    "word": "among",
+    "phonetic": "ə'mʌ ",
+    "pos": "prep",
+    "translations": [
+      "在……中",
+      "……之一"
+    ]
+  },
+  {
+    "id": "word_0057",
+    "word": "ancient",
+    "phonetic": "'eɪnʃənt",
+    "pos": "adj",
+    "translations": [
+      "古代的",
+      "古老的"
+    ]
+  },
+  {
+    "id": "word_0058",
+    "word": "and",
+    "phonetic": "ænd",
+    "pos": "conj",
+    "translations": [
+      "和",
+      "又",
+      "加上"
+    ]
+  },
+  {
+    "id": "word_0059",
+    "word": "angry",
+    "phonetic": "'æ ɡri",
+    "pos": "adj",
+    "translations": [
+      "生气的",
+      "愤怒的"
+    ]
+  },
+  {
+    "id": "word_0060",
+    "word": "animal",
+    "phonetic": "'ænɪml",
+    "pos": "n",
+    "translations": [
+      "动物"
+    ]
+  },
+  {
+    "id": "word_0061",
+    "word": "another",
+    "phonetic": "ə'nʌðə(r)",
+    "pos": "adj",
+    "translations": [
+      "又一"
+    ]
+  },
+  {
+    "id": "word_0062",
+    "word": "answer",
+    "phonetic": "'ɑːnsə(r)",
+    "pos": "n",
+    "translations": [
+      "回答",
+      "答复"
+    ]
+  },
+  {
+    "id": "word_0063",
+    "word": "ant",
+    "phonetic": "ænt",
+    "pos": "n",
+    "translations": [
+      "蚂蚁"
+    ]
+  },
+  {
+    "id": "word_0064",
+    "word": "any",
+    "phonetic": "'eni",
+    "pos": "pron",
+    "translations": [
+      "任何一些"
+    ]
+  },
+  {
+    "id": "word_0065",
+    "word": "anybody",
+    "phonetic": "'enibɒdi",
+    "pos": "pron",
+    "translations": [
+      "任何人",
+      "无论谁"
+    ]
+  },
+  {
+    "id": "word_0066",
+    "word": "anyone",
+    "phonetic": "'eniwʌn",
+    "pos": "pron",
+    "translations": [
+      "任何人",
+      "无论谁"
+    ]
+  },
+  {
+    "id": "word_0067",
+    "word": "anything",
+    "phonetic": "'eniθɪ ",
+    "pos": "pron",
+    "translations": [
+      "任何事物"
+    ]
+  },
+  {
+    "id": "word_0068",
+    "word": "anyway",
+    "phonetic": "'eniweɪ",
+    "pos": "adv",
+    "translations": [
+      "而且",
+      "尽管",
+      "无论如何"
+    ]
+  },
+  {
+    "id": "word_0069",
+    "word": "anywhere",
+    "phonetic": "'eniweə(r)",
+    "pos": "adv",
+    "translations": [
+      "在任何地方"
+    ]
+  },
+  {
+    "id": "word_0070",
+    "word": "apartment",
+    "phonetic": "ə'pɑːtmənt",
+    "pos": "n",
+    "translations": [
+      "公寓套房",
+      "公寓",
+      "套房"
+    ]
+  },
+  {
+    "id": "word_0071",
+    "word": "app",
+    "phonetic": "æp",
+    "pos": "abbr",
+    "translations": [
+      "应用程序",
+      "应用软件"
+    ]
+  },
+  {
+    "id": "word_0072",
+    "word": "appear",
+    "phonetic": "ə'pɪə(r)",
+    "pos": "v",
+    "translations": [
+      "出现",
+      "似乎"
+    ]
+  },
+  {
+    "id": "word_0073",
+    "word": "apple",
+    "phonetic": "'æpl",
+    "pos": "n",
+    "translations": [
+      "苹果"
+    ]
+  },
+  {
+    "id": "word_0074",
+    "word": "area",
+    "phonetic": "'eəriə",
+    "pos": "n",
+    "translations": [
+      "地域，地区"
+    ]
+  },
+  {
+    "id": "word_0075",
+    "word": "argue",
+    "phonetic": "'ɑːɡjuː",
+    "pos": "v",
+    "translations": [
+      "争吵",
+      "争论"
+    ]
+  },
+  {
+    "id": "word_0076",
+    "word": "arm",
+    "phonetic": "ɑːm",
+    "pos": "n",
+    "translations": [
+      "手臂 v．武装",
+      "备战"
+    ]
+  },
+  {
+    "id": "word_0077",
+    "word": "army",
+    "phonetic": "'ɑːmi",
+    "pos": "n",
+    "translations": [
+      "陆军",
+      "陆军部队"
+    ]
+  },
+  {
+    "id": "word_0078",
+    "word": "around",
+    "phonetic": "ə'raʊnd",
+    "pos": "adv",
+    "translations": [
+      "周围",
+      "到处",
+      "大约",
+      "围绕"
+    ]
+  },
+  {
+    "id": "word_0079",
+    "word": "arrive",
+    "phonetic": "ə'raɪv",
+    "pos": "v",
+    "translations": [
+      "到达",
+      "抵达"
+    ]
+  },
+  {
+    "id": "word_0080",
+    "word": "art",
+    "phonetic": "ɑːt",
+    "pos": "n",
+    "translations": [
+      "艺术",
+      "美术",
+      "艺术作品"
+    ]
+  },
+  {
+    "id": "word_0081",
+    "word": "article",
+    "phonetic": "'ɑːtɪkl",
+    "pos": "n",
+    "translations": [
+      "文章",
+      "论文",
+      "冠词"
+    ]
+  },
+  {
+    "id": "word_0082",
+    "word": "artist",
+    "phonetic": "'ɑːtɪst",
+    "pos": "n",
+    "translations": [
+      "艺术家"
+    ]
+  },
+  {
+    "id": "word_0083",
+    "word": "as",
+    "phonetic": "æz",
+    "pos": "adv",
+    "translations": [
+      "像……一样",
+      "如同",
+      "作为",
+      "像"
+    ]
+  },
+  {
+    "id": "word_0084",
+    "word": "ask",
+    "phonetic": "ɑːsk",
+    "pos": "v",
+    "translations": [
+      "问",
+      "请求",
+      "要求"
+    ]
+  },
+  {
+    "id": "word_0085",
+    "word": "asleep",
+    "phonetic": "ə'sliːp",
+    "pos": "adj",
+    "translations": [
+      "睡着的"
+    ]
+  },
+  {
+    "id": "word_0086",
+    "word": "astronaut",
+    "phonetic": "'æstrənɔːt",
+    "pos": "n",
+    "translations": [
+      "宇航员",
+      "航天员"
+    ]
+  },
+  {
+    "id": "word_0087",
+    "word": "at",
+    "phonetic": "æt",
+    "pos": "prep",
+    "translations": [
+      "在"
+    ]
+  },
+  {
+    "id": "word_0088",
+    "word": "athlete",
+    "phonetic": "'æθliːt",
+    "pos": "n",
+    "translations": [
+      "运动员，体育健将",
+      "运动员",
+      "体育健将"
+    ]
+  },
+  {
+    "id": "word_0089",
+    "word": "attack",
+    "phonetic": "ə'tæk",
+    "pos": "v",
+    "translations": [
+      "批评，抨击",
+      "袭击，"
+    ]
+  },
+  {
+    "id": "word_0090",
+    "word": "attend",
+    "phonetic": "ə'tend",
+    "pos": "v",
+    "translations": [
+      "出席",
+      "参加"
+    ]
+  },
+  {
+    "id": "word_0091",
+    "word": "attention",
+    "phonetic": "ə'tenʃn",
+    "pos": "n",
+    "translations": [
+      "注意",
+      "注意力",
+      "关注"
+    ]
+  },
+  {
+    "id": "word_0092",
+    "word": "aunt",
+    "phonetic": "ɑːnt",
+    "pos": "n",
+    "translations": [
+      "伯母",
+      "舅母",
+      "婶母",
+      "姑"
+    ]
+  },
+  {
+    "id": "word_0093",
+    "word": "autumn",
+    "phonetic": "'ɔːtəm",
+    "pos": "n",
+    "translations": [
+      "秋天",
+      "秋季"
+    ]
+  },
+  {
+    "id": "word_0094",
+    "word": "average",
+    "phonetic": "'ævərɪdʒ",
+    "pos": "n",
+    "translations": [
+      "平均水平，一般标准"
+    ]
+  },
+  {
+    "id": "word_0095",
+    "word": "avoid",
+    "phonetic": "ə'vɔɪd",
+    "pos": "v",
+    "translations": [
+      "避免",
+      "防止",
+      "回避"
+    ]
+  },
+  {
+    "id": "word_0096",
+    "word": "awake",
+    "phonetic": "ə'weɪk",
+    "pos": "v",
+    "translations": [
+      "醒着的",
+      "唤醒",
+      "警觉的",
+      "醒来"
+    ]
+  },
+  {
+    "id": "word_0097",
+    "word": "award",
+    "phonetic": "ə'wɔːd",
+    "pos": "n",
+    "translations": [
+      "奖，奖品",
+      "授予，颁"
+    ]
+  },
+  {
+    "id": "word_0098",
+    "word": "aware",
+    "phonetic": "ə'weə(r)",
+    "pos": "adj",
+    "translations": [
+      "察觉到的，意识到的"
+    ]
+  },
+  {
+    "id": "word_0099",
+    "word": "away",
+    "phonetic": "ə'weɪ",
+    "pos": "adv",
+    "translations": [
+      "离开",
+      "在"
+    ]
+  },
+  {
+    "id": "word_0100",
+    "word": "awful",
+    "phonetic": "'ɔːfl",
+    "pos": "adj",
+    "translations": [
+      "糟糕的",
+      "很坏的",
+      "极讨"
+    ]
+  },
+  {
+    "id": "word_0101",
+    "word": "baby",
+    "phonetic": "'beɪbi",
+    "pos": "adj",
+    "translations": [
+      "幼嫩的 n.婴儿"
+    ]
+  },
+  {
+    "id": "word_0102",
+    "word": "back",
+    "phonetic": "bæk",
+    "pos": "n",
+    "translations": [
+      "背景",
+      "背景情况"
+    ]
+  },
+  {
+    "id": "word_0103",
+    "word": "background",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "背景",
+      "背景情况"
+    ]
+  },
+  {
+    "id": "word_0104",
+    "word": "bad",
+    "phonetic": "bæd",
+    "pos": "adj",
+    "translations": [
+      "坏的",
+      "令人不快的"
+    ]
+  },
+  {
+    "id": "word_0105",
+    "word": "badminton",
+    "phonetic": "'bædmɪntən",
+    "pos": "n",
+    "translations": [
+      "羽毛球运动",
+      "羽毛球"
+    ]
+  },
+  {
+    "id": "word_0106",
+    "word": "bag",
+    "phonetic": "bæɡ",
+    "pos": "n",
+    "translations": [
+      "袋",
+      "包"
+    ]
+  },
+  {
+    "id": "word_0107",
+    "word": "balance",
+    "phonetic": "'bæləns",
+    "pos": "n",
+    "translations": [
+      "平衡，均衡"
+    ]
+  },
+  {
+    "id": "word_0108",
+    "word": "ball",
+    "phonetic": "bɔːl",
+    "pos": "n",
+    "translations": [
+      "球"
+    ]
+  },
+  {
+    "id": "word_0109",
+    "word": "balloon",
+    "phonetic": "bə'luːn",
+    "pos": "n",
+    "translations": [
+      "气球"
+    ]
+  },
+  {
+    "id": "word_0110",
+    "word": "bamboo",
+    "phonetic": "ˌbæm'buː",
+    "pos": "n",
+    "translations": [
+      "竹",
+      "竹子"
+    ]
+  },
+  {
+    "id": "word_0111",
+    "word": "banana",
+    "phonetic": "bə'nɑːnə",
+    "pos": "n",
+    "translations": [
+      "香蕉"
+    ]
+  },
+  {
+    "id": "word_0112",
+    "word": "band",
+    "phonetic": "bænd",
+    "pos": "n",
+    "translations": [
+      "乐队"
+    ]
+  },
+  {
+    "id": "word_0113",
+    "word": "bank",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "岸",
+      "河畔",
+      "银行"
+    ]
+  },
+  {
+    "id": "word_0114",
+    "word": "baseball",
+    "phonetic": "'beɪsbɔːl",
+    "pos": "n",
+    "translations": [
+      "棒球",
+      "棒球运动"
+    ]
+  },
+  {
+    "id": "word_0115",
+    "word": "basic",
+    "phonetic": "'beɪsɪk",
+    "pos": "adj",
+    "translations": [
+      "基本的",
+      "初级的"
+    ]
+  },
+  {
+    "id": "word_0116",
+    "word": "basket",
+    "phonetic": "'bɑːskɪt",
+    "pos": "n",
+    "translations": [
+      "筐",
+      "篮"
+    ]
+  },
+  {
+    "id": "word_0117",
+    "word": "basketball",
+    "phonetic": "'bɑːskɪtbɔːl",
+    "pos": "n",
+    "translations": [
+      "篮球",
+      "篮球运动"
+    ]
+  },
+  {
+    "id": "word_0118",
+    "word": "bat",
+    "phonetic": "bæt",
+    "pos": "n",
+    "translations": [
+      "蝙蝠",
+      "球拍",
+      "球棒",
+      "用球棒击打"
+    ]
+  },
+  {
+    "id": "word_0119",
+    "word": "bath",
+    "phonetic": "bɑːθ",
+    "pos": "n",
+    "translations": [
+      "浴缸，浴盆",
+      "．给……洗澡",
+      "洗澡， 沐浴"
+    ]
+  },
+  {
+    "id": "word_0120",
+    "word": "bathroom",
+    "phonetic": "'bɑːθruːm",
+    "pos": "n",
+    "translations": [
+      "浴室",
+      "盥洗室"
+    ]
+  },
+  {
+    "id": "word_0121",
+    "word": "be",
+    "phonetic": "biː",
+    "pos": "v",
+    "translations": [
+      "．有",
+      "存在",
+      "是"
+    ]
+  },
+  {
+    "id": "word_0122",
+    "word": "beach",
+    "phonetic": "biːtʃ",
+    "pos": "n",
+    "translations": [
+      "海滨",
+      "海滩"
+    ]
+  },
+  {
+    "id": "word_0123",
+    "word": "bean",
+    "phonetic": "biːn",
+    "pos": "n",
+    "translations": [
+      "豆",
+      "豆荚"
+    ]
+  },
+  {
+    "id": "word_0124",
+    "word": "bear",
+    "phonetic": "beə(r)",
+    "pos": "n",
+    "translations": [
+      "熊 v．承受",
+      "忍受"
+    ]
+  },
+  {
+    "id": "word_0125",
+    "word": "beat",
+    "phonetic": "biːt",
+    "pos": "v",
+    "translations": [
+      "．敲打"
+    ]
+  },
+  {
+    "id": "word_0126",
+    "word": "beautiful",
+    "phonetic": "'bjuːtɪfl",
+    "pos": "adj",
+    "translations": [
+      "美丽的",
+      "美好的"
+    ]
+  },
+  {
+    "id": "word_0127",
+    "word": "because",
+    "phonetic": "bɪ'kɒz",
+    "pos": "conj",
+    "translations": [
+      "因为"
+    ]
+  },
+  {
+    "id": "word_0128",
+    "word": "become",
+    "phonetic": "bɪ'kʌm",
+    "pos": "v",
+    "translations": [
+      "．变得",
+      "成为"
+    ]
+  },
+  {
+    "id": "word_0129",
+    "word": "bed",
+    "phonetic": "bed",
+    "pos": "n",
+    "translations": [
+      "床"
+    ]
+  },
+  {
+    "id": "word_0130",
+    "word": "bedroom",
+    "phonetic": "'bedruːm",
+    "pos": "n",
+    "translations": [
+      "卧室"
+    ]
+  },
+  {
+    "id": "word_0131",
+    "word": "bee",
+    "phonetic": "biː",
+    "pos": "n",
+    "translations": [
+      "蜜蜂"
+    ]
+  },
+  {
+    "id": "word_0132",
+    "word": "beef",
+    "phonetic": "biːf",
+    "pos": "n",
+    "translations": [
+      "牛肉"
+    ]
+  },
+  {
+    "id": "word_0133",
+    "word": "before",
+    "phonetic": "bɪ'fɔː(r)",
+    "pos": "prep",
+    "translations": [
+      "在……以前"
+    ]
+  },
+  {
+    "id": "word_0134",
+    "word": "begin",
+    "phonetic": "bɪ'ɡɪn",
+    "pos": "v",
+    "translations": [
+      "开始",
+      "启动"
+    ]
+  },
+  {
+    "id": "word_0135",
+    "word": "behave",
+    "phonetic": "bɪ'heɪv",
+    "pos": "v",
+    "translations": [
+      "表现",
+      "举止"
+    ]
+  },
+  {
+    "id": "word_0136",
+    "word": "behind",
+    "phonetic": "bɪ'haɪnd",
+    "pos": "prep",
+    "translations": [
+      "在"
+    ]
+  },
+  {
+    "id": "word_0137",
+    "word": "believe",
+    "phonetic": "bɪ'liːv",
+    "pos": "v",
+    "translations": [
+      "相信"
+    ]
+  },
+  {
+    "id": "word_0138",
+    "word": "bell",
+    "phonetic": "bel",
+    "pos": "n",
+    "translations": [
+      "钟",
+      "铃"
+    ]
+  },
+  {
+    "id": "word_0139",
+    "word": "belong",
+    "phonetic": "bɪ'lɒ ",
+    "pos": "v",
+    "translations": [
+      "属于",
+      "归属"
+    ]
+  },
+  {
+    "id": "word_0140",
+    "word": "below",
+    "phonetic": "bɪ'ləʊ",
+    "pos": "prep",
+    "translations": [
+      "在"
+    ]
+  },
+  {
+    "id": "word_0141",
+    "word": "belt",
+    "phonetic": "belt",
+    "pos": "n",
+    "translations": [
+      "腰带，皮带"
+    ]
+  },
+  {
+    "id": "word_0142",
+    "word": "benefit",
+    "phonetic": "'benɪfɪt",
+    "pos": "n",
+    "translations": [
+      "优势，益处 v．对",
+      "好处",
+      "利益",
+      "津贴",
+      "受益",
+      "对……有益"
+    ]
+  },
+  {
+    "id": "word_0143",
+    "word": "beside",
+    "phonetic": "bɪ'saɪd",
+    "pos": "prep",
+    "translations": [
+      "在旁边"
+    ]
+  },
+  {
+    "id": "word_0144",
+    "word": "best",
+    "phonetic": "best",
+    "pos": "adj",
+    "translations": [
+      "最高程度"
+    ]
+  },
+  {
+    "id": "word_0145",
+    "word": "better",
+    "phonetic": "'betə",
+    "pos": "adj",
+    "translations": [
+      "更好的",
+      "好转的",
+      "更好地"
+    ]
+  },
+  {
+    "id": "word_0146",
+    "word": "between",
+    "phonetic": "bɪ'twiːn",
+    "pos": "prep",
+    "translations": [
+      "在"
+    ]
+  },
+  {
+    "id": "word_0147",
+    "word": "big",
+    "phonetic": "bɪɡ",
+    "pos": "adj",
+    "translations": [
+      "大的"
+    ]
+  },
+  {
+    "id": "word_0148",
+    "word": "bike",
+    "phonetic": "baɪk",
+    "pos": "n",
+    "translations": [
+      "自行车"
+    ]
+  },
+  {
+    "id": "word_0149",
+    "word": "bill",
+    "phonetic": "bɪl",
+    "pos": "n",
+    "translations": [
+      "账单",
+      "法案",
+      "议案"
+    ]
+  },
+  {
+    "id": "word_0150",
+    "word": "bin",
+    "phonetic": "bɪn",
+    "pos": "n",
+    "translations": [
+      "垃圾箱"
+    ]
+  },
+  {
+    "id": "word_0151",
+    "word": "biology",
+    "phonetic": "baɪ'ɒlədʒi",
+    "pos": "n",
+    "translations": [
+      "生物学"
+    ]
+  },
+  {
+    "id": "word_0152",
+    "word": "bird",
+    "phonetic": "bɜːd",
+    "pos": "n",
+    "translations": [
+      "鸟"
+    ]
+  },
+  {
+    "id": "word_0153",
+    "word": "birth",
+    "phonetic": "bɜːθ",
+    "pos": "n",
+    "translations": [
+      "出生",
+      "诞生"
+    ]
+  },
+  {
+    "id": "word_0154",
+    "word": "birthday",
+    "phonetic": "'bɜːθdeɪ",
+    "pos": "n",
+    "translations": [
+      "生日"
+    ]
+  },
+  {
+    "id": "word_0155",
+    "word": "biscuit",
+    "phonetic": "'bɪskɪt",
+    "pos": "n",
+    "translations": [
+      "饼干"
+    ]
+  },
+  {
+    "id": "word_0156",
+    "word": "bit",
+    "phonetic": "bɪt",
+    "pos": "n",
+    "translations": [
+      "一点",
+      "小块"
+    ]
+  },
+  {
+    "id": "word_0157",
+    "word": "black",
+    "phonetic": "blæk",
+    "pos": "n",
+    "translations": [
+      "黑色 adj.黑色的"
+    ]
+  },
+  {
+    "id": "word_0158",
+    "word": "blackboard",
+    "phonetic": "'blækbɔːd",
+    "pos": "n",
+    "translations": [
+      "黑板"
+    ]
+  },
+  {
+    "id": "word_0159",
+    "word": "bleed",
+    "phonetic": "bliːd",
+    "pos": "v",
+    "translations": [
+      "流血，出血",
+      "流血",
+      "（颜料、染料等）渗开"
+    ]
+  },
+  {
+    "id": "word_0160",
+    "word": "blind",
+    "phonetic": "blaɪnd",
+    "pos": "adj",
+    "translations": [
+      "瞎的",
+      "失明的"
+    ]
+  },
+  {
+    "id": "word_0161",
+    "word": "block",
+    "phonetic": "blɒk",
+    "pos": "n",
+    "translations": [
+      "街区 v．阻挡",
+      "堵塞"
+    ]
+  },
+  {
+    "id": "word_0162",
+    "word": "blood",
+    "phonetic": "blʌd",
+    "pos": "n",
+    "translations": [
+      "血"
+    ]
+  },
+  {
+    "id": "word_0163",
+    "word": "blouse",
+    "phonetic": "blaʊz",
+    "pos": "n",
+    "translations": [
+      "衬衫"
+    ]
+  },
+  {
+    "id": "word_0164",
+    "word": "blow",
+    "phonetic": "bləʊ",
+    "pos": "v",
+    "translations": [
+      "吹",
+      "刮"
+    ]
+  },
+  {
+    "id": "word_0165",
+    "word": "blue",
+    "phonetic": "bluː",
+    "pos": "n",
+    "translations": [
+      "蓝色",
+      "蓝色的",
+      "悲伤的"
+    ]
+  },
+  {
+    "id": "word_0166",
+    "word": "board",
+    "phonetic": "bɔːd",
+    "pos": "n",
+    "translations": [
+      "木板 v．上船"
+    ]
+  },
+  {
+    "id": "word_0167",
+    "word": "boat",
+    "phonetic": "bəʊt",
+    "pos": "n",
+    "translations": [
+      "小船"
+    ]
+  },
+  {
+    "id": "word_0168",
+    "word": "body",
+    "phonetic": "'bɒdi",
+    "pos": "n",
+    "translations": [
+      "身体"
+    ]
+  },
+  {
+    "id": "word_0169",
+    "word": "boil",
+    "phonetic": "bɔɪl",
+    "pos": "v",
+    "translations": [
+      "煮沸",
+      "烧开"
+    ]
+  },
+  {
+    "id": "word_0170",
+    "word": "book",
+    "phonetic": "bʊk",
+    "pos": "n",
+    "translations": [
+      "书",
+      "本子",
+      "预订",
+      "预约"
+    ]
+  },
+  {
+    "id": "word_0171",
+    "word": "boring",
+    "phonetic": "'bɔːrɪ\t",
+    "pos": "adj",
+    "translations": [
+      "乏味的",
+      "无聊的"
+    ]
+  },
+  {
+    "id": "word_0172",
+    "word": "born",
+    "phonetic": "bɔːn",
+    "pos": "v",
+    "translations": [
+      "出生 adj.天生的"
+    ]
+  },
+  {
+    "id": "word_0173",
+    "word": "borrow",
+    "phonetic": "'bɒrəʊ",
+    "pos": "v",
+    "translations": [
+      "借用",
+      "借"
+    ]
+  },
+  {
+    "id": "word_0174",
+    "word": "boss",
+    "phonetic": "bɒs",
+    "pos": "n",
+    "translations": [
+      "领班",
+      "老板"
+    ]
+  },
+  {
+    "id": "word_0175",
+    "word": "both",
+    "phonetic": "bəʊθ",
+    "pos": "adj",
+    "translations": [
+      "两者"
+    ]
+  },
+  {
+    "id": "word_0176",
+    "word": "bottle",
+    "phonetic": "'bɒtl",
+    "pos": "n",
+    "translations": [
+      "瓶子"
+    ]
+  },
+  {
+    "id": "word_0177",
+    "word": "bottom",
+    "phonetic": "'bɒtəm",
+    "pos": "n",
+    "translations": [
+      "底部"
+    ]
+  },
+  {
+    "id": "word_0178",
+    "word": "bowl",
+    "phonetic": "bəʊl",
+    "pos": "n",
+    "translations": [
+      "碗"
+    ]
+  },
+  {
+    "id": "word_0179",
+    "word": "box",
+    "phonetic": "bɒks",
+    "pos": "n",
+    "translations": [
+      "盒",
+      "箱"
+    ]
+  },
+  {
+    "id": "word_0180",
+    "word": "boy",
+    "phonetic": "bɔɪ",
+    "pos": "n",
+    "translations": [
+      "男孩"
+    ]
+  },
+  {
+    "id": "word_0181",
+    "word": "brain",
+    "phonetic": "breɪn",
+    "pos": "n",
+    "translations": [
+      "脑"
+    ]
+  },
+  {
+    "id": "word_0182",
+    "word": "brave",
+    "phonetic": "breɪv",
+    "pos": "adj",
+    "translations": [
+      "勇敢的"
+    ]
+  },
+  {
+    "id": "word_0183",
+    "word": "bread",
+    "phonetic": "bred",
+    "pos": "n",
+    "translations": [
+      "面包"
+    ]
+  },
+  {
+    "id": "word_0184",
+    "word": "break",
+    "phonetic": "breɪk",
+    "pos": "v",
+    "translations": [
+      "损坏"
+    ]
+  },
+  {
+    "id": "word_0185",
+    "word": "breakfast",
+    "phonetic": "'brekfəst",
+    "pos": "n",
+    "translations": [
+      "早餐"
+    ]
+  },
+  {
+    "id": "word_0186",
+    "word": "breath",
+    "phonetic": "breθ",
+    "pos": "n",
+    "translations": [
+      "呼吸"
+    ]
+  },
+  {
+    "id": "word_0187",
+    "word": "bridge",
+    "phonetic": "brɪdʒ",
+    "pos": "n",
+    "translations": [
+      "桥"
+    ]
+  },
+  {
+    "id": "word_0188",
+    "word": "bright",
+    "phonetic": "braɪt",
+    "pos": "adj",
+    "translations": [
+      "明亮的",
+      "光线充足的",
+      "光亮地",
+      "明亮地"
+    ]
+  },
+  {
+    "id": "word_0189",
+    "word": "bring",
+    "phonetic": "brɪ ",
+    "pos": "v",
+    "translations": [
+      "拿来",
+      "带来",
+      "取来"
+    ]
+  },
+  {
+    "id": "word_0190",
+    "word": "brother",
+    "phonetic": "'brʌðə(r)",
+    "pos": "n",
+    "translations": [
+      "兄",
+      "弟"
+    ]
+  },
+  {
+    "id": "word_0191",
+    "word": "brown",
+    "phonetic": "braʊn",
+    "pos": "n",
+    "translations": [
+      "褐色",
+      "棕色",
+      "褐色的",
+      "棕色的"
+    ]
+  },
+  {
+    "id": "word_0192",
+    "word": "brush",
+    "phonetic": "brʌʃ",
+    "pos": "v",
+    "translations": [
+      "刷子"
+    ]
+  },
+  {
+    "id": "word_0193",
+    "word": "budget",
+    "phonetic": "'bʌdʒɪt",
+    "pos": "n",
+    "translations": [
+      "预算",
+      "计划开支"
+    ]
+  },
+  {
+    "id": "word_0194",
+    "word": "build",
+    "phonetic": "bɪld",
+    "pos": "v",
+    "translations": [
+      "建筑",
+      "建造"
+    ]
+  },
+  {
+    "id": "word_0195",
+    "word": "building",
+    "phonetic": "'bɪldɪ ",
+    "pos": "n",
+    "translations": [
+      "建筑物",
+      "房子",
+      "楼"
+    ]
+  },
+  {
+    "id": "word_0196",
+    "word": "bully",
+    "phonetic": "'bʊli",
+    "pos": "n",
+    "translations": [
+      "恃强凌弱者，横行",
+      "霸凌者",
+      "恶霸",
+      "欺负",
+      "恐吓"
+    ]
+  },
+  {
+    "id": "word_0197",
+    "word": "burn",
+    "phonetic": "bɜːn",
+    "pos": "v",
+    "translations": [
+      "燃烧",
+      "着火"
+    ]
+  },
+  {
+    "id": "word_0198",
+    "word": "bus",
+    "phonetic": "bʌs",
+    "pos": "n",
+    "translations": [
+      "公共汽车"
+    ]
+  },
+  {
+    "id": "word_0199",
+    "word": "business",
+    "phonetic": "'bɪznəs",
+    "pos": "n",
+    "translations": [
+      "生意",
+      "公事",
+      "职责"
+    ]
+  },
+  {
+    "id": "word_0200",
+    "word": "busy",
+    "phonetic": "'bɪzi",
+    "pos": "adj",
+    "translations": [
+      "忙碌的",
+      "热闹的"
+    ]
+  },
+  {
+    "id": "word_0201",
+    "word": "but",
+    "phonetic": "bʌt",
+    "pos": "conj",
+    "translations": [
+      "但是",
+      "可是",
+      "除……之外"
+    ]
+  },
+  {
+    "id": "word_0202",
+    "word": "butter",
+    "phonetic": "'bʌtə",
+    "pos": "n",
+    "translations": [
+      "黄油",
+      "奶油"
+    ]
+  },
+  {
+    "id": "word_0203",
+    "word": "butterfly",
+    "phonetic": "'bʌtəflaɪ",
+    "pos": "n",
+    "translations": [
+      "蝴蝶"
+    ]
+  },
+  {
+    "id": "word_0204",
+    "word": "buy",
+    "phonetic": "baɪ",
+    "pos": "v",
+    "translations": [
+      "买"
+    ]
+  },
+  {
+    "id": "word_0205",
+    "word": "by",
+    "phonetic": "baɪ",
+    "pos": "prep",
+    "translations": [
+      "靠近",
+      "在……旁",
+      "在……之前"
+    ]
+  },
+  {
+    "id": "word_0206",
+    "word": "cabbage",
+    "phonetic": "'kæbɪdʒ",
+    "pos": "n",
+    "translations": [
+      "卷心菜",
+      "洋白菜"
+    ]
+  },
+  {
+    "id": "word_0207",
+    "word": "cake",
+    "phonetic": "keɪk",
+    "pos": "n",
+    "translations": [
+      "蛋糕",
+      "饼"
+    ]
+  },
+  {
+    "id": "word_0208",
+    "word": "calendar",
+    "phonetic": "'kælɪndə(r)",
+    "pos": "n",
+    "translations": [
+      "日历",
+      "日程表",
+      "活动安排"
+    ]
+  },
+  {
+    "id": "word_0209",
+    "word": "call",
+    "phonetic": "kɔːl",
+    "pos": "n",
+    "translations": [
+      "喊",
+      "叫",
+      "电话",
+      "通话",
+      "称呼",
+      "打电话",
+      "呼唤"
+    ]
+  },
+  {
+    "id": "word_0210",
+    "word": "calm",
+    "phonetic": "kɑːm",
+    "pos": "adj",
+    "translations": [
+      "镇静的",
+      "沉着的 v．使平静，使镇静",
+      "冷静下来，镇静下来"
+    ]
+  },
+  {
+    "id": "word_0211",
+    "word": "camera",
+    "phonetic": "'kæmərə",
+    "pos": "n",
+    "translations": [
+      "照相机",
+      "摄像机"
+    ]
+  },
+  {
+    "id": "word_0212",
+    "word": "camp",
+    "phonetic": "kæmp",
+    "pos": "v",
+    "translations": [
+      "露营",
+      "营地",
+      "度假营"
+    ]
+  },
+  {
+    "id": "word_0213",
+    "word": "can",
+    "phonetic": "kæn",
+    "pos": "modal",
+    "translations": [
+      "．能",
+      "会",
+      "可以",
+      "金属罐",
+      "一罐"
+    ]
+  },
+  {
+    "id": "word_0214",
+    "word": "cancel",
+    "phonetic": "'kænsl",
+    "pos": "v",
+    "translations": [
+      "取消",
+      "终止"
+    ]
+  },
+  {
+    "id": "word_0215",
+    "word": "cancer",
+    "phonetic": "'kænsə(r)",
+    "pos": "n",
+    "translations": [
+      "癌症"
+    ]
+  },
+  {
+    "id": "word_0216",
+    "word": "candle",
+    "phonetic": "'kændl",
+    "pos": "n",
+    "translations": [
+      "蜡烛"
+    ]
+  },
+  {
+    "id": "word_0217",
+    "word": "candy",
+    "phonetic": "'kændi",
+    "pos": "n",
+    "translations": [
+      "糖果"
+    ]
+  },
+  {
+    "id": "word_0218",
+    "word": "cap",
+    "phonetic": "kæp",
+    "pos": "n",
+    "translations": [
+      "帽子",
+      "盖子"
+    ]
+  },
+  {
+    "id": "word_0219",
+    "word": "capital",
+    "phonetic": "'kæpɪtl",
+    "pos": "n",
+    "translations": [
+      "首都",
+      "大写字母",
+      "资本"
+    ]
+  },
+  {
+    "id": "word_0220",
+    "word": "car",
+    "phonetic": "kɑː(r)",
+    "pos": "n",
+    "translations": [
+      "小汽车",
+      "轿车"
+    ]
+  },
+  {
+    "id": "word_0221",
+    "word": "card",
+    "phonetic": "kɑːd",
+    "pos": "n",
+    "translations": [
+      "卡片",
+      "贺卡",
+      "纸牌"
+    ]
+  },
+  {
+    "id": "word_0222",
+    "word": "care",
+    "phonetic": "keə(r)",
+    "pos": "n",
+    "translations": [
+      "照料",
+      "照顾",
+      "小心",
+      "在意",
+      "关心",
+      "担忧"
+    ]
+  },
+  {
+    "id": "word_0223",
+    "word": "careful",
+    "phonetic": "'keəfl",
+    "pos": "adj",
+    "translations": [
+      "小心的",
+      "细致的",
+      "谨慎的"
+    ]
+  },
+  {
+    "id": "word_0224",
+    "word": "careless",
+    "phonetic": "'keələs",
+    "pos": "adj",
+    "translations": [
+      "不小心的",
+      "不仔细的",
+      "粗心的"
+    ]
+  },
+  {
+    "id": "word_0225",
+    "word": "carrot",
+    "phonetic": "'kærət",
+    "pos": "n",
+    "translations": [
+      "胡萝卜"
+    ]
+  },
+  {
+    "id": "word_0226",
+    "word": "carry",
+    "phonetic": "'kæri",
+    "pos": "v",
+    "translations": [
+      "拿",
+      "搬",
+      "提",
+      "扛",
+      "背"
+    ]
+  },
+  {
+    "id": "word_0227",
+    "word": "cartoon",
+    "phonetic": "kɑː'tuːn",
+    "pos": "n",
+    "translations": [
+      "动画片",
+      "卡通片"
+    ]
+  },
+  {
+    "id": "word_0228",
+    "word": "case",
+    "phonetic": "keɪs",
+    "pos": "n",
+    "translations": [
+      "情况",
+      "实情"
+    ]
+  },
+  {
+    "id": "word_0229",
+    "word": "cash",
+    "phonetic": "kæʃ",
+    "pos": "n",
+    "translations": [
+      "现款，现金"
+    ]
+  },
+  {
+    "id": "word_0230",
+    "word": "cat",
+    "phonetic": "kæt",
+    "pos": "n",
+    "translations": [
+      "猫"
+    ]
+  },
+  {
+    "id": "word_0231",
+    "word": "catch",
+    "phonetic": "kætʃ",
+    "pos": "v",
+    "translations": [
+      "接住",
+      "捉住",
+      "赶上"
+    ]
+  },
+  {
+    "id": "word_0232",
+    "word": "cause",
+    "phonetic": "kɔːz",
+    "pos": "n",
+    "translations": [
+      "原因",
+      "起因",
+      "造成，引起"
+    ]
+  },
+  {
+    "id": "word_0233",
+    "word": "celebrate",
+    "phonetic": "'selɪbreɪt",
+    "pos": "v",
+    "translations": [
+      "庆祝"
+    ]
+  },
+  {
+    "id": "word_0234",
+    "word": "cent",
+    "phonetic": "sent",
+    "pos": "n",
+    "translations": [
+      "分",
+      "分币"
+    ]
+  },
+  {
+    "id": "word_0235",
+    "word": "central",
+    "phonetic": "'sentrəl",
+    "pos": "adj",
+    "translations": [
+      "在中心的",
+      "中央",
+      "中心的",
+      "主要的"
+    ]
+  },
+  {
+    "id": "word_0236",
+    "word": "centre",
+    "phonetic": "'sentə(r)",
+    "pos": "n",
+    "translations": [
+      "中心",
+      "中央"
+    ]
+  },
+  {
+    "id": "word_0237",
+    "word": "century",
+    "phonetic": "'sentʃəri",
+    "pos": "n",
+    "translations": [
+      "世纪",
+      "百年"
+    ]
+  },
+  {
+    "id": "word_0238",
+    "word": "certain",
+    "phonetic": "'sɜːtn",
+    "pos": "adj",
+    "translations": [
+      "确定",
+      "无疑",
+      "某种",
+      "确定的",
+      "肯定的"
+    ]
+  },
+  {
+    "id": "word_0239",
+    "word": "chair",
+    "phonetic": "tʃeə(r)",
+    "pos": "n",
+    "translations": [
+      "椅子"
+    ]
+  },
+  {
+    "id": "word_0240",
+    "word": "chalk",
+    "phonetic": "tʃɔːk",
+    "pos": "n",
+    "translations": [
+      "粉笔",
+      "用粉笔写"
+    ]
+  },
+  {
+    "id": "word_0241",
+    "word": "challenge",
+    "phonetic": "'tʃælɪndʒ",
+    "pos": "v",
+    "translations": [
+      "．挑战",
+      "考验"
+    ]
+  },
+  {
+    "id": "word_0242",
+    "word": "champion",
+    "phonetic": "'tʃæmpiən",
+    "pos": "n",
+    "translations": [
+      "冠军，第一名",
+      "冠军",
+      "捍卫者"
+    ]
+  },
+  {
+    "id": "word_0243",
+    "word": "chance",
+    "phonetic": "tʃɑːns",
+    "pos": "n",
+    "translations": [
+      "机会",
+      "可能性"
+    ]
+  },
+  {
+    "id": "word_0244",
+    "word": "change",
+    "phonetic": "tʃeɪndʒ",
+    "pos": "v",
+    "translations": [
+      "改变",
+      "兑换",
+      "变化",
+      "零钱"
+    ]
+  },
+  {
+    "id": "word_0245",
+    "word": "character",
+    "phonetic": "'kærəktə(r)",
+    "pos": "n",
+    "translations": [
+      "人物",
+      "角色"
+    ]
+  },
+  {
+    "id": "word_0246",
+    "word": "characteristic",
+    "phonetic": "'kærəktə'rɪstɪk",
+    "pos": "n",
+    "translations": [
+      "特征，特点，特色",
+      "独特的，典型的",
+      "典型的，有代表性的",
+      "特征",
+      "特点",
+      "典型的",
+      "特有的"
+    ]
+  },
+  {
+    "id": "word_0247",
+    "word": "charity",
+    "phonetic": "'tʃærəti",
+    "pos": "n",
+    "translations": [
+      "慈善组织，慈善机构"
+    ]
+  },
+  {
+    "id": "word_0248",
+    "word": "chat",
+    "phonetic": "tʃæt",
+    "pos": "v",
+    "translations": [
+      "聊天",
+      "闲聊"
+    ]
+  },
+  {
+    "id": "word_0249",
+    "word": "cheap",
+    "phonetic": "tʃiːp",
+    "pos": "adj",
+    "translations": [
+      "便宜的",
+      "廉价的"
+    ]
+  },
+  {
+    "id": "word_0250",
+    "word": "cheat",
+    "phonetic": "tʃiːt",
+    "pos": "v",
+    "translations": [
+      "欺骗",
+      "蒙骗",
+      "骗子",
+      "欺骗的"
+    ]
+  },
+  {
+    "id": "word_0251",
+    "word": "check",
+    "phonetic": "tʃek",
+    "pos": "v",
+    "translations": [
+      "检查 n．检查",
+      "核对",
+      "支票",
+      "账单"
+    ]
+  },
+  {
+    "id": "word_0252",
+    "word": "cheer",
+    "phonetic": "tʃɪə(r)",
+    "pos": "n",
+    "translations": [
+      "．欢呼",
+      "喝彩"
+    ]
+  },
+  {
+    "id": "word_0253",
+    "word": "cheese",
+    "phonetic": "tʃiːz",
+    "pos": "n",
+    "translations": [
+      "奶酪",
+      "芝士"
+    ]
+  },
+  {
+    "id": "word_0254",
+    "word": "chemistry",
+    "phonetic": "'kemɪstri",
+    "pos": "n",
+    "translations": [
+      "化学"
+    ]
+  },
+  {
+    "id": "word_0255",
+    "word": "chess",
+    "phonetic": "tʃes",
+    "pos": "n",
+    "translations": [
+      "国际象棋"
+    ]
+  },
+  {
+    "id": "word_0256",
+    "word": "chicken",
+    "phonetic": "'tʃɪkɪn",
+    "pos": "n",
+    "translations": [
+      "鸡",
+      "鸡肉"
+    ]
+  },
+  {
+    "id": "word_0257",
+    "word": "child",
+    "phonetic": "tʃaɪld",
+    "pos": "n",
+    "translations": [
+      "小孩",
+      "儿童"
+    ]
+  },
+  {
+    "id": "word_0258",
+    "word": "chip",
+    "phonetic": "tʃɪp",
+    "pos": "n",
+    "translations": [
+      "炸薯条，炸薯片",
+      "芯片",
+      "碎片",
+      "薯片"
+    ]
+  },
+  {
+    "id": "word_0259",
+    "word": "chocolate",
+    "phonetic": "'tʃɒklət",
+    "pos": "n",
+    "translations": [
+      "巧克力"
+    ]
+  },
+  {
+    "id": "word_0260",
+    "word": "choice",
+    "phonetic": "tʃɔɪs",
+    "pos": "n",
+    "translations": [
+      "选择",
+      "挑选"
+    ]
+  },
+  {
+    "id": "word_0261",
+    "word": "choose",
+    "phonetic": "tʃuːz",
+    "pos": "v",
+    "translations": [
+      "选择",
+      "挑选"
+    ]
+  },
+  {
+    "id": "word_0262",
+    "word": "chore",
+    "phonetic": "tʃɔː(r)",
+    "pos": "n",
+    "translations": [
+      "杂务",
+      "乏味无聊的工作",
+      "家务",
+      "琐事",
+      "令人厌烦的工作"
+    ]
+  },
+  {
+    "id": "word_0263",
+    "word": "Christmas",
+    "phonetic": "'krɪsməs",
+    "pos": "n",
+    "translations": [
+      "圣诞节"
+    ]
+  },
+  {
+    "id": "word_0264",
+    "word": "cinema",
+    "phonetic": "'sɪnəmə",
+    "pos": "n",
+    "translations": [
+      "电影院"
+    ]
+  },
+  {
+    "id": "word_0265",
+    "word": "circle",
+    "phonetic": "'sɜːkl",
+    "pos": "n",
+    "translations": [
+      "圆圈 v．圈出",
+      "环绕"
+    ]
+  },
+  {
+    "id": "word_0266",
+    "word": "citizen",
+    "phonetic": "'sɪtɪz(ə)n",
+    "pos": "n",
+    "translations": [
+      "市民，城镇居民"
+    ]
+  },
+  {
+    "id": "word_0267",
+    "word": "city",
+    "phonetic": "'sɪti",
+    "pos": "n",
+    "translations": [
+      "城市",
+      "都市"
+    ]
+  },
+  {
+    "id": "word_0268",
+    "word": "class",
+    "phonetic": "klɑːs",
+    "pos": "n",
+    "translations": [
+      "班级",
+      "课",
+      "等级",
+      "阶级"
+    ]
+  },
+  {
+    "id": "word_0269",
+    "word": "classic",
+    "phonetic": "'klæsɪk",
+    "pos": "adj",
+    "translations": [
+      "最优秀的",
+      "典型的",
+      "古典的 n．经典作品",
+      "名著"
+    ]
+  },
+  {
+    "id": "word_0270",
+    "word": "classmate",
+    "phonetic": "'klɑːsmeɪt",
+    "pos": "n",
+    "translations": [
+      "同班同学"
+    ]
+  },
+  {
+    "id": "word_0271",
+    "word": "classroom",
+    "phonetic": "'klɑːsruːm",
+    "pos": "n",
+    "translations": [
+      "教室"
+    ]
+  },
+  {
+    "id": "word_0272",
+    "word": "clean",
+    "phonetic": "kliːn",
+    "pos": "v",
+    "translations": [
+      "打扫",
+      "使……干净",
+      "清洁的",
+      "干净的"
+    ]
+  },
+  {
+    "id": "word_0273",
+    "word": "clear",
+    "phonetic": "klɪə(r)",
+    "pos": "adj",
+    "translations": [
+      "清晰的",
+      "晴朗的",
+      "清楚"
+    ]
+  },
+  {
+    "id": "word_0274",
+    "word": "clever",
+    "phonetic": "'klevə(r)",
+    "pos": "adj",
+    "translations": [
+      "聪明的",
+      "灵巧的"
+    ]
+  },
+  {
+    "id": "word_0275",
+    "word": "click",
+    "phonetic": "klɪk",
+    "pos": "v",
+    "translations": [
+      "发出咔"
+    ]
+  },
+  {
+    "id": "word_0276",
+    "word": "climate",
+    "phonetic": "'klaɪmət",
+    "pos": "n",
+    "translations": [
+      "气候"
+    ]
+  },
+  {
+    "id": "word_0277",
+    "word": "climb",
+    "phonetic": "klaɪm",
+    "pos": "v",
+    "translations": [
+      "爬",
+      "攀登"
+    ]
+  },
+  {
+    "id": "word_0278",
+    "word": "clock",
+    "phonetic": "klɒk",
+    "pos": "n",
+    "translations": [
+      "时钟",
+      "钟"
+    ]
+  },
+  {
+    "id": "word_0279",
+    "word": "close",
+    "phonetic": "kləʊs",
+    "pos": "v",
+    "translations": [
+      "关",
+      "关闭",
+      "亲密的"
+    ]
+  },
+  {
+    "id": "word_0280",
+    "word": "clothes",
+    "phonetic": "kləʊðz",
+    "pos": "n",
+    "translations": [
+      "衣服",
+      "服装"
+    ]
+  },
+  {
+    "id": "word_0281",
+    "word": "cloud",
+    "phonetic": "klaʊd",
+    "pos": "n",
+    "translations": [
+      "云",
+      "云朵",
+      "阴影"
+    ]
+  },
+  {
+    "id": "word_0282",
+    "word": "cloudy",
+    "phonetic": "'klaʊdi",
+    "pos": "adj",
+    "translations": [
+      "多云的",
+      "阴天的"
+    ]
+  },
+  {
+    "id": "word_0283",
+    "word": "club",
+    "phonetic": "klʌb",
+    "pos": "n",
+    "translations": [
+      "俱乐部"
+    ]
+  },
+  {
+    "id": "word_0284",
+    "word": "coach",
+    "phonetic": "kəʊtʃ",
+    "pos": "n",
+    "translations": [
+      "私人",
+      "教练",
+      "培训"
+    ]
+  },
+  {
+    "id": "word_0285",
+    "word": "coast",
+    "phonetic": "kəʊst",
+    "pos": "n",
+    "translations": [
+      "海岸",
+      "海滨",
+      "海岸线"
+    ]
+  },
+  {
+    "id": "word_0286",
+    "word": "coat",
+    "phonetic": "kəʊt",
+    "pos": "n",
+    "translations": [
+      "外套",
+      "大衣"
+    ]
+  },
+  {
+    "id": "word_0287",
+    "word": "coffee",
+    "phonetic": "'kɒfi",
+    "pos": "n",
+    "translations": [
+      "咖啡"
+    ]
+  },
+  {
+    "id": "word_0288",
+    "word": "coin",
+    "phonetic": "kɔɪn",
+    "pos": "n",
+    "translations": [
+      "硬币"
+    ]
+  },
+  {
+    "id": "word_0289",
+    "word": "cold",
+    "phonetic": "kəʊld",
+    "pos": "adj",
+    "translations": [
+      "冷的",
+      "寒冷的",
+      "冷却的",
+      "寒冷",
+      "感冒"
+    ]
+  },
+  {
+    "id": "word_0290",
+    "word": "collect",
+    "phonetic": "kə'lekt",
+    "pos": "v",
+    "translations": [
+      "收集",
+      "搜集"
+    ]
+  },
+  {
+    "id": "word_0291",
+    "word": "college",
+    "phonetic": "'kɒlɪdʒ",
+    "pos": "n",
+    "translations": [
+      "学院",
+      "大学"
+    ]
+  },
+  {
+    "id": "word_0292",
+    "word": "colour",
+    "phonetic": "'kʌlə(r)",
+    "pos": "n",
+    "translations": [
+      "颜色",
+      "为……着色"
+    ]
+  },
+  {
+    "id": "word_0293",
+    "word": "come",
+    "phonetic": "kʌm",
+    "pos": "v",
+    "translations": [
+      "来",
+      "来到"
+    ]
+  },
+  {
+    "id": "word_0294",
+    "word": "comfortable",
+    "phonetic": "'kʌmftəbl",
+    "pos": "adj",
+    "translations": [
+      "舒服的",
+      "安逸的"
+    ]
+  },
+  {
+    "id": "word_0295",
+    "word": "common",
+    "phonetic": "'kɒmən",
+    "pos": "adj",
+    "translations": [
+      "常见的",
+      "普通"
+    ]
+  },
+  {
+    "id": "word_0296",
+    "word": "communicate",
+    "phonetic": "kə'mjuːnɪkeɪt",
+    "pos": "v",
+    "translations": [
+      "交流",
+      "沟通"
+    ]
+  },
+  {
+    "id": "word_0297",
+    "word": "community",
+    "phonetic": "kə'mjuːnəti",
+    "pos": "n",
+    "translations": [
+      "社区",
+      "社团"
+    ]
+  },
+  {
+    "id": "word_0298",
+    "word": "company",
+    "phonetic": "'kʌmpəni",
+    "pos": "n",
+    "translations": [
+      "公司",
+      "陪伴",
+      "同"
+    ]
+  },
+  {
+    "id": "word_0299",
+    "word": "compare",
+    "phonetic": "kəm'peə(r)",
+    "pos": "v",
+    "translations": [
+      "比较",
+      "对比"
+    ]
+  },
+  {
+    "id": "word_0300",
+    "word": "compete",
+    "phonetic": "kəm'piːt",
+    "pos": "v",
+    "translations": [
+      "竞争",
+      "对抗"
+    ]
+  },
+  {
+    "id": "word_0301",
+    "word": "complete",
+    "phonetic": "kəm'pliːt",
+    "pos": "v",
+    "translations": [
+      "完成",
+      "结束",
+      "完整的",
+      "彻底的"
+    ]
+  },
+  {
+    "id": "word_0302",
+    "word": "computer",
+    "phonetic": "kəm'pjuːtə(r)",
+    "pos": "n",
+    "translations": [
+      "计算机",
+      "电脑"
+    ]
+  },
+  {
+    "id": "word_0303",
+    "word": "concert",
+    "phonetic": "'kɒnsət",
+    "pos": "n",
+    "translations": [
+      "音乐会",
+      "演奏会"
+    ]
+  },
+  {
+    "id": "word_0304",
+    "word": "condition",
+    "phonetic": "kən'dɪʃn",
+    "pos": "n",
+    "translations": [
+      "条件",
+      "状况"
+    ]
+  },
+  {
+    "id": "word_0305",
+    "word": "confidence",
+    "phonetic": "'kɒnfɪdəns",
+    "pos": "n",
+    "translations": [
+      "自信心",
+      "信任，"
+    ]
+  },
+  {
+    "id": "word_0306",
+    "word": "congratulation",
+    "phonetic": "kənˌɡrætʃu'leɪʃn",
+    "pos": "n",
+    "translations": [
+      "恭喜",
+      "祝贺"
+    ]
+  },
+  {
+    "id": "word_0307",
+    "word": "connect",
+    "phonetic": "kə'nekt",
+    "pos": "v",
+    "translations": [
+      "连接",
+      "把……"
+    ]
+  },
+  {
+    "id": "word_0308",
+    "word": "consider",
+    "phonetic": "kən'sɪdə(r)",
+    "pos": "v",
+    "translations": [
+      "仔细考虑",
+      "认为"
+    ]
+  },
+  {
+    "id": "word_0309",
+    "word": "continue",
+    "phonetic": "kən'tɪnjuː",
+    "pos": "v",
+    "translations": [
+      "继续"
+    ]
+  },
+  {
+    "id": "word_0310",
+    "word": "control",
+    "phonetic": "kən'trəʊl",
+    "pos": "v",
+    "translations": [
+      "．控制"
+    ]
+  },
+  {
+    "id": "word_0311",
+    "word": "convenient",
+    "phonetic": "kən'viːniənt",
+    "pos": "adj",
+    "translations": [
+      "便利的",
+      "方便"
+    ]
+  },
+  {
+    "id": "word_0312",
+    "word": "conversation",
+    "phonetic": "ˌkɒnvə'seɪʃn",
+    "pos": "n",
+    "translations": [
+      "谈话",
+      "交谈"
+    ]
+  },
+  {
+    "id": "word_0313",
+    "word": "cook",
+    "phonetic": "kʊk",
+    "pos": "n",
+    "translations": [
+      "厨师 v．烹调",
+      "做饭"
+    ]
+  },
+  {
+    "id": "word_0314",
+    "word": "cookie",
+    "phonetic": "'kʊki",
+    "pos": "n",
+    "translations": [
+      "曲奇饼"
+    ]
+  },
+  {
+    "id": "word_0315",
+    "word": "cool",
+    "phonetic": "kuːl",
+    "pos": "adj",
+    "translations": [
+      "凉爽的",
+      "冷静的",
+      "酷的"
+    ]
+  },
+  {
+    "id": "word_0316",
+    "word": "cooperate",
+    "phonetic": "kəʊ'ɒpəreɪt",
+    "pos": "v",
+    "translations": [
+      "合作",
+      "协作"
+    ]
+  },
+  {
+    "id": "word_0317",
+    "word": "copy",
+    "phonetic": "'kɒpi",
+    "pos": "n",
+    "translations": [
+      "复印件",
+      "副本",
+      "抄写",
+      "复制"
+    ]
+  },
+  {
+    "id": "word_0318",
+    "word": "corn",
+    "phonetic": "kɔːn",
+    "pos": "n",
+    "translations": [
+      "玉米",
+      "谷物"
+    ]
+  },
+  {
+    "id": "word_0319",
+    "word": "corner",
+    "phonetic": "'kɔːnə(r)",
+    "pos": "n",
+    "translations": [
+      "角",
+      "拐角"
+    ]
+  },
+  {
+    "id": "word_0320",
+    "word": "correct",
+    "phonetic": "kə'rekt",
+    "pos": "v",
+    "translations": [
+      "改正",
+      "纠正",
+      "正确的",
+      "恰当的"
+    ]
+  },
+  {
+    "id": "word_0321",
+    "word": "cost",
+    "phonetic": "kɒst",
+    "pos": "v",
+    "translations": [
+      "花费 n．代价",
+      "成本"
+    ]
+  },
+  {
+    "id": "word_0322",
+    "word": "cotton",
+    "phonetic": "'kɒtn",
+    "pos": "n",
+    "translations": [
+      "棉",
+      "棉花"
+    ]
+  },
+  {
+    "id": "word_0323",
+    "word": "cough",
+    "phonetic": "kɒf",
+    "pos": "n",
+    "translations": [
+      "．咳嗽"
+    ]
+  },
+  {
+    "id": "word_0324",
+    "word": "could",
+    "phonetic": "kʊd",
+    "pos": "modal",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_0325",
+    "word": "count",
+    "phonetic": "kaʊnt",
+    "pos": "v",
+    "translations": [
+      "重要"
+    ]
+  },
+  {
+    "id": "word_0326",
+    "word": "country",
+    "phonetic": "'kʌntri",
+    "pos": "n",
+    "translations": [
+      "国家",
+      "乡村",
+      "乡下"
+    ]
+  },
+  {
+    "id": "word_0327",
+    "word": "countryside",
+    "phonetic": "'kʌntrisaɪd",
+    "pos": "n",
+    "translations": [
+      "乡村",
+      "农村"
+    ]
+  },
+  {
+    "id": "word_0328",
+    "word": "couple",
+    "phonetic": "'kʌpl",
+    "pos": "n",
+    "translations": [
+      "夫妻",
+      "情侣",
+      "两人"
+    ]
+  },
+  {
+    "id": "word_0329",
+    "word": "courage",
+    "phonetic": "'kʌrɪdʒ",
+    "pos": "n",
+    "translations": [
+      "勇气",
+      "胆量"
+    ]
+  },
+  {
+    "id": "word_0330",
+    "word": "course",
+    "phonetic": "kɔːs",
+    "pos": "n",
+    "translations": [
+      "课程",
+      "一道菜",
+      "进程"
+    ]
+  },
+  {
+    "id": "word_0331",
+    "word": "cousin",
+    "phonetic": "'kʌzn",
+    "pos": "n",
+    "translations": [
+      "堂"
+    ]
+  },
+  {
+    "id": "word_0332",
+    "word": "cover",
+    "phonetic": "'kʌvə(r)",
+    "pos": "n",
+    "translations": [
+      "覆盖物",
+      "躲避处",
+      "封面",
+      "覆盖",
+      "遮盖"
+    ]
+  },
+  {
+    "id": "word_0333",
+    "word": "cow",
+    "phonetic": "kaʊ",
+    "pos": "n",
+    "translations": [
+      "母牛",
+      "奶牛"
+    ]
+  },
+  {
+    "id": "word_0334",
+    "word": "crazy",
+    "phonetic": "'kreɪzi",
+    "pos": "adj",
+    "translations": [
+      "疯狂的"
+    ]
+  },
+  {
+    "id": "word_0335",
+    "word": "create",
+    "phonetic": "kri'eɪt",
+    "pos": "v",
+    "translations": [
+      "创造",
+      "造成"
+    ]
+  },
+  {
+    "id": "word_0336",
+    "word": "creative",
+    "phonetic": "kri'eɪtɪv",
+    "pos": "adj",
+    "translations": [
+      "有创造力的",
+      "创造性的"
+    ]
+  },
+  {
+    "id": "word_0337",
+    "word": "cross",
+    "phonetic": "krɒs",
+    "pos": "n",
+    "translations": [
+      "十字形记号",
+      "越过",
+      "穿过"
+    ]
+  },
+  {
+    "id": "word_0338",
+    "word": "crowded",
+    "phonetic": "'kraʊdɪd",
+    "pos": "adj",
+    "translations": [
+      "人多的",
+      "拥挤的",
+      "挤满的"
+    ]
+  },
+  {
+    "id": "word_0339",
+    "word": "cry",
+    "phonetic": "kraɪ",
+    "pos": "n",
+    "translations": [
+      "叫喊",
+      "哭",
+      "喊叫"
+    ]
+  },
+  {
+    "id": "word_0340",
+    "word": "cucumber",
+    "phonetic": "'kjuːkʌmbə(r)",
+    "pos": "n",
+    "translations": [
+      "黄瓜",
+      "胡瓜"
+    ]
+  },
+  {
+    "id": "word_0341",
+    "word": "culture",
+    "phonetic": "'kʌltʃə(r)",
+    "pos": "n",
+    "translations": [
+      "文化"
+    ]
+  },
+  {
+    "id": "word_0342",
+    "word": "cup",
+    "phonetic": "kʌp",
+    "pos": "n",
+    "translations": [
+      "杯子",
+      "奖杯"
+    ]
+  },
+  {
+    "id": "word_0343",
+    "word": "curious",
+    "phonetic": "'kjʊəriəs",
+    "pos": "adj",
+    "translations": [
+      "好奇的",
+      "求知欲强的"
+    ]
+  },
+  {
+    "id": "word_0344",
+    "word": "customer",
+    "phonetic": "'kʌstəmə(r)",
+    "pos": "n",
+    "translations": [
+      "顾客"
+    ]
+  },
+  {
+    "id": "word_0345",
+    "word": "cut",
+    "phonetic": "kʌt",
+    "pos": "v",
+    "translations": [
+      "切",
+      "修剪",
+      "割",
+      "．伤口"
+    ]
+  },
+  {
+    "id": "word_0346",
+    "word": "cute",
+    "phonetic": "kjuːt",
+    "pos": "adj",
+    "translations": [
+      "可爱的"
+    ]
+  },
+  {
+    "id": "word_0347",
+    "word": "daily",
+    "phonetic": "'deɪli",
+    "pos": "adj",
+    "translations": [
+      "每日的"
+    ]
+  },
+  {
+    "id": "word_0348",
+    "word": "dance",
+    "phonetic": "dɑːns",
+    "pos": "n",
+    "translations": [
+      "舞蹈 v．跳舞"
+    ]
+  },
+  {
+    "id": "word_0349",
+    "word": "danger",
+    "phonetic": "'deɪndʒə(r)",
+    "pos": "n",
+    "translations": [
+      "危险"
+    ]
+  },
+  {
+    "id": "word_0350",
+    "word": "dangerous",
+    "phonetic": "'deɪndʒərəs",
+    "pos": "adj",
+    "translations": [
+      "危险的",
+      "不安全的"
+    ]
+  },
+  {
+    "id": "word_0351",
+    "word": "dark",
+    "phonetic": "dɑːk",
+    "pos": "n",
+    "translations": [
+      "．黑暗",
+      "暗色的"
+    ]
+  },
+  {
+    "id": "word_0352",
+    "word": "date",
+    "phonetic": "deɪt",
+    "pos": "n",
+    "translations": [
+      "日期",
+      "约会",
+      "注明日期",
+      "与……约会"
+    ]
+  },
+  {
+    "id": "word_0353",
+    "word": "daughter",
+    "phonetic": "'dɔːtə(r)",
+    "pos": "n",
+    "translations": [
+      "女儿"
+    ]
+  },
+  {
+    "id": "word_0354",
+    "word": "day",
+    "phonetic": "deɪ",
+    "pos": "n",
+    "translations": [
+      "一天",
+      "一日",
+      "白天"
+    ]
+  },
+  {
+    "id": "word_0355",
+    "word": "dead",
+    "phonetic": "ded",
+    "pos": "adj",
+    "translations": [
+      "死的",
+      "失去生命的"
+    ]
+  },
+  {
+    "id": "word_0356",
+    "word": "deaf",
+    "phonetic": "def",
+    "pos": "adj",
+    "translations": [
+      "聋的"
+    ]
+  },
+  {
+    "id": "word_0357",
+    "word": "deal",
+    "phonetic": "diːl",
+    "pos": "n",
+    "translations": [
+      "协议",
+      "交易",
+      "对待",
+      "对付"
+    ]
+  },
+  {
+    "id": "word_0358",
+    "word": "dear",
+    "phonetic": "dɪə(r)",
+    "pos": "adj",
+    "translations": [
+      "亲爱的",
+      "昂贵的"
+    ]
+  },
+  {
+    "id": "word_0359",
+    "word": "death",
+    "phonetic": "deθ",
+    "pos": "n",
+    "translations": [
+      "死",
+      "死亡"
+    ]
+  },
+  {
+    "id": "word_0360",
+    "word": "decide",
+    "phonetic": "dɪ'saɪd",
+    "pos": "v",
+    "translations": [
+      "决定",
+      "选定"
+    ]
+  },
+  {
+    "id": "word_0361",
+    "word": "deep",
+    "phonetic": "diːp",
+    "pos": "adj",
+    "translations": [
+      "深的",
+      "厚的",
+      "深深地",
+      "在深处"
+    ]
+  },
+  {
+    "id": "word_0362",
+    "word": "degree",
+    "phonetic": "dɪ'ɡriː",
+    "pos": "n",
+    "translations": [
+      "程度",
+      "度数"
+    ]
+  },
+  {
+    "id": "word_0363",
+    "word": "delicious",
+    "phonetic": "dɪ'lɪʃəs",
+    "pos": "adj",
+    "translations": [
+      "美味的",
+      "可口的"
+    ]
+  },
+  {
+    "id": "word_0364",
+    "word": "dentist",
+    "phonetic": "'dentɪst",
+    "pos": "n",
+    "translations": [
+      "牙科医生"
+    ]
+  },
+  {
+    "id": "word_0365",
+    "word": "depend",
+    "phonetic": "dɪ'pend",
+    "pos": "v",
+    "translations": [
+      "决定于",
+      "依靠",
+      "信赖"
+    ]
+  },
+  {
+    "id": "word_0366",
+    "word": "describe",
+    "phonetic": "dɪ'skraɪb",
+    "pos": "v",
+    "translations": [
+      "描述",
+      "形容"
+    ]
+  },
+  {
+    "id": "word_0367",
+    "word": "desert",
+    "phonetic": "'dezət",
+    "pos": "n",
+    "translations": [
+      "沙漠"
+    ]
+  },
+  {
+    "id": "word_0368",
+    "word": "design",
+    "phonetic": "dɪ'zaɪn",
+    "pos": "n",
+    "translations": [
+      "设计",
+      "布局",
+      "安排",
+      "．设计，构思",
+      "筹划"
+    ]
+  },
+  {
+    "id": "word_0369",
+    "word": "desk",
+    "phonetic": "desk",
+    "pos": "n",
+    "translations": [
+      "书桌",
+      "写字台"
+    ]
+  },
+  {
+    "id": "word_0370",
+    "word": "develop",
+    "phonetic": "dɪ'veləp",
+    "pos": "v",
+    "translations": [
+      "发展",
+      "开发",
+      "加强"
+    ]
+  },
+  {
+    "id": "word_0371",
+    "word": "dialogue",
+    "phonetic": "'daɪəlɒɡ",
+    "pos": "n",
+    "translations": [
+      "对话"
+    ]
+  },
+  {
+    "id": "word_0372",
+    "word": "diary",
+    "phonetic": "'daɪəri",
+    "pos": "n",
+    "translations": [
+      "日记",
+      "日记簿"
+    ]
+  },
+  {
+    "id": "word_0373",
+    "word": "dictionary",
+    "phonetic": "'dɪkʃənri",
+    "pos": "n",
+    "translations": [
+      "词典",
+      "字典"
+    ]
+  },
+  {
+    "id": "word_0374",
+    "word": "die",
+    "phonetic": "daɪ",
+    "pos": "v",
+    "translations": [
+      "死",
+      "死亡",
+      "消失"
+    ]
+  },
+  {
+    "id": "word_0375",
+    "word": "diet",
+    "phonetic": "'daɪət",
+    "pos": "n",
+    "translations": [
+      "日常饮食"
+    ]
+  },
+  {
+    "id": "word_0376",
+    "word": "difference",
+    "phonetic": "'dɪfrəns",
+    "pos": "n",
+    "translations": [
+      "差别",
+      "差异",
+      "分歧"
+    ]
+  },
+  {
+    "id": "word_0377",
+    "word": "different",
+    "phonetic": "'dɪfrənt",
+    "pos": "adj",
+    "translations": [
+      "不同的",
+      "有差异的"
+    ]
+  },
+  {
+    "id": "word_0378",
+    "word": "difficult",
+    "phonetic": "'dɪfɪkəlt",
+    "pos": "adj",
+    "translations": [
+      "困难的",
+      "费力的"
+    ]
+  },
+  {
+    "id": "word_0379",
+    "word": "dig",
+    "phonetic": "dɪɡ",
+    "pos": "v",
+    "translations": [
+      "挖",
+      "掘"
+    ]
+  },
+  {
+    "id": "word_0380",
+    "word": "digital",
+    "phonetic": "'dɪdʒɪt(ə)l",
+    "pos": "adj",
+    "translations": [
+      "数字的，数码的",
+      "数字的"
+    ]
+  },
+  {
+    "id": "word_0381",
+    "word": "dining",
+    "phonetic": "'daɪnɪ ",
+    "pos": "n",
+    "translations": [
+      "用餐"
+    ]
+  },
+  {
+    "id": "word_0382",
+    "word": "dinner",
+    "phonetic": "'dɪnə(r)",
+    "pos": "n",
+    "translations": [
+      "正餐",
+      "宴会"
+    ]
+  },
+  {
+    "id": "word_0383",
+    "word": "direct",
+    "phonetic": "də'rekt",
+    "pos": "adj",
+    "translations": [
+      "直接的 adv.径直地"
+    ]
+  },
+  {
+    "id": "word_0384",
+    "word": "director",
+    "phonetic": "də'rektə(r)",
+    "pos": "n",
+    "translations": [
+      "主任",
+      "导演",
+      "董事"
+    ]
+  },
+  {
+    "id": "word_0385",
+    "word": "dirty",
+    "phonetic": "'dɜːti",
+    "pos": "adj",
+    "translations": [
+      "肮脏的"
+    ]
+  },
+  {
+    "id": "word_0386",
+    "word": "disappoint",
+    "phonetic": "ˌdɪsə'pɔɪnt",
+    "pos": "v",
+    "translations": [
+      "使失望"
+    ]
+  },
+  {
+    "id": "word_0387",
+    "word": "disaster",
+    "phonetic": "dɪ'zɑːstə(r)",
+    "pos": "n",
+    "translations": [
+      "灾难，灾害"
+    ]
+  },
+  {
+    "id": "word_0388",
+    "word": "discover",
+    "phonetic": "dɪ'skʌvə(r)",
+    "pos": "v",
+    "translations": [
+      "发现"
+    ]
+  },
+  {
+    "id": "word_0389",
+    "word": "discuss",
+    "phonetic": "dɪ'skʌs",
+    "pos": "v",
+    "translations": [
+      "讨论",
+      "商量"
+    ]
+  },
+  {
+    "id": "word_0390",
+    "word": "disease",
+    "phonetic": "dɪ'ziːz",
+    "pos": "n",
+    "translations": [
+      "疾病，病害",
+      "疾病"
+    ]
+  },
+  {
+    "id": "word_0391",
+    "word": "dish",
+    "phonetic": "dɪʃ",
+    "pos": "n",
+    "translations": [
+      "盘",
+      "碟",
+      "菜肴"
+    ]
+  },
+  {
+    "id": "word_0392",
+    "word": "divide",
+    "phonetic": "dɪ'vaɪd",
+    "pos": "v",
+    "translations": [
+      "分开",
+      "分成……"
+    ]
+  },
+  {
+    "id": "word_0393",
+    "word": "do",
+    "phonetic": "duː",
+    "pos": "v",
+    "translations": [
+      "．做",
+      "干",
+      "用以"
+    ]
+  },
+  {
+    "id": "word_0394",
+    "word": "doctor",
+    "phonetic": "'dɒktə(r)",
+    "pos": "n",
+    "translations": [
+      "医生",
+      "大夫",
+      "博士"
+    ]
+  },
+  {
+    "id": "word_0395",
+    "word": "dog",
+    "phonetic": "dɒɡ",
+    "pos": "n",
+    "translations": [
+      "狗"
+    ]
+  },
+  {
+    "id": "word_0396",
+    "word": "doll",
+    "phonetic": "dəl",
+    "pos": "n",
+    "translations": [
+      "洋娃娃",
+      "玩偶"
+    ]
+  },
+  {
+    "id": "word_0397",
+    "word": "dollar",
+    "phonetic": "'dɒlə(r)",
+    "pos": "n",
+    "translations": [
+      "美元"
+    ]
+  },
+  {
+    "id": "word_0398",
+    "word": "donate",
+    "phonetic": "dəʊ'neɪt",
+    "pos": "v",
+    "translations": [
+      "捐赠，赠送",
+      "捐赠",
+      "捐献"
+    ]
+  },
+  {
+    "id": "word_0399",
+    "word": "door",
+    "phonetic": "dɔː(r)",
+    "pos": "n",
+    "translations": [
+      "门"
+    ]
+  },
+  {
+    "id": "word_0400",
+    "word": "double",
+    "phonetic": "'dʌbl",
+    "pos": "adj",
+    "translations": [
+      "两倍的"
+    ]
+  },
+  {
+    "id": "word_0401",
+    "word": "doubt",
+    "phonetic": "daʊt",
+    "pos": "n",
+    "translations": [
+      "．怀疑",
+      "怀疑",
+      "疑问"
+    ]
+  },
+  {
+    "id": "word_0402",
+    "word": "down",
+    "phonetic": "daʊn",
+    "pos": "prep",
+    "translations": [
+      "沿着",
+      "下降",
+      "沮丧的"
+    ]
+  },
+  {
+    "id": "word_0403",
+    "word": "download",
+    "phonetic": "ˌdaʊn'ləʊd",
+    "pos": "v",
+    "translations": [
+      "下载 n．下载，下载"
+    ]
+  },
+  {
+    "id": "word_0404",
+    "word": "dragon",
+    "phonetic": "'dræɡən",
+    "pos": "n",
+    "translations": [
+      "龙"
+    ]
+  },
+  {
+    "id": "word_0405",
+    "word": "drama",
+    "phonetic": "'drɑːmə",
+    "pos": "n",
+    "translations": [
+      "戏剧",
+      "话剧"
+    ]
+  },
+  {
+    "id": "word_0406",
+    "word": "draw",
+    "phonetic": "drɔː",
+    "pos": "v",
+    "translations": [
+      "绘画",
+      "吸引 n．抽签"
+    ]
+  },
+  {
+    "id": "word_0407",
+    "word": "dream",
+    "phonetic": "driːm",
+    "pos": "n",
+    "translations": [
+      "梦想",
+      "梦 v．做梦",
+      "梦"
+    ]
+  },
+  {
+    "id": "word_0408",
+    "word": "dress",
+    "phonetic": "dres",
+    "pos": "n",
+    "translations": [
+      "衣服",
+      "连衣裙 v．穿衣"
+    ]
+  },
+  {
+    "id": "word_0409",
+    "word": "drink",
+    "phonetic": "",
+    "pos": "v",
+    "translations": [
+      "喝",
+      "饮 n．饮料"
+    ]
+  },
+  {
+    "id": "word_0410",
+    "word": "drive",
+    "phonetic": "draɪv",
+    "pos": "v",
+    "translations": [
+      "驾驶",
+      "开车",
+      "迫使"
+    ]
+  },
+  {
+    "id": "word_0411",
+    "word": "driver",
+    "phonetic": "'draɪvə(r)",
+    "pos": "n",
+    "translations": [
+      "司机",
+      "驾驶员"
+    ]
+  },
+  {
+    "id": "word_0412",
+    "word": "drop",
+    "phonetic": "drɒp",
+    "pos": "n",
+    "translations": [
+      "滴",
+      "水珠",
+      "掉下",
+      "落下",
+      "遗漏",
+      "降低"
+    ]
+  },
+  {
+    "id": "word_0413",
+    "word": "dry",
+    "phonetic": "draɪ",
+    "pos": "v",
+    "translations": [
+      "擦干",
+      "干的",
+      "干燥的"
+    ]
+  },
+  {
+    "id": "word_0414",
+    "word": "duck",
+    "phonetic": "dʌk",
+    "pos": "n",
+    "translations": [
+      "鸭"
+    ]
+  },
+  {
+    "id": "word_0415",
+    "word": "dumpling",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "饺子",
+      "汤团"
+    ]
+  },
+  {
+    "id": "word_0416",
+    "word": "during",
+    "phonetic": "",
+    "pos": "prep",
+    "translations": [
+      "在……期间"
+    ]
+  },
+  {
+    "id": "word_0417",
+    "word": "duty",
+    "phonetic": "'djuːti",
+    "pos": "n",
+    "translations": [
+      "责任",
+      "义务"
+    ]
+  },
+  {
+    "id": "word_0418",
+    "word": "each",
+    "phonetic": "iːtʃ",
+    "pos": "adj",
+    "translations": [
+      "各个",
+      "各"
+    ]
+  },
+  {
+    "id": "word_0419",
+    "word": "eagle",
+    "phonetic": "'iːɡ(ə)l",
+    "pos": "n",
+    "translations": [
+      "鹰",
+      "雕"
+    ]
+  },
+  {
+    "id": "word_0420",
+    "word": "ear",
+    "phonetic": "ɪə(r)",
+    "pos": "n",
+    "translations": [
+      "耳朵",
+      "灵敏的听力"
+    ]
+  },
+  {
+    "id": "word_0421",
+    "word": "early",
+    "phonetic": "'ɜːli",
+    "pos": "adj",
+    "translations": [
+      "早的"
+    ]
+  },
+  {
+    "id": "word_0422",
+    "word": "earth",
+    "phonetic": "ɜːθ",
+    "pos": "n",
+    "translations": [
+      "世界",
+      "地球",
+      "陆地"
+    ]
+  },
+  {
+    "id": "word_0423",
+    "word": "earthquake",
+    "phonetic": "'ɜːθkweɪk",
+    "pos": "n",
+    "translations": [
+      "地震"
+    ]
+  },
+  {
+    "id": "word_0424",
+    "word": "east",
+    "phonetic": "iːst",
+    "pos": "adj",
+    "translations": [
+      "东方的",
+      "朝东",
+      "东",
+      "东方",
+      "东部"
+    ]
+  },
+  {
+    "id": "word_0425",
+    "word": "easy",
+    "phonetic": "'iːzi",
+    "pos": "adj",
+    "translations": [
+      "容易的",
+      "不费"
+    ]
+  },
+  {
+    "id": "word_0426",
+    "word": "eat",
+    "phonetic": "iːt",
+    "pos": "v",
+    "translations": [
+      "吃"
+    ]
+  },
+  {
+    "id": "word_0427",
+    "word": "education",
+    "phonetic": "ˌedʒu'keɪʃn",
+    "pos": "n",
+    "translations": [
+      "教育",
+      "培养"
+    ]
+  },
+  {
+    "id": "word_0428",
+    "word": "effect",
+    "phonetic": "ɪ'fekt",
+    "pos": "n",
+    "translations": [
+      "作用",
+      "影响",
+      "实现",
+      "引起"
+    ]
+  },
+  {
+    "id": "word_0429",
+    "word": "effort",
+    "phonetic": "'efət",
+    "pos": "n",
+    "translations": [
+      "努力",
+      "尽力"
+    ]
+  },
+  {
+    "id": "word_0430",
+    "word": "egg",
+    "phonetic": "eɡ",
+    "pos": "n",
+    "translations": [
+      "蛋",
+      "卵"
+    ]
+  },
+  {
+    "id": "word_0431",
+    "word": "either",
+    "phonetic": "'aɪðə(r)",
+    "pos": "adv",
+    "translations": [
+      "也"
+    ]
+  },
+  {
+    "id": "word_0432",
+    "word": "elder",
+    "phonetic": "'eldə(r)",
+    "pos": "n",
+    "translations": [
+      "长者",
+      "长老",
+      "年纪较长的"
+    ]
+  },
+  {
+    "id": "word_0433",
+    "word": "electric",
+    "phonetic": "ɪ'lektrɪk",
+    "pos": "adj",
+    "translations": [
+      "电的"
+    ]
+  },
+  {
+    "id": "word_0434",
+    "word": "electronic",
+    "phonetic": "ɪˌlek'trɒnɪk",
+    "pos": "adj",
+    "translations": [
+      "电子的",
+      "电子设备的",
+      "电子设备"
+    ]
+  },
+  {
+    "id": "word_0435",
+    "word": "elephant",
+    "phonetic": "'elɪfənt",
+    "pos": "n",
+    "translations": [
+      "象"
+    ]
+  },
+  {
+    "id": "word_0436",
+    "word": "else",
+    "phonetic": "els",
+    "pos": "adv",
+    "translations": [
+      "别的",
+      "其他的"
+    ]
+  },
+  {
+    "id": "word_0437",
+    "word": "email",
+    "phonetic": "'iːmeɪl",
+    "pos": "n",
+    "translations": [
+      "电子邮件",
+      "发电子邮件"
+    ]
+  },
+  {
+    "id": "word_0438",
+    "word": "emergency",
+    "phonetic": "ɪ'mɜːdʒənsi",
+    "pos": "n",
+    "translations": [
+      "突发事件，紧急情况"
+    ]
+  },
+  {
+    "id": "word_0439",
+    "word": "emperor",
+    "phonetic": "'empərə",
+    "pos": "n",
+    "translations": [
+      "皇帝"
+    ]
+  },
+  {
+    "id": "word_0440",
+    "word": "empty",
+    "phonetic": "'empti",
+    "pos": "adj",
+    "translations": [
+      "空的"
+    ]
+  },
+  {
+    "id": "word_0441",
+    "word": "encourage",
+    "phonetic": "ɪn'kʌrɪdʒ",
+    "pos": "v",
+    "translations": [
+      "鼓励"
+    ]
+  },
+  {
+    "id": "word_0442",
+    "word": "end",
+    "phonetic": "end",
+    "pos": "n",
+    "translations": [
+      "结尾",
+      "终止",
+      "结束"
+    ]
+  },
+  {
+    "id": "word_0443",
+    "word": "enemy",
+    "phonetic": "'enəmi",
+    "pos": "n",
+    "translations": [
+      "敌人",
+      "仇人"
+    ]
+  },
+  {
+    "id": "word_0444",
+    "word": "energetic",
+    "phonetic": "ˌenə'dʒetɪk",
+    "pos": "adj",
+    "translations": [
+      "精力充沛的，充满活",
+      "精力充沛的"
+    ]
+  },
+  {
+    "id": "word_0445",
+    "word": "energy",
+    "phonetic": "'enədʒi",
+    "pos": "n",
+    "translations": [
+      "力量",
+      "精力",
+      "能源",
+      "能"
+    ]
+  },
+  {
+    "id": "word_0446",
+    "word": "engineer",
+    "phonetic": "ˌendʒɪ'nɪə(r)",
+    "pos": "n",
+    "translations": [
+      "工程师",
+      "技师"
+    ]
+  },
+  {
+    "id": "word_0447",
+    "word": "enjoy",
+    "phonetic": "ɪn'dʒɔɪ",
+    "pos": "v",
+    "translations": [
+      "欣赏",
+      "享受……的乐趣",
+      "喜欢"
+    ]
+  },
+  {
+    "id": "word_0448",
+    "word": "enough",
+    "phonetic": "ɪ'nʌf",
+    "pos": "adj",
+    "translations": [
+      "足够的"
+    ]
+  },
+  {
+    "id": "word_0449",
+    "word": "enter",
+    "phonetic": "'entə(r)",
+    "pos": "v",
+    "translations": [
+      "进入"
+    ]
+  },
+  {
+    "id": "word_0450",
+    "word": "environment",
+    "phonetic": "ɪn'vaɪrənmənt",
+    "pos": "n",
+    "translations": [
+      "环境"
+    ]
+  },
+  {
+    "id": "word_0451",
+    "word": "era",
+    "phonetic": "'ɪərə",
+    "pos": "n",
+    "translations": [
+      "时代",
+      "年代",
+      "纪元"
+    ]
+  },
+  {
+    "id": "word_0452",
+    "word": "eraser",
+    "phonetic": "ɪ'reɪzə(r)",
+    "pos": "n",
+    "translations": [
+      "橡皮",
+      "黑板擦",
+      "橡皮擦"
+    ]
+  },
+  {
+    "id": "word_0453",
+    "word": "especially",
+    "phonetic": "ɪ'speʃəli",
+    "pos": "adv",
+    "translations": [
+      "特别",
+      "尤其"
+    ]
+  },
+  {
+    "id": "word_0454",
+    "word": "even",
+    "phonetic": "'iːvn",
+    "pos": "adv",
+    "translations": [
+      "甚至",
+      "即使"
+    ]
+  },
+  {
+    "id": "word_0455",
+    "word": "evening",
+    "phonetic": "'iːvnɪ ",
+    "pos": "n",
+    "translations": [
+      "傍晚",
+      "晚上"
+    ]
+  },
+  {
+    "id": "word_0456",
+    "word": "event",
+    "phonetic": "ɪ'vent",
+    "pos": "n",
+    "translations": [
+      "大事",
+      "公开活动",
+      "比"
+    ]
+  },
+  {
+    "id": "word_0457",
+    "word": "ever",
+    "phonetic": "'evə(r)",
+    "pos": "adv",
+    "translations": [
+      "曾经"
+    ]
+  },
+  {
+    "id": "word_0458",
+    "word": "every",
+    "phonetic": "'evri",
+    "pos": "adj",
+    "translations": [
+      "每一",
+      "每个"
+    ]
+  },
+  {
+    "id": "word_0459",
+    "word": "everybody",
+    "phonetic": "'evribɒdi",
+    "pos": "pron",
+    "translations": [
+      "每人",
+      "人人"
+    ]
+  },
+  {
+    "id": "word_0460",
+    "word": "everyday",
+    "phonetic": "'evrideɪ",
+    "pos": "adj",
+    "translations": [
+      "每日的",
+      "日常的"
+    ]
+  },
+  {
+    "id": "word_0461",
+    "word": "everyone",
+    "phonetic": "'evriwʌn",
+    "pos": "pron",
+    "translations": [
+      "每人",
+      "人人"
+    ]
+  },
+  {
+    "id": "word_0462",
+    "word": "everything",
+    "phonetic": "'evriθɪ ",
+    "pos": "pron",
+    "translations": [
+      "每件事",
+      "一切"
+    ]
+  },
+  {
+    "id": "word_0463",
+    "word": "everywhere",
+    "phonetic": "'evriweə(r)",
+    "pos": "adv",
+    "translations": [
+      "到处",
+      "处处"
+    ]
+  },
+  {
+    "id": "word_0464",
+    "word": "exactly",
+    "phonetic": "ɪɡ'zæktli",
+    "pos": "adv",
+    "translations": [
+      "确切地",
+      "精确地"
+    ]
+  },
+  {
+    "id": "word_0465",
+    "word": "exam",
+    "phonetic": "ɪɡ'zæm",
+    "pos": "n",
+    "translations": [
+      "考试",
+      "检查",
+      "体检"
+    ]
+  },
+  {
+    "id": "word_0466",
+    "word": "example",
+    "phonetic": "ɪɡ'zɑːmpl",
+    "pos": "n",
+    "translations": [
+      "例子",
+      "榜样"
+    ]
+  },
+  {
+    "id": "word_0467",
+    "word": "excellent",
+    "phonetic": "'eksələnt",
+    "pos": "adj",
+    "translations": [
+      "极好的",
+      "优秀的"
+    ]
+  },
+  {
+    "id": "word_0468",
+    "word": "except",
+    "phonetic": "ɪk'sept",
+    "pos": "prep",
+    "translations": [
+      "除……之外",
+      "不包括",
+      "除了",
+      "只是",
+      "除……以外"
+    ]
+  },
+  {
+    "id": "word_0469",
+    "word": "excited",
+    "phonetic": " ɪk'saɪtɪd",
+    "pos": "adj",
+    "translations": [
+      "激动的",
+      "兴奋的"
+    ]
+  },
+  {
+    "id": "word_0470",
+    "word": "exciting",
+    "phonetic": "ɪk'saɪtɪ ",
+    "pos": "adj",
+    "translations": [
+      "使人兴奋的",
+      "令人激"
+    ]
+  },
+  {
+    "id": "word_0471",
+    "word": "excuse",
+    "phonetic": "ɪk'skjuːs",
+    "pos": "v",
+    "translations": [
+      "原谅",
+      "宽恕",
+      "借口",
+      "辩解"
+    ]
+  },
+  {
+    "id": "word_0472",
+    "word": "exercise",
+    "phonetic": "'eksəsaɪz",
+    "pos": "n",
+    "translations": [
+      "锻炼",
+      "做操",
+      "习题"
+    ]
+  },
+  {
+    "id": "word_0473",
+    "word": "expect",
+    "phonetic": "ɪk'spekt",
+    "pos": "v",
+    "translations": [
+      "预料",
+      "盼望"
+    ]
+  },
+  {
+    "id": "word_0474",
+    "word": "expensive",
+    "phonetic": "ɪk'spensɪv",
+    "pos": "adj",
+    "translations": [
+      "昂贵的"
+    ]
+  },
+  {
+    "id": "word_0475",
+    "word": "experience",
+    "phonetic": "ɪk'spɪəriəns",
+    "pos": "n",
+    "translations": [
+      "经验",
+      "经历"
+    ]
+  },
+  {
+    "id": "word_0476",
+    "word": "expert",
+    "phonetic": "'ekspɜːt",
+    "pos": "n",
+    "translations": [
+      "专家",
+      "专家的",
+      "熟练的"
+    ]
+  },
+  {
+    "id": "word_0477",
+    "word": "explain",
+    "phonetic": "ɪk'spleɪn",
+    "pos": "v",
+    "translations": [
+      "解释",
+      "说明"
+    ]
+  },
+  {
+    "id": "word_0478",
+    "word": "explore",
+    "phonetic": "ɪk'splɔː(r)",
+    "pos": "v",
+    "translations": [
+      "探讨，探究",
+      "考察，"
+    ]
+  },
+  {
+    "id": "word_0479",
+    "word": "express",
+    "phonetic": "ɪk'spres",
+    "pos": "v",
+    "translations": [
+      "表达",
+      "表示 n．特快列车",
+      "快递服务",
+      "特快的",
+      "快递的"
+    ]
+  },
+  {
+    "id": "word_0480",
+    "word": "eye",
+    "phonetic": "aɪ",
+    "pos": "n",
+    "translations": [
+      "眼睛"
+    ]
+  },
+  {
+    "id": "word_0481",
+    "word": "face",
+    "phonetic": "feɪs",
+    "pos": "n",
+    "translations": [
+      "脸 v．面向",
+      "面对"
+    ]
+  },
+  {
+    "id": "word_0482",
+    "word": "fact",
+    "phonetic": "fækt",
+    "pos": "n",
+    "translations": [
+      "事实",
+      "现实"
+    ]
+  },
+  {
+    "id": "word_0483",
+    "word": "factory",
+    "phonetic": "'fæktri",
+    "pos": "n",
+    "translations": [
+      "工厂"
+    ]
+  },
+  {
+    "id": "word_0484",
+    "word": "fail",
+    "phonetic": "feɪl",
+    "pos": "v",
+    "translations": [
+      "失败",
+      "不及格",
+      "未做"
+    ]
+  },
+  {
+    "id": "word_0485",
+    "word": "fair",
+    "phonetic": "feə(r)",
+    "pos": "adj",
+    "translations": [
+      "公正的",
+      "合理的",
+      "白"
+    ]
+  },
+  {
+    "id": "word_0486",
+    "word": "fall",
+    "phonetic": "fɔːl",
+    "pos": "v",
+    "translations": [
+      "落下",
+      "掉落",
+      "下降",
+      "进入",
+      "减少"
+    ]
+  },
+  {
+    "id": "word_0487",
+    "word": "false",
+    "phonetic": "fɔːls",
+    "pos": "adj",
+    "translations": [
+      "错误的，不真实的",
+      "不正确的"
+    ]
+  },
+  {
+    "id": "word_0488",
+    "word": "familiar",
+    "phonetic": "fə'mɪliə(r)",
+    "pos": "adj",
+    "translations": [
+      "熟悉的"
+    ]
+  },
+  {
+    "id": "word_0489",
+    "word": "family",
+    "phonetic": "'fæməli",
+    "pos": "n",
+    "translations": [
+      "家庭"
+    ]
+  },
+  {
+    "id": "word_0490",
+    "word": "famous",
+    "phonetic": "'feɪməs",
+    "pos": "adj",
+    "translations": [
+      "著名的"
+    ]
+  },
+  {
+    "id": "word_0491",
+    "word": "fan",
+    "phonetic": "fæn",
+    "pos": "n",
+    "translations": [
+      "风扇",
+      "迷"
+    ]
+  },
+  {
+    "id": "word_0492",
+    "word": "fantastic",
+    "phonetic": "fæn'tæstɪk",
+    "pos": "adj",
+    "translations": [
+      "极好的",
+      "了不起的",
+      "异想天开的"
+    ]
+  },
+  {
+    "id": "word_0493",
+    "word": "far",
+    "phonetic": "fɑː(r)",
+    "pos": "adj",
+    "translations": [
+      "远的",
+      "遥远的"
+    ]
+  },
+  {
+    "id": "word_0494",
+    "word": "farm",
+    "phonetic": "fɑːm",
+    "pos": "n",
+    "translations": [
+      "农场 v．务农"
+    ]
+  },
+  {
+    "id": "word_0495",
+    "word": "farmer",
+    "phonetic": "'fɑːmə(r)",
+    "pos": "n",
+    "translations": [
+      "农民"
+    ]
+  },
+  {
+    "id": "word_0496",
+    "word": "fashion",
+    "phonetic": "'fæʃ(ə)n",
+    "pos": "n",
+    "translations": [
+      "时髦打扮",
+      "时尚"
+    ]
+  },
+  {
+    "id": "word_0497",
+    "word": "fast",
+    "phonetic": "fɑːst",
+    "pos": "adj",
+    "translations": [
+      "快的"
+    ]
+  },
+  {
+    "id": "word_0498",
+    "word": "fat",
+    "phonetic": "fæt",
+    "pos": "n",
+    "translations": [
+      "肥的"
+    ]
+  },
+  {
+    "id": "word_0499",
+    "word": "father",
+    "phonetic": "'fɑːðə(r)",
+    "pos": "n",
+    "translations": [
+      "父亲",
+      "爸爸"
+    ]
+  },
+  {
+    "id": "word_0500",
+    "word": "favourite",
+    "phonetic": "'feɪvərɪt",
+    "pos": "adj",
+    "translations": [
+      "特别喜爱的 n.特别喜"
+    ]
+  },
+  {
+    "id": "word_0501",
+    "word": "fear",
+    "phonetic": "fɪə(r)",
+    "pos": "v",
+    "translations": [
+      "．害怕",
+      "恐惧",
+      "担忧"
+    ]
+  },
+  {
+    "id": "word_0502",
+    "word": "feed",
+    "phonetic": "fiːd",
+    "pos": "v",
+    "translations": [
+      "喂养",
+      "饲养"
+    ]
+  },
+  {
+    "id": "word_0503",
+    "word": "feel",
+    "phonetic": "fiːl",
+    "pos": "v",
+    "translations": [
+      "感到",
+      "觉得",
+      "意识到"
+    ]
+  },
+  {
+    "id": "word_0504",
+    "word": "feeling",
+    "phonetic": "'fiːlɪ ",
+    "pos": "n",
+    "translations": [
+      "感觉",
+      "看法",
+      "意见",
+      "感"
+    ]
+  },
+  {
+    "id": "word_0505",
+    "word": "festival",
+    "phonetic": "'festɪvl",
+    "pos": "n",
+    "translations": [
+      "节日"
+    ]
+  },
+  {
+    "id": "word_0506",
+    "word": "fever",
+    "phonetic": "'fiːvə(r)",
+    "pos": "n",
+    "translations": [
+      "发烧",
+      "发热"
+    ]
+  },
+  {
+    "id": "word_0507",
+    "word": "few",
+    "phonetic": "fjuː",
+    "pos": "pron",
+    "translations": [
+      "很少人",
+      "不多",
+      "很少"
+    ]
+  },
+  {
+    "id": "word_0508",
+    "word": "field",
+    "phonetic": "fiːld",
+    "pos": "n",
+    "translations": [
+      "田野",
+      "场地",
+      "领域"
+    ]
+  },
+  {
+    "id": "word_0509",
+    "word": "fight",
+    "phonetic": "faɪt",
+    "pos": "v",
+    "translations": [
+      "．打架",
+      "斗争"
+    ]
+  },
+  {
+    "id": "word_0510",
+    "word": "fill",
+    "phonetic": "fɪl",
+    "pos": "v",
+    "translations": [
+      "填满",
+      "装满"
+    ]
+  },
+  {
+    "id": "word_0511",
+    "word": "film",
+    "phonetic": "fɪlm",
+    "pos": "n",
+    "translations": [
+      "电影",
+      "胶片 v．拍摄"
+    ]
+  },
+  {
+    "id": "word_0512",
+    "word": "final",
+    "phonetic": "'faɪn(ə)l",
+    "pos": "adj",
+    "translations": [
+      "最后的",
+      "最终的"
+    ]
+  },
+  {
+    "id": "word_0513",
+    "word": "find",
+    "phonetic": "faɪnd",
+    "pos": "v",
+    "translations": [
+      "找到",
+      "发现",
+      "感到"
+    ]
+  },
+  {
+    "id": "word_0514",
+    "word": "fine",
+    "phonetic": "faɪn",
+    "pos": "adj",
+    "translations": [
+      "晴朗的",
+      "美好的",
+      "好看的 v． 罚款"
+    ]
+  },
+  {
+    "id": "word_0515",
+    "word": "finger",
+    "phonetic": "'fɪ ɡə(r)",
+    "pos": "n",
+    "translations": [
+      "手指"
+    ]
+  },
+  {
+    "id": "word_0516",
+    "word": "finish",
+    "phonetic": "'fɪnɪʃ",
+    "pos": "v",
+    "translations": [
+      "结束",
+      "完成"
+    ]
+  },
+  {
+    "id": "word_0517",
+    "word": "fire",
+    "phonetic": "'faɪə(r)",
+    "pos": "n",
+    "translations": [
+      "火",
+      "开"
+    ]
+  },
+  {
+    "id": "word_0518",
+    "word": "fireman",
+    "phonetic": "'faɪəmən",
+    "pos": "n",
+    "translations": [
+      "消防员"
+    ]
+  },
+  {
+    "id": "word_0519",
+    "word": "firework",
+    "phonetic": "'faɪəwɜːk",
+    "pos": "n",
+    "translations": [
+      "烟火，烟花"
+    ]
+  },
+  {
+    "id": "word_0520",
+    "word": "fish",
+    "phonetic": "fɪʃ",
+    "pos": "n",
+    "translations": [
+      "鱼",
+      "鱼肉 v．钓鱼"
+    ]
+  },
+  {
+    "id": "word_0521",
+    "word": "fit",
+    "phonetic": "fɪt",
+    "pos": "adj",
+    "translations": [
+      "健康的",
+      "适合的",
+      "适合，合身"
+    ]
+  },
+  {
+    "id": "word_0522",
+    "word": "fix",
+    "phonetic": "fɪks",
+    "pos": "v",
+    "translations": [
+      "修理",
+      "安装",
+      "确定"
+    ]
+  },
+  {
+    "id": "word_0523",
+    "word": "flag",
+    "phonetic": "flæɡ",
+    "pos": "n",
+    "translations": [
+      "旗",
+      "旗帜"
+    ]
+  },
+  {
+    "id": "word_0524",
+    "word": "flat",
+    "phonetic": "flæt",
+    "pos": "n",
+    "translations": [
+      "单调的，乏味的"
+    ]
+  },
+  {
+    "id": "word_0525",
+    "word": "flood",
+    "phonetic": "flʌd",
+    "pos": "v",
+    "translations": [
+      "泛滥",
+      "涌入",
+      "．洪水，水灾"
+    ]
+  },
+  {
+    "id": "word_0526",
+    "word": "floor",
+    "phonetic": "flɔː(r)",
+    "pos": "n",
+    "translations": [
+      "地板",
+      "楼层"
+    ]
+  },
+  {
+    "id": "word_0527",
+    "word": "flower",
+    "phonetic": "'flaʊə(r)",
+    "pos": "n",
+    "translations": [
+      "花",
+      "花朵"
+    ]
+  },
+  {
+    "id": "word_0528",
+    "word": "flu",
+    "phonetic": "fluː",
+    "pos": "n",
+    "translations": [
+      "流行性感冒",
+      "流感"
+    ]
+  },
+  {
+    "id": "word_0529",
+    "word": "fly",
+    "phonetic": "flaɪ",
+    "pos": "n",
+    "translations": [
+      "苍蝇 v.飞"
+    ]
+  },
+  {
+    "id": "word_0530",
+    "word": "focus",
+    "phonetic": "'fəʊkəs",
+    "pos": "n",
+    "translations": [
+      "重点",
+      "中心点",
+      "集中",
+      "关注"
+    ]
+  },
+  {
+    "id": "word_0531",
+    "word": "fog",
+    "phonetic": "fɒɡ",
+    "pos": "n",
+    "translations": [
+      "雾",
+      "烟雾"
+    ]
+  },
+  {
+    "id": "word_0532",
+    "word": "folk",
+    "phonetic": "fəʊk",
+    "pos": "adj",
+    "translations": [
+      "民间的",
+      "民俗的",
+      "人们"
+    ]
+  },
+  {
+    "id": "word_0533",
+    "word": "follow",
+    "phonetic": "'fɒləʊ",
+    "pos": "v",
+    "translations": [
+      "跟随",
+      "仿效",
+      "遵循"
+    ]
+  },
+  {
+    "id": "word_0534",
+    "word": "food",
+    "phonetic": "fuːd",
+    "pos": "n",
+    "translations": [
+      "食物"
+    ]
+  },
+  {
+    "id": "word_0535",
+    "word": "fool",
+    "phonetic": "fuːl",
+    "pos": "n",
+    "translations": [
+      "傻瓜",
+      "笨蛋",
+      "开玩笑",
+      "戏谑"
+    ]
+  },
+  {
+    "id": "word_0536",
+    "word": "foot",
+    "phonetic": "fʊt",
+    "pos": "n",
+    "translations": [
+      "足，脚",
+      "英尺"
+    ]
+  },
+  {
+    "id": "word_0537",
+    "word": "football",
+    "phonetic": "'fʊtbɔːl",
+    "pos": "n",
+    "translations": [
+      "足球"
+    ]
+  },
+  {
+    "id": "word_0538",
+    "word": "for",
+    "phonetic": "fɔː(r)",
+    "pos": "prep",
+    "translations": [
+      "对",
+      "供",
+      "关于",
+      "为了",
+      "因为",
+      "由于"
+    ]
+  },
+  {
+    "id": "word_0539",
+    "word": "force",
+    "phonetic": "fɔːs",
+    "pos": "v",
+    "translations": [
+      "强迫",
+      "迫使",
+      "．力量",
+      "武力",
+      "力量"
+    ]
+  },
+  {
+    "id": "word_0540",
+    "word": "foreign",
+    "phonetic": "'fɒrən",
+    "pos": "adj",
+    "translations": [
+      "外国的"
+    ]
+  },
+  {
+    "id": "word_0541",
+    "word": "forest",
+    "phonetic": "'fɒrɪst",
+    "pos": "n",
+    "translations": [
+      "森林"
+    ]
+  },
+  {
+    "id": "word_0542",
+    "word": "forever",
+    "phonetic": "fər'evə",
+    "pos": "adv",
+    "translations": [
+      "永远"
+    ]
+  },
+  {
+    "id": "word_0543",
+    "word": "forget",
+    "phonetic": "fə'ɡet",
+    "pos": "v",
+    "translations": [
+      "忘记",
+      "遗忘"
+    ]
+  },
+  {
+    "id": "word_0544",
+    "word": "fork",
+    "phonetic": "fɔːk",
+    "pos": "n",
+    "translations": [
+      "叉",
+      "餐叉"
+    ]
+  },
+  {
+    "id": "word_0545",
+    "word": "form",
+    "phonetic": "fɔːm",
+    "pos": "n",
+    "translations": [
+      "表格",
+      "形式",
+      "体形",
+      "组成"
+    ]
+  },
+  {
+    "id": "word_0546",
+    "word": "forward",
+    "phonetic": "'fɔːwəd",
+    "pos": "v",
+    "translations": [
+      "转寄",
+      "发送",
+      "向前",
+      "前进"
+    ]
+  },
+  {
+    "id": "word_0547",
+    "word": "found",
+    "phonetic": "faʊnd",
+    "pos": "v",
+    "translations": [
+      "创办，成立",
+      "偶然发现的"
+    ]
+  },
+  {
+    "id": "word_0548",
+    "word": "fox",
+    "phonetic": "fɒks",
+    "pos": "n",
+    "translations": [
+      "狐狸"
+    ]
+  },
+  {
+    "id": "word_0549",
+    "word": "free",
+    "phonetic": "friː",
+    "pos": "adj",
+    "translations": [
+      "自由的",
+      "空闲的",
+      "免费的"
+    ]
+  },
+  {
+    "id": "word_0550",
+    "word": "freeze",
+    "phonetic": "friːz",
+    "pos": "v",
+    "translations": [
+      "结冰",
+      "冻住",
+      "冷藏，"
+    ]
+  },
+  {
+    "id": "word_0551",
+    "word": "fresh",
+    "phonetic": "freʃ",
+    "pos": "adj",
+    "translations": [
+      "新鲜的"
+    ]
+  },
+  {
+    "id": "word_0552",
+    "word": "fridge",
+    "phonetic": "frɪdʒ",
+    "pos": "n",
+    "translations": [
+      "冰箱"
+    ]
+  },
+  {
+    "id": "word_0553",
+    "word": "friend",
+    "phonetic": "frend",
+    "pos": "n",
+    "translations": [
+      "朋友"
+    ]
+  },
+  {
+    "id": "word_0554",
+    "word": "friendly",
+    "phonetic": "'frendli",
+    "pos": "adj",
+    "translations": [
+      "友好的"
+    ]
+  },
+  {
+    "id": "word_0555",
+    "word": "friendship",
+    "phonetic": "'frendʃɪp",
+    "pos": "n",
+    "translations": [
+      "友谊",
+      "友情"
+    ]
+  },
+  {
+    "id": "word_0556",
+    "word": "from",
+    "phonetic": "frɒm",
+    "pos": "prep",
+    "translations": [
+      "从……起",
+      "来自"
+    ]
+  },
+  {
+    "id": "word_0557",
+    "word": "front",
+    "phonetic": "frʌnt",
+    "pos": "adj",
+    "translations": [
+      "前面的",
+      "前部"
+    ]
+  },
+  {
+    "id": "word_0558",
+    "word": "fruit",
+    "phonetic": "fruːt",
+    "pos": "n",
+    "translations": [
+      "水果",
+      "成果"
+    ]
+  },
+  {
+    "id": "word_0559",
+    "word": "full",
+    "phonetic": "fʊl",
+    "pos": "adj",
+    "translations": [
+      "满的",
+      "充满的"
+    ]
+  },
+  {
+    "id": "word_0560",
+    "word": "fun",
+    "phonetic": "fʌn",
+    "pos": "n",
+    "translations": [
+      "乐趣",
+      "快乐",
+      "使人愉快"
+    ]
+  },
+  {
+    "id": "word_0561",
+    "word": "funny",
+    "phonetic": "'fʌni",
+    "pos": "adj",
+    "translations": [
+      "滑稽的",
+      "好笑的"
+    ]
+  },
+  {
+    "id": "word_0562",
+    "word": "future",
+    "phonetic": "'fjuːtʃə(r)",
+    "pos": "n",
+    "translations": [
+      "将来"
+    ]
+  },
+  {
+    "id": "word_0563",
+    "word": "game",
+    "phonetic": "ɡeɪm",
+    "pos": "n",
+    "translations": [
+      "游戏",
+      "运动",
+      "比赛"
+    ]
+  },
+  {
+    "id": "word_0564",
+    "word": "garden",
+    "phonetic": "'ɡɑːd(ə)n",
+    "pos": "n",
+    "translations": [
+      "花园",
+      "果园",
+      "菜园"
+    ]
+  },
+  {
+    "id": "word_0565",
+    "word": "gas",
+    "phonetic": "ɡæs",
+    "pos": "n",
+    "translations": [
+      "气体",
+      "汽油"
+    ]
+  },
+  {
+    "id": "word_0566",
+    "word": "gate",
+    "phonetic": "ɡeɪt",
+    "pos": "n",
+    "translations": [
+      "大门"
+    ]
+  },
+  {
+    "id": "word_0567",
+    "word": "general",
+    "phonetic": "'dʒenrəl",
+    "pos": "adj",
+    "translations": [
+      "全体的",
+      "普遍的"
+    ]
+  },
+  {
+    "id": "word_0568",
+    "word": "gentleman",
+    "phonetic": "'dʒentlmən",
+    "pos": "n",
+    "translations": [
+      "绅士",
+      "先生"
+    ]
+  },
+  {
+    "id": "word_0569",
+    "word": "geography",
+    "phonetic": "dʒi'ɒɡrəfi",
+    "pos": "n",
+    "translations": [
+      "地理"
+    ]
+  },
+  {
+    "id": "word_0570",
+    "word": "get",
+    "phonetic": "ɡet",
+    "pos": "v",
+    "translations": [
+      "去取",
+      "收到"
+    ]
+  },
+  {
+    "id": "word_0571",
+    "word": "gift",
+    "phonetic": "ɡɪft",
+    "pos": "n",
+    "translations": [
+      "礼物",
+      "赠品",
+      "天赋"
+    ]
+  },
+  {
+    "id": "word_0572",
+    "word": "giraffe",
+    "phonetic": "dʒə'rɑːf",
+    "pos": "n",
+    "translations": [
+      "长颈鹿"
+    ]
+  },
+  {
+    "id": "word_0573",
+    "word": "girl",
+    "phonetic": "ɡɜːl",
+    "pos": "n",
+    "translations": [
+      "女孩"
+    ]
+  },
+  {
+    "id": "word_0574",
+    "word": "give",
+    "phonetic": "ɡɪv",
+    "pos": "v",
+    "translations": [
+      "给",
+      "交给",
+      "赠送",
+      "举"
+    ]
+  },
+  {
+    "id": "word_0575",
+    "word": "glad",
+    "phonetic": "ɡlæd",
+    "pos": "adj",
+    "translations": [
+      "高兴",
+      "乐意"
+    ]
+  },
+  {
+    "id": "word_0576",
+    "word": "glass",
+    "phonetic": "ɡlɑːs",
+    "pos": "n",
+    "translations": [
+      "玻璃杯"
+    ]
+  },
+  {
+    "id": "word_0577",
+    "word": "glove",
+    "phonetic": "ɡlʌv",
+    "pos": "n",
+    "translations": [
+      "手套"
+    ]
+  },
+  {
+    "id": "word_0578",
+    "word": "glue",
+    "phonetic": "ɡluː",
+    "pos": "n",
+    "translations": [
+      "胶水"
+    ]
+  },
+  {
+    "id": "word_0579",
+    "word": "go",
+    "phonetic": "ɡəʊ",
+    "pos": "v",
+    "translations": [
+      "去",
+      "走",
+      "离开"
+    ]
+  },
+  {
+    "id": "word_0580",
+    "word": "goal",
+    "phonetic": "ɡəʊl",
+    "pos": "n",
+    "translations": [
+      "球门",
+      "射门",
+      "目标"
+    ]
+  },
+  {
+    "id": "word_0581",
+    "word": "god",
+    "phonetic": "ɡɒd",
+    "pos": "n",
+    "translations": [
+      "神",
+      "上帝"
+    ]
+  },
+  {
+    "id": "word_0582",
+    "word": "gold",
+    "phonetic": "ɡəʊld",
+    "pos": "n",
+    "translations": [
+      "金子",
+      "金币",
+      "金色的"
+    ]
+  },
+  {
+    "id": "word_0583",
+    "word": "good",
+    "phonetic": "ɡʊd",
+    "pos": "adj",
+    "translations": [
+      "好的",
+      "优质的",
+      "令人满意的"
+    ]
+  },
+  {
+    "id": "word_0584",
+    "word": "goodbye",
+    "phonetic": "ˌɡʊd'baɪ",
+    "pos": "n",
+    "translations": [
+      "再见",
+      "再会"
+    ]
+  },
+  {
+    "id": "word_0585",
+    "word": "government",
+    "phonetic": "'ɡʌvənmənt",
+    "pos": "n",
+    "translations": [
+      "政府"
+    ]
+  },
+  {
+    "id": "word_0586",
+    "word": "grade",
+    "phonetic": "ɡreɪd",
+    "pos": "n",
+    "translations": [
+      "等级",
+      "年级",
+      "成绩"
+    ]
+  },
+  {
+    "id": "word_0587",
+    "word": "graduate",
+    "phonetic": "'ɡrædʒuət",
+    "pos": "v",
+    "translations": [
+      "毕业",
+      "获得学位",
+      "大学毕业生"
+    ]
+  },
+  {
+    "id": "word_0588",
+    "word": "grammar",
+    "phonetic": "'ɡræmə(r)",
+    "pos": "n",
+    "translations": [
+      "语法"
+    ]
+  },
+  {
+    "id": "word_0589",
+    "word": "grandfather",
+    "phonetic": "'ɡrænfɑːðə(r)",
+    "pos": "n",
+    "translations": [
+      "爷爷",
+      "外公"
+    ]
+  },
+  {
+    "id": "word_0590",
+    "word": "grandmother",
+    "phonetic": "'ɡrænmʌðə(r)",
+    "pos": "n",
+    "translations": [
+      "奶奶",
+      "外婆"
+    ]
+  },
+  {
+    "id": "word_0591",
+    "word": "grape",
+    "phonetic": "ɡreɪp",
+    "pos": "n",
+    "translations": [
+      "葡萄"
+    ]
+  },
+  {
+    "id": "word_0592",
+    "word": "grass",
+    "phonetic": "ɡrɑːs",
+    "pos": "n",
+    "translations": [
+      "草",
+      "草坪",
+      "牧草"
+    ]
+  },
+  {
+    "id": "word_0593",
+    "word": "great",
+    "phonetic": "ɡreɪt",
+    "pos": "adj",
+    "translations": [
+      "大的",
+      "数量大的",
+      "伟大的",
+      "好极的",
+      "美妙"
+    ]
+  },
+  {
+    "id": "word_0594",
+    "word": "green",
+    "phonetic": "ɡriːn",
+    "pos": "adj",
+    "translations": [
+      "绿色的",
+      "环保的",
+      "绿色 v．绿化"
+    ]
+  },
+  {
+    "id": "word_0595",
+    "word": "greet",
+    "phonetic": "ɡriːt",
+    "pos": "v",
+    "translations": [
+      "和……打招呼"
+    ]
+  },
+  {
+    "id": "word_0596",
+    "word": "grey",
+    "phonetic": "ɡreɪ",
+    "pos": "n",
+    "translations": [
+      "脸色苍白的",
+      "灰色"
+    ]
+  },
+  {
+    "id": "word_0597",
+    "word": "ground",
+    "phonetic": "ɡraʊnd",
+    "pos": "n",
+    "translations": [
+      "地面"
+    ]
+  },
+  {
+    "id": "word_0598",
+    "word": "group",
+    "phonetic": "ɡruːp",
+    "pos": "n",
+    "translations": [
+      "组",
+      "群"
+    ]
+  },
+  {
+    "id": "word_0599",
+    "word": "grow",
+    "phonetic": "ɡrəʊ",
+    "pos": "v",
+    "translations": [
+      "种植",
+      "生长",
+      "发育"
+    ]
+  },
+  {
+    "id": "word_0600",
+    "word": "guard",
+    "phonetic": "ɡɑːd",
+    "pos": "n",
+    "translations": [
+      "警卫",
+      "看守",
+      "保卫",
+      "守卫"
+    ]
+  },
+  {
+    "id": "word_0601",
+    "word": "guardian",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "监护人",
+      "守护者"
+    ]
+  },
+  {
+    "id": "word_0602",
+    "word": "guess",
+    "phonetic": "ɡes",
+    "pos": "v",
+    "translations": [
+      "猜测",
+      "猜到",
+      "估计"
+    ]
+  },
+  {
+    "id": "word_0603",
+    "word": "guest",
+    "phonetic": "ɡest",
+    "pos": "n",
+    "translations": [
+      "客人",
+      "宾客"
+    ]
+  },
+  {
+    "id": "word_0604",
+    "word": "guide",
+    "phonetic": "ɡaɪd",
+    "pos": "n",
+    "translations": [
+      "导游",
+      "向导",
+      "指导",
+      "指路"
+    ]
+  },
+  {
+    "id": "word_0605",
+    "word": "guitar",
+    "phonetic": "ɡɪ'tɑː(r)",
+    "pos": "n",
+    "translations": [
+      "吉他"
+    ]
+  },
+  {
+    "id": "word_0606",
+    "word": "gun",
+    "phonetic": "ɡʌn",
+    "pos": "n",
+    "translations": [
+      "枪",
+      "炮"
+    ]
+  },
+  {
+    "id": "word_0607",
+    "word": "gym",
+    "phonetic": "dʒɪm",
+    "pos": "n",
+    "translations": [
+      "体育馆",
+      "健身房"
+    ]
+  },
+  {
+    "id": "word_0608",
+    "word": "habit",
+    "phonetic": "'hæbɪt",
+    "pos": "n",
+    "translations": [
+      "习惯",
+      "习性"
+    ]
+  },
+  {
+    "id": "word_0609",
+    "word": "hair",
+    "phonetic": "heə(r)",
+    "pos": "n",
+    "translations": [
+      "头发",
+      "毛发"
+    ]
+  },
+  {
+    "id": "word_0610",
+    "word": "half",
+    "phonetic": "hɑːf",
+    "pos": "pron",
+    "translations": [
+      "．半",
+      "一半"
+    ]
+  },
+  {
+    "id": "word_0611",
+    "word": "hall",
+    "phonetic": "hɔːl",
+    "pos": "n",
+    "translations": [
+      "大厅",
+      "走廊",
+      "礼堂"
+    ]
+  },
+  {
+    "id": "word_0612",
+    "word": "hamburger",
+    "phonetic": "'hæmbɜːɡə(r)",
+    "pos": "n",
+    "translations": [
+      "汉堡包"
+    ]
+  },
+  {
+    "id": "word_0613",
+    "word": "hand",
+    "phonetic": "hænd",
+    "pos": "n",
+    "translations": [
+      "手",
+      "帮助",
+      "指针",
+      "递",
+      "给",
+      "交"
+    ]
+  },
+  {
+    "id": "word_0614",
+    "word": "handsome",
+    "phonetic": "'hænsəm",
+    "pos": "adj",
+    "translations": [
+      "英俊的"
+    ]
+  },
+  {
+    "id": "word_0615",
+    "word": "hang",
+    "phonetic": "hæ\t",
+    "pos": "v",
+    "translations": [
+      "悬挂",
+      "吊",
+      "垂下"
+    ]
+  },
+  {
+    "id": "word_0616",
+    "word": "happen",
+    "phonetic": "'hæpən",
+    "pos": "v",
+    "translations": [
+      "出"
+    ]
+  },
+  {
+    "id": "word_0617",
+    "word": "happy",
+    "phonetic": "'hæpi",
+    "pos": "adj",
+    "translations": [
+      "幸福的",
+      "快乐的",
+      "高兴的"
+    ]
+  },
+  {
+    "id": "word_0618",
+    "word": "hard",
+    "phonetic": "hɑːd",
+    "pos": "adv",
+    "translations": [
+      "努力地",
+      "困难的",
+      "艰"
+    ]
+  },
+  {
+    "id": "word_0619",
+    "word": "hardly",
+    "phonetic": "'hɑːdli",
+    "pos": "adv",
+    "translations": [
+      "几乎不",
+      "几乎"
+    ]
+  },
+  {
+    "id": "word_0620",
+    "word": "harm",
+    "phonetic": "hɑːm",
+    "pos": "n",
+    "translations": [
+      "伤害，损害",
+      "危害，损害"
+    ]
+  },
+  {
+    "id": "word_0621",
+    "word": "hat",
+    "phonetic": "hæt",
+    "pos": "n",
+    "translations": [
+      "帽子"
+    ]
+  },
+  {
+    "id": "word_0622",
+    "word": "hate",
+    "phonetic": "heɪt",
+    "pos": "v",
+    "translations": [
+      "．厌恶",
+      "讨厌"
+    ]
+  },
+  {
+    "id": "word_0623",
+    "word": "have",
+    "phonetic": "hæv",
+    "pos": "v",
+    "translations": [
+      "有",
+      "吃",
+      "喝",
+      "抓住",
+      "经受"
+    ]
+  },
+  {
+    "id": "word_0624",
+    "word": "he",
+    "phonetic": "hiː",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_0625",
+    "word": "head",
+    "phonetic": "hed",
+    "pos": "n",
+    "translations": [
+      "头",
+      "头脑",
+      "头部"
+    ]
+  },
+  {
+    "id": "word_0626",
+    "word": "health",
+    "phonetic": "helθ",
+    "pos": "n",
+    "translations": [
+      "健康",
+      "卫生"
+    ]
+  },
+  {
+    "id": "word_0627",
+    "word": "healthy",
+    "phonetic": "'helθi",
+    "pos": "adj",
+    "translations": [
+      "健康的",
+      "健壮的"
+    ]
+  },
+  {
+    "id": "word_0628",
+    "word": "hear",
+    "phonetic": "hɪə(r)",
+    "pos": "v",
+    "translations": [
+      "听见",
+      "听说"
+    ]
+  },
+  {
+    "id": "word_0629",
+    "word": "heart",
+    "phonetic": "hɑːt",
+    "pos": "n",
+    "translations": [
+      "心",
+      "心脏",
+      "心肠"
+    ]
+  },
+  {
+    "id": "word_0630",
+    "word": "heat",
+    "phonetic": "hiːt",
+    "pos": "n",
+    "translations": [
+      "热"
+    ]
+  },
+  {
+    "id": "word_0631",
+    "word": "heavy",
+    "phonetic": "'hevi",
+    "pos": "adj",
+    "translations": [
+      "重的"
+    ]
+  },
+  {
+    "id": "word_0632",
+    "word": "height",
+    "phonetic": "haɪt",
+    "pos": "n",
+    "translations": [
+      "高",
+      "高度",
+      "身高"
+    ]
+  },
+  {
+    "id": "word_0633",
+    "word": "hello",
+    "phonetic": "hə'ləʊ",
+    "pos": "interj",
+    "translations": [
+      "喂，你好"
+    ]
+  },
+  {
+    "id": "word_0634",
+    "word": "help",
+    "phonetic": "help",
+    "pos": "n",
+    "translations": [
+      "．帮助",
+      "援助"
+    ]
+  },
+  {
+    "id": "word_0635",
+    "word": "helpful",
+    "phonetic": "'helpfl",
+    "pos": "adj",
+    "translations": [
+      "有帮助的",
+      "有益的"
+    ]
+  },
+  {
+    "id": "word_0636",
+    "word": "hen",
+    "phonetic": "hen",
+    "pos": "n",
+    "translations": [
+      "母鸡"
+    ]
+  },
+  {
+    "id": "word_0637",
+    "word": "her",
+    "phonetic": "hɜː(r)",
+    "pos": "pron",
+    "translations": [
+      "她",
+      "她的"
+    ]
+  },
+  {
+    "id": "word_0638",
+    "word": "here",
+    "phonetic": "hɪə(r)",
+    "pos": "adv",
+    "translations": [
+      "在这里",
+      "向这里",
+      "这就是"
+    ]
+  },
+  {
+    "id": "word_0639",
+    "word": "hero",
+    "phonetic": "'hɪərəʊ",
+    "pos": "n",
+    "translations": [
+      "英雄",
+      "男主角"
+    ]
+  },
+  {
+    "id": "word_0640",
+    "word": "hers",
+    "phonetic": "hɜːz",
+    "pos": "pron",
+    "translations": [
+      "她的"
+    ]
+  },
+  {
+    "id": "word_0641",
+    "word": "herself",
+    "phonetic": "hɜː'self",
+    "pos": "pron",
+    "translations": [
+      "她自己"
+    ]
+  },
+  {
+    "id": "word_0642",
+    "word": "hi",
+    "phonetic": "haɪ",
+    "pos": "interj",
+    "translations": [
+      "嗨",
+      "你好"
+    ]
+  },
+  {
+    "id": "word_0643",
+    "word": "hide",
+    "phonetic": "haɪd",
+    "pos": "v",
+    "translations": [
+      "藏",
+      "躲避",
+      "隐蔽"
+    ]
+  },
+  {
+    "id": "word_0644",
+    "word": "high",
+    "phonetic": "haɪ",
+    "pos": "adj",
+    "translations": [
+      "高的"
+    ]
+  },
+  {
+    "id": "word_0645",
+    "word": "hike",
+    "phonetic": "haɪk",
+    "pos": "n",
+    "translations": [
+      "徒步旅行",
+      "远足",
+      "（去）远足"
+    ]
+  },
+  {
+    "id": "word_0646",
+    "word": "hill",
+    "phonetic": "hɪl",
+    "pos": "n",
+    "translations": [
+      "小山",
+      "山丘",
+      "斜坡"
+    ]
+  },
+  {
+    "id": "word_0647",
+    "word": "him",
+    "phonetic": "hɪm",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_0648",
+    "word": "himself",
+    "phonetic": "hɪm'self",
+    "pos": "pron",
+    "translations": [
+      "他自己"
+    ]
+  },
+  {
+    "id": "word_0649",
+    "word": "his",
+    "phonetic": "hɪz",
+    "pos": "pron",
+    "translations": [
+      "他的"
+    ]
+  },
+  {
+    "id": "word_0650",
+    "word": "history",
+    "phonetic": "'hɪstri",
+    "pos": "n",
+    "translations": [
+      "历史",
+      "历史学"
+    ]
+  },
+  {
+    "id": "word_0651",
+    "word": "hit",
+    "phonetic": "hɪt",
+    "pos": "v",
+    "translations": [
+      "打",
+      "击",
+      "碰撞"
+    ]
+  },
+  {
+    "id": "word_0652",
+    "word": "hobby",
+    "phonetic": "'hɒbi",
+    "pos": "n",
+    "translations": [
+      "业余爱好"
+    ]
+  },
+  {
+    "id": "word_0653",
+    "word": "hold",
+    "phonetic": "həʊld",
+    "pos": "v",
+    "translations": [
+      "抓住",
+      "握住",
+      "举行"
+    ]
+  },
+  {
+    "id": "word_0654",
+    "word": "hole",
+    "phonetic": "həʊl",
+    "pos": "n",
+    "translations": [
+      "洞",
+      "孔",
+      "坑"
+    ]
+  },
+  {
+    "id": "word_0655",
+    "word": "holiday",
+    "phonetic": "'hɒlədeɪ",
+    "pos": "n",
+    "translations": [
+      "假日",
+      "假期"
+    ]
+  },
+  {
+    "id": "word_0656",
+    "word": "home",
+    "phonetic": "həʊm",
+    "pos": "n",
+    "translations": [
+      "家",
+      "活动本部",
+      "到家",
+      "在家"
+    ]
+  },
+  {
+    "id": "word_0657",
+    "word": "hometown",
+    "phonetic": "'həʊmtaʊn",
+    "pos": "n",
+    "translations": [
+      "故乡"
+    ]
+  },
+  {
+    "id": "word_0658",
+    "word": "homework",
+    "phonetic": "'həʊmwɜːk",
+    "pos": "n",
+    "translations": [
+      "家庭作业"
+    ]
+  },
+  {
+    "id": "word_0659",
+    "word": "honest",
+    "phonetic": "'ɒnɪst",
+    "pos": "adj",
+    "translations": [
+      "诚实的",
+      "正直的",
+      "老实的"
+    ]
+  },
+  {
+    "id": "word_0660",
+    "word": "honey",
+    "phonetic": "'hʌni",
+    "pos": "n",
+    "translations": [
+      "蜂蜜"
+    ]
+  },
+  {
+    "id": "word_0661",
+    "word": "honour",
+    "phonetic": "'ɒnə(r)",
+    "pos": "v",
+    "translations": [
+      "尊重",
+      "表示敬意",
+      "荣幸",
+      "荣誉"
+    ]
+  },
+  {
+    "id": "word_0662",
+    "word": "hope",
+    "phonetic": "həʊp",
+    "pos": "n",
+    "translations": [
+      "．希望"
+    ]
+  },
+  {
+    "id": "word_0663",
+    "word": "horse",
+    "phonetic": "hɔːs",
+    "pos": "n",
+    "translations": [
+      "马"
+    ]
+  },
+  {
+    "id": "word_0664",
+    "word": "hospital",
+    "phonetic": "'hɒspɪtl",
+    "pos": "n",
+    "translations": [
+      "医院"
+    ]
+  },
+  {
+    "id": "word_0665",
+    "word": "host",
+    "phonetic": "həʊst",
+    "pos": "n",
+    "translations": [
+      "主人",
+      "东道主"
+    ]
+  },
+  {
+    "id": "word_0666",
+    "word": "hot",
+    "phonetic": "hɒt",
+    "pos": "adj",
+    "translations": [
+      "热的",
+      "辣的"
+    ]
+  },
+  {
+    "id": "word_0667",
+    "word": "hotel",
+    "phonetic": "həʊ'tel",
+    "pos": "n",
+    "translations": [
+      "旅馆",
+      "宾馆"
+    ]
+  },
+  {
+    "id": "word_0668",
+    "word": "hour",
+    "phonetic": "'aʊə(r)",
+    "pos": "n",
+    "translations": [
+      "小时"
+    ]
+  },
+  {
+    "id": "word_0669",
+    "word": "house",
+    "phonetic": "haʊs",
+    "pos": "n",
+    "translations": [
+      "房子",
+      "住宅",
+      "观众席"
+    ]
+  },
+  {
+    "id": "word_0670",
+    "word": "housework",
+    "phonetic": "'haʊswɜːk",
+    "pos": "n",
+    "translations": [
+      "家务劳动",
+      "家务事"
+    ]
+  },
+  {
+    "id": "word_0671",
+    "word": "how",
+    "phonetic": "haʊ",
+    "pos": "adv",
+    "translations": [
+      "怎样",
+      "如何",
+      "多少，"
+    ]
+  },
+  {
+    "id": "word_0672",
+    "word": "however",
+    "phonetic": "haʊ'evə(r)",
+    "pos": "adv",
+    "translations": [
+      "不管怎样",
+      "无论如"
+    ]
+  },
+  {
+    "id": "word_0673",
+    "word": "hug",
+    "phonetic": "hʌɡ",
+    "pos": "v",
+    "translations": [
+      "．拥抱",
+      "抱住"
+    ]
+  },
+  {
+    "id": "word_0674",
+    "word": "huge",
+    "phonetic": "hjuːdʒ",
+    "pos": "adj",
+    "translations": [
+      "巨大的",
+      "极多的"
+    ]
+  },
+  {
+    "id": "word_0675",
+    "word": "human",
+    "phonetic": "'hjuːmən",
+    "pos": "adj",
+    "translations": [
+      "人的 n．人"
+    ]
+  },
+  {
+    "id": "word_0676",
+    "word": "humour",
+    "phonetic": "'hjuːmə(r)",
+    "pos": "n",
+    "translations": [
+      "幽默",
+      "幽默感"
+    ]
+  },
+  {
+    "id": "word_0677",
+    "word": "hungry",
+    "phonetic": "'hʌ ɡri",
+    "pos": "adj",
+    "translations": [
+      "饥饿的"
+    ]
+  },
+  {
+    "id": "word_0678",
+    "word": "hunt",
+    "phonetic": "hʌnt",
+    "pos": "v",
+    "translations": [
+      "打猎，猎取",
+      "搜寻，搜"
+    ]
+  },
+  {
+    "id": "word_0679",
+    "word": "hurry",
+    "phonetic": "'hʌri",
+    "pos": "n",
+    "translations": [
+      "．匆忙，急忙"
+    ]
+  },
+  {
+    "id": "word_0680",
+    "word": "hurt",
+    "phonetic": "hɜːt",
+    "pos": "v",
+    "translations": [
+      "使疼痛",
+      "受伤",
+      "痛苦的",
+      "受伤的"
+    ]
+  },
+  {
+    "id": "word_0681",
+    "word": "husband",
+    "phonetic": "'hʌzbənd",
+    "pos": "n",
+    "translations": [
+      "丈夫"
+    ]
+  },
+  {
+    "id": "word_0682",
+    "word": "ice",
+    "phonetic": "aɪs",
+    "pos": "n",
+    "translations": [
+      "冰"
+    ]
+  },
+  {
+    "id": "word_0683",
+    "word": "idea",
+    "phonetic": "aɪ'dɪə",
+    "pos": "n",
+    "translations": [
+      "主意",
+      "意见",
+      "想法"
+    ]
+  },
+  {
+    "id": "word_0684",
+    "word": "if",
+    "phonetic": "ɪf",
+    "pos": "conj",
+    "translations": [
+      "如果",
+      "假使",
+      "是否"
+    ]
+  },
+  {
+    "id": "word_0685",
+    "word": "ill",
+    "phonetic": "ɪl",
+    "pos": "adj",
+    "translations": [
+      "有病",
+      "不舒服"
+    ]
+  },
+  {
+    "id": "word_0686",
+    "word": "illness",
+    "phonetic": "'ɪlnəs",
+    "pos": "n",
+    "translations": [
+      "疾病"
+    ]
+  },
+  {
+    "id": "word_0687",
+    "word": "imagine",
+    "phonetic": "ɪ'mædʒɪn",
+    "pos": "v",
+    "translations": [
+      "想象",
+      "设想"
+    ]
+  },
+  {
+    "id": "word_0688",
+    "word": "important",
+    "phonetic": "ɪm'pɔːtnt",
+    "pos": "adj",
+    "translations": [
+      "重要的"
+    ]
+  },
+  {
+    "id": "word_0689",
+    "word": "impossible",
+    "phonetic": "ɪm'pɒsəbl",
+    "pos": "adj",
+    "translations": [
+      "不可能存在的",
+      "不可"
+    ]
+  },
+  {
+    "id": "word_0690",
+    "word": "improve",
+    "phonetic": "ɪm'pruːv",
+    "pos": "v",
+    "translations": [
+      "改进",
+      "改善"
+    ]
+  },
+  {
+    "id": "word_0691",
+    "word": "in",
+    "phonetic": "ɪn",
+    "pos": "prep",
+    "translations": [
+      "在……里"
+    ]
+  },
+  {
+    "id": "word_0692",
+    "word": "include",
+    "phonetic": "ɪn'kluːd",
+    "pos": "v",
+    "translations": [
+      "包含",
+      "包括"
+    ]
+  },
+  {
+    "id": "word_0693",
+    "word": "increase",
+    "phonetic": "ɪn'kriːs",
+    "pos": "v",
+    "translations": [
+      "增加",
+      "增多",
+      "增长"
+    ]
+  },
+  {
+    "id": "word_0694",
+    "word": "industry",
+    "phonetic": "'ɪndəstri",
+    "pos": "n",
+    "translations": [
+      "工业",
+      "行业"
+    ]
+  },
+  {
+    "id": "word_0695",
+    "word": "influence",
+    "phonetic": "'ɪnfluəns",
+    "pos": "n",
+    "translations": [
+      "．影响"
+    ]
+  },
+  {
+    "id": "word_0696",
+    "word": "information",
+    "phonetic": "ˌɪnfə'meɪʃn",
+    "pos": "n",
+    "translations": [
+      "信息",
+      "消息"
+    ]
+  },
+  {
+    "id": "word_0697",
+    "word": "insect",
+    "phonetic": "'ɪnsekt",
+    "pos": "n",
+    "translations": [
+      "昆虫"
+    ]
+  },
+  {
+    "id": "word_0698",
+    "word": "inside",
+    "phonetic": "ˌɪn'saɪd",
+    "pos": "prep",
+    "translations": [
+      "里面",
+      "内部的"
+    ]
+  },
+  {
+    "id": "word_0699",
+    "word": "instead",
+    "phonetic": "ɪn'sted",
+    "pos": "adv",
+    "translations": [
+      "代替",
+      "顶替",
+      "反而"
+    ]
+  },
+  {
+    "id": "word_0700",
+    "word": "instruction",
+    "phonetic": "ɪn'strʌkʃn",
+    "pos": "n",
+    "translations": [
+      "用法说明",
+      "指示",
+      "命令"
+    ]
+  },
+  {
+    "id": "word_0701",
+    "word": "instrument",
+    "phonetic": "'ɪnstrəmənt",
+    "pos": "n",
+    "translations": [
+      "器械",
+      "仪器",
+      "工具",
+      "乐器"
+    ]
+  },
+  {
+    "id": "word_0702",
+    "word": "interest",
+    "phonetic": "'ɪntrəst",
+    "pos": "n",
+    "translations": [
+      "兴趣",
+      "趣味",
+      "好处"
+    ]
+  },
+  {
+    "id": "word_0703",
+    "word": "interesting",
+    "phonetic": "'ɪntrəstɪ ",
+    "pos": "adj",
+    "translations": [
+      "有趣的"
+    ]
+  },
+  {
+    "id": "word_0704",
+    "word": "international",
+    "phonetic": "ˌɪntə'næʃnəl",
+    "pos": "adj",
+    "translations": [
+      "国际的",
+      "民族的"
+    ]
+  },
+  {
+    "id": "word_0705",
+    "word": "Internet",
+    "phonetic": "'ɪntənet",
+    "pos": "n",
+    "translations": [
+      "互联网",
+      "因特网"
+    ]
+  },
+  {
+    "id": "word_0706",
+    "word": "interview",
+    "phonetic": "'ɪntəvjuː",
+    "pos": "n",
+    "translations": [
+      "．采访",
+      "会见",
+      "面"
+    ]
+  },
+  {
+    "id": "word_0707",
+    "word": "into",
+    "phonetic": "'ɪntuː",
+    "pos": "prep",
+    "translations": [
+      "到……里"
+    ]
+  },
+  {
+    "id": "word_0708",
+    "word": "introduce",
+    "phonetic": "ˌɪntrə'djuːs",
+    "pos": "v",
+    "translations": [
+      "介绍",
+      "引见"
+    ]
+  },
+  {
+    "id": "word_0709",
+    "word": "invent",
+    "phonetic": "ɪn'vent",
+    "pos": "v",
+    "translations": [
+      "发明",
+      "创造"
+    ]
+  },
+  {
+    "id": "word_0710",
+    "word": "invite",
+    "phonetic": "ɪn'vaɪt",
+    "pos": "v",
+    "translations": [
+      "邀请"
+    ]
+  },
+  {
+    "id": "word_0711",
+    "word": "island",
+    "phonetic": "'aɪlənd",
+    "pos": "n",
+    "translations": [
+      "岛"
+    ]
+  },
+  {
+    "id": "word_0712",
+    "word": "it",
+    "phonetic": "ɪt",
+    "pos": "pron",
+    "translations": [
+      "它"
+    ]
+  },
+  {
+    "id": "word_0713",
+    "word": "its",
+    "phonetic": "ɪts",
+    "pos": "pron",
+    "translations": [
+      "它的"
+    ]
+  },
+  {
+    "id": "word_0714",
+    "word": "itself",
+    "phonetic": "ɪt'self",
+    "pos": "pron",
+    "translations": [
+      "它自己"
+    ]
+  },
+  {
+    "id": "word_0715",
+    "word": "jacket",
+    "phonetic": "'dʒækɪt",
+    "pos": "n",
+    "translations": [
+      "短上衣",
+      "夹克衫"
+    ]
+  },
+  {
+    "id": "word_0716",
+    "word": "jeans",
+    "phonetic": "dʒiːnz",
+    "pos": "n",
+    "translations": [
+      "牛仔裤"
+    ]
+  },
+  {
+    "id": "word_0717",
+    "word": "job",
+    "phonetic": "dʒɒb",
+    "pos": "n",
+    "translations": [
+      "工作",
+      "职业",
+      "职位"
+    ]
+  },
+  {
+    "id": "word_0718",
+    "word": "jog",
+    "phonetic": "dʒɒɡ",
+    "pos": "v",
+    "translations": [
+      "．慢跑",
+      "慢跑"
+    ]
+  },
+  {
+    "id": "word_0719",
+    "word": "join",
+    "phonetic": "dʒɔɪn",
+    "pos": "v",
+    "translations": [
+      "参加",
+      "加入",
+      "连接"
+    ]
+  },
+  {
+    "id": "word_0720",
+    "word": "joke",
+    "phonetic": "dʒəʊk",
+    "pos": "n",
+    "translations": [
+      "笑话 v．开玩笑"
+    ]
+  },
+  {
+    "id": "word_0721",
+    "word": "journey",
+    "phonetic": "'dʒɜːni",
+    "pos": "n",
+    "translations": [
+      "行"
+    ]
+  },
+  {
+    "id": "word_0722",
+    "word": "joy",
+    "phonetic": "dʒɔɪ",
+    "pos": "n",
+    "translations": [
+      "高兴",
+      "愉快"
+    ]
+  },
+  {
+    "id": "word_0723",
+    "word": "judge",
+    "phonetic": "dʒʌdʒ",
+    "pos": "v",
+    "translations": [
+      "判断",
+      "认为",
+      "法官",
+      "审判官"
+    ]
+  },
+  {
+    "id": "word_0724",
+    "word": "juice",
+    "phonetic": "dʒuːs",
+    "pos": "n",
+    "translations": [
+      "果汁",
+      "菜汁",
+      "饮料"
+    ]
+  },
+  {
+    "id": "word_0725",
+    "word": "jump",
+    "phonetic": "dʒʌmp",
+    "pos": "v",
+    "translations": [
+      "跳跃",
+      "略过 n．跳跃"
+    ]
+  },
+  {
+    "id": "word_0726",
+    "word": "junior",
+    "phonetic": "'dʒuːniə",
+    "pos": "adj",
+    "translations": [
+      "地位"
+    ]
+  },
+  {
+    "id": "word_0727",
+    "word": "just",
+    "phonetic": "dʒʌst",
+    "pos": "adv",
+    "translations": [
+      "刚才",
+      "恰好",
+      "仅仅"
+    ]
+  },
+  {
+    "id": "word_0728",
+    "word": "keep",
+    "phonetic": "kiːp",
+    "pos": "v",
+    "translations": [
+      "保持",
+      "保存",
+      "继续"
+    ]
+  },
+  {
+    "id": "word_0729",
+    "word": "key",
+    "phonetic": "kiː",
+    "pos": "n",
+    "translations": [
+      "钥匙",
+      "答案",
+      "键",
+      "关"
+    ]
+  },
+  {
+    "id": "word_0730",
+    "word": "keyboard",
+    "phonetic": "'kiːbɔːd",
+    "pos": "n",
+    "translations": [
+      "键盘",
+      "键盘式电子乐"
+    ]
+  },
+  {
+    "id": "word_0731",
+    "word": "kick",
+    "phonetic": "kɪk",
+    "pos": "v",
+    "translations": [
+      "．踢",
+      "踹"
+    ]
+  },
+  {
+    "id": "word_0732",
+    "word": "kid",
+    "phonetic": "kɪd",
+    "pos": "n",
+    "translations": [
+      "小孩",
+      "年轻人",
+      "开玩笑",
+      "欺骗"
+    ]
+  },
+  {
+    "id": "word_0733",
+    "word": "kill",
+    "phonetic": "kɪl",
+    "pos": "v",
+    "translations": [
+      "杀死",
+      "弄死"
+    ]
+  },
+  {
+    "id": "word_0734",
+    "word": "kilo",
+    "phonetic": "'kiːləʊ",
+    "pos": "n",
+    "translations": [
+      "千克",
+      "公斤"
+    ]
+  },
+  {
+    "id": "word_0735",
+    "word": "kilometre",
+    "phonetic": "'kɪləmiːtə(r)",
+    "pos": "n",
+    "translations": [
+      "千米",
+      "公里"
+    ]
+  },
+  {
+    "id": "word_0736",
+    "word": "kind",
+    "phonetic": "kaɪnd",
+    "pos": "n",
+    "translations": [
+      "种",
+      "友好的"
+    ]
+  },
+  {
+    "id": "word_0737",
+    "word": "king",
+    "phonetic": "kɪ   ",
+    "pos": "n",
+    "translations": [
+      "国王",
+      "君主"
+    ]
+  },
+  {
+    "id": "word_0738",
+    "word": "kiss",
+    "phonetic": "kɪs",
+    "pos": "n",
+    "translations": [
+      "．吻",
+      "亲吻"
+    ]
+  },
+  {
+    "id": "word_0739",
+    "word": "kitchen",
+    "phonetic": "'kɪtʃɪn",
+    "pos": "n",
+    "translations": [
+      "厨房"
+    ]
+  },
+  {
+    "id": "word_0740",
+    "word": "kite",
+    "phonetic": "kaɪt",
+    "pos": "n",
+    "translations": [
+      "风筝"
+    ]
+  },
+  {
+    "id": "word_0741",
+    "word": "knee",
+    "phonetic": "niː",
+    "pos": "n",
+    "translations": [
+      "膝盖"
+    ]
+  },
+  {
+    "id": "word_0742",
+    "word": "knife",
+    "phonetic": "naɪf",
+    "pos": "n",
+    "translations": [
+      "刀"
+    ]
+  },
+  {
+    "id": "word_0743",
+    "word": "knock",
+    "phonetic": "nɒk",
+    "pos": "v",
+    "translations": [
+      "敲",
+      "击 n．敲击声"
+    ]
+  },
+  {
+    "id": "word_0744",
+    "word": "know",
+    "phonetic": "nəʊ",
+    "pos": "v",
+    "translations": [
+      "知道",
+      "了解"
+    ]
+  },
+  {
+    "id": "word_0745",
+    "word": "knowledge",
+    "phonetic": "'nɒlɪdʒ",
+    "pos": "n",
+    "translations": [
+      "知识",
+      "学问"
+    ]
+  },
+  {
+    "id": "word_0746",
+    "word": "lab",
+    "phonetic": "læb",
+    "pos": "n",
+    "translations": [
+      "实验室"
+    ]
+  },
+  {
+    "id": "word_0747",
+    "word": "lady",
+    "phonetic": "'leɪdi",
+    "pos": "n",
+    "translations": [
+      "女士",
+      "夫人"
+    ]
+  },
+  {
+    "id": "word_0748",
+    "word": "lake",
+    "phonetic": "leɪk",
+    "pos": "n",
+    "translations": [
+      "湖"
+    ]
+  },
+  {
+    "id": "word_0749",
+    "word": "lamp",
+    "phonetic": "læmp",
+    "pos": "n",
+    "translations": [
+      "灯",
+      "光源"
+    ]
+  },
+  {
+    "id": "word_0750",
+    "word": "land",
+    "phonetic": "lænd",
+    "pos": "n",
+    "translations": [
+      "陆地",
+      "土地",
+      "着陆",
+      "登陆"
+    ]
+  },
+  {
+    "id": "word_0751",
+    "word": "landscape",
+    "phonetic": "'lændskeɪp",
+    "pos": "n",
+    "translations": [
+      "风景",
+      "景色",
+      "风景/景色"
+    ]
+  },
+  {
+    "id": "word_0752",
+    "word": "language",
+    "phonetic": "'læ ɡwɪdʒ",
+    "pos": "n",
+    "translations": [
+      "语言"
+    ]
+  },
+  {
+    "id": "word_0753",
+    "word": "lantern",
+    "phonetic": "'læntən",
+    "pos": "n",
+    "translations": [
+      "灯笼"
+    ]
+  },
+  {
+    "id": "word_0754",
+    "word": "laptop",
+    "phonetic": "'læptɒp",
+    "pos": "n",
+    "translations": [
+      "笔记本电脑",
+      "便携式电脑"
+    ]
+  },
+  {
+    "id": "word_0755",
+    "word": "large",
+    "phonetic": "lɑːdʒ",
+    "pos": "adj",
+    "translations": [
+      "大的",
+      "大量的",
+      "大"
+    ]
+  },
+  {
+    "id": "word_0756",
+    "word": "last",
+    "phonetic": "lɑːst",
+    "pos": "adj",
+    "translations": [
+      "最近的",
+      "最近",
+      "持续"
+    ]
+  },
+  {
+    "id": "word_0757",
+    "word": "late",
+    "phonetic": "leɪt",
+    "pos": "adj",
+    "translations": [
+      "接近末期的",
+      "迟到"
+    ]
+  },
+  {
+    "id": "word_0758",
+    "word": "later",
+    "phonetic": "'leɪtə(r)",
+    "pos": "adv",
+    "translations": [
+      "后来",
+      "以后"
+    ]
+  },
+  {
+    "id": "word_0759",
+    "word": "laugh",
+    "phonetic": "lɑːf",
+    "pos": "v",
+    "translations": [
+      "笑",
+      "发笑"
+    ]
+  },
+  {
+    "id": "word_0760",
+    "word": "law",
+    "phonetic": "lɔː",
+    "pos": "n",
+    "translations": [
+      "法律",
+      "法学",
+      "规则"
+    ]
+  },
+  {
+    "id": "word_0761",
+    "word": "lawyer",
+    "phonetic": "'lɔɪə(r)",
+    "pos": "n",
+    "translations": [
+      "律师"
+    ]
+  },
+  {
+    "id": "word_0762",
+    "word": "lay",
+    "phonetic": "leɪ",
+    "pos": "v",
+    "translations": [
+      "放置",
+      "搁",
+      "产卵",
+      "下蛋"
+    ]
+  },
+  {
+    "id": "word_0763",
+    "word": "lazy",
+    "phonetic": "'leɪzi",
+    "pos": "adj",
+    "translations": [
+      "懒惰的"
+    ]
+  },
+  {
+    "id": "word_0764",
+    "word": "lead",
+    "phonetic": "liːd",
+    "pos": "v",
+    "translations": [
+      "带领",
+      "导致",
+      "过"
+    ]
+  },
+  {
+    "id": "word_0765",
+    "word": "leaf",
+    "phonetic": "liːf",
+    "pos": "n",
+    "translations": [
+      "叶子"
+    ]
+  },
+  {
+    "id": "word_0766",
+    "word": "learn",
+    "phonetic": "lɜːn",
+    "pos": "v",
+    "translations": [
+      "学",
+      "学习",
+      "学会"
+    ]
+  },
+  {
+    "id": "word_0767",
+    "word": "least",
+    "phonetic": "liːst",
+    "pos": "adv",
+    "translations": [
+      "最小",
+      "最少"
+    ]
+  },
+  {
+    "id": "word_0768",
+    "word": "leave",
+    "phonetic": "liːv",
+    "pos": "v",
+    "translations": [
+      "离开",
+      "使保留",
+      "使……处于",
+      "．休假"
+    ]
+  },
+  {
+    "id": "word_0769",
+    "word": "left",
+    "phonetic": "left",
+    "pos": "adj",
+    "translations": [
+      "左边的 n．左",
+      "左边",
+      "向左边"
+    ]
+  },
+  {
+    "id": "word_0770",
+    "word": "leg",
+    "phonetic": "leɡ",
+    "pos": "n",
+    "translations": [
+      "腿"
+    ]
+  },
+  {
+    "id": "word_0771",
+    "word": "lemon",
+    "phonetic": "'lemən",
+    "pos": "n",
+    "translations": [
+      "柠檬"
+    ]
+  },
+  {
+    "id": "word_0772",
+    "word": "lend",
+    "phonetic": "lend",
+    "pos": "v",
+    "translations": [
+      "借出",
+      "借给"
+    ]
+  },
+  {
+    "id": "word_0773",
+    "word": "less",
+    "phonetic": "les",
+    "pos": "pron",
+    "translations": [
+      "较少的",
+      "更少的",
+      "较少",
+      "较小"
+    ]
+  },
+  {
+    "id": "word_0774",
+    "word": "lesson",
+    "phonetic": "'lesn",
+    "pos": "n",
+    "translations": [
+      "课",
+      "教训"
+    ]
+  },
+  {
+    "id": "word_0775",
+    "word": "let",
+    "phonetic": "let",
+    "pos": "v",
+    "translations": [
+      "让"
+    ]
+  },
+  {
+    "id": "word_0776",
+    "word": "letter",
+    "phonetic": "'letə(r)",
+    "pos": "n",
+    "translations": [
+      "信",
+      "字母"
+    ]
+  },
+  {
+    "id": "word_0777",
+    "word": "level",
+    "phonetic": "'levl",
+    "pos": "n",
+    "translations": [
+      "水平",
+      "程度"
+    ]
+  },
+  {
+    "id": "word_0778",
+    "word": "library",
+    "phonetic": "'laɪbrəri",
+    "pos": "n",
+    "translations": [
+      "图书馆"
+    ]
+  },
+  {
+    "id": "word_0779",
+    "word": "lie",
+    "phonetic": "laɪ",
+    "pos": "v",
+    "translations": [
+      "躺",
+      "平卧",
+      "位于",
+      "说谎",
+      "谎言"
+    ]
+  },
+  {
+    "id": "word_0780",
+    "word": "life",
+    "phonetic": "laɪf",
+    "pos": "n",
+    "translations": [
+      "生命",
+      "生物",
+      "生活",
+      "一"
+    ]
+  },
+  {
+    "id": "word_0781",
+    "word": "lift",
+    "phonetic": "lɪft",
+    "pos": "v",
+    "translations": [
+      "举起",
+      "抬起 n．电梯"
+    ]
+  },
+  {
+    "id": "word_0782",
+    "word": "light",
+    "phonetic": "laɪt",
+    "pos": "n",
+    "translations": [
+      "光",
+      "光线",
+      "电灯",
+      "点火",
+      "轻的",
+      "浅色的"
+    ]
+  },
+  {
+    "id": "word_0783",
+    "word": "lightning",
+    "phonetic": "'laɪtnɪ ",
+    "pos": "n",
+    "translations": [
+      "闪电"
+    ]
+  },
+  {
+    "id": "word_0784",
+    "word": "like",
+    "phonetic": "laɪk",
+    "pos": "prep",
+    "translations": [
+      "像",
+      "类似",
+      "喜欢"
+    ]
+  },
+  {
+    "id": "word_0785",
+    "word": "likely",
+    "phonetic": "'laɪkli",
+    "pos": "adj",
+    "translations": [
+      "可能发生的",
+      "大概，很可能"
+    ]
+  },
+  {
+    "id": "word_0786",
+    "word": "line",
+    "phonetic": "laɪn",
+    "pos": "n",
+    "translations": [
+      "线",
+      "排",
+      "行",
+      "路线"
+    ]
+  },
+  {
+    "id": "word_0787",
+    "word": "lion",
+    "phonetic": "'laɪən",
+    "pos": "n",
+    "translations": [
+      "狮子"
+    ]
+  },
+  {
+    "id": "word_0788",
+    "word": "list",
+    "phonetic": "lɪst",
+    "pos": "n",
+    "translations": [
+      "一览表",
+      "清单",
+      "列表",
+      "列清单"
+    ]
+  },
+  {
+    "id": "word_0789",
+    "word": "listen",
+    "phonetic": "'lɪsn",
+    "pos": "v",
+    "translations": [
+      "听",
+      "倾听"
+    ]
+  },
+  {
+    "id": "word_0790",
+    "word": "literature",
+    "phonetic": "'lɪtrətʃə(r)",
+    "pos": "n",
+    "translations": [
+      "文学",
+      "文学作品"
+    ]
+  },
+  {
+    "id": "word_0791",
+    "word": "litter",
+    "phonetic": "'lɪtə(r)",
+    "pos": "v",
+    "translations": [
+      "乱扔 n．垃圾"
+    ]
+  },
+  {
+    "id": "word_0792",
+    "word": "little",
+    "phonetic": "'lɪtl",
+    "pos": "adj",
+    "translations": [
+      "小的",
+      "少的",
+      "不多",
+      "稍许"
+    ]
+  },
+  {
+    "id": "word_0793",
+    "word": "live",
+    "phonetic": "laɪv",
+    "pos": "v",
+    "translations": [
+      "生活",
+      "居住",
+      "活着",
+      "活的",
+      "实况转播的"
+    ]
+  },
+  {
+    "id": "word_0794",
+    "word": "lively",
+    "phonetic": "'laɪvli",
+    "pos": "adj",
+    "translations": [
+      "活泼的",
+      "生机勃勃的",
+      "充满活力的",
+      "活泼外向的"
+    ]
+  },
+  {
+    "id": "word_0795",
+    "word": "local",
+    "phonetic": "'ləʊkl",
+    "pos": "adj",
+    "translations": [
+      "当地的",
+      "本地的"
+    ]
+  },
+  {
+    "id": "word_0796",
+    "word": "lock",
+    "phonetic": "lɒk",
+    "pos": "n",
+    "translations": [
+      "锁 v．锁上",
+      "被锁住"
+    ]
+  },
+  {
+    "id": "word_0797",
+    "word": "lonely",
+    "phonetic": "'ləʊnli",
+    "pos": "adj",
+    "translations": [
+      "孤独的",
+      "寂寞的"
+    ]
+  },
+  {
+    "id": "word_0798",
+    "word": "long",
+    "phonetic": "lɒ   ",
+    "pos": "adj",
+    "translations": [
+      "长的",
+      "长期的",
+      "．渴望"
+    ]
+  },
+  {
+    "id": "word_0799",
+    "word": "look",
+    "phonetic": "lʊk",
+    "pos": "n",
+    "translations": [
+      "看",
+      "样子",
+      "外表",
+      "寻找",
+      "看起来"
+    ]
+  },
+  {
+    "id": "word_0800",
+    "word": "lose",
+    "phonetic": "luːz",
+    "pos": "v",
+    "translations": [
+      "失去",
+      "丢失"
+    ]
+  },
+  {
+    "id": "word_0801",
+    "word": "loss",
+    "phonetic": "lɒs",
+    "pos": "n",
+    "translations": [
+      "丢失",
+      "损失",
+      "遗失",
+      "丧失"
+    ]
+  },
+  {
+    "id": "word_0802",
+    "word": "lost",
+    "phonetic": "lɒst",
+    "pos": "v",
+    "translations": [
+      "丢失",
+      "迷失的",
+      "困惑的"
+    ]
+  },
+  {
+    "id": "word_0803",
+    "word": "lot",
+    "phonetic": "lɒt",
+    "pos": "pron",
+    "translations": [
+      "许多",
+      "大量"
+    ]
+  },
+  {
+    "id": "word_0804",
+    "word": "loud",
+    "phonetic": "laʊd",
+    "pos": "adj",
+    "translations": [
+      "大声的"
+    ]
+  },
+  {
+    "id": "word_0805",
+    "word": "love",
+    "phonetic": "lʌv",
+    "pos": "n",
+    "translations": [
+      "．爱",
+      "热爱"
+    ]
+  },
+  {
+    "id": "word_0806",
+    "word": "lovely",
+    "phonetic": "'lʌvli",
+    "pos": "adj",
+    "translations": [
+      "美丽的",
+      "迷人的"
+    ]
+  },
+  {
+    "id": "word_0807",
+    "word": "low",
+    "phonetic": "ləʊ",
+    "pos": "adj",
+    "translations": [
+      "低的",
+      "矮的",
+      "低",
+      "低声地"
+    ]
+  },
+  {
+    "id": "word_0808",
+    "word": "luck",
+    "phonetic": "lʌk",
+    "pos": "n",
+    "translations": [
+      "运气",
+      "好运"
+    ]
+  },
+  {
+    "id": "word_0809",
+    "word": "lunch",
+    "phonetic": "lʌntʃ",
+    "pos": "n",
+    "translations": [
+      "午餐",
+      "午饭"
+    ]
+  },
+  {
+    "id": "word_0810",
+    "word": "machine",
+    "phonetic": "mə'ʃiːn",
+    "pos": "n",
+    "translations": [
+      "机器"
+    ]
+  },
+  {
+    "id": "word_0811",
+    "word": "mad",
+    "phonetic": "mæd",
+    "pos": "adj",
+    "translations": [
+      "疯的",
+      "生气的"
+    ]
+  },
+  {
+    "id": "word_0812",
+    "word": "madam",
+    "phonetic": "'mædəm",
+    "pos": "n",
+    "translations": [
+      "夫人",
+      "女士"
+    ]
+  },
+  {
+    "id": "word_0813",
+    "word": "magazine",
+    "phonetic": "ˌmæɡə'ziːn",
+    "pos": "n",
+    "translations": [
+      "杂志",
+      "期刊"
+    ]
+  },
+  {
+    "id": "word_0814",
+    "word": "magic",
+    "phonetic": "'mædʒɪk",
+    "pos": "adj",
+    "translations": [
+      "有魔力的n.魔术"
+    ]
+  },
+  {
+    "id": "word_0815",
+    "word": "main",
+    "phonetic": "meɪn",
+    "pos": "adj",
+    "translations": [
+      "主要的",
+      "最重要的"
+    ]
+  },
+  {
+    "id": "word_0816",
+    "word": "make",
+    "phonetic": "meɪk",
+    "pos": "v",
+    "translations": [
+      "制造",
+      "做",
+      "使"
+    ]
+  },
+  {
+    "id": "word_0817",
+    "word": "mall",
+    "phonetic": "mɔːl",
+    "pos": "n",
+    "translations": [
+      "商场",
+      "购物中心"
+    ]
+  },
+  {
+    "id": "word_0818",
+    "word": "man",
+    "phonetic": "mæn",
+    "pos": "n",
+    "translations": [
+      "成年男子",
+      "人类"
+    ]
+  },
+  {
+    "id": "word_0819",
+    "word": "manage",
+    "phonetic": "'mænɪdʒ",
+    "pos": "v",
+    "translations": [
+      "管理",
+      "设法完成",
+      "应付"
+    ]
+  },
+  {
+    "id": "word_0820",
+    "word": "manner",
+    "phonetic": "'mænə(r)",
+    "pos": "n",
+    "translations": [
+      "方式",
+      "方法",
+      "礼貌",
+      "礼仪"
+    ]
+  },
+  {
+    "id": "word_0821",
+    "word": "many",
+    "phonetic": "'meni",
+    "pos": "pron",
+    "translations": [
+      "许多",
+      "许多的"
+    ]
+  },
+  {
+    "id": "word_0822",
+    "word": "map",
+    "phonetic": "mæp",
+    "pos": "n",
+    "translations": [
+      "地图"
+    ]
+  },
+  {
+    "id": "word_0823",
+    "word": "mark",
+    "phonetic": "mɑːk",
+    "pos": "n",
+    "translations": [
+      "分数",
+      "标记",
+      "做记号",
+      "表明",
+      "打分"
+    ]
+  },
+  {
+    "id": "word_0824",
+    "word": "market",
+    "phonetic": "'mɑːkɪt",
+    "pos": "n",
+    "translations": [
+      "市场",
+      "集市"
+    ]
+  },
+  {
+    "id": "word_0825",
+    "word": "marry",
+    "phonetic": "'mæri",
+    "pos": "v",
+    "translations": [
+      "结婚",
+      "嫁",
+      "娶",
+      "嫁娶"
+    ]
+  },
+  {
+    "id": "word_0826",
+    "word": "master",
+    "phonetic": "mɑːstə(r)",
+    "pos": "n",
+    "translations": [
+      "大师",
+      "能手",
+      "主人",
+      "掌握",
+      "专家",
+      "精通"
+    ]
+  },
+  {
+    "id": "word_0827",
+    "word": "match",
+    "phonetic": "mætʃ",
+    "pos": "n",
+    "translations": [
+      "比赛",
+      "竞赛",
+      "火柴",
+      "相配",
+      "般配"
+    ]
+  },
+  {
+    "id": "word_0828",
+    "word": "material",
+    "phonetic": "mə'tɪəriəl",
+    "pos": "n",
+    "translations": [
+      "材料",
+      "原料"
+    ]
+  },
+  {
+    "id": "word_0829",
+    "word": "maths",
+    "phonetic": "mæθ",
+    "pos": "n",
+    "translations": [
+      "数学"
+    ]
+  },
+  {
+    "id": "word_0830",
+    "word": "matter",
+    "phonetic": "'mætə(r)",
+    "pos": "n",
+    "translations": [
+      "问题",
+      "事情",
+      "要紧",
+      "有重大影响"
+    ]
+  },
+  {
+    "id": "word_0831",
+    "word": "may",
+    "phonetic": "meɪ",
+    "pos": "modal",
+    "translations": [
+      "．可能",
+      "也许"
+    ]
+  },
+  {
+    "id": "word_0832",
+    "word": "maybe",
+    "phonetic": "'meɪbi",
+    "pos": "adv",
+    "translations": [
+      "可能，大概，也许"
+    ]
+  },
+  {
+    "id": "word_0833",
+    "word": "me",
+    "phonetic": "miː",
+    "pos": "pron",
+    "translations": [
+      "我"
+    ]
+  },
+  {
+    "id": "word_0834",
+    "word": "meal",
+    "phonetic": "miːl",
+    "pos": "n",
+    "translations": [
+      "餐",
+      "一顿饭"
+    ]
+  },
+  {
+    "id": "word_0835",
+    "word": "mean",
+    "phonetic": "miːn",
+    "pos": "v",
+    "translations": [
+      "意思是",
+      "打算",
+      "意欲",
+      "吝啬的"
+    ]
+  },
+  {
+    "id": "word_0836",
+    "word": "meaning",
+    "phonetic": "'miːnɪ ",
+    "pos": "n",
+    "translations": [
+      "意思",
+      "意义"
+    ]
+  },
+  {
+    "id": "word_0837",
+    "word": "meat",
+    "phonetic": "miːt",
+    "pos": "n",
+    "translations": [
+      "肉"
+    ]
+  },
+  {
+    "id": "word_0838",
+    "word": "medal",
+    "phonetic": "'medl",
+    "pos": "n",
+    "translations": [
+      "奖牌",
+      "奖章",
+      "勋章",
+      "纪念章"
+    ]
+  },
+  {
+    "id": "word_0839",
+    "word": "medical",
+    "phonetic": "'medɪkl",
+    "pos": "adj",
+    "translations": [
+      "医疗的"
+    ]
+  },
+  {
+    "id": "word_0840",
+    "word": "medicine",
+    "phonetic": " 'medsn",
+    "pos": "n",
+    "translations": [
+      "药",
+      "医学"
+    ]
+  },
+  {
+    "id": "word_0841",
+    "word": "medium",
+    "phonetic": " 'miːdiəm",
+    "pos": "adj",
+    "translations": [
+      "中等的 n．媒介"
+    ]
+  },
+  {
+    "id": "word_0842",
+    "word": "meet",
+    "phonetic": "miːt",
+    "pos": "v",
+    "translations": [
+      "遇见",
+      "会面",
+      "集合"
+    ]
+  },
+  {
+    "id": "word_0843",
+    "word": "meeting",
+    "phonetic": "'miːtɪ ",
+    "pos": "n",
+    "translations": [
+      "会议",
+      "集会"
+    ]
+  },
+  {
+    "id": "word_0844",
+    "word": "member",
+    "phonetic": "'membə(r)",
+    "pos": "n",
+    "translations": [
+      "成员",
+      "会员"
+    ]
+  },
+  {
+    "id": "word_0845",
+    "word": "mention",
+    "phonetic": "'menʃn",
+    "pos": "v",
+    "translations": [
+      "提到",
+      "写到",
+      "说到"
+    ]
+  },
+  {
+    "id": "word_0846",
+    "word": "menu",
+    "phonetic": "'menjuː",
+    "pos": "n",
+    "translations": [
+      "菜单"
+    ]
+  },
+  {
+    "id": "word_0847",
+    "word": "mess",
+    "phonetic": "mes",
+    "pos": "n",
+    "translations": [
+      "杂乱",
+      "不整洁",
+      "混乱"
+    ]
+  },
+  {
+    "id": "word_0848",
+    "word": "message",
+    "phonetic": "'mesɪdʒ",
+    "pos": "n",
+    "translations": [
+      "消息",
+      "音信"
+    ]
+  },
+  {
+    "id": "word_0849",
+    "word": "method",
+    "phonetic": "'meθəd",
+    "pos": "n",
+    "translations": [
+      "方法",
+      "办法"
+    ]
+  },
+  {
+    "id": "word_0850",
+    "word": "metre",
+    "phonetic": "'miːtə(r)",
+    "pos": "n",
+    "translations": [
+      "米",
+      "公尺"
+    ]
+  },
+  {
+    "id": "word_0851",
+    "word": "middle",
+    "phonetic": "'mɪdl",
+    "pos": "n",
+    "translations": [
+      "中间",
+      "中部",
+      "中间的"
+    ]
+  },
+  {
+    "id": "word_0852",
+    "word": "might",
+    "phonetic": "maɪt",
+    "pos": "modal",
+    "translations": [
+      "．可能",
+      "可以"
+    ]
+  },
+  {
+    "id": "word_0853",
+    "word": "mile",
+    "phonetic": "maɪl",
+    "pos": "n",
+    "translations": [
+      "英里"
+    ]
+  },
+  {
+    "id": "word_0854",
+    "word": "milk",
+    "phonetic": "mɪlk",
+    "pos": "n",
+    "translations": [
+      "奶 v．挤奶"
+    ]
+  },
+  {
+    "id": "word_0855",
+    "word": "mind",
+    "phonetic": "maɪnd",
+    "pos": "n",
+    "translations": [
+      "头脑",
+      "心思 v． 介意"
+    ]
+  },
+  {
+    "id": "word_0856",
+    "word": "mine",
+    "phonetic": "maɪn",
+    "pos": "pron",
+    "translations": [
+      "我的"
+    ]
+  },
+  {
+    "id": "word_0857",
+    "word": "minute",
+    "phonetic": "'mɪnɪt",
+    "pos": "n",
+    "translations": [
+      "分钟",
+      "一会儿"
+    ]
+  },
+  {
+    "id": "word_0858",
+    "word": "mirror",
+    "phonetic": "'mɪrə(r)",
+    "pos": "n",
+    "translations": [
+      "镜子"
+    ]
+  },
+  {
+    "id": "word_0859",
+    "word": "miss",
+    "phonetic": "mɪs",
+    "pos": "v",
+    "translations": [
+      "错过",
+      "思念"
+    ]
+  },
+  {
+    "id": "word_0860",
+    "word": "Miss",
+    "phonetic": "mɪs",
+    "pos": "n",
+    "translations": [
+      "小姐",
+      "女士"
+    ]
+  },
+  {
+    "id": "word_0861",
+    "word": "mistake",
+    "phonetic": "mɪ'steɪk",
+    "pos": "v",
+    "translations": [
+      "误会",
+      "误解",
+      "．错误"
+    ]
+  },
+  {
+    "id": "word_0862",
+    "word": "mix",
+    "phonetic": "mɪks",
+    "pos": "n",
+    "translations": [
+      "混合料",
+      "配料",
+      "融合"
+    ]
+  },
+  {
+    "id": "word_0863",
+    "word": "mobile",
+    "phonetic": "'məʊbaɪl",
+    "pos": "adj",
+    "translations": [
+      "可移动的",
+      "非固定",
+      "移动的"
+    ]
+  },
+  {
+    "id": "word_0864",
+    "word": "model",
+    "phonetic": "'mɒdl",
+    "pos": "n",
+    "translations": [
+      "模型",
+      "范例",
+      "模特儿"
+    ]
+  },
+  {
+    "id": "word_0865",
+    "word": "modern",
+    "phonetic": "'mɒdn",
+    "pos": "adj",
+    "translations": [
+      "现代的"
+    ]
+  },
+  {
+    "id": "word_0866",
+    "word": "moment",
+    "phonetic": "'məʊmənt",
+    "pos": "n",
+    "translations": [
+      "时刻",
+      "片刻"
+    ]
+  },
+  {
+    "id": "word_0867",
+    "word": "money",
+    "phonetic": "'mʌni",
+    "pos": "n",
+    "translations": [
+      "钱"
+    ]
+  },
+  {
+    "id": "word_0868",
+    "word": "monkey",
+    "phonetic": "'mʌ ki",
+    "pos": "n",
+    "translations": [
+      "猴子"
+    ]
+  },
+  {
+    "id": "word_0869",
+    "word": "month",
+    "phonetic": "mʌnθ",
+    "pos": "n",
+    "translations": [
+      "月",
+      "月份"
+    ]
+  },
+  {
+    "id": "word_0870",
+    "word": "moon",
+    "phonetic": "muːn",
+    "pos": "n",
+    "translations": [
+      "月球",
+      "月亮"
+    ]
+  },
+  {
+    "id": "word_0871",
+    "word": "more",
+    "phonetic": "mɔː(r)",
+    "pos": "adj",
+    "translations": [
+      "更多的",
+      "更多"
+    ]
+  },
+  {
+    "id": "word_0872",
+    "word": "morning",
+    "phonetic": "'mɔːnɪ ",
+    "pos": "n",
+    "translations": [
+      "早晨",
+      "上午"
+    ]
+  },
+  {
+    "id": "word_0873",
+    "word": "most",
+    "phonetic": "məʊst",
+    "pos": "adv",
+    "translations": [
+      "最",
+      "大多数",
+      "最多"
+    ]
+  },
+  {
+    "id": "word_0874",
+    "word": "mother",
+    "phonetic": "'mʌðə(r)",
+    "pos": "n",
+    "translations": [
+      "母亲"
+    ]
+  },
+  {
+    "id": "word_0875",
+    "word": "mountain",
+    "phonetic": "'maʊntən",
+    "pos": "n",
+    "translations": [
+      "高山"
+    ]
+  },
+  {
+    "id": "word_0876",
+    "word": "mouse",
+    "phonetic": "maʊs",
+    "pos": "n",
+    "translations": [
+      "老鼠",
+      "耗子",
+      "鼠标"
+    ]
+  },
+  {
+    "id": "word_0877",
+    "word": "mouth",
+    "phonetic": "maʊθ",
+    "pos": "n",
+    "translations": [
+      "嘴",
+      "口"
+    ]
+  },
+  {
+    "id": "word_0878",
+    "word": "move",
+    "phonetic": "muːv",
+    "pos": "v",
+    "translations": [
+      "移动",
+      "搬家",
+      "使感动"
+    ]
+  },
+  {
+    "id": "word_0879",
+    "word": "movie",
+    "phonetic": "'muːvi",
+    "pos": "n",
+    "translations": [
+      "电影",
+      "电影院"
+    ]
+  },
+  {
+    "id": "word_0880",
+    "word": "Mr",
+    "phonetic": "'mɪstə(r)",
+    "pos": "n",
+    "translations": [
+      "先生"
+    ]
+  },
+  {
+    "id": "word_0881",
+    "word": "Mrs",
+    "phonetic": "'mɪsɪz",
+    "pos": "n",
+    "translations": [
+      "夫人，太太"
+    ]
+  },
+  {
+    "id": "word_0882",
+    "word": "Ms",
+    "phonetic": "mɪz",
+    "pos": "n",
+    "translations": [
+      "女士"
+    ]
+  },
+  {
+    "id": "word_0883",
+    "word": "much",
+    "phonetic": "mʌtʃ",
+    "pos": "pron",
+    "translations": [
+      "许多",
+      "非常",
+      "十分"
+    ]
+  },
+  {
+    "id": "word_0884",
+    "word": "museum",
+    "phonetic": "mju'ziːəm",
+    "pos": "n",
+    "translations": [
+      "博物馆"
+    ]
+  },
+  {
+    "id": "word_0885",
+    "word": "music",
+    "phonetic": "'mjuːzɪk",
+    "pos": "n",
+    "translations": [
+      "音乐",
+      "乐曲"
+    ]
+  },
+  {
+    "id": "word_0886",
+    "word": "must",
+    "phonetic": "mʌst",
+    "pos": "modal",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_0887",
+    "word": "mutton",
+    "phonetic": "'mʌtn",
+    "pos": "n",
+    "translations": [
+      "羊肉"
+    ]
+  },
+  {
+    "id": "word_0888",
+    "word": "my",
+    "phonetic": "maɪ",
+    "pos": "pron",
+    "translations": [
+      "我的"
+    ]
+  },
+  {
+    "id": "word_0889",
+    "word": "myself",
+    "phonetic": "maɪ'self",
+    "pos": "pron",
+    "translations": [
+      "我自己"
+    ]
+  },
+  {
+    "id": "word_0890",
+    "word": "name",
+    "phonetic": "neɪm",
+    "pos": "n",
+    "translations": [
+      "名字",
+      "名称",
+      "命名",
+      "给……取名"
+    ]
+  },
+  {
+    "id": "word_0891",
+    "word": "narrow",
+    "phonetic": "'nærəʊ",
+    "pos": "adj",
+    "translations": [
+      "狭窄的",
+      "狭隘的"
+    ]
+  },
+  {
+    "id": "word_0892",
+    "word": "nation",
+    "phonetic": "'neɪʃ(ə)n",
+    "pos": "n",
+    "translations": [
+      "国家",
+      "民族",
+      "民族的"
+    ]
+  },
+  {
+    "id": "word_0893",
+    "word": "nature",
+    "phonetic": "'neɪtʃə(r)",
+    "pos": "n",
+    "translations": [
+      "大自然",
+      "自然界",
+      "本性"
+    ]
+  },
+  {
+    "id": "word_0894",
+    "word": "near",
+    "phonetic": "nɪə(r)",
+    "pos": "adj",
+    "translations": [
+      "在……附近",
+      "邻近的",
+      "在附近",
+      "不远"
+    ]
+  },
+  {
+    "id": "word_0895",
+    "word": "nearly",
+    "phonetic": "'nɪəli",
+    "pos": "adv",
+    "translations": [
+      "将近",
+      "几乎",
+      "差不多"
+    ]
+  },
+  {
+    "id": "word_0896",
+    "word": "necessary",
+    "phonetic": "'nesəsəri",
+    "pos": "adj",
+    "translations": [
+      "必需的",
+      "必要的"
+    ]
+  },
+  {
+    "id": "word_0897",
+    "word": "neck",
+    "phonetic": "nek",
+    "pos": "n",
+    "translations": [
+      "颈",
+      "脖子"
+    ]
+  },
+  {
+    "id": "word_0898",
+    "word": "need",
+    "phonetic": "niːd",
+    "pos": "n",
+    "translations": [
+      "需要",
+      "eed"
+    ]
+  },
+  {
+    "id": "word_0899",
+    "word": "negative",
+    "phonetic": "'neɡətɪv",
+    "pos": "adj",
+    "translations": [
+      "负面的",
+      "消极的",
+      "否定的"
+    ]
+  },
+  {
+    "id": "word_0900",
+    "word": "neighbour",
+    "phonetic": "'neɪbə(r)",
+    "pos": "n",
+    "translations": [
+      "邻居",
+      "城区",
+      "某街区"
+    ]
+  },
+  {
+    "id": "word_0901",
+    "word": "neither",
+    "phonetic": "'naɪðə(r)",
+    "pos": "pron",
+    "translations": [
+      "两者都不adv.也不"
+    ]
+  },
+  {
+    "id": "word_0902",
+    "word": "nervous",
+    "phonetic": "'nɜːvəs",
+    "pos": "adj",
+    "translations": [
+      "焦虑的",
+      "担忧的"
+    ]
+  },
+  {
+    "id": "word_0903",
+    "word": "never",
+    "phonetic": "'nevə(r)",
+    "pos": "adv",
+    "translations": [
+      "绝不",
+      "从未"
+    ]
+  },
+  {
+    "id": "word_0904",
+    "word": "new",
+    "phonetic": "njuː",
+    "pos": "adj",
+    "translations": [
+      "新的",
+      "新鲜的",
+      "刚出现的"
+    ]
+  },
+  {
+    "id": "word_0905",
+    "word": "news",
+    "phonetic": "njuːz",
+    "pos": "n",
+    "translations": [
+      "新闻",
+      "消息"
+    ]
+  },
+  {
+    "id": "word_0906",
+    "word": "newspaper",
+    "phonetic": "'njuːzpeɪpə(r)",
+    "pos": "n",
+    "translations": [
+      "报纸"
+    ]
+  },
+  {
+    "id": "word_0907",
+    "word": "next",
+    "phonetic": "nekst",
+    "pos": "adj",
+    "translations": [
+      "下一个的",
+      "紧接着的",
+      "紧接着",
+      "在……旁边"
+    ]
+  },
+  {
+    "id": "word_0908",
+    "word": "nice",
+    "phonetic": "naɪs",
+    "pos": "adj",
+    "translations": [
+      "令人愉快的",
+      "宜人的",
+      "友好的"
+    ]
+  },
+  {
+    "id": "word_0909",
+    "word": "night",
+    "phonetic": "naɪt",
+    "pos": "n",
+    "translations": [
+      "夜",
+      "夜晚"
+    ]
+  },
+  {
+    "id": "word_0910",
+    "word": "no",
+    "phonetic": "nəʊ",
+    "pos": "adv",
+    "translations": [
+      "不",
+      "没有",
+      "不是"
+    ]
+  },
+  {
+    "id": "word_0911",
+    "word": "nobody",
+    "phonetic": "'nəʊbədi",
+    "pos": "pron",
+    "translations": [
+      "没有人n.小人物"
+    ]
+  },
+  {
+    "id": "word_0912",
+    "word": "nod",
+    "phonetic": "nɒd",
+    "pos": "v",
+    "translations": [
+      "点头"
+    ]
+  },
+  {
+    "id": "word_0913",
+    "word": "noise",
+    "phonetic": "nɔɪz",
+    "pos": "n",
+    "translations": [
+      "声音",
+      "噪声",
+      "吵闹声"
+    ]
+  },
+  {
+    "id": "word_0914",
+    "word": "none",
+    "phonetic": "nʌn",
+    "pos": "pron",
+    "translations": [
+      "没有一个",
+      "毫无"
+    ]
+  },
+  {
+    "id": "word_0915",
+    "word": "noodle",
+    "phonetic": "'nuːdl",
+    "pos": "n",
+    "translations": [
+      "面条"
+    ]
+  },
+  {
+    "id": "word_0916",
+    "word": "noon",
+    "phonetic": "nuːn",
+    "pos": "n",
+    "translations": [
+      "中午",
+      "正午"
+    ]
+  },
+  {
+    "id": "word_0917",
+    "word": "nor",
+    "phonetic": "nɔː(r)",
+    "pos": "adv",
+    "translations": [
+      "也不"
+    ]
+  },
+  {
+    "id": "word_0918",
+    "word": "normal",
+    "phonetic": "'nɔːm(ə)l",
+    "pos": "adj",
+    "translations": [
+      "正常的",
+      "一般的",
+      "一般地"
+    ]
+  },
+  {
+    "id": "word_0919",
+    "word": "north",
+    "phonetic": "nɔːθ",
+    "pos": "adj",
+    "translations": [
+      "北方的",
+      "向北的",
+      "北方",
+      "向北，朝北"
+    ]
+  },
+  {
+    "id": "word_0920",
+    "word": "nose",
+    "phonetic": "nəʊz",
+    "pos": "n",
+    "translations": [
+      "鼻子"
+    ]
+  },
+  {
+    "id": "word_0921",
+    "word": "not",
+    "phonetic": "nɒt",
+    "pos": "adv",
+    "translations": [
+      "不，没有",
+      "根本不"
+    ]
+  },
+  {
+    "id": "word_0922",
+    "word": "note",
+    "phonetic": "nəʊt",
+    "pos": "n",
+    "translations": [
+      "笔记",
+      "记录",
+      "注释",
+      "便条",
+      "指出"
+    ]
+  },
+  {
+    "id": "word_0923",
+    "word": "notebook",
+    "phonetic": "'nəʊtbʊk",
+    "pos": "n",
+    "translations": [
+      "笔记本"
+    ]
+  },
+  {
+    "id": "word_0924",
+    "word": "nothing",
+    "phonetic": "'nʌθɪ ",
+    "pos": "pron",
+    "translations": [
+      "没有一件东西",
+      "没有什么"
+    ]
+  },
+  {
+    "id": "word_0925",
+    "word": "notice",
+    "phonetic": "'nəʊtɪs",
+    "pos": "n",
+    "translations": [
+      "布告",
+      "通告",
+      "注意",
+      "注意到",
+      "意识到"
+    ]
+  },
+  {
+    "id": "word_0926",
+    "word": "novel",
+    "phonetic": "'nɒv(ə)l",
+    "pos": "n",
+    "translations": [
+      "小说"
+    ]
+  },
+  {
+    "id": "word_0927",
+    "word": "now",
+    "phonetic": "naʊ",
+    "pos": "adv",
+    "translations": [
+      "现在"
+    ]
+  },
+  {
+    "id": "word_0928",
+    "word": "number",
+    "phonetic": "'nʌmbə(r)",
+    "pos": "n",
+    "translations": [
+      "数",
+      "数字",
+      "号码",
+      "数量"
+    ]
+  },
+  {
+    "id": "word_0929",
+    "word": "nurse",
+    "phonetic": "nɜːs",
+    "pos": "n",
+    "translations": [
+      "护士",
+      "女保育员"
+    ]
+  },
+  {
+    "id": "word_0930",
+    "word": "object",
+    "phonetic": "əb'dʒekt",
+    "pos": "n",
+    "translations": [
+      "物体",
+      "宾语 v．反对"
+    ]
+  },
+  {
+    "id": "word_0931",
+    "word": "ocean",
+    "phonetic": "'əʊʃ(ə)n",
+    "pos": "n",
+    "translations": [
+      "大海",
+      "海洋"
+    ]
+  },
+  {
+    "id": "word_0932",
+    "word": "of",
+    "phonetic": "ɒv",
+    "pos": "prep",
+    "translations": [
+      "属于",
+      "关于"
+    ]
+  },
+  {
+    "id": "word_0933",
+    "word": "off",
+    "phonetic": "ɒf",
+    "pos": "adv",
+    "translations": [
+      "离开",
+      "不工作",
+      "从"
+    ]
+  },
+  {
+    "id": "word_0934",
+    "word": "offer",
+    "phonetic": "'ɒfə(r)",
+    "pos": "v",
+    "translations": [
+      "主动提出",
+      "提供"
+    ]
+  },
+  {
+    "id": "word_0935",
+    "word": "office",
+    "phonetic": "'ɒfɪs",
+    "pos": "n",
+    "translations": [
+      "办公室",
+      "要员",
+      "官员",
+      "高级职员"
+    ]
+  },
+  {
+    "id": "word_0936",
+    "word": "officer",
+    "phonetic": "'ɒfɪsə(r)",
+    "pos": "n",
+    "translations": [
+      "军官",
+      "官员",
+      "警官"
+    ]
+  },
+  {
+    "id": "word_0937",
+    "word": "often",
+    "phonetic": "'ɒfn",
+    "pos": "adv",
+    "translations": [
+      "经常",
+      "常常"
+    ]
+  },
+  {
+    "id": "word_0938",
+    "word": "oil",
+    "phonetic": "ɔɪl",
+    "pos": "n",
+    "translations": [
+      "石油",
+      "油",
+      "食用油"
+    ]
+  },
+  {
+    "id": "word_0939",
+    "word": "OK",
+    "phonetic": "əʊ'keɪ",
+    "pos": "adv",
+    "translations": [
+      "对"
+    ]
+  },
+  {
+    "id": "word_0940",
+    "word": "old",
+    "phonetic": "əʊld",
+    "pos": "adj",
+    "translations": [
+      "老的",
+      "旧的"
+    ]
+  },
+  {
+    "id": "word_0941",
+    "word": "Olympic",
+    "phonetic": "ə'lɪmpɪk",
+    "pos": "adj",
+    "translations": [
+      "奥林匹克运动会的"
+    ]
+  },
+  {
+    "id": "word_0942",
+    "word": "on",
+    "phonetic": "ɒn",
+    "pos": "prep",
+    "translations": [
+      "在……上",
+      "关于"
+    ]
+  },
+  {
+    "id": "word_0943",
+    "word": "once",
+    "phonetic": "wʌns",
+    "pos": "adv",
+    "translations": [
+      "一次",
+      "曾经"
+    ]
+  },
+  {
+    "id": "word_0944",
+    "word": "onion",
+    "phonetic": "'ʌnjən",
+    "pos": "n",
+    "translations": [
+      "洋葱"
+    ]
+  },
+  {
+    "id": "word_0945",
+    "word": "online",
+    "phonetic": "ˌɒn'laɪn",
+    "pos": "adj",
+    "translations": [
+      "在线的"
+    ]
+  },
+  {
+    "id": "word_0946",
+    "word": "only",
+    "phonetic": "'əʊnli",
+    "pos": "adv",
+    "translations": [
+      "仅仅",
+      "只"
+    ]
+  },
+  {
+    "id": "word_0947",
+    "word": "open",
+    "phonetic": "'əʊpən",
+    "pos": "adj",
+    "translations": [
+      "开着的",
+      "开放的",
+      "．开",
+      "打开"
+    ]
+  },
+  {
+    "id": "word_0948",
+    "word": "opera",
+    "phonetic": "'ɒp(ə)rə",
+    "pos": "n",
+    "translations": [
+      "歌剧"
+    ]
+  },
+  {
+    "id": "word_0949",
+    "word": "operate",
+    "phonetic": "'ɒpəreɪt",
+    "pos": "v",
+    "translations": [
+      "运转",
+      "经营",
+      "做手术"
+    ]
+  },
+  {
+    "id": "word_0950",
+    "word": "opinion",
+    "phonetic": "ə'pɪnjən",
+    "pos": "n",
+    "translations": [
+      "意见",
+      "想法",
+      "看法"
+    ]
+  },
+  {
+    "id": "word_0951",
+    "word": "opposite",
+    "phonetic": "'ɒpəzɪt",
+    "pos": "prep",
+    "translations": [
+      "与……相对",
+      "在……"
+    ]
+  },
+  {
+    "id": "word_0952",
+    "word": "or",
+    "phonetic": "ɔː(r)",
+    "pos": "conj",
+    "translations": [
+      "或",
+      "否则"
+    ]
+  },
+  {
+    "id": "word_0953",
+    "word": "orange",
+    "phonetic": "'ɒrɪndʒ",
+    "pos": "n",
+    "translations": [
+      "橙子",
+      "橙汁",
+      "橙红色的"
+    ]
+  },
+  {
+    "id": "word_0954",
+    "word": "order",
+    "phonetic": "'ɔːdə(r)",
+    "pos": "v",
+    "translations": [
+      "订购",
+      "命令",
+      "点菜 n．命令",
+      "顺序"
+    ]
+  },
+  {
+    "id": "word_0955",
+    "word": "organise",
+    "phonetic": "'ɔːɡənaɪz",
+    "pos": "v",
+    "translations": [
+      "组织",
+      "筹备"
+    ]
+  },
+  {
+    "id": "word_0956",
+    "word": "other",
+    "phonetic": "'ʌðə(r)",
+    "pos": "adj",
+    "translations": [
+      "另外",
+      "其他"
+    ]
+  },
+  {
+    "id": "word_0957",
+    "word": "our",
+    "phonetic": "'aʊə(r)",
+    "pos": "pron",
+    "translations": [
+      "我们的"
+    ]
+  },
+  {
+    "id": "word_0958",
+    "word": "ours",
+    "phonetic": "'aʊəz",
+    "pos": "pron",
+    "translations": [
+      "我们的"
+    ]
+  },
+  {
+    "id": "word_0959",
+    "word": "ourselves",
+    "phonetic": "ˌaʊə'selvz",
+    "pos": "pron",
+    "translations": [
+      "我们自己"
+    ]
+  },
+  {
+    "id": "word_0960",
+    "word": "out",
+    "phonetic": "aʊt",
+    "pos": "adv",
+    "translations": [
+      "外面",
+      "外出的"
+    ]
+  },
+  {
+    "id": "word_0961",
+    "word": "outside",
+    "phonetic": "ˌaʊt'saɪd",
+    "pos": "adj",
+    "translations": [
+      "在……外面"
+    ]
+  },
+  {
+    "id": "word_0962",
+    "word": "oven",
+    "phonetic": "'ʌv(ə)n",
+    "pos": "n",
+    "translations": [
+      "烤箱",
+      "烤炉"
+    ]
+  },
+  {
+    "id": "word_0963",
+    "word": "over",
+    "phonetic": "'əʊvə(r)",
+    "pos": "prep",
+    "translations": [
+      "在……上面",
+      "越过"
+    ]
+  },
+  {
+    "id": "word_0964",
+    "word": "own",
+    "phonetic": "əʊn",
+    "pos": "adj",
+    "translations": [
+      "自己的 v．拥"
+    ]
+  },
+  {
+    "id": "word_0965",
+    "word": "pack",
+    "phonetic": "pæk",
+    "pos": "v",
+    "translations": [
+      "包装",
+      "装箱"
+    ]
+  },
+  {
+    "id": "word_0966",
+    "word": "packet",
+    "phonetic": "'pækɪt",
+    "pos": "n",
+    "translations": [
+      "包装盒",
+      "小包裹"
+    ]
+  },
+  {
+    "id": "word_0967",
+    "word": "page",
+    "phonetic": "peɪdʒ",
+    "pos": "n",
+    "translations": [
+      "面"
+    ]
+  },
+  {
+    "id": "word_0968",
+    "word": "pain",
+    "phonetic": "peɪn",
+    "pos": "n",
+    "translations": [
+      "痛苦",
+      "疼痛",
+      "苦恼"
+    ]
+  },
+  {
+    "id": "word_0969",
+    "word": "paint",
+    "phonetic": "peɪnt",
+    "pos": "v",
+    "translations": [
+      "．用颜料画"
+    ]
+  },
+  {
+    "id": "word_0970",
+    "word": "pair",
+    "phonetic": "peə(r)",
+    "pos": "n",
+    "translations": [
+      "一双",
+      "一对"
+    ]
+  },
+  {
+    "id": "word_0971",
+    "word": "palace",
+    "phonetic": "'pæləs",
+    "pos": "n",
+    "translations": [
+      "王宫",
+      "宫殿"
+    ]
+  },
+  {
+    "id": "word_0972",
+    "word": "pale",
+    "phonetic": "peɪl",
+    "pos": "adj",
+    "translations": [
+      "苍白的",
+      "灰白的"
+    ]
+  },
+  {
+    "id": "word_0973",
+    "word": "pancake",
+    "phonetic": "'pænkeɪk",
+    "pos": "n",
+    "translations": [
+      "薄饼",
+      "烙饼",
+      "薄煎饼"
+    ]
+  },
+  {
+    "id": "word_0974",
+    "word": "panda",
+    "phonetic": "'pændə",
+    "pos": "n",
+    "translations": [
+      "熊猫"
+    ]
+  },
+  {
+    "id": "word_0975",
+    "word": "paper",
+    "phonetic": "'peɪpə(r)",
+    "pos": "n",
+    "translations": [
+      "纸",
+      "报纸",
+      "文件",
+      "论文"
+    ]
+  },
+  {
+    "id": "word_0976",
+    "word": "paragraph",
+    "phonetic": "'pærəɡrɑːf",
+    "pos": "n",
+    "translations": [
+      "段落"
+    ]
+  },
+  {
+    "id": "word_0977",
+    "word": "pardon",
+    "phonetic": "'pɑːdn",
+    "pos": "n",
+    "translations": [
+      "．原谅",
+      "宽恕",
+      "原谅/饶恕"
+    ]
+  },
+  {
+    "id": "word_0978",
+    "word": "parent",
+    "phonetic": "'peərənt",
+    "pos": "n",
+    "translations": [
+      "父"
+    ]
+  },
+  {
+    "id": "word_0979",
+    "word": "park",
+    "phonetic": "pɑːk",
+    "pos": "n",
+    "translations": [
+      "公园",
+      "停车场 v．停"
+    ]
+  },
+  {
+    "id": "word_0980",
+    "word": "part",
+    "phonetic": "pɑːt",
+    "pos": "n",
+    "translations": [
+      "部分",
+      "片段",
+      "部位"
+    ]
+  },
+  {
+    "id": "word_0981",
+    "word": "partner",
+    "phonetic": "'pɑːtnə(r)",
+    "pos": "n",
+    "translations": [
+      "搭档",
+      "同伴"
+    ]
+  },
+  {
+    "id": "word_0982",
+    "word": "party",
+    "phonetic": "'pɑːti",
+    "pos": "n",
+    "translations": [
+      "聚会",
+      "宴会",
+      "党派"
+    ]
+  },
+  {
+    "id": "word_0983",
+    "word": "pass",
+    "phonetic": "pɑːs",
+    "pos": "v",
+    "translations": [
+      "给",
+      "递",
+      "走过",
+      "通过"
+    ]
+  },
+  {
+    "id": "word_0984",
+    "word": "passage",
+    "phonetic": "'pæsɪdʒ",
+    "pos": "n",
+    "translations": [
+      "章节",
+      "段落",
+      "通道"
+    ]
+  },
+  {
+    "id": "word_0985",
+    "word": "passenger",
+    "phonetic": "'pæsɪndʒə(r)",
+    "pos": "n",
+    "translations": [
+      "乘客",
+      "旅客"
+    ]
+  },
+  {
+    "id": "word_0986",
+    "word": "passport",
+    "phonetic": "'pɑːspɔːt",
+    "pos": "n",
+    "translations": [
+      "护照"
+    ]
+  },
+  {
+    "id": "word_0987",
+    "word": "past",
+    "phonetic": "pɑːst",
+    "pos": "adj",
+    "translations": [
+      "在……之后",
+      "过去",
+      "昔日"
+    ]
+  },
+  {
+    "id": "word_0988",
+    "word": "patient",
+    "phonetic": "'peɪʃnt",
+    "pos": "n",
+    "translations": [
+      "病人 adj.耐心的"
+    ]
+  },
+  {
+    "id": "word_0989",
+    "word": "pay",
+    "phonetic": "peɪ",
+    "pos": "v",
+    "translations": [
+      "付费",
+      "付代价",
+      "工资"
+    ]
+  },
+  {
+    "id": "word_0990",
+    "word": "peace",
+    "phonetic": "piːs",
+    "pos": "n",
+    "translations": [
+      "和平"
+    ]
+  },
+  {
+    "id": "word_0991",
+    "word": "pear",
+    "phonetic": "peə(r)",
+    "pos": "n",
+    "translations": [
+      "梨"
+    ]
+  },
+  {
+    "id": "word_0992",
+    "word": "pen",
+    "phonetic": "pen",
+    "pos": "n",
+    "translations": [
+      "钢笔",
+      "笔"
+    ]
+  },
+  {
+    "id": "word_0993",
+    "word": "pencil",
+    "phonetic": "'pensl",
+    "pos": "n",
+    "translations": [
+      "铅笔"
+    ]
+  },
+  {
+    "id": "word_0994",
+    "word": "penguin",
+    "phonetic": "'pe ɡwɪn",
+    "pos": "n",
+    "translations": [
+      "企鹅"
+    ]
+  },
+  {
+    "id": "word_0995",
+    "word": "people",
+    "phonetic": "'piːpl",
+    "pos": "n",
+    "translations": [
+      "人",
+      "人们",
+      "人民",
+      "民"
+    ]
+  },
+  {
+    "id": "word_0996",
+    "word": "pepper",
+    "phonetic": "'pepə(r)",
+    "pos": "n",
+    "translations": [
+      "胡椒粉",
+      "柿子椒",
+      "胡椒"
+    ]
+  },
+  {
+    "id": "word_0997",
+    "word": "percent",
+    "phonetic": "pə'sent",
+    "pos": "n",
+    "translations": [
+      "百分之……"
+    ]
+  },
+  {
+    "id": "word_0998",
+    "word": "perfect",
+    "phonetic": "'pɜːfɪkt",
+    "pos": "adj",
+    "translations": [
+      "完美的",
+      "极好的"
+    ]
+  },
+  {
+    "id": "word_0999",
+    "word": "perform",
+    "phonetic": "pə'fɔːm",
+    "pos": "v",
+    "translations": [
+      "表演",
+      "执行"
+    ]
+  },
+  {
+    "id": "word_1000",
+    "word": "performance",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "演出",
+      "执行",
+      "性能"
+    ]
+  },
+  {
+    "id": "word_1001",
+    "word": "perhaps",
+    "phonetic": "pə'hæps",
+    "pos": "adv",
+    "translations": [
+      "可能",
+      "也许"
+    ]
+  },
+  {
+    "id": "word_1002",
+    "word": "period",
+    "phonetic": "'pɪəriəd",
+    "pos": "n",
+    "translations": [
+      "一段时间",
+      "时期"
+    ]
+  },
+  {
+    "id": "word_1003",
+    "word": "person",
+    "phonetic": "'pɜːs(ə)n",
+    "pos": "n",
+    "translations": [
+      "人"
+    ]
+  },
+  {
+    "id": "word_1004",
+    "word": "personal",
+    "phonetic": "'pɜːsənl",
+    "pos": "adj",
+    "translations": [
+      "个人的",
+      "私人的"
+    ]
+  },
+  {
+    "id": "word_1005",
+    "word": "pet",
+    "phonetic": "pet",
+    "pos": "n",
+    "translations": [
+      "宠物"
+    ]
+  },
+  {
+    "id": "word_1006",
+    "word": "phone",
+    "phonetic": "fəʊn",
+    "pos": "v",
+    "translations": [
+      "打电话",
+      "．电话",
+      "电话机"
+    ]
+  },
+  {
+    "id": "word_1007",
+    "word": "photo",
+    "phonetic": "'fəʊtəʊ",
+    "pos": "n",
+    "translations": [
+      "照片"
+    ]
+  },
+  {
+    "id": "word_1008",
+    "word": "physics",
+    "phonetic": "'fɪzɪks",
+    "pos": "n",
+    "translations": [
+      "物理学"
+    ]
+  },
+  {
+    "id": "word_1009",
+    "word": "piano",
+    "phonetic": "pi'ænəʊ",
+    "pos": "n",
+    "translations": [
+      "钢琴"
+    ]
+  },
+  {
+    "id": "word_1010",
+    "word": "pick",
+    "phonetic": "pɪk",
+    "pos": "v",
+    "translations": [
+      "采",
+      "摘",
+      "挑选"
+    ]
+  },
+  {
+    "id": "word_1011",
+    "word": "picnic",
+    "phonetic": "'pɪknɪk",
+    "pos": "n",
+    "translations": [
+      "野餐"
+    ]
+  },
+  {
+    "id": "word_1012",
+    "word": "picture",
+    "phonetic": "'pɪktʃə(r)",
+    "pos": "n",
+    "translations": [
+      "图画",
+      "照片"
+    ]
+  },
+  {
+    "id": "word_1013",
+    "word": "pie",
+    "phonetic": "paɪ",
+    "pos": "n",
+    "translations": [
+      "果馅饼"
+    ]
+  },
+  {
+    "id": "word_1014",
+    "word": "piece",
+    "phonetic": "piːs",
+    "pos": "n",
+    "translations": [
+      "块",
+      "张"
+    ]
+  },
+  {
+    "id": "word_1015",
+    "word": "pig",
+    "phonetic": "pɪɡ",
+    "pos": "n",
+    "translations": [
+      "猪"
+    ]
+  },
+  {
+    "id": "word_1016",
+    "word": "pill",
+    "phonetic": "pɪl",
+    "pos": "n",
+    "translations": [
+      "药丸"
+    ]
+  },
+  {
+    "id": "word_1017",
+    "word": "pilot",
+    "phonetic": "'paɪlət",
+    "pos": "n",
+    "translations": [
+      "飞行员"
+    ]
+  },
+  {
+    "id": "word_1018",
+    "word": "pong",
+    "phonetic": "'pɪ\tpɒ ",
+    "pos": "n",
+    "translations": [
+      "乒乓球"
+    ]
+  },
+  {
+    "id": "word_1019",
+    "word": "pink",
+    "phonetic": "pɪ k",
+    "pos": "adj",
+    "translations": [
+      "粉红色的"
+    ]
+  },
+  {
+    "id": "word_1020",
+    "word": "pioneer",
+    "phonetic": "ˌpaɪə'nɪə(r)",
+    "pos": "n",
+    "translations": [
+      "先锋",
+      "开拓者"
+    ]
+  },
+  {
+    "id": "word_1021",
+    "word": "pity",
+    "phonetic": "'pɪti",
+    "pos": "v",
+    "translations": [
+      "．怜悯",
+      "同情"
+    ]
+  },
+  {
+    "id": "word_1022",
+    "word": "pizza",
+    "phonetic": "'piːtsə",
+    "pos": "n",
+    "translations": [
+      "比萨饼"
+    ]
+  },
+  {
+    "id": "word_1023",
+    "word": "place",
+    "phonetic": "pleɪs",
+    "pos": "n",
+    "translations": [
+      "地方",
+      "场所",
+      "放置",
+      "安置"
+    ]
+  },
+  {
+    "id": "word_1024",
+    "word": "plan",
+    "phonetic": "plæn",
+    "pos": "n",
+    "translations": [
+      "．计划",
+      "打算"
+    ]
+  },
+  {
+    "id": "word_1025",
+    "word": "plane",
+    "phonetic": "pleɪn",
+    "pos": "n",
+    "translations": [
+      "飞机"
+    ]
+  },
+  {
+    "id": "word_1026",
+    "word": "planet",
+    "phonetic": "'plænɪt",
+    "pos": "n",
+    "translations": [
+      "行星"
+    ]
+  },
+  {
+    "id": "word_1027",
+    "word": "plant",
+    "phonetic": "plɑːnt",
+    "pos": "v",
+    "translations": [
+      "种植",
+      "播种",
+      "．植物"
+    ]
+  },
+  {
+    "id": "word_1028",
+    "word": "plastic",
+    "phonetic": "'plæstɪk",
+    "pos": "adj",
+    "translations": [
+      "塑料的",
+      "．塑料",
+      "塑胶"
+    ]
+  },
+  {
+    "id": "word_1029",
+    "word": "plate",
+    "phonetic": "pleɪt",
+    "pos": "n",
+    "translations": [
+      "盘子",
+      "一盘"
+    ]
+  },
+  {
+    "id": "word_1030",
+    "word": "play",
+    "phonetic": "pleɪ",
+    "pos": "v",
+    "translations": [
+      "玩",
+      "参加比赛",
+      "演奏",
+      "扮演",
+      "．戏剧"
+    ]
+  },
+  {
+    "id": "word_1031",
+    "word": "playground",
+    "phonetic": "'pleɪɡraʊnd",
+    "pos": "n",
+    "translations": [
+      "操场",
+      "游戏场"
+    ]
+  },
+  {
+    "id": "word_1032",
+    "word": "please",
+    "phonetic": "pliːz",
+    "pos": "v",
+    "translations": [
+      "使高兴",
+      "使满意",
+      "请"
+    ]
+  },
+  {
+    "id": "word_1033",
+    "word": "pleasure",
+    "phonetic": "'pleʒə(r)",
+    "pos": "n",
+    "translations": [
+      "高兴",
+      "愉快"
+    ]
+  },
+  {
+    "id": "word_1034",
+    "word": "plenty",
+    "phonetic": "'plenti",
+    "pos": "adv",
+    "translations": [
+      "很多",
+      "大量",
+      "众多",
+      "充足"
+    ]
+  },
+  {
+    "id": "word_1035",
+    "word": "pocket",
+    "phonetic": "'pɒkɪt",
+    "pos": "n",
+    "translations": [
+      "口袋",
+      "衣袋"
+    ]
+  },
+  {
+    "id": "word_1036",
+    "word": "poem",
+    "phonetic": "'pəʊɪm",
+    "pos": "n",
+    "translations": [
+      "诗"
+    ]
+  },
+  {
+    "id": "word_1037",
+    "word": "poet",
+    "phonetic": "'pəʊɪt",
+    "pos": "n",
+    "translations": [
+      "诗人"
+    ]
+  },
+  {
+    "id": "word_1038",
+    "word": "point",
+    "phonetic": "pɔɪnt",
+    "pos": "v",
+    "translations": [
+      "指",
+      "指向 n．要点"
+    ]
+  },
+  {
+    "id": "word_1039",
+    "word": "police",
+    "phonetic": "pə'liːs",
+    "pos": "n",
+    "translations": [
+      "警察"
+    ]
+  },
+  {
+    "id": "word_1040",
+    "word": "policeman",
+    "phonetic": "pə'liːsmən",
+    "pos": "n",
+    "translations": [
+      "男警察"
+    ]
+  },
+  {
+    "id": "word_1041",
+    "word": "policewoman",
+    "phonetic": "pə'liːswʊmən",
+    "pos": "n",
+    "translations": [
+      "女警察"
+    ]
+  },
+  {
+    "id": "word_1042",
+    "word": "polite",
+    "phonetic": "pə'laɪt",
+    "pos": "adj",
+    "translations": [
+      "有礼貌的",
+      "客气的"
+    ]
+  },
+  {
+    "id": "word_1043",
+    "word": "pollute",
+    "phonetic": "pə'luːt",
+    "pos": "v",
+    "translations": [
+      "污染"
+    ]
+  },
+  {
+    "id": "word_1044",
+    "word": "pool",
+    "phonetic": "puːl",
+    "pos": "n",
+    "translations": [
+      "水塘",
+      "游泳池"
+    ]
+  },
+  {
+    "id": "word_1045",
+    "word": "poor",
+    "phonetic": "pɔː(r)",
+    "pos": "adj",
+    "translations": [
+      "贫穷的",
+      "可怜的",
+      "差"
+    ]
+  },
+  {
+    "id": "word_1046",
+    "word": "popular",
+    "phonetic": "'pɒpjələ(r)",
+    "pos": "adj",
+    "translations": [
+      "受欢迎的",
+      "普遍的"
+    ]
+  },
+  {
+    "id": "word_1047",
+    "word": "population",
+    "phonetic": "ˌpɒpju'leɪʃn",
+    "pos": "n",
+    "translations": [
+      "人口",
+      "人口数量"
+    ]
+  },
+  {
+    "id": "word_1048",
+    "word": "pork",
+    "phonetic": "pɔːk",
+    "pos": "n",
+    "translations": [
+      "猪肉"
+    ]
+  },
+  {
+    "id": "word_1049",
+    "word": "porridge",
+    "phonetic": "'pɒrɪdʒ",
+    "pos": "n",
+    "translations": [
+      "粥",
+      "面糊"
+    ]
+  },
+  {
+    "id": "word_1050",
+    "word": "position",
+    "phonetic": "pə'zɪʃn",
+    "pos": "n",
+    "translations": [
+      "位置",
+      "地方"
+    ]
+  },
+  {
+    "id": "word_1051",
+    "word": "positive",
+    "phonetic": "'pɒzətɪv",
+    "pos": "adj",
+    "translations": [
+      "正面的",
+      "积极的",
+      "肯定"
+    ]
+  },
+  {
+    "id": "word_1052",
+    "word": "possible",
+    "phonetic": "'pɒsəbl",
+    "pos": "adj",
+    "translations": [
+      "可能的"
+    ]
+  },
+  {
+    "id": "word_1053",
+    "word": "post",
+    "phonetic": "pəʊst",
+    "pos": "v",
+    "translations": [
+      "投寄",
+      "邮寄",
+      "邮政"
+    ]
+  },
+  {
+    "id": "word_1054",
+    "word": "postcard",
+    "phonetic": "'pəʊstkɑːd",
+    "pos": "n",
+    "translations": [
+      "明信片"
+    ]
+  },
+  {
+    "id": "word_1055",
+    "word": "postman",
+    "phonetic": "'pəʊstmən",
+    "pos": "n",
+    "translations": [
+      "邮递员"
+    ]
+  },
+  {
+    "id": "word_1056",
+    "word": "pot",
+    "phonetic": "pɒt",
+    "pos": "n",
+    "translations": [
+      "锅"
+    ]
+  },
+  {
+    "id": "word_1057",
+    "word": "potato",
+    "phonetic": "pə'teɪtəʊ",
+    "pos": "n",
+    "translations": [
+      "土豆",
+      "马铃薯"
+    ]
+  },
+  {
+    "id": "word_1058",
+    "word": "pound",
+    "phonetic": "paʊnd",
+    "pos": "n",
+    "translations": [
+      "磅",
+      "英镑"
+    ]
+  },
+  {
+    "id": "word_1059",
+    "word": "pour",
+    "phonetic": "pɔː(r)",
+    "pos": "v",
+    "translations": [
+      "倒出",
+      "倾倒"
+    ]
+  },
+  {
+    "id": "word_1060",
+    "word": "power",
+    "phonetic": "'paʊə(r)",
+    "pos": "n",
+    "translations": [
+      "权力",
+      "力量"
+    ]
+  },
+  {
+    "id": "word_1061",
+    "word": "practice",
+    "phonetic": "'præktɪs",
+    "pos": "n",
+    "translations": [
+      "．练习",
+      "实践"
+    ]
+  },
+  {
+    "id": "word_1062",
+    "word": "praise",
+    "phonetic": "preɪz",
+    "pos": "n",
+    "translations": [
+      "．赞扬",
+      "表扬"
+    ]
+  },
+  {
+    "id": "word_1063",
+    "word": "prefer",
+    "phonetic": "prɪ'fɜː(r)",
+    "pos": "v",
+    "translations": [
+      "更喜欢"
+    ]
+  },
+  {
+    "id": "word_1064",
+    "word": "prepare",
+    "phonetic": "prɪ'peə(r)",
+    "pos": "v",
+    "translations": [
+      "准备",
+      "预备"
+    ]
+  },
+  {
+    "id": "word_1065",
+    "word": "present",
+    "phonetic": "prɪ'zent",
+    "pos": "n",
+    "translations": [
+      "现在",
+      "当前的",
+      "授予",
+      "呈递"
+    ]
+  },
+  {
+    "id": "word_1066",
+    "word": "president",
+    "phonetic": "'prezɪdənt",
+    "pos": "n",
+    "translations": [
+      "总统",
+      "主席",
+      "负责人"
+    ]
+  },
+  {
+    "id": "word_1067",
+    "word": "press",
+    "phonetic": "pres",
+    "pos": "v",
+    "translations": [
+      "压",
+      "挤",
+      "按",
+      "报刊",
+      "出版"
+    ]
+  },
+  {
+    "id": "word_1068",
+    "word": "pressure",
+    "phonetic": "'preʃə(r)",
+    "pos": "n",
+    "translations": [
+      "压力"
+    ]
+  },
+  {
+    "id": "word_1069",
+    "word": "pretty",
+    "phonetic": "'prɪti",
+    "pos": "adj",
+    "translations": [
+      "漂亮的 adv.相当"
+    ]
+  },
+  {
+    "id": "word_1070",
+    "word": "price",
+    "phonetic": "praɪs",
+    "pos": "n",
+    "translations": [
+      "价格",
+      "价钱"
+    ]
+  },
+  {
+    "id": "word_1071",
+    "word": "pride",
+    "phonetic": "praɪd",
+    "pos": "n",
+    "translations": [
+      "自豪",
+      "骄傲",
+      "自尊心"
+    ]
+  },
+  {
+    "id": "word_1072",
+    "word": "primary",
+    "phonetic": "'praɪməri",
+    "pos": "adj",
+    "translations": [
+      "主要的",
+      "基本的",
+      "最初"
+    ]
+  },
+  {
+    "id": "word_1073",
+    "word": "prince",
+    "phonetic": "prɪns",
+    "pos": "n",
+    "translations": [
+      "王子"
+    ]
+  },
+  {
+    "id": "word_1074",
+    "word": "print",
+    "phonetic": "prɪnt",
+    "pos": "v",
+    "translations": [
+      "印刷",
+      "打印"
+    ]
+  },
+  {
+    "id": "word_1075",
+    "word": "private",
+    "phonetic": "'praɪvət",
+    "pos": "adj",
+    "translations": [
+      "私人的",
+      "私有的"
+    ]
+  },
+  {
+    "id": "word_1076",
+    "word": "prize",
+    "phonetic": "praɪz",
+    "pos": "n",
+    "translations": [
+      "奖赏",
+      "奖品",
+      "奖金"
+    ]
+  },
+  {
+    "id": "word_1077",
+    "word": "probably",
+    "phonetic": "'prɒbəbli",
+    "pos": "adv",
+    "translations": [
+      "很可能",
+      "大概"
+    ]
+  },
+  {
+    "id": "word_1078",
+    "word": "problem",
+    "phonetic": "'prɒbləm",
+    "pos": "n",
+    "translations": [
+      "难题",
+      "困难"
+    ]
+  },
+  {
+    "id": "word_1079",
+    "word": "produce",
+    "phonetic": "prə'djuːs",
+    "pos": "v",
+    "translations": [
+      "生产",
+      "制造"
+    ]
+  },
+  {
+    "id": "word_1080",
+    "word": "product",
+    "phonetic": "'prɒdʌkt",
+    "pos": "n",
+    "translations": [
+      "产品",
+      "制品"
+    ]
+  },
+  {
+    "id": "word_1081",
+    "word": "programme",
+    "phonetic": "'prəʊɡræm",
+    "pos": "n",
+    "translations": [
+      "节目",
+      "计划",
+      "程序"
+    ]
+  },
+  {
+    "id": "word_1082",
+    "word": "progress",
+    "phonetic": "'prəʊɡres",
+    "pos": "n",
+    "translations": [
+      "．进步",
+      "进展"
+    ]
+  },
+  {
+    "id": "word_1083",
+    "word": "project",
+    "phonetic": "'prɒdʒekt",
+    "pos": "n",
+    "translations": [
+      "项目",
+      "工程"
+    ]
+  },
+  {
+    "id": "word_1084",
+    "word": "promise",
+    "phonetic": "'prɒmɪs",
+    "pos": "n",
+    "translations": [
+      "．承诺",
+      "许诺"
+    ]
+  },
+  {
+    "id": "word_1085",
+    "word": "pronounce",
+    "phonetic": "prə'naʊns",
+    "pos": "v",
+    "translations": [
+      "发音"
+    ]
+  },
+  {
+    "id": "word_1086",
+    "word": "proper",
+    "phonetic": "'prɒpə(r)",
+    "pos": "adj",
+    "translations": [
+      "恰当的",
+      "正确的"
+    ]
+  },
+  {
+    "id": "word_1087",
+    "word": "protect",
+    "phonetic": "prə'tekt",
+    "pos": "v",
+    "translations": [
+      "保护"
+    ]
+  },
+  {
+    "id": "word_1088",
+    "word": "proud",
+    "phonetic": "praʊd",
+    "pos": "adj",
+    "translations": [
+      "自豪的",
+      "骄傲的"
+    ]
+  },
+  {
+    "id": "word_1089",
+    "word": "prove",
+    "phonetic": "pruːv",
+    "pos": "v",
+    "translations": [
+      "证明"
+    ]
+  },
+  {
+    "id": "word_1090",
+    "word": "provide",
+    "phonetic": "prə'vaɪd",
+    "pos": "v",
+    "translations": [
+      "提供"
+    ]
+  },
+  {
+    "id": "word_1091",
+    "word": "public",
+    "phonetic": "'pʌblɪk",
+    "pos": "adj",
+    "translations": [
+      "公共的",
+      "公众的",
+      "．民众"
+    ]
+  },
+  {
+    "id": "word_1092",
+    "word": "publish",
+    "phonetic": "'pʌblɪʃ",
+    "pos": "v",
+    "translations": [
+      "出版",
+      "发表"
+    ]
+  },
+  {
+    "id": "word_1093",
+    "word": "pull",
+    "phonetic": "pʊl",
+    "pos": "n",
+    "translations": [
+      "．拉",
+      "扯"
+    ]
+  },
+  {
+    "id": "word_1094",
+    "word": "punish",
+    "phonetic": "'pʌnɪʃ",
+    "pos": "v",
+    "translations": [
+      "惩罚",
+      "处罚"
+    ]
+  },
+  {
+    "id": "word_1095",
+    "word": "purple",
+    "phonetic": "'pɜːpl",
+    "pos": "n",
+    "translations": [
+      "紫色 adj.紫色的"
+    ]
+  },
+  {
+    "id": "word_1096",
+    "word": "purpose",
+    "phonetic": "'pɜːpəs",
+    "pos": "n",
+    "translations": [
+      "目的",
+      "意图"
+    ]
+  },
+  {
+    "id": "word_1097",
+    "word": "push",
+    "phonetic": "pʊʃ",
+    "pos": "n",
+    "translations": [
+      "．推",
+      "督促"
+    ]
+  },
+  {
+    "id": "word_1098",
+    "word": "put",
+    "phonetic": "pʊt",
+    "pos": "v",
+    "translations": [
+      "放",
+      "安置"
+    ]
+  },
+  {
+    "id": "word_1099",
+    "word": "quality",
+    "phonetic": "'kwɒləti",
+    "pos": "n",
+    "translations": [
+      "质量",
+      "品质",
+      "优质的"
+    ]
+  },
+  {
+    "id": "word_1100",
+    "word": "quarter",
+    "phonetic": "'kwɔːtə(r)",
+    "pos": "n",
+    "translations": [
+      "四分之一",
+      "一刻钟"
+    ]
+  },
+  {
+    "id": "word_1101",
+    "word": "queen",
+    "phonetic": "kwiːn",
+    "pos": "n",
+    "translations": [
+      "女王",
+      "女首领"
+    ]
+  },
+  {
+    "id": "word_1102",
+    "word": "question",
+    "phonetic": "'kwestʃən",
+    "pos": "n",
+    "translations": [
+      "问题",
+      "．询问",
+      "怀疑"
+    ]
+  },
+  {
+    "id": "word_1103",
+    "word": "quick",
+    "phonetic": "kwɪk",
+    "pos": "adj",
+    "translations": [
+      "快的",
+      "迅速的"
+    ]
+  },
+  {
+    "id": "word_1104",
+    "word": "quiet",
+    "phonetic": "'kwaɪət",
+    "pos": "adj",
+    "translations": [
+      "安静的",
+      "轻柔的"
+    ]
+  },
+  {
+    "id": "word_1105",
+    "word": "quite",
+    "phonetic": "kwaɪt",
+    "pos": "adv",
+    "translations": [
+      "完全",
+      "十分"
+    ]
+  },
+  {
+    "id": "word_1106",
+    "word": "rabbit",
+    "phonetic": "'ræbɪt",
+    "pos": "n",
+    "translations": [
+      "兔",
+      "野兔"
+    ]
+  },
+  {
+    "id": "word_1107",
+    "word": "race",
+    "phonetic": "reɪs",
+    "pos": "n",
+    "translations": [
+      "竞赛"
+    ]
+  },
+  {
+    "id": "word_1108",
+    "word": "radio",
+    "phonetic": "'reɪdiəʊ",
+    "pos": "n",
+    "translations": [
+      "无线电广播"
+    ]
+  },
+  {
+    "id": "word_1109",
+    "word": "railway",
+    "phonetic": "'reɪlweɪ",
+    "pos": "n",
+    "translations": [
+      "铁路",
+      "铁道"
+    ]
+  },
+  {
+    "id": "word_1110",
+    "word": "rain",
+    "phonetic": "reɪn",
+    "pos": "n",
+    "translations": [
+      "雨",
+      "雨水 v．下雨"
+    ]
+  },
+  {
+    "id": "word_1111",
+    "word": "rainbow",
+    "phonetic": "'reɪnbəʊ",
+    "pos": "n",
+    "translations": [
+      "彩虹"
+    ]
+  },
+  {
+    "id": "word_1112",
+    "word": "raise",
+    "phonetic": "reɪz",
+    "pos": "v",
+    "translations": [
+      "提升",
+      "举起",
+      "饲养",
+      "筹"
+    ]
+  },
+  {
+    "id": "word_1113",
+    "word": "rapid",
+    "phonetic": "'ræpɪd",
+    "pos": "adj",
+    "translations": [
+      "快的",
+      "迅速的"
+    ]
+  },
+  {
+    "id": "word_1114",
+    "word": "rather",
+    "phonetic": "'rɑːðe(r)",
+    "pos": "adv",
+    "translations": [
+      "相当",
+      "相反"
+    ]
+  },
+  {
+    "id": "word_1115",
+    "word": "reach",
+    "phonetic": "riːtʃ",
+    "pos": "v",
+    "translations": [
+      "到达",
+      "伸手",
+      "够得着"
+    ]
+  },
+  {
+    "id": "word_1116",
+    "word": "read",
+    "phonetic": "riːd",
+    "pos": "v",
+    "translations": [
+      "读",
+      "朗读"
+    ]
+  },
+  {
+    "id": "word_1117",
+    "word": "ready",
+    "phonetic": "'redi",
+    "pos": "adj",
+    "translations": [
+      "准备好的"
+    ]
+  },
+  {
+    "id": "word_1118",
+    "word": "real",
+    "phonetic": "'riːəl",
+    "pos": "adj",
+    "translations": [
+      "真实的",
+      "真正的"
+    ]
+  },
+  {
+    "id": "word_1119",
+    "word": "realise",
+    "phonetic": "'riːəlaɪz",
+    "pos": "v",
+    "translations": [
+      "理解",
+      "领会",
+      "认识到",
+      "实现"
+    ]
+  },
+  {
+    "id": "word_1120",
+    "word": "really",
+    "phonetic": "'riːəli",
+    "pos": "adv",
+    "translations": [
+      "真正地",
+      "事实上"
+    ]
+  },
+  {
+    "id": "word_1121",
+    "word": "reason",
+    "phonetic": "'riːzn",
+    "pos": "n",
+    "translations": [
+      "原因",
+      "理由"
+    ]
+  },
+  {
+    "id": "word_1122",
+    "word": "receive",
+    "phonetic": "rɪ'siːv",
+    "pos": "v",
+    "translations": [
+      "收到",
+      "接到"
+    ]
+  },
+  {
+    "id": "word_1123",
+    "word": "recent",
+    "phonetic": "'riːsnt",
+    "pos": "adj",
+    "translations": [
+      "最近的",
+      "近来的"
+    ]
+  },
+  {
+    "id": "word_1124",
+    "word": "recognise",
+    "phonetic": "'rekəɡnaɪz",
+    "pos": "v",
+    "translations": [
+      "认出",
+      "承认"
+    ]
+  },
+  {
+    "id": "word_1125",
+    "word": "recommend",
+    "phonetic": "ˌrekə'mend",
+    "pos": "v",
+    "translations": [
+      "推荐",
+      "建议"
+    ]
+  },
+  {
+    "id": "word_1126",
+    "word": "record",
+    "phonetic": "rɪ'kɔːd",
+    "pos": "n",
+    "translations": [
+      "记录",
+      "唱片",
+      "录制"
+    ]
+  },
+  {
+    "id": "word_1127",
+    "word": "recycle",
+    "phonetic": "ˌriː'saɪkl",
+    "pos": "n",
+    "translations": [
+      "回收利用",
+      "再利"
+    ]
+  },
+  {
+    "id": "word_1128",
+    "word": "red",
+    "phonetic": "red",
+    "pos": "n",
+    "translations": [
+      "红色 adj.红色的"
+    ]
+  },
+  {
+    "id": "word_1129",
+    "word": "reduce",
+    "phonetic": "rɪ'djuːs",
+    "pos": "v",
+    "translations": [
+      "减少",
+      "减低",
+      "缩小"
+    ]
+  },
+  {
+    "id": "word_1130",
+    "word": "refuse",
+    "phonetic": "rɪ'fjuːz",
+    "pos": "v",
+    "translations": [
+      "拒绝",
+      "回绝"
+    ]
+  },
+  {
+    "id": "word_1131",
+    "word": "regret",
+    "phonetic": "rɪ'ɡret",
+    "pos": "v",
+    "translations": [
+      "感到遗憾",
+      "惋惜",
+      "懊悔",
+      "痛惜",
+      "遗憾",
+      "后悔"
+    ]
+  },
+  {
+    "id": "word_1132",
+    "word": "relationship",
+    "phonetic": "rɪ'leɪʃnʃɪp",
+    "pos": "n",
+    "translations": [
+      "关系",
+      "联系"
+    ]
+  },
+  {
+    "id": "word_1133",
+    "word": "relative",
+    "phonetic": "'relətɪv",
+    "pos": "n",
+    "translations": [
+      "亲属",
+      "亲戚"
+    ]
+  },
+  {
+    "id": "word_1134",
+    "word": "relax",
+    "phonetic": "rɪ'læks",
+    "pos": "v",
+    "translations": [
+      "休息"
+    ]
+  },
+  {
+    "id": "word_1135",
+    "word": "remain",
+    "phonetic": "rɪ'meɪn",
+    "pos": "v",
+    "translations": [
+      "保持不变",
+      "剩余",
+      "逗",
+      "留下"
+    ]
+  },
+  {
+    "id": "word_1136",
+    "word": "remember",
+    "phonetic": "rɪ'membə(r)",
+    "pos": "v",
+    "translations": [
+      "记得",
+      "回想起"
+    ]
+  },
+  {
+    "id": "word_1137",
+    "word": "remind",
+    "phonetic": "rɪ'maɪnd",
+    "pos": "v",
+    "translations": [
+      "提醒",
+      "使想起"
+    ]
+  },
+  {
+    "id": "word_1138",
+    "word": "repair",
+    "phonetic": "rɪ'peə(r)",
+    "pos": "n",
+    "translations": [
+      "修理",
+      "修补"
+    ]
+  },
+  {
+    "id": "word_1139",
+    "word": "repeat",
+    "phonetic": "rɪ'piːt",
+    "pos": "v",
+    "translations": [
+      "重说",
+      "重做",
+      "重复"
+    ]
+  },
+  {
+    "id": "word_1140",
+    "word": "reply",
+    "phonetic": "rɪ'plaɪ",
+    "pos": "n",
+    "translations": [
+      "．回答",
+      "答复"
+    ]
+  },
+  {
+    "id": "word_1141",
+    "word": "report",
+    "phonetic": "rɪ'pɔːt",
+    "pos": "n",
+    "translations": [
+      "．报道",
+      "报告"
+    ]
+  },
+  {
+    "id": "word_1142",
+    "word": "require",
+    "phonetic": "rɪ'kwaɪə(r)",
+    "pos": "v",
+    "translations": [
+      "需要",
+      "要求"
+    ]
+  },
+  {
+    "id": "word_1143",
+    "word": "research",
+    "phonetic": "rɪ'sɜːtʃ",
+    "pos": "n",
+    "translations": [
+      "研究",
+      "调查"
+    ]
+  },
+  {
+    "id": "word_1144",
+    "word": "respect",
+    "phonetic": "rɪ'spekt",
+    "pos": "n",
+    "translations": [
+      "尊重",
+      "重视",
+      "方面",
+      "慎重对待",
+      "遵守"
+    ]
+  },
+  {
+    "id": "word_1145",
+    "word": "responsible",
+    "phonetic": "rɪ'spɒnsəb(ə)l",
+    "pos": "adj",
+    "translations": [
+      "有责任心的"
+    ]
+  },
+  {
+    "id": "word_1146",
+    "word": "rest",
+    "phonetic": "rest",
+    "pos": "n",
+    "translations": [
+      "休息",
+      "剩余的部分",
+      "歇息"
+    ]
+  },
+  {
+    "id": "word_1147",
+    "word": "restaurant",
+    "phonetic": "'restrɒnt",
+    "pos": "n",
+    "translations": [
+      "饭馆",
+      "饭店"
+    ]
+  },
+  {
+    "id": "word_1148",
+    "word": "result",
+    "phonetic": "rɪ'zʌlt",
+    "pos": "n",
+    "translations": [
+      "结果",
+      "后果"
+    ]
+  },
+  {
+    "id": "word_1149",
+    "word": "return",
+    "phonetic": "rɪ'tɜːn",
+    "pos": "v",
+    "translations": [
+      "归还",
+      "回来"
+    ]
+  },
+  {
+    "id": "word_1150",
+    "word": "review",
+    "phonetic": "rɪ'vjuː",
+    "pos": "v",
+    "translations": [
+      "检查",
+      "回顾",
+      "复习",
+      "复查",
+      "评论"
+    ]
+  },
+  {
+    "id": "word_1151",
+    "word": "rice",
+    "phonetic": "raɪs",
+    "pos": "n",
+    "translations": [
+      "稻米",
+      "大米"
+    ]
+  },
+  {
+    "id": "word_1152",
+    "word": "rich",
+    "phonetic": "rɪtʃ",
+    "pos": "adj",
+    "translations": [
+      "富裕的",
+      "丰富多"
+    ]
+  },
+  {
+    "id": "word_1153",
+    "word": "ride",
+    "phonetic": "raɪd",
+    "pos": "v",
+    "translations": [
+      "骑",
+      "乘坐",
+      "．乘骑项目",
+      "搭乘"
+    ]
+  },
+  {
+    "id": "word_1154",
+    "word": "right",
+    "phonetic": "raɪt",
+    "pos": "n",
+    "translations": [
+      "适当的"
+    ]
+  },
+  {
+    "id": "word_1155",
+    "word": "ring",
+    "phonetic": "rɪ ",
+    "pos": "v",
+    "translations": [
+      "给……打电话",
+      "铃声",
+      "戒指"
+    ]
+  },
+  {
+    "id": "word_1156",
+    "word": "rise",
+    "phonetic": "raɪz",
+    "pos": "v",
+    "translations": [
+      "增加",
+      "提高",
+      "上升"
+    ]
+  },
+  {
+    "id": "word_1157",
+    "word": "risk",
+    "phonetic": "rɪsk",
+    "pos": "n",
+    "translations": [
+      "危险",
+      "风险",
+      "冒……的风险",
+      "使……危险"
+    ]
+  },
+  {
+    "id": "word_1158",
+    "word": "river",
+    "phonetic": "'rɪvə(r)",
+    "pos": "n",
+    "translations": [
+      "江",
+      "河"
+    ]
+  },
+  {
+    "id": "word_1159",
+    "word": "road",
+    "phonetic": "rəʊd",
+    "pos": "n",
+    "translations": [
+      "路",
+      "道路"
+    ]
+  },
+  {
+    "id": "word_1160",
+    "word": "robot",
+    "phonetic": "'rəʊbɒt",
+    "pos": "n",
+    "translations": [
+      "机器人"
+    ]
+  },
+  {
+    "id": "word_1161",
+    "word": "rock",
+    "phonetic": "rɒk",
+    "pos": "n",
+    "translations": [
+      "岩石",
+      "碎石",
+      "摇滚乐"
+    ]
+  },
+  {
+    "id": "word_1162",
+    "word": "rocket",
+    "phonetic": "'rɒkɪt",
+    "pos": "n",
+    "translations": [
+      "火箭"
+    ]
+  },
+  {
+    "id": "word_1163",
+    "word": "role",
+    "phonetic": "rəʊl",
+    "pos": "n",
+    "translations": [
+      "职能",
+      "地位",
+      "角色"
+    ]
+  },
+  {
+    "id": "word_1164",
+    "word": "room",
+    "phonetic": "ruːm",
+    "pos": "n",
+    "translations": [
+      "房间",
+      "空间"
+    ]
+  },
+  {
+    "id": "word_1165",
+    "word": "rope",
+    "phonetic": "rəʊp",
+    "pos": "n",
+    "translations": [
+      "绳索"
+    ]
+  },
+  {
+    "id": "word_1166",
+    "word": "rose",
+    "phonetic": "rəʊz",
+    "pos": "n",
+    "translations": [
+      "玫瑰花"
+    ]
+  },
+  {
+    "id": "word_1167",
+    "word": "round",
+    "phonetic": "raʊnd",
+    "pos": "adv",
+    "translations": [
+      "转过来",
+      "围绕",
+      "圆形的",
+      "球形的"
+    ]
+  },
+  {
+    "id": "word_1168",
+    "word": "row",
+    "phonetic": "rəʊ",
+    "pos": "n",
+    "translations": [
+      "一排",
+      "一行 v．划船",
+      "划船"
+    ]
+  },
+  {
+    "id": "word_1169",
+    "word": "rubbish",
+    "phonetic": "'rʌbɪʃ",
+    "pos": "n",
+    "translations": [
+      "垃圾",
+      "废物"
+    ]
+  },
+  {
+    "id": "word_1170",
+    "word": "rule",
+    "phonetic": "ruːl",
+    "pos": "n",
+    "translations": [
+      "规则 v．统治",
+      "支配"
+    ]
+  },
+  {
+    "id": "word_1171",
+    "word": "ruler",
+    "phonetic": "'ruːlə(r)",
+    "pos": "n",
+    "translations": [
+      "统治者",
+      "直尺"
+    ]
+  },
+  {
+    "id": "word_1172",
+    "word": "run",
+    "phonetic": "rʌn",
+    "pos": "v",
+    "translations": [
+      "跑",
+      "奔跑",
+      "管理",
+      "经营"
+    ]
+  },
+  {
+    "id": "word_1173",
+    "word": "rush",
+    "phonetic": "rʌʃ",
+    "pos": "n",
+    "translations": [
+      "．急促",
+      "仓促"
+    ]
+  },
+  {
+    "id": "word_1174",
+    "word": "sad",
+    "phonetic": "sæd",
+    "pos": "adj",
+    "translations": [
+      "悲伤的",
+      "难过的"
+    ]
+  },
+  {
+    "id": "word_1175",
+    "word": "safe",
+    "phonetic": "seɪf",
+    "pos": "adj",
+    "translations": [
+      "安全的"
+    ]
+  },
+  {
+    "id": "word_1176",
+    "word": "safety",
+    "phonetic": "'seɪfti",
+    "pos": "n",
+    "translations": [
+      "安全",
+      "安全性"
+    ]
+  },
+  {
+    "id": "word_1177",
+    "word": "salad",
+    "phonetic": "'sæləd",
+    "pos": "n",
+    "translations": [
+      "色拉"
+    ]
+  },
+  {
+    "id": "word_1178",
+    "word": "sale",
+    "phonetic": "seɪl",
+    "pos": "n",
+    "translations": [
+      "出售",
+      "销售"
+    ]
+  },
+  {
+    "id": "word_1179",
+    "word": "salt",
+    "phonetic": "sɔːlt",
+    "pos": "n",
+    "translations": [
+      "盐"
+    ]
+  },
+  {
+    "id": "word_1180",
+    "word": "same",
+    "phonetic": "seɪm",
+    "pos": "adj,pron",
+    "translations": [
+      "相同的",
+      "同样的"
+    ]
+  },
+  {
+    "id": "word_1181",
+    "word": "sand",
+    "phonetic": "sænd",
+    "pos": "n",
+    "translations": [
+      "沙",
+      "沙子"
+    ]
+  },
+  {
+    "id": "word_1182",
+    "word": "sandwich",
+    "phonetic": "'sænwɪtʃ",
+    "pos": "n",
+    "translations": [
+      "三明治",
+      "夹心面包片"
+    ]
+  },
+  {
+    "id": "word_1183",
+    "word": "satisfy",
+    "phonetic": "'sætɪsfaɪ",
+    "pos": "v",
+    "translations": [
+      "使满意",
+      "使满足"
+    ]
+  },
+  {
+    "id": "word_1184",
+    "word": "save",
+    "phonetic": "seɪv",
+    "pos": "v",
+    "translations": [
+      "救",
+      "挽救",
+      "节省",
+      "保存"
+    ]
+  },
+  {
+    "id": "word_1185",
+    "word": "say",
+    "phonetic": "seɪ",
+    "pos": "v",
+    "translations": [
+      "说",
+      "讲"
+    ]
+  },
+  {
+    "id": "word_1186",
+    "word": "scare",
+    "phonetic": "skeə(r)",
+    "pos": "n",
+    "translations": [
+      "恐惧 v．惊吓",
+      "使害怕",
+      "害怕"
+    ]
+  },
+  {
+    "id": "word_1187",
+    "word": "scarf",
+    "phonetic": "skɑːf",
+    "pos": "n",
+    "translations": [
+      "围巾"
+    ]
+  },
+  {
+    "id": "word_1188",
+    "word": "school",
+    "phonetic": "skuːl",
+    "pos": "n",
+    "translations": [
+      "学校"
+    ]
+  },
+  {
+    "id": "word_1189",
+    "word": "schoolbag",
+    "phonetic": "'skuːlbæg",
+    "pos": "n",
+    "translations": [
+      "书包"
+    ]
+  },
+  {
+    "id": "word_1190",
+    "word": "science",
+    "phonetic": "'saɪəns",
+    "pos": "n",
+    "translations": [
+      "科学",
+      "自然科学"
+    ]
+  },
+  {
+    "id": "word_1191",
+    "word": "scientist",
+    "phonetic": "'saɪəntɪst",
+    "pos": "n",
+    "translations": [
+      "科学家"
+    ]
+  },
+  {
+    "id": "word_1192",
+    "word": "scissors",
+    "phonetic": "'sɪzəz",
+    "pos": "n",
+    "translations": [
+      "剪刀"
+    ]
+  },
+  {
+    "id": "word_1193",
+    "word": "score",
+    "phonetic": "skɔː(r)",
+    "pos": "n",
+    "translations": [
+      "．得分"
+    ]
+  },
+  {
+    "id": "word_1194",
+    "word": "screen",
+    "phonetic": "skriːn",
+    "pos": "n",
+    "translations": [
+      "屏幕",
+      "荧光屏",
+      "荧"
+    ]
+  },
+  {
+    "id": "word_1195",
+    "word": "sea",
+    "phonetic": "siː",
+    "pos": "n",
+    "translations": [
+      "海",
+      "海洋"
+    ]
+  },
+  {
+    "id": "word_1196",
+    "word": "search",
+    "phonetic": "sɜːtʃ",
+    "pos": "n",
+    "translations": [
+      "．搜索",
+      "搜查"
+    ]
+  },
+  {
+    "id": "word_1197",
+    "word": "season",
+    "phonetic": "'siːzn",
+    "pos": "n",
+    "translations": [
+      "季",
+      "季节"
+    ]
+  },
+  {
+    "id": "word_1198",
+    "word": "seat",
+    "phonetic": "siːt",
+    "pos": "n",
+    "translations": [
+      "座位"
+    ]
+  },
+  {
+    "id": "word_1199",
+    "word": "secret",
+    "phonetic": "'siːkrət",
+    "pos": "adj",
+    "translations": [
+      "秘密的",
+      "．秘密",
+      "秘诀"
+    ]
+  },
+  {
+    "id": "word_1200",
+    "word": "see",
+    "phonetic": "siː",
+    "pos": "v",
+    "translations": [
+      "看见",
+      "看到",
+      "理解",
+      "明白"
+    ]
+  },
+  {
+    "id": "word_1201",
+    "word": "seem",
+    "phonetic": "siːm",
+    "pos": "v",
+    "translations": [
+      "似乎",
+      "好像"
+    ]
+  },
+  {
+    "id": "word_1202",
+    "word": "seldom",
+    "phonetic": "'seldəm",
+    "pos": "adv",
+    "translations": [
+      "很少",
+      "不常"
+    ]
+  },
+  {
+    "id": "word_1203",
+    "word": "sell",
+    "phonetic": "sel",
+    "pos": "v",
+    "translations": [
+      "出售"
+    ]
+  },
+  {
+    "id": "word_1204",
+    "word": "send",
+    "phonetic": "send",
+    "pos": "v",
+    "translations": [
+      "派遣",
+      "发送",
+      "邮寄"
+    ]
+  },
+  {
+    "id": "word_1205",
+    "word": "sense",
+    "phonetic": "sens",
+    "pos": "n",
+    "translations": [
+      "感觉",
+      "意识",
+      "意义",
+      "感觉到"
+    ]
+  },
+  {
+    "id": "word_1206",
+    "word": "sentence",
+    "phonetic": "'sentəns",
+    "pos": "n",
+    "translations": [
+      "句子"
+    ]
+  },
+  {
+    "id": "word_1207",
+    "word": "separate",
+    "phonetic": "'sepəreɪt",
+    "pos": "v",
+    "translations": [
+      "使分开",
+      "使分离",
+      "单独的",
+      "分开的",
+      "分离的"
+    ]
+  },
+  {
+    "id": "word_1208",
+    "word": "serious",
+    "phonetic": "'sɪəriəs",
+    "pos": "adj",
+    "translations": [
+      "严肃的",
+      "严重的",
+      "认真的"
+    ]
+  },
+  {
+    "id": "word_1209",
+    "word": "serve",
+    "phonetic": "sɜːv",
+    "pos": "v",
+    "translations": [
+      "服务",
+      "端上"
+    ]
+  },
+  {
+    "id": "word_1210",
+    "word": "service",
+    "phonetic": "'sɜːvɪs",
+    "pos": "n",
+    "translations": [
+      "服务"
+    ]
+  },
+  {
+    "id": "word_1211",
+    "word": "set",
+    "phonetic": "set",
+    "pos": "v",
+    "translations": [
+      "放",
+      "置",
+      "设置",
+      "一套",
+      "一副",
+      "布景"
+    ]
+  },
+  {
+    "id": "word_1212",
+    "word": "several",
+    "phonetic": "'sevrəl",
+    "pos": "pron",
+    "translations": [
+      "几个",
+      "一些"
+    ]
+  },
+  {
+    "id": "word_1213",
+    "word": "shake",
+    "phonetic": "ʃeɪk",
+    "pos": "v",
+    "translations": [
+      "．摇动",
+      "抖动"
+    ]
+  },
+  {
+    "id": "word_1214",
+    "word": "shall",
+    "phonetic": "ʃæl",
+    "pos": "modal",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_1215",
+    "word": "shame",
+    "phonetic": "ʃeɪm",
+    "pos": "n",
+    "translations": [
+      "羞耻",
+      "羞愧",
+      "惭愧"
+    ]
+  },
+  {
+    "id": "word_1216",
+    "word": "shape",
+    "phonetic": "ʃeɪp",
+    "pos": "n",
+    "translations": [
+      "形状",
+      "外形"
+    ]
+  },
+  {
+    "id": "word_1217",
+    "word": "share",
+    "phonetic": "ʃeə(r)",
+    "pos": "v",
+    "translations": [
+      "分享",
+      "共用"
+    ]
+  },
+  {
+    "id": "word_1218",
+    "word": "shark",
+    "phonetic": "ʃɑːk",
+    "pos": "n",
+    "translations": [
+      "鲨鱼"
+    ]
+  },
+  {
+    "id": "word_1219",
+    "word": "she",
+    "phonetic": "ʃiː",
+    "pos": "pron",
+    "translations": [
+      "她"
+    ]
+  },
+  {
+    "id": "word_1220",
+    "word": "sheep",
+    "phonetic": "ʃiːp",
+    "pos": "n",
+    "translations": [
+      "羊",
+      "绵羊"
+    ]
+  },
+  {
+    "id": "word_1221",
+    "word": "shelf",
+    "phonetic": "ʃelf",
+    "pos": "n",
+    "translations": [
+      "隔板",
+      "架子"
+    ]
+  },
+  {
+    "id": "word_1222",
+    "word": "shine",
+    "phonetic": "ʃaɪn",
+    "pos": "v",
+    "translations": [
+      "发光",
+      "照耀"
+    ]
+  },
+  {
+    "id": "word_1223",
+    "word": "ship",
+    "phonetic": "ʃɪp",
+    "pos": "n",
+    "translations": [
+      "船，轮船"
+    ]
+  },
+  {
+    "id": "word_1224",
+    "word": "shirt",
+    "phonetic": "ʃɜːt",
+    "pos": "n",
+    "translations": [
+      "衬衫"
+    ]
+  },
+  {
+    "id": "word_1225",
+    "word": "shock",
+    "phonetic": "ʃɒk",
+    "pos": "n",
+    "translations": [
+      "震惊",
+      "令人震惊的"
+    ]
+  },
+  {
+    "id": "word_1226",
+    "word": "shoe",
+    "phonetic": "ʃuː",
+    "pos": "n",
+    "translations": [
+      "鞋"
+    ]
+  },
+  {
+    "id": "word_1227",
+    "word": "shoot",
+    "phonetic": "ʃuːt",
+    "pos": "v",
+    "translations": [
+      "射击",
+      "拍摄",
+      "射伤",
+      "射中"
+    ]
+  },
+  {
+    "id": "word_1228",
+    "word": "shop",
+    "phonetic": "ʃɒp",
+    "pos": "v",
+    "translations": [
+      "购物",
+      "．商店",
+      "车间"
+    ]
+  },
+  {
+    "id": "word_1229",
+    "word": "short",
+    "phonetic": "ʃɔːt",
+    "pos": "adj",
+    "translations": [
+      "短的",
+      "矮的"
+    ]
+  },
+  {
+    "id": "word_1230",
+    "word": "shorts",
+    "phonetic": "ʃɔːts",
+    "pos": "n",
+    "translations": [
+      "短裤"
+    ]
+  },
+  {
+    "id": "word_1231",
+    "word": "should",
+    "phonetic": "ʃʊd",
+    "pos": "modal",
+    "translations": [
+      "．应当",
+      "应该"
+    ]
+  },
+  {
+    "id": "word_1232",
+    "word": "shoulder",
+    "phonetic": "'ʃəʊldə(r)",
+    "pos": "n",
+    "translations": [
+      "肩膀"
+    ]
+  },
+  {
+    "id": "word_1233",
+    "word": "shout",
+    "phonetic": "ʃaʊt",
+    "pos": "n",
+    "translations": [
+      "．大声说",
+      "呼喊"
+    ]
+  },
+  {
+    "id": "word_1234",
+    "word": "show",
+    "phonetic": "ʃəʊ",
+    "pos": "n",
+    "translations": [
+      "展览",
+      "演出",
+      "表明",
+      "给……看",
+      "带领"
+    ]
+  },
+  {
+    "id": "word_1235",
+    "word": "shower",
+    "phonetic": "'ʃaʊə(r)",
+    "pos": "n",
+    "translations": [
+      "阵雨",
+      "淋浴"
+    ]
+  },
+  {
+    "id": "word_1236",
+    "word": "shut",
+    "phonetic": "ʃʌt",
+    "pos": "v",
+    "translations": [
+      "关上",
+      "关门"
+    ]
+  },
+  {
+    "id": "word_1237",
+    "word": "shy",
+    "phonetic": "ʃaɪ",
+    "pos": "adj",
+    "translations": [
+      "害羞的"
+    ]
+  },
+  {
+    "id": "word_1238",
+    "word": "sick",
+    "phonetic": "sɪk",
+    "pos": "adj",
+    "translations": [
+      "有病的，生病的",
+      "想呕吐的"
+    ]
+  },
+  {
+    "id": "word_1239",
+    "word": "side",
+    "phonetic": "saɪd",
+    "pos": "n",
+    "translations": [
+      "一边",
+      "侧面"
+    ]
+  },
+  {
+    "id": "word_1240",
+    "word": "sign",
+    "phonetic": "saɪn",
+    "pos": "n",
+    "translations": [
+      "迹象",
+      "标志",
+      "符号",
+      "签署",
+      "签名"
+    ]
+  },
+  {
+    "id": "word_1241",
+    "word": "silent",
+    "phonetic": "'saɪlənt",
+    "pos": "adj",
+    "translations": [
+      "不说话的",
+      "沉默的"
+    ]
+  },
+  {
+    "id": "word_1242",
+    "word": "silk",
+    "phonetic": "sɪlk",
+    "pos": "n",
+    "translations": [
+      "丝织品"
+    ]
+  },
+  {
+    "id": "word_1243",
+    "word": "silly",
+    "phonetic": "'sɪli",
+    "pos": "adj",
+    "translations": [
+      "傻的",
+      "愚蠢的"
+    ]
+  },
+  {
+    "id": "word_1244",
+    "word": "silver",
+    "phonetic": "'sɪlvə(r)",
+    "pos": "n,adj",
+    "translations": [
+      "银",
+      "银色的",
+      "银（色）"
+    ]
+  },
+  {
+    "id": "word_1245",
+    "word": "similar",
+    "phonetic": "'sɪmələ(r)",
+    "pos": "adj",
+    "translations": [
+      "相似的",
+      "类似的"
+    ]
+  },
+  {
+    "id": "word_1246",
+    "word": "simple",
+    "phonetic": "'sɪmpl",
+    "pos": "adj",
+    "translations": [
+      "简单的",
+      "朴素的"
+    ]
+  },
+  {
+    "id": "word_1247",
+    "word": "since",
+    "phonetic": "sɪns",
+    "pos": "adv",
+    "translations": [
+      "从……以来"
+    ]
+  },
+  {
+    "id": "word_1248",
+    "word": "sing",
+    "phonetic": "sɪ   ",
+    "pos": "v",
+    "translations": [
+      "唱",
+      "唱歌"
+    ]
+  },
+  {
+    "id": "word_1249",
+    "word": "single",
+    "phonetic": "'sɪ ɡl",
+    "pos": "adj",
+    "translations": [
+      "单一的",
+      "单个的"
+    ]
+  },
+  {
+    "id": "word_1250",
+    "word": "sir",
+    "phonetic": "sɜː(r)",
+    "pos": "n",
+    "translations": [
+      "先生",
+      "阁下"
+    ]
+  },
+  {
+    "id": "word_1251",
+    "word": "sister",
+    "phonetic": "'sɪstə(r)",
+    "pos": "n",
+    "translations": [
+      "姐",
+      "妹"
+    ]
+  },
+  {
+    "id": "word_1252",
+    "word": "sit",
+    "phonetic": "sɪt",
+    "pos": "v",
+    "translations": [
+      "坐"
+    ]
+  },
+  {
+    "id": "word_1253",
+    "word": "situation",
+    "phonetic": "ˌsɪtʃu'eɪʃn",
+    "pos": "n",
+    "translations": [
+      "形势",
+      "情况"
+    ]
+  },
+  {
+    "id": "word_1254",
+    "word": "size",
+    "phonetic": "saɪz",
+    "pos": "n",
+    "translations": [
+      "尺码",
+      "大小"
+    ]
+  },
+  {
+    "id": "word_1255",
+    "word": "skate",
+    "phonetic": "skeɪt",
+    "pos": "v",
+    "translations": [
+      "溜冰",
+      "滑冰"
+    ]
+  },
+  {
+    "id": "word_1256",
+    "word": "ski",
+    "phonetic": "skiː",
+    "pos": "v",
+    "translations": [
+      "．滑雪"
+    ]
+  },
+  {
+    "id": "word_1257",
+    "word": "skill",
+    "phonetic": "skɪl",
+    "pos": "n",
+    "translations": [
+      "技能",
+      "技巧"
+    ]
+  },
+  {
+    "id": "word_1258",
+    "word": "skirt",
+    "phonetic": "skɜːt",
+    "pos": "n",
+    "translations": [
+      "女裙"
+    ]
+  },
+  {
+    "id": "word_1259",
+    "word": "sky",
+    "phonetic": "skaɪ",
+    "pos": "n",
+    "translations": [
+      "天",
+      "天空"
+    ]
+  },
+  {
+    "id": "word_1260",
+    "word": "sleep",
+    "phonetic": "sliːp",
+    "pos": "v",
+    "translations": [
+      "．睡觉"
+    ]
+  },
+  {
+    "id": "word_1261",
+    "word": "slim",
+    "phonetic": "slɪm",
+    "pos": "adj",
+    "translations": [
+      "苗条的",
+      "纤细的",
+      "．变苗条",
+      "减肥"
+    ]
+  },
+  {
+    "id": "word_1262",
+    "word": "slow",
+    "phonetic": "sləʊ",
+    "pos": "adj",
+    "translations": [
+      "慢的",
+      "缓慢的"
+    ]
+  },
+  {
+    "id": "word_1263",
+    "word": "small",
+    "phonetic": "smɔːl",
+    "pos": "adj",
+    "translations": [
+      "小的"
+    ]
+  },
+  {
+    "id": "word_1264",
+    "word": "smart",
+    "phonetic": "smɑːt",
+    "pos": "adj",
+    "translations": [
+      "聪明的",
+      "精明的"
+    ]
+  },
+  {
+    "id": "word_1265",
+    "word": "smell",
+    "phonetic": "smel",
+    "pos": "v",
+    "translations": [
+      "闻到",
+      "有……气味",
+      "．气味"
+    ]
+  },
+  {
+    "id": "word_1266",
+    "word": "smile",
+    "phonetic": "smaɪl",
+    "pos": "n",
+    "translations": [
+      "．微笑"
+    ]
+  },
+  {
+    "id": "word_1267",
+    "word": "smoke",
+    "phonetic": "sməʊk",
+    "pos": "n",
+    "translations": [
+      "烟 v．吸烟",
+      "冒烟"
+    ]
+  },
+  {
+    "id": "word_1268",
+    "word": "smooth",
+    "phonetic": "smuːð",
+    "pos": "adj",
+    "translations": [
+      "光滑的",
+      "平坦的"
+    ]
+  },
+  {
+    "id": "word_1269",
+    "word": "snack",
+    "phonetic": "snæk",
+    "pos": "n",
+    "translations": [
+      "小吃，快餐"
+    ]
+  },
+  {
+    "id": "word_1270",
+    "word": "snake",
+    "phonetic": "sneɪk",
+    "pos": "n",
+    "translations": [
+      "蛇"
+    ]
+  },
+  {
+    "id": "word_1271",
+    "word": "snow",
+    "phonetic": "snəʊ",
+    "pos": "n",
+    "translations": [
+      "雪",
+      "下雪"
+    ]
+  },
+  {
+    "id": "word_1272",
+    "word": "so",
+    "phonetic": "səʊ",
+    "pos": "adv",
+    "translations": [
+      "如此",
+      "这么",
+      "非常",
+      "的确",
+      "因此",
+      "所以"
+    ]
+  },
+  {
+    "id": "word_1273",
+    "word": "social",
+    "phonetic": "'səʊʃl",
+    "pos": "adj",
+    "translations": [
+      "社会的",
+      "社交的"
+    ]
+  },
+  {
+    "id": "word_1274",
+    "word": "socialism",
+    "phonetic": "'səʊʃəlɪz(ə)m",
+    "pos": "n",
+    "translations": [
+      "社会主义",
+      "社会主义（制度）"
+    ]
+  },
+  {
+    "id": "word_1275",
+    "word": "society",
+    "phonetic": "sə'saɪəti",
+    "pos": "n",
+    "translations": [
+      "社会"
+    ]
+  },
+  {
+    "id": "word_1276",
+    "word": "sock",
+    "phonetic": "sɒk",
+    "pos": "n",
+    "translations": [
+      "短袜"
+    ]
+  },
+  {
+    "id": "word_1277",
+    "word": "sofa",
+    "phonetic": "'səʊfə",
+    "pos": "n",
+    "translations": [
+      "沙发"
+    ]
+  },
+  {
+    "id": "word_1278",
+    "word": "soft",
+    "phonetic": "sɒft",
+    "pos": "adj",
+    "translations": [
+      "软的",
+      "柔软的"
+    ]
+  },
+  {
+    "id": "word_1279",
+    "word": "soil",
+    "phonetic": "sɔɪl",
+    "pos": "n",
+    "translations": [
+      "泥土",
+      "土壤"
+    ]
+  },
+  {
+    "id": "word_1280",
+    "word": "soldier",
+    "phonetic": "səʊldʒə(r)",
+    "pos": "n",
+    "translations": [
+      "士兵"
+    ]
+  },
+  {
+    "id": "word_1281",
+    "word": "solve",
+    "phonetic": "sɒlv",
+    "pos": "v",
+    "translations": [
+      "解决",
+      "解答"
+    ]
+  },
+  {
+    "id": "word_1282",
+    "word": "some",
+    "phonetic": "sʌm",
+    "pos": "adj",
+    "translations": [
+      "一些",
+      "若干",
+      "某些",
+      "有的"
+    ]
+  },
+  {
+    "id": "word_1283",
+    "word": "somebody",
+    "phonetic": "'sʌmbədi",
+    "pos": "pron",
+    "translations": [
+      "某人",
+      "重要人物"
+    ]
+  },
+  {
+    "id": "word_1284",
+    "word": "someone",
+    "phonetic": "'sʌmwʌn",
+    "pos": "pron",
+    "translations": [
+      "某人",
+      "重要人物"
+    ]
+  },
+  {
+    "id": "word_1285",
+    "word": "something",
+    "phonetic": "'sʌmθɪ ",
+    "pos": "pron",
+    "translations": [
+      "某事",
+      "某物"
+    ]
+  },
+  {
+    "id": "word_1286",
+    "word": "sometimes",
+    "phonetic": "'sʌmtaɪmz",
+    "pos": "adv",
+    "translations": [
+      "有时"
+    ]
+  },
+  {
+    "id": "word_1287",
+    "word": "somewhere",
+    "phonetic": "'sʌmweə(r)",
+    "pos": "adv",
+    "translations": [
+      "在某处",
+      "到某处"
+    ]
+  },
+  {
+    "id": "word_1288",
+    "word": "son",
+    "phonetic": "sʌn",
+    "pos": "n",
+    "translations": [
+      "儿子"
+    ]
+  },
+  {
+    "id": "word_1289",
+    "word": "song",
+    "phonetic": "sɒ   ",
+    "pos": "n",
+    "translations": [
+      "歌曲"
+    ]
+  },
+  {
+    "id": "word_1290",
+    "word": "soon",
+    "phonetic": "suːn",
+    "pos": "adv",
+    "translations": [
+      "不久",
+      "很快",
+      "早"
+    ]
+  },
+  {
+    "id": "word_1291",
+    "word": "sore",
+    "phonetic": "sɔː(r)",
+    "pos": "adj",
+    "translations": [
+      "疼痛的",
+      "酸痛的",
+      "身体某部位（疼痛的）"
+    ]
+  },
+  {
+    "id": "word_1292",
+    "word": "sorry",
+    "phonetic": "'sɒri",
+    "pos": "adj",
+    "translations": [
+      "抱歉的",
+      "难过的"
+    ]
+  },
+  {
+    "id": "word_1293",
+    "word": "sound",
+    "phonetic": "saʊnd",
+    "pos": "v",
+    "translations": [
+      "听起来好像",
+      "声音"
+    ]
+  },
+  {
+    "id": "word_1294",
+    "word": "soup",
+    "phonetic": "suːp",
+    "pos": "n",
+    "translations": [
+      "汤"
+    ]
+  },
+  {
+    "id": "word_1295",
+    "word": "south",
+    "phonetic": "saʊθ",
+    "pos": "adj",
+    "translations": [
+      "南方的",
+      "向南",
+      "南",
+      "南方",
+      "南部"
+    ]
+  },
+  {
+    "id": "word_1296",
+    "word": "space",
+    "phonetic": "speɪs",
+    "pos": "n",
+    "translations": [
+      "空间",
+      "太空"
+    ]
+  },
+  {
+    "id": "word_1297",
+    "word": "spare",
+    "phonetic": "speə(r)",
+    "pos": "adj",
+    "translations": [
+      "空闲的",
+      "不用的"
+    ]
+  },
+  {
+    "id": "word_1298",
+    "word": "speak",
+    "phonetic": "spiːk",
+    "pos": "v",
+    "translations": [
+      "说",
+      "谈话",
+      "发言"
+    ]
+  },
+  {
+    "id": "word_1299",
+    "word": "special",
+    "phonetic": "'speʃl",
+    "pos": "adj",
+    "translations": [
+      "特别的",
+      "不寻常的"
+    ]
+  },
+  {
+    "id": "word_1300",
+    "word": "speech",
+    "phonetic": "spiːtʃ",
+    "pos": "n",
+    "translations": [
+      "演讲"
+    ]
+  },
+  {
+    "id": "word_1301",
+    "word": "speed",
+    "phonetic": "spiːd",
+    "pos": "n",
+    "translations": [
+      "速度 v．快速前行"
+    ]
+  },
+  {
+    "id": "word_1302",
+    "word": "spell",
+    "phonetic": "spel",
+    "pos": "v",
+    "translations": [
+      "拼写"
+    ]
+  },
+  {
+    "id": "word_1303",
+    "word": "spend",
+    "phonetic": "spend",
+    "pos": "v",
+    "translations": [
+      "度过",
+      "花费"
+    ]
+  },
+  {
+    "id": "word_1304",
+    "word": "spirit",
+    "phonetic": "'spɪrɪt",
+    "pos": "n",
+    "translations": [
+      "精神",
+      "心灵"
+    ]
+  },
+  {
+    "id": "word_1305",
+    "word": "spoon",
+    "phonetic": "spuːn",
+    "pos": "n",
+    "translations": [
+      "匙",
+      "调羹"
+    ]
+  },
+  {
+    "id": "word_1306",
+    "word": "sport",
+    "phonetic": "spɔːt",
+    "pos": "n",
+    "translations": [
+      "体育运动"
+    ]
+  },
+  {
+    "id": "word_1307",
+    "word": "spread",
+    "phonetic": "spred",
+    "pos": "v",
+    "translations": [
+      "展开",
+      "传播",
+      "蔓延"
+    ]
+  },
+  {
+    "id": "word_1308",
+    "word": "spring",
+    "phonetic": "sprɪ  ",
+    "pos": "n",
+    "translations": [
+      "春天",
+      "春季",
+      "泉"
+    ]
+  },
+  {
+    "id": "word_1309",
+    "word": "square",
+    "phonetic": "skweə(r)",
+    "pos": "n",
+    "translations": [
+      "广场",
+      "平方",
+      "正方形的"
+    ]
+  },
+  {
+    "id": "word_1310",
+    "word": "stage",
+    "phonetic": "steɪdʒ",
+    "pos": "n",
+    "translations": [
+      "舞台",
+      "阶段",
+      "步骤"
+    ]
+  },
+  {
+    "id": "word_1311",
+    "word": "stamp",
+    "phonetic": "stæmp",
+    "pos": "n",
+    "translations": [
+      "邮票"
+    ]
+  },
+  {
+    "id": "word_1312",
+    "word": "stand",
+    "phonetic": "stænd",
+    "pos": "v",
+    "translations": [
+      "站立",
+      "坐落",
+      "容忍",
+      "经受"
+    ]
+  },
+  {
+    "id": "word_1313",
+    "word": "standard",
+    "phonetic": "'stændəd",
+    "pos": "n",
+    "translations": [
+      "标准 adj.标准的",
+      "标准",
+      "水平"
+    ]
+  },
+  {
+    "id": "word_1314",
+    "word": "star",
+    "phonetic": "stɑː(r)",
+    "pos": "n",
+    "translations": [
+      "星",
+      "恒星"
+    ]
+  },
+  {
+    "id": "word_1315",
+    "word": "start",
+    "phonetic": "stɑːt",
+    "pos": "v",
+    "translations": [
+      "开始，着手",
+      "出发"
+    ]
+  },
+  {
+    "id": "word_1316",
+    "word": "state",
+    "phonetic": "steɪt",
+    "pos": "n",
+    "translations": [
+      "国家",
+      "州",
+      "状态",
+      "情况",
+      "陈述"
+    ]
+  },
+  {
+    "id": "word_1317",
+    "word": "station",
+    "phonetic": "'steɪʃn",
+    "pos": "n",
+    "translations": [
+      "车站",
+      "电台"
+    ]
+  },
+  {
+    "id": "word_1318",
+    "word": "stay",
+    "phonetic": "steɪ",
+    "pos": "n",
+    "translations": [
+      "．停留",
+      "逗留",
+      "待"
+    ]
+  },
+  {
+    "id": "word_1319",
+    "word": "steal",
+    "phonetic": "stiːl",
+    "pos": "v",
+    "translations": [
+      "偷",
+      "窃取"
+    ]
+  },
+  {
+    "id": "word_1320",
+    "word": "step",
+    "phonetic": "step",
+    "pos": "n",
+    "translations": [
+      "步",
+      "脚步",
+      "步骤",
+      "．走",
+      "跨步"
+    ]
+  },
+  {
+    "id": "word_1321",
+    "word": "stick",
+    "phonetic": "stɪk",
+    "pos": "v",
+    "translations": [
+      "粘住",
+      "将……刺入",
+      "．棍",
+      "枝条"
+    ]
+  },
+  {
+    "id": "word_1322",
+    "word": "still",
+    "phonetic": "stɪl",
+    "pos": "adv",
+    "translations": [
+      "仍然"
+    ]
+  },
+  {
+    "id": "word_1323",
+    "word": "stomach",
+    "phonetic": "'stʌmək",
+    "pos": "n",
+    "translations": [
+      "胃",
+      "腹部"
+    ]
+  },
+  {
+    "id": "word_1324",
+    "word": "stone",
+    "phonetic": "stəʊn",
+    "pos": "n",
+    "translations": [
+      "石头",
+      "石料"
+    ]
+  },
+  {
+    "id": "word_1325",
+    "word": "stop",
+    "phonetic": "stɒp",
+    "pos": "n",
+    "translations": [
+      "停止",
+      "车站",
+      "阻止"
+    ]
+  },
+  {
+    "id": "word_1326",
+    "word": "store",
+    "phonetic": "stɔː(r)",
+    "pos": "n",
+    "translations": [
+      "商店 v．储藏",
+      "存"
+    ]
+  },
+  {
+    "id": "word_1327",
+    "word": "storm",
+    "phonetic": "stɔːm",
+    "pos": "n",
+    "translations": [
+      "暴风雨"
+    ]
+  },
+  {
+    "id": "word_1328",
+    "word": "story",
+    "phonetic": "'stɔːri",
+    "pos": "n",
+    "translations": [
+      "故事",
+      "小说"
+    ]
+  },
+  {
+    "id": "word_1329",
+    "word": "straight",
+    "phonetic": "streɪt",
+    "pos": "adj",
+    "translations": [
+      "直的"
+    ]
+  },
+  {
+    "id": "word_1330",
+    "word": "strange",
+    "phonetic": "streɪndʒ",
+    "pos": "adj",
+    "translations": [
+      "奇怪的",
+      "奇特的"
+    ]
+  },
+  {
+    "id": "word_1331",
+    "word": "strawberry",
+    "phonetic": "'strɔːbəri",
+    "pos": "n",
+    "translations": [
+      "草莓"
+    ]
+  },
+  {
+    "id": "word_1332",
+    "word": "street",
+    "phonetic": "striːt",
+    "pos": "n",
+    "translations": [
+      "大街",
+      "街道"
+    ]
+  },
+  {
+    "id": "word_1333",
+    "word": "stress",
+    "phonetic": "stres",
+    "pos": "n",
+    "translations": [
+      "精神压力",
+      "心理负担",
+      "．强调",
+      "重读"
+    ]
+  },
+  {
+    "id": "word_1334",
+    "word": "strict",
+    "phonetic": "strɪkt",
+    "pos": "adj",
+    "translations": [
+      "严格的",
+      "严厉的"
+    ]
+  },
+  {
+    "id": "word_1335",
+    "word": "strong",
+    "phonetic": "strɒ ",
+    "pos": "adj",
+    "translations": [
+      "强壮的",
+      "强烈的"
+    ]
+  },
+  {
+    "id": "word_1336",
+    "word": "student",
+    "phonetic": "'stjuːdnt",
+    "pos": "n",
+    "translations": [
+      "学生"
+    ]
+  },
+  {
+    "id": "word_1337",
+    "word": "study",
+    "phonetic": "'stʌdi",
+    "pos": "v",
+    "translations": [
+      "学习",
+      "研究",
+      "书房"
+    ]
+  },
+  {
+    "id": "word_1338",
+    "word": "style",
+    "phonetic": "staɪl",
+    "pos": "n",
+    "translations": [
+      "样式",
+      "款式"
+    ]
+  },
+  {
+    "id": "word_1339",
+    "word": "subject",
+    "phonetic": "'sʌbdʒɪkt",
+    "pos": "n",
+    "translations": [
+      "主题",
+      "学科",
+      "主语"
+    ]
+  },
+  {
+    "id": "word_1340",
+    "word": "succeed",
+    "phonetic": "sək'siːd",
+    "pos": "v",
+    "translations": [
+      "成功",
+      "做成"
+    ]
+  },
+  {
+    "id": "word_1341",
+    "word": "success",
+    "phonetic": "sək'ses",
+    "pos": "n",
+    "translations": [
+      "成功"
+    ]
+  },
+  {
+    "id": "word_1342",
+    "word": "such",
+    "phonetic": "sʌtʃ",
+    "pos": "pron",
+    "translations": [
+      "这样的",
+      "那样的"
+    ]
+  },
+  {
+    "id": "word_1343",
+    "word": "sudden",
+    "phonetic": "'sʌdn",
+    "pos": "adj",
+    "translations": [
+      "突然的"
+    ]
+  },
+  {
+    "id": "word_1344",
+    "word": "suffer",
+    "phonetic": "'sʌfə(r)",
+    "pos": "v",
+    "translations": [
+      "患有"
+    ]
+  },
+  {
+    "id": "word_1345",
+    "word": "sugar",
+    "phonetic": "'ʃʊɡə(r)",
+    "pos": "n",
+    "translations": [
+      "糖"
+    ]
+  },
+  {
+    "id": "word_1346",
+    "word": "suggest",
+    "phonetic": "sə'dʒest",
+    "pos": "v",
+    "translations": [
+      "建议",
+      "提议"
+    ]
+  },
+  {
+    "id": "word_1347",
+    "word": "suit",
+    "phonetic": "suːt",
+    "pos": "n",
+    "translations": [
+      "西服",
+      "套装 v．适合",
+      "一套衣服"
+    ]
+  },
+  {
+    "id": "word_1348",
+    "word": "summer",
+    "phonetic": "'sʌmə(r)",
+    "pos": "n",
+    "translations": [
+      "夏天",
+      "夏季"
+    ]
+  },
+  {
+    "id": "word_1349",
+    "word": "sun",
+    "phonetic": "sʌn",
+    "pos": "n",
+    "translations": [
+      "太阳",
+      "阳光"
+    ]
+  },
+  {
+    "id": "word_1350",
+    "word": "sunny",
+    "phonetic": "'sʌni",
+    "pos": "adj",
+    "translations": [
+      "晴朗的",
+      "阳光充足的"
+    ]
+  },
+  {
+    "id": "word_1351",
+    "word": "supermarket",
+    "phonetic": "'suːpəmɑːkɪt",
+    "pos": "n",
+    "translations": [
+      "超级市场",
+      "超市"
+    ]
+  },
+  {
+    "id": "word_1352",
+    "word": "support",
+    "phonetic": "sə'pɔːt",
+    "pos": "v",
+    "translations": [
+      "．支持"
+    ]
+  },
+  {
+    "id": "word_1353",
+    "word": "suppose",
+    "phonetic": "sə'pəʊz",
+    "pos": "v",
+    "translations": [
+      "猜想",
+      "推测",
+      "料想"
+    ]
+  },
+  {
+    "id": "word_1354",
+    "word": "sure",
+    "phonetic": "ʃʊə(r)",
+    "pos": "adj",
+    "translations": [
+      "确信的",
+      "肯定的",
+      "的确",
+      "一定",
+      "当然"
+    ]
+  },
+  {
+    "id": "word_1355",
+    "word": "surface",
+    "phonetic": "'sɜːfɪs",
+    "pos": "n",
+    "translations": [
+      "表面"
+    ]
+  },
+  {
+    "id": "word_1356",
+    "word": "surprise",
+    "phonetic": "sə'praɪz",
+    "pos": "v",
+    "translations": [
+      "使惊奇",
+      "使诧异",
+      "意外之事",
+      "惊奇"
+    ]
+  },
+  {
+    "id": "word_1357",
+    "word": "survey",
+    "phonetic": "'sɜːveɪ",
+    "pos": "n",
+    "translations": [
+      "调查"
+    ]
+  },
+  {
+    "id": "word_1358",
+    "word": "survive",
+    "phonetic": "sə'vaɪv",
+    "pos": "v",
+    "translations": [
+      "存活",
+      "幸存",
+      "艰难度过"
+    ]
+  },
+  {
+    "id": "word_1359",
+    "word": "sweater",
+    "phonetic": "'swetə(r)",
+    "pos": "n",
+    "translations": [
+      "毛衣"
+    ]
+  },
+  {
+    "id": "word_1360",
+    "word": "sweep",
+    "phonetic": "swiːp",
+    "pos": "v",
+    "translations": [
+      "打扫"
+    ]
+  },
+  {
+    "id": "word_1361",
+    "word": "sweet",
+    "phonetic": "swiːt",
+    "pos": "n",
+    "translations": [
+      "甜食",
+      "糖果",
+      "甜的",
+      "甜蜜的",
+      "含糖的"
+    ]
+  },
+  {
+    "id": "word_1362",
+    "word": "swim",
+    "phonetic": "swɪm",
+    "pos": "v",
+    "translations": [
+      "游泳",
+      "游"
+    ]
+  },
+  {
+    "id": "word_1363",
+    "word": "symbol",
+    "phonetic": "'sɪmb(ə)l",
+    "pos": "n",
+    "translations": [
+      "象征"
+    ]
+  },
+  {
+    "id": "word_1364",
+    "word": "table",
+    "phonetic": "'teɪbl",
+    "pos": "n",
+    "translations": [
+      "桌子"
+    ]
+  },
+  {
+    "id": "word_1365",
+    "word": "tail",
+    "phonetic": "teɪl",
+    "pos": "n",
+    "translations": [
+      "尾巴",
+      "尾部"
+    ]
+  },
+  {
+    "id": "word_1366",
+    "word": "take",
+    "phonetic": "teɪk",
+    "pos": "v",
+    "translations": [
+      "拿走",
+      "买下",
+      "服用"
+    ]
+  },
+  {
+    "id": "word_1367",
+    "word": "talent",
+    "phonetic": "'tælənt",
+    "pos": "n",
+    "translations": [
+      "天资",
+      "天赋"
+    ]
+  },
+  {
+    "id": "word_1368",
+    "word": "talk",
+    "phonetic": "tɔːk",
+    "pos": "n",
+    "translations": [
+      "．谈话"
+    ]
+  },
+  {
+    "id": "word_1369",
+    "word": "tall",
+    "phonetic": "tɔːl",
+    "pos": "adj",
+    "translations": [
+      "高的"
+    ]
+  },
+  {
+    "id": "word_1370",
+    "word": "tap",
+    "phonetic": "tæp",
+    "pos": "n",
+    "translations": [
+      "水龙头",
+      "．轻敲",
+      "轻扣"
+    ]
+  },
+  {
+    "id": "word_1371",
+    "word": "tape",
+    "phonetic": "teɪp",
+    "pos": "n",
+    "translations": [
+      "磁带",
+      "录音带"
+    ]
+  },
+  {
+    "id": "word_1372",
+    "word": "task",
+    "phonetic": "tɑːsk",
+    "pos": "n",
+    "translations": [
+      "任务",
+      "工作"
+    ]
+  },
+  {
+    "id": "word_1373",
+    "word": "taste",
+    "phonetic": "teɪst",
+    "pos": "n",
+    "translations": [
+      "味道",
+      "味觉",
+      "有……味道"
+    ]
+  },
+  {
+    "id": "word_1374",
+    "word": "taxi",
+    "phonetic": "'tæksi",
+    "pos": "n",
+    "translations": [
+      "出租汽车"
+    ]
+  },
+  {
+    "id": "word_1375",
+    "word": "tea",
+    "phonetic": "tiː",
+    "pos": "n",
+    "translations": [
+      "茶",
+      "茶叶"
+    ]
+  },
+  {
+    "id": "word_1376",
+    "word": "teach",
+    "phonetic": "tiːtʃ",
+    "pos": "v",
+    "translations": [
+      "教",
+      "教授"
+    ]
+  },
+  {
+    "id": "word_1377",
+    "word": "teacher",
+    "phonetic": "'tiːtʃə(r)",
+    "pos": "n",
+    "translations": [
+      "教师",
+      "教员"
+    ]
+  },
+  {
+    "id": "word_1378",
+    "word": "team",
+    "phonetic": "tiːm",
+    "pos": "n",
+    "translations": [
+      "队",
+      "组"
+    ]
+  },
+  {
+    "id": "word_1379",
+    "word": "teamwork",
+    "phonetic": "'tiːmwɜːk",
+    "pos": "n",
+    "translations": [
+      "团队合作",
+      "团队"
+    ]
+  },
+  {
+    "id": "word_1380",
+    "word": "technology",
+    "phonetic": "tek'nɒlədʒi",
+    "pos": "n",
+    "translations": [
+      "技术"
+    ]
+  },
+  {
+    "id": "word_1381",
+    "word": "teenage",
+    "phonetic": "'tiːneɪdʒ",
+    "pos": "adj",
+    "translations": [
+      "十几岁的"
+    ]
+  },
+  {
+    "id": "word_1382",
+    "word": "tell",
+    "phonetic": "tel",
+    "pos": "v",
+    "translations": [
+      "告诉",
+      "讲述"
+    ]
+  },
+  {
+    "id": "word_1383",
+    "word": "temperature",
+    "phonetic": "'temprətʃə(r)",
+    "pos": "n",
+    "translations": [
+      "温度",
+      "体温"
+    ]
+  },
+  {
+    "id": "word_1384",
+    "word": "tennis",
+    "phonetic": "'tenɪs",
+    "pos": "n",
+    "translations": [
+      "网球"
+    ]
+  },
+  {
+    "id": "word_1385",
+    "word": "tent",
+    "phonetic": "tent",
+    "pos": "n",
+    "translations": [
+      "帐篷"
+    ]
+  },
+  {
+    "id": "word_1386",
+    "word": "term",
+    "phonetic": "tɜːm",
+    "pos": "n",
+    "translations": [
+      "学期",
+      "术语"
+    ]
+  },
+  {
+    "id": "word_1387",
+    "word": "terrible",
+    "phonetic": "'terəbl",
+    "pos": "adj",
+    "translations": [
+      "非常讨厌的"
+    ]
+  },
+  {
+    "id": "word_1388",
+    "word": "test",
+    "phonetic": "test",
+    "pos": "v",
+    "translations": [
+      "．测试"
+    ]
+  },
+  {
+    "id": "word_1389",
+    "word": "text",
+    "phonetic": "tekst",
+    "pos": "n",
+    "translations": [
+      "文本",
+      "课文"
+    ]
+  },
+  {
+    "id": "word_1390",
+    "word": "than",
+    "phonetic": "ðæn",
+    "pos": "conj,prep",
+    "translations": [
+      "比",
+      "与其"
+    ]
+  },
+  {
+    "id": "word_1391",
+    "word": "thank",
+    "phonetic": "θæ k",
+    "pos": "v",
+    "translations": [
+      "感谢",
+      "谢谢"
+    ]
+  },
+  {
+    "id": "word_1392",
+    "word": "that",
+    "phonetic": "ðæt",
+    "pos": "adj",
+    "translations": [
+      "那",
+      "那个"
+    ]
+  },
+  {
+    "id": "word_1393",
+    "word": "the",
+    "phonetic": "ðɪ；ðə",
+    "pos": "art",
+    "translations": [
+      "这"
+    ]
+  },
+  {
+    "id": "word_1394",
+    "word": "theatre",
+    "phonetic": "'θɪətə(r)",
+    "pos": "n",
+    "translations": [
+      "剧场",
+      "戏院"
+    ]
+  },
+  {
+    "id": "word_1395",
+    "word": "their",
+    "phonetic": "ðeə(r)",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_1396",
+    "word": "theirs",
+    "phonetic": "ðeəz",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_1397",
+    "word": "them",
+    "phonetic": "ðem",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_1398",
+    "word": "themselves",
+    "phonetic": "ðəm'selvz",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_1399",
+    "word": "then",
+    "phonetic": "ðen",
+    "pos": "adv",
+    "translations": [
+      "当时",
+      "那时",
+      "然后",
+      "那么"
+    ]
+  },
+  {
+    "id": "word_1400",
+    "word": "there",
+    "phonetic": "ðeə(r)",
+    "pos": "adv",
+    "translations": [
+      "在那里",
+      "往那里"
+    ]
+  },
+  {
+    "id": "word_1401",
+    "word": "therefore",
+    "phonetic": "'ðeəfɔː(r)",
+    "pos": "adv",
+    "translations": [
+      "因此",
+      "所以"
+    ]
+  },
+  {
+    "id": "word_1402",
+    "word": "these",
+    "phonetic": "ðiːz",
+    "pos": "adj",
+    "translations": [
+      "这些"
+    ]
+  },
+  {
+    "id": "word_1403",
+    "word": "they",
+    "phonetic": "ðeɪ",
+    "pos": "pron",
+    "translations": [
+      "他"
+    ]
+  },
+  {
+    "id": "word_1404",
+    "word": "thick",
+    "phonetic": "θɪk",
+    "pos": "adj",
+    "translations": [
+      "浓密的",
+      "厚的"
+    ]
+  },
+  {
+    "id": "word_1405",
+    "word": "thin",
+    "phonetic": "θɪn",
+    "pos": "adj",
+    "translations": [
+      "薄的",
+      "瘦的",
+      "稀的"
+    ]
+  },
+  {
+    "id": "word_1406",
+    "word": "thing",
+    "phonetic": "θɪ   ",
+    "pos": "n",
+    "translations": [
+      "东西",
+      "物品",
+      "事情",
+      "事件"
+    ]
+  },
+  {
+    "id": "word_1407",
+    "word": "think",
+    "phonetic": "θɪ   k",
+    "pos": "v",
+    "translations": [
+      "想",
+      "认为",
+      "考虑"
+    ]
+  },
+  {
+    "id": "word_1408",
+    "word": "thirsty",
+    "phonetic": "'θɜːsti",
+    "pos": "adj",
+    "translations": [
+      "口渴的",
+      "渴望的"
+    ]
+  },
+  {
+    "id": "word_1409",
+    "word": "this",
+    "phonetic": "ðɪs",
+    "pos": "adj",
+    "translations": [
+      "这",
+      "这个"
+    ]
+  },
+  {
+    "id": "word_1410",
+    "word": "those",
+    "phonetic": "ðəʊz",
+    "pos": "adj",
+    "translations": [
+      "那些"
+    ]
+  },
+  {
+    "id": "word_1411",
+    "word": "though",
+    "phonetic": "ðəʊ",
+    "pos": "conj",
+    "translations": [
+      "虽然",
+      "可是",
+      "然而"
+    ]
+  },
+  {
+    "id": "word_1412",
+    "word": "thought",
+    "phonetic": "θɔːt",
+    "pos": "n",
+    "translations": [
+      "想法",
+      "看法",
+      "主意"
+    ]
+  },
+  {
+    "id": "word_1413",
+    "word": "throat",
+    "phonetic": "θrəʊt",
+    "pos": "n",
+    "translations": [
+      "喉咙",
+      "咽喉"
+    ]
+  },
+  {
+    "id": "word_1414",
+    "word": "through",
+    "phonetic": "θruː",
+    "pos": "prep",
+    "translations": [
+      "穿过",
+      "通过",
+      "从始至终",
+      "凭借",
+      "自始至终"
+    ]
+  },
+  {
+    "id": "word_1415",
+    "word": "throw",
+    "phonetic": "θrəʊ",
+    "pos": "v",
+    "translations": [
+      "投",
+      "掷",
+      "扔"
+    ]
+  },
+  {
+    "id": "word_1416",
+    "word": "thunder",
+    "phonetic": "'θʌndə(r)",
+    "pos": "n",
+    "translations": [
+      "雷",
+      "雷声",
+      "轰隆声"
+    ]
+  },
+  {
+    "id": "word_1417",
+    "word": "ticket",
+    "phonetic": "'tɪkɪt",
+    "pos": "n",
+    "translations": [
+      "票",
+      "券"
+    ]
+  },
+  {
+    "id": "word_1418",
+    "word": "tidy",
+    "phonetic": "'taɪdi",
+    "pos": "adj",
+    "translations": [
+      "整洁的",
+      "干净的 v．使"
+    ]
+  },
+  {
+    "id": "word_1419",
+    "word": "tie",
+    "phonetic": "taɪ",
+    "pos": "v",
+    "translations": [
+      "拴",
+      "扎",
+      "．领带"
+    ]
+  },
+  {
+    "id": "word_1420",
+    "word": "tiger",
+    "phonetic": "'taɪɡə(r)",
+    "pos": "n",
+    "translations": [
+      "老虎"
+    ]
+  },
+  {
+    "id": "word_1421",
+    "word": "time",
+    "phonetic": "taɪm",
+    "pos": "n",
+    "translations": [
+      "时间",
+      "时代",
+      "次"
+    ]
+  },
+  {
+    "id": "word_1422",
+    "word": "tiny",
+    "phonetic": "'taɪni",
+    "pos": "adj",
+    "translations": [
+      "极小的",
+      "微小的"
+    ]
+  },
+  {
+    "id": "word_1423",
+    "word": "tired",
+    "phonetic": "'taɪəd",
+    "pos": "adj",
+    "translations": [
+      "疲劳的",
+      "厌倦的"
+    ]
+  },
+  {
+    "id": "word_1424",
+    "word": "to",
+    "phonetic": "tuː",
+    "pos": "prep",
+    "translations": [
+      "向",
+      "朝",
+      "往"
+    ]
+  },
+  {
+    "id": "word_1425",
+    "word": "today",
+    "phonetic": "tə'deɪ",
+    "pos": "adv",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_1426",
+    "word": "tofu",
+    "phonetic": "'təʊfuː",
+    "pos": "n",
+    "translations": [
+      "豆腐"
+    ]
+  },
+  {
+    "id": "word_1427",
+    "word": "together",
+    "phonetic": "tə'ɡeðə(r)",
+    "pos": "adv",
+    "translations": [
+      "在一起",
+      "共同"
+    ]
+  },
+  {
+    "id": "word_1428",
+    "word": "toilet",
+    "phonetic": "'tɔɪlət",
+    "pos": "n",
+    "translations": [
+      "坐便器",
+      "厕所",
+      "座便器"
+    ]
+  },
+  {
+    "id": "word_1429",
+    "word": "tomato",
+    "phonetic": "tə'mɑːtəʊ",
+    "pos": "n",
+    "translations": [
+      "西红柿",
+      "番茄"
+    ]
+  },
+  {
+    "id": "word_1430",
+    "word": "tomorrow",
+    "phonetic": "tə'mɒrəʊ",
+    "pos": "adv",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_1431",
+    "word": "ton",
+    "phonetic": "tʌn",
+    "pos": "n",
+    "translations": [
+      "吨"
+    ]
+  },
+  {
+    "id": "word_1432",
+    "word": "tonight",
+    "phonetic": "tə'naɪt",
+    "pos": "adv",
+    "translations": [
+      "．"
+    ]
+  },
+  {
+    "id": "word_1433",
+    "word": "too",
+    "phonetic": "tuː",
+    "pos": "adv",
+    "translations": [
+      "也",
+      "还",
+      "又",
+      "太"
+    ]
+  },
+  {
+    "id": "word_1434",
+    "word": "tool",
+    "phonetic": "tuːl",
+    "pos": "n",
+    "translations": [
+      "工具",
+      "器具"
+    ]
+  },
+  {
+    "id": "word_1435",
+    "word": "tooth",
+    "phonetic": "tuːθ",
+    "pos": "n",
+    "translations": [
+      "牙齿"
+    ]
+  },
+  {
+    "id": "word_1436",
+    "word": "top",
+    "phonetic": "tɒp",
+    "pos": "n",
+    "translations": [
+      "顶部",
+      "上面"
+    ]
+  },
+  {
+    "id": "word_1437",
+    "word": "total",
+    "phonetic": "'təʊtl",
+    "pos": "adj",
+    "translations": [
+      "总计的",
+      "全体的",
+      "总计",
+      "总数",
+      "全部的"
+    ]
+  },
+  {
+    "id": "word_1438",
+    "word": "touch",
+    "phonetic": "tʌtʃ",
+    "pos": "v",
+    "translations": [
+      "．触摸",
+      "接触"
+    ]
+  },
+  {
+    "id": "word_1439",
+    "word": "tour",
+    "phonetic": "tʊə(r)",
+    "pos": "n",
+    "translations": [
+      "参观",
+      "观光",
+      "旅行"
+    ]
+  },
+  {
+    "id": "word_1440",
+    "word": "tourist",
+    "phonetic": "'tʊərɪst",
+    "pos": "n",
+    "translations": [
+      "旅行者",
+      "观光者"
+    ]
+  },
+  {
+    "id": "word_1441",
+    "word": "towards",
+    "phonetic": "tə'wɔːd(z)",
+    "pos": "prep",
+    "translations": [
+      "向",
+      "朝",
+      "对着"
+    ]
+  },
+  {
+    "id": "word_1442",
+    "word": "tower",
+    "phonetic": "'taʊə(r)",
+    "pos": "n",
+    "translations": [
+      "塔",
+      "塔楼"
+    ]
+  },
+  {
+    "id": "word_1443",
+    "word": "town",
+    "phonetic": "taʊn",
+    "pos": "n",
+    "translations": [
+      "镇",
+      "市镇",
+      "市区的"
+    ]
+  },
+  {
+    "id": "word_1444",
+    "word": "toy",
+    "phonetic": "tɔɪ",
+    "pos": "n",
+    "translations": [
+      "玩具",
+      "玩物"
+    ]
+  },
+  {
+    "id": "word_1445",
+    "word": "trade",
+    "phonetic": "treɪd",
+    "pos": "n",
+    "translations": [
+      "贸易",
+      "交易"
+    ]
+  },
+  {
+    "id": "word_1446",
+    "word": "tradition",
+    "phonetic": "trə'dɪʃn",
+    "pos": "n",
+    "translations": [
+      "传统"
+    ]
+  },
+  {
+    "id": "word_1447",
+    "word": "traffic",
+    "phonetic": "'træfɪk",
+    "pos": "n",
+    "translations": [
+      "交通",
+      "路上行驶的车"
+    ]
+  },
+  {
+    "id": "word_1448",
+    "word": "train",
+    "phonetic": "treɪn",
+    "pos": "n",
+    "translations": [
+      "火车 v．培训",
+      "训"
+    ]
+  },
+  {
+    "id": "word_1449",
+    "word": "training",
+    "phonetic": "'treɪnɪ ",
+    "pos": "n",
+    "translations": [
+      "培训"
+    ]
+  },
+  {
+    "id": "word_1450",
+    "word": "translate",
+    "phonetic": "træns'leɪt",
+    "pos": "v",
+    "translations": [
+      "翻译"
+    ]
+  },
+  {
+    "id": "word_1451",
+    "word": "travel",
+    "phonetic": "'trævl",
+    "pos": "n",
+    "translations": [
+      "．旅行"
+    ]
+  },
+  {
+    "id": "word_1452",
+    "word": "treasure",
+    "phonetic": "'treʒə(r)",
+    "pos": "n",
+    "translations": [
+      "金银财宝",
+      "财富",
+      "珍宝"
+    ]
+  },
+  {
+    "id": "word_1453",
+    "word": "treat",
+    "phonetic": "triːt",
+    "pos": "n",
+    "translations": [
+      "款待",
+      "招待",
+      "请",
+      "治疗",
+      "对待"
+    ]
+  },
+  {
+    "id": "word_1454",
+    "word": "tree",
+    "phonetic": "triː",
+    "pos": "n",
+    "translations": [
+      "树"
+    ]
+  },
+  {
+    "id": "word_1455",
+    "word": "trip",
+    "phonetic": "trɪp",
+    "pos": "n",
+    "translations": [
+      "旅行",
+      "旅游"
+    ]
+  },
+  {
+    "id": "word_1456",
+    "word": "trouble",
+    "phonetic": "'trʌbl",
+    "pos": "n",
+    "translations": [
+      "问题",
+      "困难",
+      "苦恼"
+    ]
+  },
+  {
+    "id": "word_1457",
+    "word": "trousers",
+    "phonetic": "'traʊzəz",
+    "pos": "n",
+    "translations": [
+      "裤子"
+    ]
+  },
+  {
+    "id": "word_1458",
+    "word": "truck",
+    "phonetic": "trʌk",
+    "pos": "n",
+    "translations": [
+      "卡车",
+      "运货车"
+    ]
+  },
+  {
+    "id": "word_1459",
+    "word": "true",
+    "phonetic": "truː",
+    "pos": "adj",
+    "translations": [
+      "真实的",
+      "真正的"
+    ]
+  },
+  {
+    "id": "word_1460",
+    "word": "trust",
+    "phonetic": "trʌst",
+    "pos": "n",
+    "translations": [
+      "．相信",
+      "信任"
+    ]
+  },
+  {
+    "id": "word_1461",
+    "word": "truth",
+    "phonetic": "truːθ",
+    "pos": "n",
+    "translations": [
+      "事实",
+      "真相"
+    ]
+  },
+  {
+    "id": "word_1462",
+    "word": "try",
+    "phonetic": "traɪ",
+    "pos": "n",
+    "translations": [
+      "．试图",
+      "努力"
+    ]
+  },
+  {
+    "id": "word_1463",
+    "word": "turn",
+    "phonetic": "tɜːn",
+    "pos": "v",
+    "translations": [
+      "旋转",
+      "转身",
+      "翻转",
+      "转"
+    ]
+  },
+  {
+    "id": "word_1464",
+    "word": "TV",
+    "phonetic": "ˌtiː 'viː",
+    "pos": "abbr",
+    "translations": [
+      "电视"
+    ]
+  },
+  {
+    "id": "word_1465",
+    "word": "ugly",
+    "phonetic": "'ʌɡli",
+    "pos": "adj",
+    "translations": [
+      "丑陋的",
+      "难看的"
+    ]
+  },
+  {
+    "id": "word_1466",
+    "word": "umbrella",
+    "phonetic": "ʌm'brelə",
+    "pos": "n",
+    "translations": [
+      "雨伞"
+    ]
+  },
+  {
+    "id": "word_1467",
+    "word": "uncle",
+    "phonetic": "'ʌ kl",
+    "pos": "n",
+    "translations": [
+      "叔",
+      "伯",
+      "舅",
+      "姑父",
+      "姨"
+    ]
+  },
+  {
+    "id": "word_1468",
+    "word": "under",
+    "phonetic": "'ʌndə(r)",
+    "pos": "prep",
+    "translations": [
+      "在……下面"
+    ]
+  },
+  {
+    "id": "word_1469",
+    "word": "underground",
+    "phonetic": "ˌʌndə'ɡraʊnd",
+    "pos": "adj",
+    "translations": [
+      "地下的 n．地铁"
+    ]
+  },
+  {
+    "id": "word_1470",
+    "word": "understand",
+    "phonetic": "ˌʌndə'stænd",
+    "pos": "v",
+    "translations": [
+      "懂",
+      "理解",
+      "领会"
+    ]
+  },
+  {
+    "id": "word_1471",
+    "word": "uniform",
+    "phonetic": "'juːnɪfɔːm",
+    "pos": "n",
+    "translations": [
+      "制服",
+      "校服"
+    ]
+  },
+  {
+    "id": "word_1472",
+    "word": "unit",
+    "phonetic": "'juːnɪt",
+    "pos": "n",
+    "translations": [
+      "单元",
+      "单位"
+    ]
+  },
+  {
+    "id": "word_1473",
+    "word": "universe",
+    "phonetic": "'juːnɪvɜːs",
+    "pos": "n",
+    "translations": [
+      "宇宙"
+    ]
+  },
+  {
+    "id": "word_1474",
+    "word": "university",
+    "phonetic": "ˌjuːnɪ'vɜːsəti",
+    "pos": "n",
+    "translations": [
+      "大学"
+    ]
+  },
+  {
+    "id": "word_1475",
+    "word": "unless",
+    "phonetic": "ən'les",
+    "pos": "conj",
+    "translations": [
+      "如果不",
+      "除非"
+    ]
+  },
+  {
+    "id": "word_1476",
+    "word": "until",
+    "phonetic": "ən'tɪl",
+    "pos": "prep",
+    "translations": [
+      "直到"
+    ]
+  },
+  {
+    "id": "word_1477",
+    "word": "up",
+    "phonetic": "ʌp",
+    "pos": "adv",
+    "translations": [
+      "向上",
+      "在上方",
+      "向",
+      "在"
+    ]
+  },
+  {
+    "id": "word_1478",
+    "word": "upon",
+    "phonetic": "ə'pɒn",
+    "pos": "prep",
+    "translations": [
+      "在……上面"
+    ]
+  },
+  {
+    "id": "word_1479",
+    "word": "us",
+    "phonetic": "ʌs",
+    "pos": "pron",
+    "translations": [
+      "我们"
+    ]
+  },
+  {
+    "id": "word_1480",
+    "word": "use",
+    "phonetic": "juːz",
+    "pos": "n",
+    "translations": [
+      "．利用"
+    ]
+  },
+  {
+    "id": "word_1481",
+    "word": "usual",
+    "phonetic": "'juːʒʊəl",
+    "pos": "adj",
+    "translations": [
+      "通常的",
+      "平常的"
+    ]
+  },
+  {
+    "id": "word_1482",
+    "word": "vacation",
+    "phonetic": "və'keɪʃn",
+    "pos": "n",
+    "translations": [
+      "假期",
+      "度假"
+    ]
+  },
+  {
+    "id": "word_1483",
+    "word": "value",
+    "phonetic": "'væljuː",
+    "pos": "n",
+    "translations": [
+      "价值 v．重视",
+      "珍视",
+      "有用的",
+      "宝贵的"
+    ]
+  },
+  {
+    "id": "word_1484",
+    "word": "vegetable",
+    "phonetic": "'vedʒtəbl",
+    "pos": "n",
+    "translations": [
+      "蔬菜"
+    ]
+  },
+  {
+    "id": "word_1485",
+    "word": "very",
+    "phonetic": "'veri",
+    "pos": "adv",
+    "translations": [
+      "很，非常",
+      "非常"
+    ]
+  },
+  {
+    "id": "word_1486",
+    "word": "victory",
+    "phonetic": "'vɪktəri",
+    "pos": "n",
+    "translations": [
+      "胜利"
+    ]
+  },
+  {
+    "id": "word_1487",
+    "word": "video",
+    "phonetic": "'vɪdiəʊ",
+    "pos": "n",
+    "translations": [
+      "录像",
+      "视频"
+    ]
+  },
+  {
+    "id": "word_1488",
+    "word": "view",
+    "phonetic": "vjuː",
+    "pos": "n",
+    "translations": [
+      "观点",
+      "看法",
+      "立场"
+    ]
+  },
+  {
+    "id": "word_1489",
+    "word": "village",
+    "phonetic": "'vɪlɪdʒ",
+    "pos": "n",
+    "translations": [
+      "村庄",
+      "乡村"
+    ]
+  },
+  {
+    "id": "word_1490",
+    "word": "violin",
+    "phonetic": "ˌvaɪə'lɪn",
+    "pos": "n",
+    "translations": [
+      "小提琴"
+    ]
+  },
+  {
+    "id": "word_1491",
+    "word": "virus",
+    "phonetic": "'vaɪrəs",
+    "pos": "n",
+    "translations": [
+      "病毒"
+    ]
+  },
+  {
+    "id": "word_1492",
+    "word": "visit",
+    "phonetic": "'vɪzɪt",
+    "pos": "n",
+    "translations": [
+      "．参观"
+    ]
+  },
+  {
+    "id": "word_1493",
+    "word": "voice",
+    "phonetic": "vɔɪs",
+    "pos": "n",
+    "translations": [
+      "说话声",
+      "嗓音"
+    ]
+  },
+  {
+    "id": "word_1494",
+    "word": "volleyball",
+    "phonetic": "'vɒlibɔːl",
+    "pos": "n",
+    "translations": [
+      "排球"
+    ]
+  },
+  {
+    "id": "word_1495",
+    "word": "voluntary",
+    "phonetic": "'vɒləntri",
+    "pos": "adj",
+    "translations": [
+      "自愿的",
+      "义务的"
+    ]
+  },
+  {
+    "id": "word_1496",
+    "word": "volunteer",
+    "phonetic": "vɒlən'tɪə(r)",
+    "pos": "v",
+    "translations": [
+      "义务做",
+      "自愿做",
+      "志愿者"
+    ]
+  },
+  {
+    "id": "word_1497",
+    "word": "vote",
+    "phonetic": "vəʊt",
+    "pos": "v",
+    "translations": [
+      "投票选举",
+      "选票",
+      "投票结果"
+    ]
+  },
+  {
+    "id": "word_1498",
+    "word": "wait",
+    "phonetic": "weɪt",
+    "pos": "v",
+    "translations": [
+      "等待",
+      "等候"
+    ]
+  },
+  {
+    "id": "word_1499",
+    "word": "wake",
+    "phonetic": "weɪk",
+    "pos": "v",
+    "translations": [
+      "醒",
+      "醒来",
+      "叫醒"
+    ]
+  },
+  {
+    "id": "word_1500",
+    "word": "walk",
+    "phonetic": "wɔːk",
+    "pos": "v",
+    "translations": [
+      "．步行",
+      "散步"
+    ]
+  },
+  {
+    "id": "word_1501",
+    "word": "wall",
+    "phonetic": "wɔːl",
+    "pos": "n",
+    "translations": [
+      "墙"
+    ]
+  },
+  {
+    "id": "word_1502",
+    "word": "wallet",
+    "phonetic": "'wɒlɪt",
+    "pos": "n",
+    "translations": [
+      "钱包",
+      "皮夹"
+    ]
+  },
+  {
+    "id": "word_1503",
+    "word": "want",
+    "phonetic": "wɒnt",
+    "pos": "v",
+    "translations": [
+      "想",
+      "想要",
+      "需要"
+    ]
+  },
+  {
+    "id": "word_1504",
+    "word": "war",
+    "phonetic": "wɔː(r)",
+    "pos": "n",
+    "translations": [
+      "战争"
+    ]
+  },
+  {
+    "id": "word_1505",
+    "word": "warm",
+    "phonetic": "wɔːm",
+    "pos": "adj",
+    "translations": [
+      "暖和的",
+      "温暖的"
+    ]
+  },
+  {
+    "id": "word_1506",
+    "word": "warn",
+    "phonetic": "wɔːn",
+    "pos": "v",
+    "translations": [
+      "警告",
+      "告诫"
+    ]
+  },
+  {
+    "id": "word_1507",
+    "word": "wash",
+    "phonetic": "wɒʃ",
+    "pos": "v",
+    "translations": [
+      "洗"
+    ]
+  },
+  {
+    "id": "word_1508",
+    "word": "waste",
+    "phonetic": "weɪst",
+    "pos": "n",
+    "translations": [
+      "浪费",
+      "垃圾",
+      "滥用"
+    ]
+  },
+  {
+    "id": "word_1509",
+    "word": "watch",
+    "phonetic": "wɒtʃ",
+    "pos": "v",
+    "translations": [
+      "观看",
+      "注视",
+      "当心",
+      "注意"
+    ]
+  },
+  {
+    "id": "word_1510",
+    "word": "water",
+    "phonetic": "'wɔːtə(r)",
+    "pos": "n",
+    "translations": [
+      "水",
+      "．给……浇水"
+    ]
+  },
+  {
+    "id": "word_1511",
+    "word": "watermelon",
+    "phonetic": "'wɔːtəmelən",
+    "pos": "n",
+    "translations": [
+      "西瓜"
+    ]
+  },
+  {
+    "id": "word_1512",
+    "word": "wave",
+    "phonetic": "weɪv",
+    "pos": "n",
+    "translations": [
+      "海浪 v．挥"
+    ]
+  },
+  {
+    "id": "word_1513",
+    "word": "way",
+    "phonetic": "weɪ",
+    "pos": "n",
+    "translations": [
+      "路，路线",
+      "方法",
+      "手段"
+    ]
+  },
+  {
+    "id": "word_1514",
+    "word": "we",
+    "phonetic": "wiː",
+    "pos": "pron",
+    "translations": [
+      "我们"
+    ]
+  },
+  {
+    "id": "word_1515",
+    "word": "weak",
+    "phonetic": "wiːk",
+    "pos": "adj",
+    "translations": [
+      "差的",
+      "虚弱的"
+    ]
+  },
+  {
+    "id": "word_1516",
+    "word": "wealth",
+    "phonetic": "welθ",
+    "pos": "n",
+    "translations": [
+      "财产",
+      "财富"
+    ]
+  },
+  {
+    "id": "word_1517",
+    "word": "wear",
+    "phonetic": "weə(r)",
+    "pos": "v",
+    "translations": [
+      "穿",
+      "戴"
+    ]
+  },
+  {
+    "id": "word_1518",
+    "word": "weather",
+    "phonetic": "'weðə(r)",
+    "pos": "n",
+    "translations": [
+      "天气"
+    ]
+  },
+  {
+    "id": "word_1519",
+    "word": "website",
+    "phonetic": "'websaɪt",
+    "pos": "n",
+    "translations": [
+      "网站"
+    ]
+  },
+  {
+    "id": "word_1520",
+    "word": "week",
+    "phonetic": "wiːk",
+    "pos": "n",
+    "translations": [
+      "星期",
+      "周",
+      "周报",
+      "周刊"
+    ]
+  },
+  {
+    "id": "word_1521",
+    "word": "weekday",
+    "phonetic": "'wiːkdeɪ",
+    "pos": "n",
+    "translations": [
+      "工作日"
+    ]
+  },
+  {
+    "id": "word_1522",
+    "word": "weekend",
+    "phonetic": "ˌwiːk'end",
+    "pos": "n",
+    "translations": [
+      "周末"
+    ]
+  },
+  {
+    "id": "word_1523",
+    "word": "weigh",
+    "phonetic": "weɪ",
+    "pos": "v",
+    "translations": [
+      "称……的重量",
+      "重"
+    ]
+  },
+  {
+    "id": "word_1524",
+    "word": "weight",
+    "phonetic": "weɪt",
+    "pos": "n",
+    "translations": [
+      "重",
+      "重量"
+    ]
+  },
+  {
+    "id": "word_1525",
+    "word": "welcome",
+    "phonetic": "'welkəm",
+    "pos": "n",
+    "translations": [
+      "．欢迎",
+      "受欢迎的"
+    ]
+  },
+  {
+    "id": "word_1526",
+    "word": "well",
+    "phonetic": "wel",
+    "pos": "adv",
+    "translations": [
+      "状态良好的 int.表示惊讶、同意等"
+    ]
+  },
+  {
+    "id": "word_1527",
+    "word": "west",
+    "phonetic": "west",
+    "pos": "adj",
+    "translations": [
+      "西方的",
+      "向西的"
+    ]
+  },
+  {
+    "id": "word_1528",
+    "word": "wet",
+    "phonetic": "wet",
+    "pos": "adj",
+    "translations": [
+      "湿的",
+      "潮的",
+      "下雨的"
+    ]
+  },
+  {
+    "id": "word_1529",
+    "word": "whale",
+    "phonetic": "weɪl",
+    "pos": "n",
+    "translations": [
+      "鲸",
+      "鲸鱼"
+    ]
+  },
+  {
+    "id": "word_1530",
+    "word": "what",
+    "phonetic": "wɒt",
+    "pos": "pron",
+    "translations": [
+      "什么"
+    ]
+  },
+  {
+    "id": "word_1531",
+    "word": "whatever",
+    "phonetic": "wɒt'evə(r)",
+    "pos": "pron",
+    "translations": [
+      "任何",
+      "无论什么",
+      "每一"
+    ]
+  },
+  {
+    "id": "word_1532",
+    "word": "wheel",
+    "phonetic": "wiːl",
+    "pos": "n",
+    "translations": [
+      "轮",
+      "车轮",
+      "轮胎"
+    ]
+  },
+  {
+    "id": "word_1533",
+    "word": "when",
+    "phonetic": "wen",
+    "pos": "conj",
+    "translations": [
+      "何时"
+    ]
+  },
+  {
+    "id": "word_1534",
+    "word": "whenever",
+    "phonetic": "wen'evə(r)",
+    "pos": "conj",
+    "translations": [
+      "每当",
+      "无论何时"
+    ]
+  },
+  {
+    "id": "word_1535",
+    "word": "where",
+    "phonetic": "weə(r)",
+    "pos": "adv",
+    "translations": [
+      "在哪里",
+      "到哪里"
+    ]
+  },
+  {
+    "id": "word_1536",
+    "word": "whether",
+    "phonetic": "'weðə(r)",
+    "pos": "conj",
+    "translations": [
+      "是否",
+      "不管……",
+      "或者……"
+    ]
+  },
+  {
+    "id": "word_1537",
+    "word": "which",
+    "phonetic": "wɪtʃ",
+    "pos": "adj",
+    "translations": [
+      "&"
+    ]
+  },
+  {
+    "id": "word_1538",
+    "word": "while",
+    "phonetic": "waɪl",
+    "pos": "conj",
+    "translations": [
+      "在……的时候",
+      "和……同时",
+      "而",
+      "一段时间"
+    ]
+  },
+  {
+    "id": "word_1539",
+    "word": "white",
+    "phonetic": "waɪt",
+    "pos": "adj",
+    "translations": [
+      "白色的 n．白色"
+    ]
+  },
+  {
+    "id": "word_1540",
+    "word": "who",
+    "phonetic": "huː",
+    "pos": "pron",
+    "translations": [
+      "谁"
+    ]
+  },
+  {
+    "id": "word_1541",
+    "word": "whole",
+    "phonetic": "həʊl",
+    "pos": "adj",
+    "translations": [
+      "整个的",
+      "全部的"
+    ]
+  },
+  {
+    "id": "word_1542",
+    "word": "whom",
+    "phonetic": "huːm",
+    "pos": "pron",
+    "translations": [
+      "谁",
+      "什么人"
+    ]
+  },
+  {
+    "id": "word_1543",
+    "word": "whose",
+    "phonetic": "huːz",
+    "pos": "adj",
+    "translations": [
+      "谁的"
+    ]
+  },
+  {
+    "id": "word_1544",
+    "word": "why",
+    "phonetic": "waɪ",
+    "pos": "adv",
+    "translations": [
+      "为什么"
+    ]
+  },
+  {
+    "id": "word_1545",
+    "word": "wide",
+    "phonetic": "waɪd",
+    "pos": "adj",
+    "translations": [
+      "宽的",
+      "宽阔的"
+    ]
+  },
+  {
+    "id": "word_1546",
+    "word": "wife",
+    "phonetic": "waɪf",
+    "pos": "n",
+    "translations": [
+      "妻子"
+    ]
+  },
+  {
+    "id": "word_1547",
+    "word": "wild",
+    "phonetic": "waɪld",
+    "pos": "adj",
+    "translations": [
+      "野生的n．野生环境"
+    ]
+  },
+  {
+    "id": "word_1548",
+    "word": "will",
+    "phonetic": "wɪl",
+    "pos": "modal",
+    "translations": [
+      "．将，会",
+      "愿意",
+      "要",
+      "意志",
+      "决心"
+    ]
+  },
+  {
+    "id": "word_1549",
+    "word": "win",
+    "phonetic": "wɪn",
+    "pos": "v",
+    "translations": [
+      "获胜",
+      "赢得"
+    ]
+  },
+  {
+    "id": "word_1550",
+    "word": "wind",
+    "phonetic": "wɪnd",
+    "pos": "n",
+    "translations": [
+      "风"
+    ]
+  },
+  {
+    "id": "word_1551",
+    "word": "window",
+    "phonetic": "'wɪndəʊ",
+    "pos": "n",
+    "translations": [
+      "窗户",
+      "窗口"
+    ]
+  },
+  {
+    "id": "word_1552",
+    "word": "windy",
+    "phonetic": "'wɪndi",
+    "pos": "adj",
+    "translations": [
+      "有风的",
+      "多风的"
+    ]
+  },
+  {
+    "id": "word_1553",
+    "word": "wing",
+    "phonetic": "wɪ   ",
+    "pos": "n",
+    "translations": [
+      "翅膀"
+    ]
+  },
+  {
+    "id": "word_1554",
+    "word": "winner",
+    "phonetic": "'wɪnə(r)",
+    "pos": "n",
+    "translations": [
+      "获胜者"
+    ]
+  },
+  {
+    "id": "word_1555",
+    "word": "winter",
+    "phonetic": "'wɪntə(r)",
+    "pos": "n",
+    "translations": [
+      "冬天",
+      "冬季"
+    ]
+  },
+  {
+    "id": "word_1556",
+    "word": "wise",
+    "phonetic": "waɪz",
+    "pos": "adj",
+    "translations": [
+      "明智的",
+      "英明的",
+      "有"
+    ]
+  },
+  {
+    "id": "word_1557",
+    "word": "wish",
+    "phonetic": "wɪʃ",
+    "pos": "n",
+    "translations": [
+      "愿望",
+      "祝愿",
+      "希望",
+      "想要"
+    ]
+  },
+  {
+    "id": "word_1558",
+    "word": "with",
+    "phonetic": "wɪð",
+    "pos": "prep",
+    "translations": [
+      "带有",
+      "和",
+      "用"
+    ]
+  },
+  {
+    "id": "word_1559",
+    "word": "within",
+    "phonetic": "wɪ'ðɪn",
+    "pos": "prep",
+    "translations": [
+      "在"
+    ]
+  },
+  {
+    "id": "word_1560",
+    "word": "without",
+    "phonetic": "wɪ'ðaʊt",
+    "pos": "prep",
+    "translations": [
+      "没有",
+      "不"
+    ]
+  },
+  {
+    "id": "word_1561",
+    "word": "wolf",
+    "phonetic": "wʊlf",
+    "pos": "n",
+    "translations": [
+      "狼"
+    ]
+  },
+  {
+    "id": "word_1562",
+    "word": "woman",
+    "phonetic": "'wʊmən",
+    "pos": "n",
+    "translations": [
+      "妇女",
+      "成年女子"
+    ]
+  },
+  {
+    "id": "word_1563",
+    "word": "wonder",
+    "phonetic": "'wʌndə(r)",
+    "pos": "v",
+    "translations": [
+      "感到惊奇",
+      "想知道",
+      "惊奇",
+      "奇迹",
+      "奇观"
+    ]
+  },
+  {
+    "id": "word_1564",
+    "word": "wonderful",
+    "phonetic": "'wʌndəfl",
+    "pos": "adj",
+    "translations": [
+      "美妙的",
+      "精彩的",
+      "令"
+    ]
+  },
+  {
+    "id": "word_1565",
+    "word": "wood",
+    "phonetic": "wʊd",
+    "pos": "n",
+    "translations": [
+      "木头",
+      "树林"
+    ]
+  },
+  {
+    "id": "word_1566",
+    "word": "word",
+    "phonetic": "wɜːd",
+    "pos": "n",
+    "translations": [
+      "词",
+      "单词",
+      "话语"
+    ]
+  },
+  {
+    "id": "word_1567",
+    "word": "work",
+    "phonetic": "wɜːk",
+    "pos": "n",
+    "translations": [
+      "工作",
+      "运转",
+      "奏效"
+    ]
+  },
+  {
+    "id": "word_1568",
+    "word": "worker",
+    "phonetic": "'wɜːkə(r)",
+    "pos": "n",
+    "translations": [
+      "工人",
+      "工作者"
+    ]
+  },
+  {
+    "id": "word_1569",
+    "word": "world",
+    "phonetic": "wɜːld",
+    "pos": "n",
+    "translations": [
+      "世界"
+    ]
+  },
+  {
+    "id": "word_1570",
+    "word": "worry",
+    "phonetic": "'wʌri",
+    "pos": "n",
+    "translations": [
+      "．烦恼",
+      "担忧",
+      "困"
+    ]
+  },
+  {
+    "id": "word_1571",
+    "word": "worse",
+    "phonetic": "wɜːs",
+    "pos": "adj",
+    "translations": [
+      "更坏的",
+      "更严重的",
+      "更坏地",
+      "更糟地"
+    ]
+  },
+  {
+    "id": "word_1572",
+    "word": "worst",
+    "phonetic": "wɜːst",
+    "pos": "adj",
+    "translations": [
+      "最差的",
+      "最严重的",
+      "最坏",
+      "最糟"
+    ]
+  },
+  {
+    "id": "word_1573",
+    "word": "worth",
+    "phonetic": "wɜːθ",
+    "pos": "adj",
+    "translations": [
+      "有……价值",
+      "值得"
+    ]
+  },
+  {
+    "id": "word_1574",
+    "word": "would",
+    "phonetic": "wʊd",
+    "pos": "modal",
+    "translations": [
+      "．将会",
+      "打算"
+    ]
+  },
+  {
+    "id": "word_1575",
+    "word": "wound",
+    "phonetic": "wuːnd",
+    "pos": "v",
+    "translations": [
+      "伤口"
+    ]
+  },
+  {
+    "id": "word_1576",
+    "word": "write",
+    "phonetic": "raɪt",
+    "pos": "v",
+    "translations": [
+      "写字",
+      "书写",
+      "写作"
+    ]
+  },
+  {
+    "id": "word_1577",
+    "word": "wrong",
+    "phonetic": "rɒ\t",
+    "pos": "adj",
+    "translations": [
+      "错误的",
+      "不正确"
+    ]
+  },
+  {
+    "id": "word_1578",
+    "word": "yard",
+    "phonetic": "jɑːd",
+    "pos": "n",
+    "translations": [
+      "院子"
+    ]
+  },
+  {
+    "id": "word_1579",
+    "word": "year",
+    "phonetic": "jɪə(r)",
+    "pos": "n",
+    "translations": [
+      "年",
+      "岁"
+    ]
+  },
+  {
+    "id": "word_1580",
+    "word": "yellow",
+    "phonetic": "'jeləʊ",
+    "pos": "n",
+    "translations": [
+      "黄色 adj.黄色的"
+    ]
+  },
+  {
+    "id": "word_1581",
+    "word": "yes",
+    "phonetic": "jes",
+    "pos": "interj",
+    "translations": [
+      "是，好",
+      "表示同意的答复"
+    ]
+  },
+  {
+    "id": "word_1582",
+    "word": "yesterday",
+    "phonetic": "'jestədeɪ",
+    "pos": "n,adv",
+    "translations": [
+      "昨天"
+    ]
+  },
+  {
+    "id": "word_1583",
+    "word": "yet",
+    "phonetic": "jet",
+    "pos": "adv",
+    "translations": [
+      "尚",
+      "还",
+      "仍然"
+    ]
+  },
+  {
+    "id": "word_1584",
+    "word": "yogurt",
+    "phonetic": "'jɒɡət",
+    "pos": "n",
+    "translations": [
+      "酸奶"
+    ]
+  },
+  {
+    "id": "word_1585",
+    "word": "you",
+    "phonetic": "juː",
+    "pos": "pron",
+    "translations": [
+      "你",
+      "你们"
+    ]
+  },
+  {
+    "id": "word_1586",
+    "word": "young",
+    "phonetic": "jʌ\t",
+    "pos": "adj",
+    "translations": [
+      "年轻的",
+      "年少的"
+    ]
+  },
+  {
+    "id": "word_1587",
+    "word": "your",
+    "phonetic": "jɔː(r)",
+    "pos": "pron",
+    "translations": [
+      "你的",
+      "你们的"
+    ]
+  },
+  {
+    "id": "word_1588",
+    "word": "yours",
+    "phonetic": "jɔːz",
+    "pos": "pron",
+    "translations": [
+      "你的",
+      "你们的"
+    ]
+  },
+  {
+    "id": "word_1589",
+    "word": "yourself",
+    "phonetic": "jɔː'self",
+    "pos": "pron",
+    "translations": [
+      "你自己"
+    ]
+  },
+  {
+    "id": "word_1590",
+    "word": "youth",
+    "phonetic": "juːθ",
+    "pos": "n",
+    "translations": [
+      "青少年时期",
+      "青春"
+    ]
+  },
+  {
+    "id": "word_1591",
+    "word": "zero",
+    "phonetic": "'zɪərəʊ",
+    "pos": "num,n",
+    "translations": [
+      "零"
+    ]
+  },
+  {
+    "id": "word_1592",
+    "word": "zoo",
+    "phonetic": "zuː",
+    "pos": "n",
+    "translations": [
+      "动物园"
+    ]
+  },
+  {
+    "id": "word_1593",
+    "word": "accountant",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "会计人员"
+    ]
+  },
+  {
+    "id": "word_1595",
+    "word": "adopt",
+    "phonetic": "",
+    "pos": "v",
+    "translations": [
+      "收养"
+    ]
+  },
+  {
+    "id": "word_1597",
+    "word": "agent",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "代理人"
+    ]
+  },
+  {
+    "id": "word_1599",
+    "word": "agriculture",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "农业"
+    ]
+  },
+  {
+    "id": "word_1601",
+    "word": "ambulance",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "救护车"
+    ]
+  },
+  {
+    "id": "word_1603",
+    "word": "architect",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "建筑师"
+    ]
+  },
+  {
+    "id": "word_1605",
+    "word": "balcony",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "阳台"
+    ]
+  },
+  {
+    "id": "word_1607",
+    "word": "barbecue",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "户外烧烤"
+    ]
+  },
+  {
+    "id": "word_1609",
+    "word": "bay",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "（海或湖泊的）湾"
+    ]
+  },
+  {
+    "id": "word_1611",
+    "word": "boot",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "靴子"
+    ]
+  },
+  {
+    "id": "word_1613",
+    "word": "bone",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "骨头"
+    ]
+  },
+  {
+    "id": "word_1615",
+    "word": "chest",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "胸部"
+    ]
+  },
+  {
+    "id": "word_1617",
+    "word": "cigarette",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "香烟"
+    ]
+  },
+  {
+    "id": "word_1619",
+    "word": "cocoa",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "可可"
+    ]
+  },
+  {
+    "id": "word_1621",
+    "word": "complaint",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "抱怨"
+    ]
+  },
+  {
+    "id": "word_1623",
+    "word": "composition",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "作文"
+    ]
+  },
+  {
+    "id": "word_1625",
+    "word": "consumer",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "消费者"
+    ]
+  },
+  {
+    "id": "word_1627",
+    "word": "continent",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "大陆",
+      "洲"
+    ]
+  },
+  {
+    "id": "word_1629",
+    "word": "cruel",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "残忍的"
+    ]
+  },
+  {
+    "id": "word_1631",
+    "word": "curtain",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "窗帘"
+    ]
+  },
+  {
+    "id": "word_1633",
+    "word": "desktop",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "台式计算机"
+    ]
+  },
+  {
+    "id": "word_1635",
+    "word": "dessert",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "甜点"
+    ]
+  },
+  {
+    "id": "word_1637",
+    "word": "dine",
+    "phonetic": "",
+    "pos": "v",
+    "translations": [
+      "吃饭"
+    ]
+  },
+  {
+    "id": "word_1639",
+    "word": "dinosaur",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "恐龙"
+    ]
+  },
+  {
+    "id": "word_1641",
+    "word": "district",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "行政区"
+    ]
+  },
+  {
+    "id": "word_1643",
+    "word": "drawer",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "抽屉"
+    ]
+  },
+  {
+    "id": "word_1645",
+    "word": "Easter",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "复活节"
+    ]
+  },
+  {
+    "id": "word_1647",
+    "word": "editor",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "编辑",
+      "编辑器"
+    ]
+  },
+  {
+    "id": "word_1649",
+    "word": "equipment",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "设备",
+      "器材"
+    ]
+  },
+  {
+    "id": "word_1651",
+    "word": "estate",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "庄园",
+      "地产",
+      "遗产"
+    ]
+  },
+  {
+    "id": "word_1653",
+    "word": "exact",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "精确的"
+    ]
+  },
+  {
+    "id": "word_1655",
+    "word": "feather",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "羽毛"
+    ]
+  },
+  {
+    "id": "word_1657",
+    "word": "fence",
+    "phonetic": "",
+    "pos": "n.,v",
+    "translations": [
+      "栅栏",
+      "用栅栏围住"
+    ]
+  },
+  {
+    "id": "word_1659",
+    "word": "fry",
+    "phonetic": "",
+    "pos": "v",
+    "translations": [
+      "油炸"
+    ]
+  },
+  {
+    "id": "word_1661",
+    "word": "garlic",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "大蒜"
+    ]
+  },
+  {
+    "id": "word_1663",
+    "word": "greedy",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "贪婪的"
+    ]
+  },
+  {
+    "id": "word_1665",
+    "word": "hammer",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "锤子"
+    ]
+  },
+  {
+    "id": "word_1667",
+    "word": "helmet",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "头盔"
+    ]
+  },
+  {
+    "id": "word_1669",
+    "word": "hostess",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "女主持/主人"
+    ]
+  },
+  {
+    "id": "word_1671",
+    "word": "indeed",
+    "phonetic": "",
+    "pos": "adv",
+    "translations": [
+      "确实"
+    ]
+  },
+  {
+    "id": "word_1673",
+    "word": "individual",
+    "phonetic": "",
+    "pos": "adj.,n",
+    "translations": [
+      "个人的",
+      "个人"
+    ]
+  },
+  {
+    "id": "word_1675",
+    "word": "jelly",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "果冻"
+    ]
+  },
+  {
+    "id": "word_1677",
+    "word": "kangaroo",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "袋鼠"
+    ]
+  },
+  {
+    "id": "word_1679",
+    "word": "kingdom",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "王国"
+    ]
+  },
+  {
+    "id": "word_1681",
+    "word": "Kung fu",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "功夫"
+    ]
+  },
+  {
+    "id": "word_1683",
+    "word": "lamb",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "小羊/羊肉"
+    ]
+  },
+  {
+    "id": "word_1685",
+    "word": "lip",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "嘴唇"
+    ]
+  },
+  {
+    "id": "word_1687",
+    "word": "missing",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "丢失的"
+    ]
+  },
+  {
+    "id": "word_1689",
+    "word": "monster",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "怪兽"
+    ]
+  },
+  {
+    "id": "word_1691",
+    "word": "motor",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "发动机"
+    ]
+  },
+  {
+    "id": "word_1693",
+    "word": "musician",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "音乐家"
+    ]
+  },
+  {
+    "id": "word_1695",
+    "word": "nursery",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "托儿所"
+    ]
+  },
+  {
+    "id": "word_1697",
+    "word": "opportunity",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "机会"
+    ]
+  },
+  {
+    "id": "word_1699",
+    "word": "oral",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "口头的"
+    ]
+  },
+  {
+    "id": "word_1701",
+    "word": "pan",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "平底锅"
+    ]
+  },
+  {
+    "id": "word_1703",
+    "word": "pants",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "裤子"
+    ]
+  },
+  {
+    "id": "word_1705",
+    "word": "parcel",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "包裹"
+    ]
+  },
+  {
+    "id": "word_1707",
+    "word": "penny",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "便士"
+    ]
+  },
+  {
+    "id": "word_1709",
+    "word": "phrase",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "短语"
+    ]
+  },
+  {
+    "id": "word_1711",
+    "word": "pillow",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "枕头"
+    ]
+  },
+  {
+    "id": "word_1713",
+    "word": "quarrel",
+    "phonetic": "",
+    "pos": "v.,n",
+    "translations": [
+      "争吵"
+    ]
+  },
+  {
+    "id": "word_1715",
+    "word": "rail",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "铁路",
+      "铁轨"
+    ]
+  },
+  {
+    "id": "word_1717",
+    "word": "recite",
+    "phonetic": "",
+    "pos": "v",
+    "translations": [
+      "背诵"
+    ]
+  },
+  {
+    "id": "word_1719",
+    "word": "riddle",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "谜语"
+    ]
+  },
+  {
+    "id": "word_1721",
+    "word": "roofs",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "屋顶（复数）"
+    ]
+  },
+  {
+    "id": "word_1723",
+    "word": "sausage",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "香肠"
+    ]
+  },
+  {
+    "id": "word_1725",
+    "word": "soccer",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "足球"
+    ]
+  },
+  {
+    "id": "word_1727",
+    "word": "spot",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "点",
+      "斑点",
+      "污渍"
+    ]
+  },
+  {
+    "id": "word_1729",
+    "word": "stem",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "茎",
+      "干"
+    ]
+  },
+  {
+    "id": "word_1731",
+    "word": "switch",
+    "phonetic": "",
+    "pos": "n.,v",
+    "translations": [
+      "开关",
+      "转换"
+    ]
+  },
+  {
+    "id": "word_1733",
+    "word": "tense",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "时态"
+    ]
+  },
+  {
+    "id": "word_1735",
+    "word": "tight",
+    "phonetic": "",
+    "pos": "adj",
+    "translations": [
+      "紧的",
+      "牢固的"
+    ]
+  },
+  {
+    "id": "word_1737",
+    "word": "towel",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "毛巾"
+    ]
+  },
+  {
+    "id": "word_1739",
+    "word": "waist",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "腰围"
+    ]
+  },
+  {
+    "id": "word_1741",
+    "word": "wire",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "电线"
+    ]
+  },
+  {
+    "id": "word_1743",
+    "word": "Antarctica",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "南极洲"
+    ]
+  },
+  {
+    "id": "word_1745",
+    "word": "The Atlantic Ocean",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "大西洋"
+    ]
+  },
+  {
+    "id": "word_1747",
+    "word": "The Indian Ocean",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "印度洋"
+    ]
+  },
+  {
+    "id": "word_1749",
+    "word": "New Zealand",
+    "phonetic": "",
+    "pos": "n.,adj",
+    "translations": [
+      "新西兰（人）"
+    ]
+  },
+  {
+    "id": "word_1751",
+    "word": "Russia",
+    "phonetic": "",
+    "pos": "n.,adj",
+    "translations": [
+      "俄罗斯（人/的）"
+    ]
+  },
+  {
+    "id": "word_1753",
+    "word": "Singapore",
+    "phonetic": "",
+    "pos": "n.,adj",
+    "translations": [
+      "新加坡（人/的）"
+    ]
+  },
+  {
+    "id": "word_1755",
+    "word": "The United Kingdom",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "英国全称"
+    ]
+  },
+  {
+    "id": "word_1757",
+    "word": "The United States of America",
+    "phonetic": "",
+    "pos": "n",
+    "translations": [
+      "美国全称"
+    ]
+  }
+];
+
+export default vocabulary;
+
+// 检查答案是否正确（支持多答案）
+export function checkAnswer(word, userAnswer) {
+  const entry = vocabulary.find(w => w.word.toLowerCase() === word.toLowerCase());
+  if (!entry || !entry.translations || entry.translations.length === 0) return false;
+  const normalized = userAnswer.trim().replace(/\s+/g, "");
+  return entry.translations.some(t => {
+    const cleanT = t.replace(/\s+/g, "");
+    return cleanT === normalized || cleanT.includes(normalized) || normalized.includes(cleanT);
+  });
+}
+
+// 获取单词信息
+export function getWordInfo(word) {
+  return vocabulary.find(w => w.word.toLowerCase() === word.toLowerCase());
+}

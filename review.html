@@ -6,37 +6,44 @@
   <title>复习 - HappyEnglish</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    :root { --primary: #4A90D9; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; --text-primary: #303133; --text-secondary: #909399; }
+    :root { --primary: #4A90D9; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, sans-serif; background: var(--bg-page); min-height: 100vh; }
     .container { max-width: 750px; margin: 0 auto; padding: 16px; padding-bottom: 80px; }
+
     .header { display: flex; align-items: center; margin-bottom: 20px; }
-    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .header h2 { margin-left: 12px; font-size: 18px; }
+
     .stats-bar { display: flex; gap: 12px; margin-bottom: 16px; }
     .stat { flex: 1; background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .stat .num { font-size: 24px; font-weight: 700; color: var(--primary); }
-    .stat .label { font-size: 12px; color: var(--text-secondary); }
+    .stat .label { font-size: 12px; color: #909399; }
+
     .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; }
     .filter-bar button { flex: 1; padding: 10px; background: white; border: 1px solid #E4E7ED; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .filter-bar button.active { background: var(--primary); color: white; border-color: var(--primary); }
+
     .words-list { display: flex; flex-direction: column; gap: 12px; }
     .word-card { background: white; border-radius: 12px; padding: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .word-card:active { transform: scale(0.98); }
     .word-main { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .word-text { font-size: 20px; font-weight: 600; }
     .word-level { padding: 4px 10px; border-radius: 12px; font-size: 12px; }
-    .word-level.weak { background: rgba(230, 162, 60, 0.1); color: #E6A23C; }
-    .word-level.unknown { background: rgba(245, 108, 108, 0.1); color: #F56C6C; }
+    .word-level.weak { background: rgba(230, 162, 60, 0.1); color: var(--warning); }
+    .word-level.unknown { background: rgba(245, 108, 108, 0.1); color: var(--danger); }
+    .word-level.master { background: rgba(103, 194, 58, 0.1); color: var(--success); }
     .word-sub { display: flex; gap: 12px; margin-bottom: 8px; }
-    .phonetic { color: var(--text-secondary); font-size: 14px; }
+    .phonetic { color: #909399; font-size: 14px; }
     .translation { color: var(--primary); font-size: 16px; }
-    .word-stats { font-size: 12px; color: var(--text-secondary); }
+    .word-stats { font-size: 12px; color: #909399; }
+
     .empty-state { text-align: center; padding: 40px; }
     .empty-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-text { color: var(--text-secondary); }
+    .empty-text { color: #909399; }
+
     .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
-    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: var(--text-secondary); cursor: pointer; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: #909399; cursor: pointer; }
     .tab-item.active { color: var(--primary); }
     .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
     .tab-item .text { font-size: 12px; }
@@ -76,15 +83,16 @@
         >
           <div class="word-main">
             <span class="word-text">{{ word.word }}</span>
-            <span class="word-level" :class="word.level">
-              {{ levelLabels[word.level] || word.level }}
-            </span>
+            <span class="word-level" :class="word.level">{{ levelLabels[word.level] }}</span>
           </div>
           <div class="word-sub">
             <span class="phonetic">{{ word.phonetic }}</span>
-            <span class="translation">{{ word.translation }}</span>
+            <span class="translation">{{ word.translations[0] }}</span>
           </div>
-          <div class="word-stats">错误 {{ word.progress?.wrongCount || 0 }} 次</div>
+          <div class="word-stats">
+            <span v-if="word.progress">错误 {{ word.progress.wrongCount || 0 }} 次 · </span>
+            <span v-if="word.translations.length > 1">其他答案：{{ word.translations.slice(1).join('、') }}</span>
+          </div>
         </div>
 
         <div v-if="filteredWords.length === 0" class="empty-state">
@@ -96,56 +104,44 @@
 
     <!-- 底部导航 -->
     <div class="tab-bar">
-      <div class="tab-item" onclick="window.location.href='index.html'">
-        <span class="icon">🏠</span>
-        <span class="text">首页</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='test.html'">
-        <span class="icon">📝</span>
-        <span class="text">测试</span>
-      </div>
-      <div class="tab-item active">
-        <span class="icon">📖</span>
-        <span class="text">复习</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='profile.html'">
-        <span class="icon">👤</span>
-        <span class="text">我的</span>
-      </div>
+      <div class="tab-item" onclick="window.location.href='index.html'"><span class="icon">🏠</span><span class="text">首页</span></div>
+      <div class="tab-item" onclick="window.location.href='test.html'"><span class="icon">📝</span><span class="text">测试</span></div>
+      <div class="tab-item active"><span class="icon">📖</span><span class="text">复习</span></div>
+      <div class="tab-item" onclick="window.location.href='profile.html'"><span class="icon">👤</span><span class="text">我的</span></div>
     </div>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
-    const vocabulary = [
-      { id: 'w001', word: 'able', phonetic: '/ˈeɪbl/', translation: '能够', level: 'unknown' },
-      { id: 'w002', word: 'about', phonetic: '/əˈbaʊt/', translation: '关于', level: 'unknown' },
-      { id: 'w003', word: 'above', phonetic: '/əˈbʌv/', translation: '在...上面', level: 'unknown' },
-      { id: 'w004', word: 'abroad', phonetic: '/əˈbrɔːd/', translation: '在国外', level: 'unknown' },
-      { id: 'w005', word: 'accept', phonetic: '/əkˈsept/', translation: '接受', level: 'unknown' },
-      { id: 'w006', word: 'achieve', phonetic: '/əˈtʃiːv/', translation: '达到', level: 'unknown' },
-      { id: 'w007', word: 'across', phonetic: '/əˈkrɒs/', translation: '穿过', level: 'unknown' },
-      { id: 'w008', word: 'action', phonetic: '/ˈækʃn/', translation: '行动', level: 'unknown' },
-      { id: 'w009', word: 'active', phonetic: '/ˈæktɪv/', translation: '积极的', level: 'unknown' },
-      { id: 'w010', word: 'activity', phonetic: '/ækˈtɪvəti/', translation: '活动', level: 'unknown' },
-      { id: 'w011', word: 'back', phonetic: '/bæk/', translation: '背部', level: 'unknown' },
-      { id: 'w012', word: 'bad', phonetic: '/bæd/', translation: '坏的', level: 'unknown' },
-      { id: 'w013', word: 'ball', phonetic: '/bɔːl/', translation: '球', level: 'unknown' },
-      { id: 'w014', word: 'bank', phonetic: '/bæŋk/', translation: '银行', level: 'unknown' },
-      { id: 'w015', word: 'base', phonetic: '/beɪs/', translation: '基础', level: 'unknown' },
-      { id: 'w016', word: 'call', phonetic: '/kɔːl/', translation: '打电话', level: 'unknown' },
-      { id: 'w017', word: 'can', phonetic: '/kæn/', translation: '能', level: 'unknown' },
-      { id: 'w018', word: 'car', phonetic: '/kɑː/', translation: '汽车', level: 'unknown' },
-      { id: 'w019', word: 'card', phonetic: '/kɑːd/', translation: '卡片', level: 'unknown' },
-      { id: 'w020', word: 'care', phonetic: '/keə/', translation: '关心', level: 'unknown' }
-    ];
+    const vocabulary = [{"id":"word_0001","word":"a","phonetic":"ə","pos":"art","translations":["一"]},{"id":"word_0002","word":"ability","phonetic":"ə'bɪləti","pos":"n","translations":["能力","才能"]},{"id":"word_0003","word":"able","phonetic":"'eɪbl","pos":"adj","translations":["能够","有才能的"]},{"id":"word_0004","word":"about","phonetic":"ə'baʊt","pos":"prep,adv","translations":["关于","大约","在各处"]},{"id":"word_0005","word":"above","phonetic":"ə'bʌv","pos":"prep","translations":["在……上面","在上面"]}];
+
+    const db = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 2);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+        });
+      },
+      async getAllProgress() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readonly');
+          const store = tx.objectStore('progress');
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      }
+    };
 
     const app = Vue.createApp({
       data() {
         return {
           filter: 'all',
-          weakWords: vocabulary.filter(w => w.level === 'weak'),
-          unknownWords: vocabulary.filter(w => w.level === 'unknown'),
+          weakWords: [],
+          unknownWords: [],
           levelLabels: { master: '精通', familiar: '熟悉', weak: '薄弱', unknown: '陌生' }
         };
       },
@@ -158,11 +154,41 @@
         }
       },
       methods: {
-        goTest(word) {
-          window.location.href = 'test.html?word=' + word.id;
+        goTest(word) { window.location.href = 'test.html?word=' + word.id; },
+        async loadData() {
+          await db.init();
+          const allProgress = await db.getAllProgress();
+
+          // 分类
+          const weak = [];
+          const unknown = [];
+
+          vocabulary.forEach(word => {
+            const progress = allProgress.find(p => p.wordId === word.id) || {};
+            let level = 'unknown';
+
+            if (progress.totalTests > 0) {
+              const acc = (progress.correctCount / progress.totalTests) * 100;
+              if (acc >= 90 && progress.wrongCount <= 1) level = 'master';
+              else if (acc >= 70) level = 'familiar';
+              else if (acc >= 40) level = 'weak';
+            }
+
+            const wordWithProgress = { ...word, progress, level };
+
+            if (level === 'weak') weak.push(wordWithProgress);
+            else if (level === 'unknown') unknown.push(wordWithProgress);
+          });
+
+          this.weakWords = weak;
+          this.unknownWords = unknown;
         }
+      },
+      mounted() {
+        this.loadData();
       }
     });
+
     app.mount('#app');
   </script>
 </body>

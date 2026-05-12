@@ -6,144 +6,236 @@
   <title>测试 - HappyEnglish</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    :root { --primary: #4A90D9; --success: #67C23A; --danger: #F56C6C; --text-primary: #303133; --text-secondary: #909399; }
+    :root { --primary: #4A90D9; --success: #67C23A; --danger: #F56C6C; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, sans-serif; background: var(--bg-page); min-height: 100vh; }
-    .container { max-width: 750px; margin: 0 auto; padding: 16px; }
+    .container { max-width: 750px; margin: 0 auto; padding: 16px; padding-bottom: 80px; }
+
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .mode-toggle { display: flex; gap: 8px; }
     .mode-toggle button { padding: 8px 16px; border: 1px solid var(--primary); background: white; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .mode-toggle button.active { background: var(--primary); color: white; }
-    .streak { padding: 8px 16px; background: #FFF3E0; border-radius: 20px; font-size: 18px; }
-    .question-card { background: white; border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
-    .prompt { color: var(--text-secondary); font-size: 14px; margin-bottom: 8px; }
-    .question { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 24px; }
-    .answer-input { width: 100%; padding: 16px; font-size: 20px; text-align: center; border: 2px solid #E4E7ED; border-radius: 12px; outline: none; margin-bottom: 16px; }
+    .streak { padding: 8px 16px; background: #FFF3E0; border-radius: 20px; font-size: 16px; }
+    .streak.hot { background: #FFEBEE; animation: pulse 0.5s infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+    .progress-bar { height: 6px; background: #E4E7ED; border-radius: 3px; margin-bottom: 16px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #667eea); transition: width 0.3s; }
+
+    .question-card { background: white; border-radius: 16px; padding: 24px; text-align: center; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .prompt { color: #909399; font-size: 14px; margin-bottom: 8px; }
+    .question { font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+    .phonetic { font-size: 14px; color: #909399; margin-bottom: 8px; }
+    .answer-input { width: 100%; padding: 14px; font-size: 18px; text-align: center; border: 2px solid #E4E7ED; border-radius: 12px; outline: none; }
     .answer-input:focus { border-color: var(--primary); }
     .answer-input.correct { border-color: var(--success); background: #F0F9EB; }
     .answer-input.wrong { border-color: var(--danger); background: #FEF0F0; }
-    .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 12px; }
     .btn-primary { background: var(--primary); color: white; }
-    .result { padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .result { padding: 16px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
     .result.correct { background: #F0F9EB; }
     .result.wrong { background: #FEF0F0; }
-    .result-icon { font-size: 48px; margin-bottom: 8px; }
-    .result-text { font-size: 20px; font-weight: 600; }
-    .correct-answer { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
-    .stats { display: flex; justify-content: space-around; padding: 16px; background: white; border-radius: 12px; }
-    .stat { font-size: 14px; color: var(--text-secondary); }
+    .result-icon { font-size: 40px; margin-bottom: 8px; }
+    .result-text { font-size: 18px; font-weight: 600; }
+    .correct-answer { font-size: 14px; color: #909399; margin-top: 8px; }
+    .all-answers { font-size: 12px; color: #909399; margin-top: 4px; }
+
+    .stats { display: flex; justify-content: space-around; padding: 12px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat { font-size: 14px; color: #909399; }
+    .stat .num { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+    .finish-card { background: white; border-radius: 16px; padding: 32px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .finish-icon { font-size: 64px; margin-bottom: 16px; }
+    .finish-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .finish-stats { display: flex; justify-content: center; gap: 32px; margin: 24px 0; }
+    .finish-stat { text-align: center; }
+    .finish-stat .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+    .finish-stat .label { font-size: 12px; color: #909399; }
+
     .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
-    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: var(--text-secondary); cursor: pointer; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; padding: 8px 16px; color: #909399; cursor: pointer; }
     .tab-item.active { color: var(--primary); }
     .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
     .tab-item .text { font-size: 12px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="app">
-      <div class="header">
-        <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
-        <div class="mode-toggle">
-          <button :class="{active: mode === 'cn2en'}" @click="mode = 'cn2en'">中→英</button>
-          <button :class="{active: mode === 'en2cn'}" @click="mode = 'en2cn'">英→中</button>
+  <div class="container" id="app">
+    <!-- 顶部导航 -->
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+      <div class="mode-toggle">
+        <button :class="{active: mode === 'cn2en'}" @click="mode = 'cn2en'">中→英</button>
+        <button :class="{active: mode === 'en2cn'}" @click="mode = 'en2cn'">英→中</button>
+      </div>
+      <div class="streak" :class="{hot: streak >= 5}">🔥 {{ streak }}</div>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="progress-bar">
+      <div class="progress-fill" :style="{width: progressPercent + '%'}"></div>
+    </div>
+
+    <!-- 问题卡片 -->
+    <div class="question-card" v-if="!finished && currentWord">
+      <div class="prompt">{{ mode === 'cn2en' ? '请输入对应的英文单词' : '请输入对应的中文意思' }}</div>
+      <div class="question">{{ mode === 'cn2en' ? currentWord.translation : currentWord.word }}</div>
+      <div class="phonetic" v-if="mode === 'en2cn'">{{ currentWord.phonetic }}</div>
+      <input
+        type="text"
+        v-model="answer"
+        @keyup.enter="submitAnswer"
+        class="answer-input"
+        :class="{correct: showResult && isCorrect, wrong: showResult && !isCorrect}"
+        placeholder="输入答案后按回车"
+        autofocus
+      />
+      <button class="btn btn-primary" @click="submitAnswer" :disabled="!answer.trim()">确认</button>
+    </div>
+
+    <!-- 结果反馈 -->
+    <div class="result" :class="isCorrect ? 'correct' : 'wrong'" v-if="showResult && !finished">
+      <div class="result-icon">{{ isCorrect ? '✓' : '✗' }}</div>
+      <div class="result-text">{{ isCorrect ? '正确！' : '错误' }}</div>
+      <div class="correct-answer" v-if="!isCorrect">
+        正确答案：{{ mode === 'cn2en' ? currentWord.word : currentWord.translation }}
+      </div>
+      <div class="all-answers" v-if="!isCorrect && currentWord.translations && currentWord.translations.length > 1">
+        其他可接受答案：{{ otherAnswers }}
+      </div>
+    </div>
+
+    <!-- 完成卡片 -->
+    <div class="finish-card" v-if="finished">
+      <div class="finish-icon">🎉</div>
+      <div class="finish-title">一轮完成！</div>
+      <div class="finish-stats">
+        <div class="finish-stat">
+          <div class="num">{{ correctCount }}</div>
+          <div class="label">正确</div>
         </div>
-        <div class="streak">🔥 {{ streak }}</div>
-      </div>
-
-      <div class="question-card" v-if="!finished">
-        <div class="prompt">{{ mode === 'cn2en' ? '请输入对应的英文单词' : '请输入对应的中文意思' }}</div>
-        <div class="question">{{ currentWord[mode === 'cn2en' ? 'translation' : 'word'] }}</div>
-        <input
-          type="text"
-          v-model="answer"
-          @keyup.enter="submitAnswer"
-          class="answer-input"
-          :class="{correct: showResult && isCorrect, wrong: showResult && !isCorrect}"
-          placeholder="输入答案后按回车"
-          autofocus
-        />
-        <button class="btn btn-primary" @click="submitAnswer" :disabled="!answer">确认</button>
-      </div>
-
-      <div class="result" :class="isCorrect ? 'correct' : 'wrong'" v-if="showResult">
-        <div class="result-icon">{{ isCorrect ? '✓' : '✗' }}</div>
-        <div class="result-text">{{ isCorrect ? '正确！' : '错误' }}</div>
-        <div class="correct-answer" v-if="!isCorrect">
-          正确答案：{{ mode === 'cn2en' ? currentWord.word : currentWord.translation }}
+        <div class="finish-stat">
+          <div class="num">{{ wrongCount }}</div>
+          <div class="label">错误</div>
+        </div>
+        <div class="finish-stat">
+          <div class="num">{{ accuracyPercent }}%</div>
+          <div class="label">正确率</div>
         </div>
       </div>
+      <button class="btn btn-primary" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
 
-      <div v-if="finished" class="question-card">
-        <div class="result-icon">🎉</div>
-        <div class="result-text">一轮完成！</div>
-        <div class="stats" style="margin-top: 20px;">
-          <div class="stat">正确: {{ correctCount }}</div>
-          <div class="stat">错误: {{ wrongCount }}</div>
-          <div class="stat">正确率: {{ accuracyPercent }}%</div>
-        </div>
-        <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='index.html'">返回首页</button>
-      </div>
-
-      <div class="stats" v-if="!finished">
-        <div class="stat">正确: {{ correctCount }}</div>
-        <div class="stat">错误: {{ wrongCount }}</div>
-        <div class="stat">正确率: {{ accuracyPercent }}%</div>
-      </div>
+    <!-- 统计 -->
+    <div class="stats" v-if="!finished">
+      <div class="stat"><span class="num">{{ currentIndex + 1 }}</span>/{{ totalWords }}</div>
+      <div class="stat">正确: {{ correctCount }}</div>
+      <div class="stat">错误: {{ wrongCount }}</div>
+      <div class="stat">正确率: {{ accuracyPercent }}%</div>
     </div>
 
     <!-- 底部导航 -->
     <div class="tab-bar">
-      <div class="tab-item" onclick="window.location.href='index.html'">
-        <span class="icon">🏠</span>
-        <span class="text">首页</span>
-      </div>
-      <div class="tab-item active">
-        <span class="icon">📝</span>
-        <span class="text">测试</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='review.html'">
-        <span class="icon">📖</span>
-        <span class="text">复习</span>
-      </div>
-      <div class="tab-item" onclick="window.location.href='profile.html'">
-        <span class="icon">👤</span>
-        <span class="text">我的</span>
-      </div>
+      <div class="tab-item" onclick="window.location.href='index.html'"><span class="icon">🏠</span><span class="text">首页</span></div>
+      <div class="tab-item active"><span class="icon">📝</span><span class="text">测试</span></div>
+      <div class="tab-item" onclick="window.location.href='review.html'"><span class="icon">📖</span><span class="text">复习</span></div>
+      <div class="tab-item" onclick="window.location.href='profile.html'"><span class="icon">👤</span><span class="text">我的</span></div>
     </div>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
-    const words = [
-      { id: 'w001', word: 'able', translation: '能够' },
-      { id: 'w002', word: 'about', translation: '关于' },
-      { id: 'w003', word: 'above', translation: '在...上面' },
-      { id: 'w004', word: 'abroad', translation: '在国外' },
-      { id: 'w005', word: 'accept', translation: '接受' },
-      { id: 'w006', word: 'achieve', translation: '达到' },
-      { id: 'w007', word: 'across', translation: '穿过' },
-      { id: 'w008', word: 'action', translation: '行动' },
-      { id: 'w009', word: 'active', translation: '积极的' },
-      { id: 'w010', word: 'activity', translation: '活动' },
-      { id: 'w011', word: 'back', translation: '背部' },
-      { id: 'w012', word: 'bad', translation: '坏的' },
-      { id: 'w013', word: 'ball', translation: '球' },
-      { id: 'w014', word: 'bank', translation: '银行' },
-      { id: 'w015', word: 'base', translation: '基础' },
-      { id: 'w016', word: 'call', translation: '打电话' },
-      { id: 'w017', word: 'can', translation: '能' },
-      { id: 'w018', word: 'car', translation: '汽车' },
-      { id: 'w019', word: 'card', translation: '卡片' },
-      { id: 'w020', word: 'care', translation: '关心' }
-    ];
+    // ==================== 词汇数据 ====================
+    const vocabulary = [{"id":"word_0001","word":"a","phonetic":"ə","pos":"art","translations":["一"]},{"id":"word_0002","word":"ability","phonetic":"ə'bɪləti","pos":"n","translations":["能力","才能"]},{"id":"word_0003","word":"able","phonetic":"'eɪbl","pos":"adj","translations":["能够","有才能的"]},{"id":"word_0004","word":"about","phonetic":"ə'baʊt","pos":"prep,adv","translations":["关于","大约","在各处"]},{"id":"word_0005","word":"above","phonetic":"ə'bʌv","pos":"prep","translations":["在……上面","在上面"]},{"id":"word_0006","word":"abroad","phonetic":"ə'brɔːd","pos":"adv","translations":["到","在国外"]},{"id":"word_0007","word":"absent","phonetic":"'æbsənt","pos":"adj","translations":["缺席的","不在的","缺乏的"]},{"id":"word_0008","word":"accept","phonetic":"ək'sept","pos":"v","translations":["接受","认可","同意"]},{"id":"word_0009","word":"accident","phonetic":"'æksɪdənt","pos":"n","translations":["事故","意外"]},{"id":"word_0010","word":"according","phonetic":"ə'kɔːdɪ","pos":"adj","translations":["相符的","相应的"]},{"id":"word_0011","word":"account","phonetic":"ə'kaʊnt","pos":"n","translations":["账户","账目","描述","解释"]},{"id":"word_0012","word":"ache","phonetic":"eɪk","pos":"n,v","translations":["疼痛","隐隐作痛"]},{"id":"word_0013","word":"achieve","phonetic":"ə'tʃiːv","pos":"v","translations":["完成","达到","实现"]},{"id":"word_0014","word":"across","phonetic":"ə'krɒs","pos":"prep,adv","translations":["穿过","横过","在对面"]},{"id":"word_0015","word":"act","phonetic":"ækt","pos":"v","translations":["表演","行动","行为","法令","一段表演"]},{"id":"word_0016","word":"action","phonetic":"'ækʃn","pos":"n","translations":["行动","行为","动作"]},{"id":"word_0017","word":"active","phonetic":"'æktɪv","pos":"adj","translations":["活跃的","积极的"]},{"id":"word_0018","word":"activity","phonetic":"æk'tɪvəti","pos":"n","translations":["活动"]},{"id":"word_0019","word":"actor","phonetic":"'æktə(r)","pos":"n","translations":["演员"]},{"id":"word_0020","word":"actually","phonetic":"'æktʃuəli","pos":"adv","translations":["实际上","事实上"]},{"id":"word_0021","word":"ad","phonetic":"æd","pos":"abbr","translations":["广告"]},{"id":"word_0022","word":"add","phonetic":"æd","pos":"v","translations":["增加","添加","补充说"]},{"id":"word_0023","word":"address","phonetic":"ə'dres","pos":"n","translations":["地址","演说"]},{"id":"word_0024","word":"admire","phonetic":"əd'maɪə(r)","pos":"v","translations":["欣赏","仰慕","钦佩","赞赏"]},{"id":"word_0025","word":"adult","phonetic":"ə'dʌlt","pos":"adj,n","translations":["成年的","成人的","成人"]},{"id":"word_0026","word":"advantage","phonetic":"əd'vɑːntɪdʒ","pos":"n","translations":["优点","有利条件"]},{"id":"word_0027","word":"advice","phonetic":"əd'vaɪs","pos":"n","translations":["劝告","建议"]},{"id":"word_0028","word":"advise","phonetic":"əd'vaɪz","pos":"v","translations":["劝告","建议"]},{"id":"word_0029","word":"afford","phonetic":"ə'fɔːd","pos":"v","translations":["承担得起","买得起"]},{"id":"word_0030","word":"afraid","phonetic":"ə'freɪd","pos":"adj","translations":["害怕的","担心的"]},{"id":"word_0031","word":"after","phonetic":"'ɑːftə(r)","pos":"prep,conj","translations":["在……后","以后"]},{"id":"word_0032","word":"afternoon","phonetic":"'ɑːftə'nuːn","pos":"n","translations":["下午"]},{"id":"word_0033","word":"again","phonetic":"ə'ɡen","pos":"adv","translations":["再一次","又一次"]},{"id":"word_0034","word":"against","phonetic":"ə'ɡenst","pos":"prep","translations":["对……不利","反对","倚","紧靠","对抗"]},{"id":"word_0035","word":"age","phonetic":"eɪdʒ","pos":"n","translations":["年龄","时代","老年"]},{"id":"word_0036","word":"ago","phonetic":"ə'ɡəʊ","pos":"adv","translations":["以前"]},{"id":"word_0037","word":"agree","phonetic":"ə'ɡriː","pos":"v","translations":["同意","赞成"]},{"id":"word_0038","word":"ahead","phonetic":"ə'hed","pos":"adv","translations":["在前面","向前"]},{"id":"word_0039","word":"aid","phonetic":"eɪd","pos":"n,v","translations":["帮助","援助","辅助工具"]},{"id":"word_0040","word":"aim","phonetic":"eɪm","pos":"n,v","translations":["目标","目的","瞄准","旨在"]},{"id":"word_0041","word":"air","phonetic":"eə(r)","pos":"n","translations":["空气","空中"]},{"id":"word_0042","word":"airport","phonetic":"'eəpɔːt","pos":"n","translations":["航空站","机场"]},{"id":"word_0043","word":"alarm","phonetic":"ə'lɑːm","pos":"n","translations":["闹钟","警报"]},{"id":"word_0044","word":"album","phonetic":"'ælbəm","pos":"n","translations":["相册","集邮册","音乐专辑"]},{"id":"word_0045","word":"alike","phonetic":"ə'laɪk","pos":"adj,adv","translations":["相像的","很像地"]},{"id":"word_0046","word":"alive","phonetic":"ə'laɪv","pos":"adj","translations":["活着的","活跃的"]},{"id":"word_0047","word":"all","phonetic":"ɔːl","pos":"adj,pron","translations":["全部的","所有的","全部"]},{"id":"word_0048","word":"allow","phonetic":"ə'laʊ","pos":"v","translations":["允许","准许"]},{"id":"word_0049","word":"almost","phonetic":"'ɔːlməʊst","pos":"adv","translations":["几乎","差不多"]},{"id":"word_0050","word":"alone","phonetic":"ə'ləʊn","pos":"adj,adv","translations":["单独的","独自"]}];
 
+    // ==================== 多答案判断 ====================
+    function checkAnswer(word, userAnswer, isChinese) {
+      const entry = vocabulary.find(v => v.word.toLowerCase() === word.toLowerCase());
+      if (!entry) return { correct: false, translations: [] };
+
+      const normalized = userAnswer.trim().replace(/\s+/g, '');
+
+      if (isChinese) {
+        // 英→中：检查中文翻译
+        if (!entry.translations || entry.translations.length === 0) return { correct: false, translations: [] };
+        const found = entry.translations.some(t => {
+          const cleanT = t.replace(/\s+/g, '');
+          return cleanT === normalized || cleanT.includes(normalized) || normalized.includes(cleanT);
+        });
+        return {
+          correct: found,
+          translations: entry.translations || []
+        };
+      } else {
+        // 中→英：精确匹配英文单词
+        const correct = entry.word.toLowerCase() === normalized.toLowerCase();
+        return {
+          correct,
+          translations: []
+        };
+      }
+    }
+
+    // ==================== IndexedDB ====================
+    const db = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 2);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+          request.onupgradeneeded = (event) => {
+            const database = event.target.result;
+            if (!database.objectStoreNames.contains('progress')) database.createObjectStore('progress', { keyPath: 'wordId' });
+            if (!database.objectStoreNames.contains('stats')) database.createObjectStore('stats', { keyPath: 'id' });
+          };
+        });
+      },
+      async saveProgress(wordId, correct) {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readwrite');
+          const store = tx.objectStore('progress');
+          const getReq = store.get(wordId);
+          getReq.onsuccess = () => {
+            let data = getReq.result || { wordId, totalTests: 0, correctCount: 0, wrongCount: 0 };
+            data.totalTests++;
+            if (correct) data.correctCount++; else data.wrongCount++;
+            store.put(data);
+          };
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      },
+      async getStats() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('stats', 'readonly');
+          const store = tx.objectStore('stats');
+          const request = store.get('main');
+          request.onsuccess = () => resolve(request.result || { level: 1, points: 0, maxStreak: 0, streak: 0 });
+          request.onerror = () => reject(request.error);
+        });
+      },
+      async saveStats(stats) {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('stats', 'readwrite');
+          const store = tx.objectStore('stats');
+          store.put({ id: 'main', ...stats });
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+    };
+
+    // ==================== Vue 应用 ====================
     const app = Vue.createApp({
       data() {
         return {
-          mode: 'cn2en',
-          words: [...words].sort(() => Math.random() - 0.5),
+          mode: 'cn2en',  // cn2en = 中→英, en2cn = 英→中
+          words: [...vocabulary].sort(() => Math.random() - 0.5),
           currentIndex: 0,
           answer: '',
           showResult: false,
@@ -151,12 +243,20 @@
           correctCount: 0,
           wrongCount: 0,
           streak: 0,
-          finished: false
+          maxStreak: 0,
+          finished: false,
+          otherAnswers: ''
         };
       },
       computed: {
         currentWord() {
           return this.words[this.currentIndex] || {};
+        },
+        totalWords() {
+          return this.words.length;
+        },
+        progressPercent() {
+          return ((this.currentIndex) / this.totalWords) * 100;
         },
         accuracyPercent() {
           const total = this.correctCount + this.wrongCount;
@@ -164,36 +264,62 @@
         }
       },
       methods: {
-        submitAnswer() {
-          if (!this.answer.trim()) return;
+        async submitAnswer() {
+          if (!this.answer.trim() || this.showResult) return;
 
-          const correct = this.answer.trim().toLowerCase() ===
-            (this.mode === 'cn2en'
-              ? this.currentWord.word.toLowerCase()
-              : this.currentWord.translation);
+          const isChinese = this.mode === 'en2cn';
+          const result = checkAnswer(this.currentWord.word, this.answer, isChinese);
 
-          this.isCorrect = correct;
+          this.isCorrect = result.correct;
           this.showResult = true;
 
-          if (correct) {
+          // 显示其他可接受的答案
+          if (!result.correct && result.translations && result.translations.length > 0) {
+            this.otherAnswers = result.translations.slice(1).join('、');
+          } else {
+            this.otherAnswers = '';
+          }
+
+          // 更新计数
+          if (result.correct) {
             this.correctCount++;
             this.streak++;
+            if (this.streak > this.maxStreak) this.maxStreak = this.streak;
           } else {
             this.wrongCount++;
             this.streak = 0;
           }
 
-          setTimeout(() => {
+          // 保存进度
+          await db.saveProgress(this.currentWord.id, result.correct);
+
+          // 下一题
+          setTimeout(async () => {
             this.showResult = false;
             this.answer = '';
             this.currentIndex++;
+
             if (this.currentIndex >= this.words.length) {
               this.finished = true;
+              // 保存统计
+              const stats = await db.getStats();
+              await db.saveStats({
+                ...stats,
+                maxStreak: this.maxStreak,
+                streak: this.streak
+              });
             }
-          }, 1000);
+          }, 1500);
         }
+      },
+      async mounted() {
+        await db.init();
+        const stats = await db.getStats();
+        this.maxStreak = stats.maxStreak || 0;
+        this.streak = stats.streak || 0;
       }
     });
+
     app.mount('#app');
   </script>
 </body>
