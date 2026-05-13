@@ -199,3 +199,56 @@ document.addEventListener('DOMContentLoaded', function() {
 window.userState = userState;
 window.REWARDS = REWARDS;
 window.BADGES = BADGES;
+
+/**
+ * ============================================
+ * 学生画像接口定义
+ * ============================================
+ */
+
+/**
+ * 学生画像数据结构
+ * @typedef {Object} StudentProfile
+ * @property {string} studentId - 学生唯一标识
+ * @property {Object} vocabularyMastery - 词汇掌握度映射 {wordId: MasteryState}
+ * @property {ErrorPattern[]} weakPatterns - 弱项错误模式
+ * @property {LearningBehavior} learningBehavior - 学习行为数据
+ * @property {Date} createdAt - 创建时间
+ * @property {Date} updatedAt - 更新时间
+ */
+
+/**
+ * 单词掌握状态
+ * @typedef {Object} MasteryState
+ * @property {string} wordId - 单词ID
+ * @property {number} known - 掌握度 0-1
+ * @property {number} recall - 回忆率 0-1
+ * @property {Date} lastReview - 上次复习时间
+ * @property {Date} nextReview - 下次复习时间
+ * @property {number} interval - 复习间隔（天）
+ * @property {number} errors - 错误次数
+ * @property {number} correct - 正确次数
+ * @property {number} total - 总练习次数
+ */
+
+/**
+ * 错误模式
+ * @typedef {Object} ErrorPattern
+ * @property {number} id - 错误记录ID
+ * @property {'phonetic'|'meaning'|'spelling'|'grammar'} type - 错误类型
+ * @property {string} wordId - 单词ID
+ * @property {string} wrongAnswer - 错误答案
+ * @property {number} count - 错误次数
+ * @property {Date} lastError - 上次错误时间
+ */
+
+/**
+ * 学习行为数据
+ * @typedef {Object} LearningBehavior
+ * @property {number} totalStudyTime - 总学习时间（分钟）
+ * @property {number} dailyStudyTime - 今日学习时间（分钟）
+ * @property {number} streakDays - 连续学习天数
+ * @property {Date} lastStudyDate - 最后学习日期
+ * @property {Object} studyDistribution - 学习时间分布 {hour: count}
+ * @property {string[]} preferredTimes - 偏好学习时段
+ */
