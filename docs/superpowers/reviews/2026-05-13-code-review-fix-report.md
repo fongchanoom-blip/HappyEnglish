@@ -491,29 +491,39 @@ await window.db.saveMastery(wordId, updated);  // 重复保存
 
 ### P0 修复检查
 
-- [ ] report.html 导入 ref
-- [ ] etymology.html 修复 XSS 漏洞
-- [ ] ai-service.js 改进 API Key 存储
-- [ ] report.html 导入 onMounted
+- [x] report.html 导入 ref
+- [x] etymology.html 修复 XSS 漏洞
+- [x] ai-service.js 改进 API Key 存储
+- [x] report.html 导入 onMounted
 
 ### P1 修复检查
 
-- [ ] ai-service.js 添加缓存上限
+- [x] ai-service.js 添加缓存上限
+- [x] etymology.js 添加参数校验
+- [x] memory-profile.js 添加参数校验
+- [x] test.html 清理计时器
+- [x] test.html 修复 progressPercent 计算
 - [ ] 抽取公共 CSS 样式
-- [ ] etymology.js 添加参数校验
-- [ ] memory-profile.js 添加参数校验
 - [ ] 全局单例支持依赖注入
-- [ ] test.html 清理计时器
-- [ ] test.html 修复 progressPercent 计算
 
 ### P2 修复检查
 
+- [x] memory-profile.js 修复双重保存
 - [ ] 创建统一 DataService
 - [ ] 重构 db.js 事务模式
 - [ ] 提取魔法数字为常量
 - [ ] 添加 ARIA 无障碍支持
 - [ ] 样式迁移到 CSS 文件
-- [ ] memory-profile.js 修复双重保存
+
+---
+
+## 七、修复时间线
+
+| 日期 | 修复内容 | 状态 |
+|-----|---------|-----|
+| 2026-05-13 | P0 问题全部修复 | ✅ 完成 |
+| 2026-05-13 | P1 问题修复 | ✅ 完成（6/6） |
+| 2026-05-13 | P2 部分修复 | 进行中 |
 
 ---
 

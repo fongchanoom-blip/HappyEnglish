@@ -755,7 +755,8 @@
           return this.words.length;
         },
         progressPercent() {
-          return ((this.currentIndex) / this.totalWords) * 100;
+          if (this.totalWords === 0) return 0;
+          return ((this.currentIndex + 1) / this.totalWords) * 100;
         },
         accuracyPercent() {
           const total = this.correctCount + this.wrongCount;
@@ -1025,6 +1026,13 @@
         const stats = await db.getStats();
         this.maxStreak = stats.maxStreak || 0;
         this.streak = stats.streak || 0;
+      },
+      beforeUnmount() {
+        // 清理录音定时器，防止内存泄漏
+        if (this.recordingTimer) {
+          clearInterval(this.recordingTimer);
+          this.recordingTimer = null;
+        }
       }
     });
 

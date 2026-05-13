@@ -163,15 +163,28 @@
       localStorage.setItem('etymologyHistory', JSON.stringify(searchHistory));
     }
 
+    // HTML 转义函数
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
     // 渲染历史
     function renderHistory() {
       const section = document.getElementById('historySection');
       const list = document.getElementById('historyList');
       if (searchHistory.length > 0) {
         section.style.display = 'block';
-        list.innerHTML = searchHistory.map(w =>
-          `<span class="history-item" onclick="showAnalysis('${w}')">${w}</span>`
-        ).join('');
+        // 使用 DOM 操作代替 innerHTML，防止 XSS
+        list.innerHTML = '';
+        searchHistory.forEach(w => {
+          const span = document.createElement('span');
+          span.className = 'history-item';
+          span.textContent = w;
+          span.onclick = () => showAnalysis(w);
+          list.appendChild(span);
+        });
       } else {
         section.style.display = 'none';
       }

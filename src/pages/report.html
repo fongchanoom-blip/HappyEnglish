@@ -244,6 +244,7 @@
     // 报告页面 Vue 应用
     const ReportApp = {
       setup() {
+        const { ref, onMounted } = Vue;
         const isLoading = ref(true);
         const currentDate = ref('');
         const stats = ref({

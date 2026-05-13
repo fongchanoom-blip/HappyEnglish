@@ -167,6 +167,21 @@ class StudentProfile {
    * @param {'phonetic'|'meaning'|'spelling'|'grammar'} type - 错误类型
    */
   async recordError(wordId, wrongAnswer, type) {
+    // 参数校验
+    if (!wordId || typeof wordId !== 'string') {
+      console.warn('recordError: 无效的 wordId 参数');
+      return;
+    }
+    if (!wrongAnswer || typeof wrongAnswer !== 'string') {
+      console.warn('recordError: 无效的 wrongAnswer 参数');
+      return;
+    }
+    const validTypes = ['phonetic', 'meaning', 'spelling', 'grammar'];
+    if (!validTypes.includes(type)) {
+      console.warn('recordError: 无效的 type 参数，应为 ', validTypes);
+      return;
+    }
+
     // 查找是否有相同的错误模式
     const existingIndex = this.weakPatterns.findIndex(
       p => p.wordId === wordId && p.wrongAnswer === wrongAnswer && p.type === type

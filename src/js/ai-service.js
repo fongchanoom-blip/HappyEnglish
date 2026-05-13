@@ -4,14 +4,15 @@
  */
 class AIService {
   constructor() {
-    // API 配置
-    this.apiKey = localStorage.getItem('minimax_api_key') || '';
+    // API 配置 - 使用 sessionStorage 存储，更安全（关闭浏览器后自动清除）
+    this.apiKey = sessionStorage.getItem('minimax_api_key') || '';
     this.baseUrl = 'https://api.minimax.chat/v1';
     this.model = 'sentiance-3';
 
-    // 内存缓存
+    // 内存缓存 - 添加大小限制防止内存泄漏
     this.cache = new Map();
     this.cacheExpiry = 24 * 60 * 60 * 1000; // 24小时
+    this.maxCacheSize = 100; // 最多缓存100条
   }
 
   /**
@@ -22,12 +23,29 @@ class AIService {
   }
 
   /**
-   * 更新 API Key
+   * 更新 API Key - 使用 sessionStorage 更安全
    * @param {string} apiKey - 新的 API Key
    */
   updateApiKey(apiKey) {
     this.apiKey = apiKey;
-    localStorage.setItem('minimax_api_key', apiKey);
+    sessionStorage.setItem('minimax_api_key', apiKey);
+  }
+
+  /**
+   * 保存到缓存 - 带 LRU 策略防止内存无限增长
+   * @param {string} key - 缓存键
+   * @param {Object} data - 缓存数据
+   */
+  saveToCache(key, data) {
+    // LRU 策略：当缓存满时删除最早的条目
+    if (this.cache.size >= this.maxCacheSize) {
+      const firstKey = this.cache.keys().next().value;
+      this.cache.delete(firstKey);
+    }
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now()
+    });
   }
 
   /**

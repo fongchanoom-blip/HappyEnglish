@@ -4,13 +4,29 @@
  */
 
 class EtymologyService {
-  constructor() {
-    this.data = window.ETYMOLOGY_DATA;
+  constructor(options = {}) {
+    this.data = options.data || window.ETYMOLOGY_DATA;
   }
 
-  // 分析单词的词根词缀
+  // 分析单词的词根词缀 - 添加参数校验
   analyzeWord(word) {
-    const lowerWord = word.toLowerCase();
+    // 参数校验
+    if (!word || typeof word !== 'string') {
+      return { word: null, error: 'Invalid word parameter', prefix: null, suffix: null, root: null, relatedWords: [], explanation: '' };
+    }
+
+    // 检查数据是否加载
+    if (!this.data) {
+      console.warn('ETYMOLOGY_DATA not loaded');
+      return { word, error: 'Data not available', prefix: null, suffix: null, root: null, relatedWords: [], explanation: '' };
+    }
+
+    const lowerWord = word.toLowerCase().trim();
+    if (!lowerWord) {
+      return { word: null, error: 'Empty word', prefix: null, suffix: null, root: null, relatedWords: [], explanation: '' };
+    }
+
+    const result = {
     const result = {
       word,
       prefix: null,
