@@ -60,6 +60,174 @@
     .tab-item.active { color: var(--primary); }
     .tab-item .icon { font-size: 24px; margin-bottom: 4px; }
     .tab-item .text { font-size: 12px; }
+
+    /* 错题讲解弹窗样式 */
+    #explanation-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      color: #1a365d;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .question-info {
+      margin-bottom: 20px;
+    }
+
+    .word-display {
+      font-size: 28px;
+      font-weight: bold;
+      color: #1a365d;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .your-answer, .correct-answer {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .your-answer {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .correct-answer {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    .label { color: #666; }
+    .wrong { color: #dc2626; font-weight: 600; }
+    .correct { color: #16a34a; font-weight: 600; }
+
+    .explanation-content {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .explanation-text {
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    .follow-up-section {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .follow-up-section input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .follow-up-section button {
+      padding: 12px 16px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .follow-up-answer {
+      background: #eef2ff;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      color: #4338ca;
+      line-height: 1.6;
+    }
+
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+
+    .continue-btn {
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -137,6 +305,64 @@
       <div class="stat">正确率: {{ accuracyPercent }}%</div>
     </div>
 
+    <!-- 错题讲解弹窗 -->
+  <div id="explanation-modal" v-if="showExplanation">
+    <div class="modal-backdrop" @click="closeExplanation"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📚 错题讲解</h3>
+        <button class="close-btn" @click="closeExplanation">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 题目信息 -->
+        <div class="question-info">
+          <div class="word-display">{{ currentWord?.word }}</div>
+          <div class="your-answer">
+            <span class="label">你的答案：</span>
+            <span class="wrong">{{ userAnswer }}</span>
+          </div>
+          <div class="correct-answer">
+            <span class="label">正确答案：</span>
+            <span class="correct">{{ correctAnswer }}</span>
+          </div>
+        </div>
+
+        <!-- 加载状态 -->
+        <div v-if="isLoadingExplanation" class="loading">
+          <div class="loading-spinner"></div>
+          <p>AI 正在分析...</p>
+        </div>
+
+        <!-- 讲解内容 -->
+        <div v-else-if="explanation" class="explanation-content">
+          <div class="explanation-text">{{ explanation.content }}</div>
+        </div>
+
+        <!-- 追问区域 -->
+        <div class="follow-up-section" v-if="explanation">
+          <input
+            v-model="followUpQuestion"
+            placeholder="还有问题？问一问..."
+            @keyup.enter="askFollowUp"
+          />
+          <button @click="askFollowUp">提问</button>
+        </div>
+
+        <!-- 追问回答 -->
+        <div v-if="followUpAnswer" class="follow-up-answer">
+          {{ followUpAnswer }}
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="continue-btn" @click="continueTest">
+          继续练习 →
+        </button>
+      </div>
+    </div>
+  </div>
+
     <!-- 底部导航 -->
     <div class="tab-bar">
       <div class="tab-item" onclick="window.location.href='index.html'"><span class="icon">🏠</span><span class="text">首页</span></div>
@@ -192,6 +418,7 @@
             const database = event.target.result;
             if (!database.objectStoreNames.contains('progress')) database.createObjectStore('progress', { keyPath: 'wordId' });
             if (!database.objectStoreNames.contains('stats')) database.createObjectStore('stats', { keyPath: 'id' });
+            if (!database.objectStoreNames.contains('errorPatterns')) database.createObjectStore('errorPatterns', { keyPath: 'wordId', autoIncrement: true });
           };
         });
       },
@@ -206,6 +433,20 @@
             if (correct) data.correctCount++; else data.wrongCount++;
             store.put(data);
           };
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      },
+      async saveErrorPattern(word, wrongAnswer, correctAnswer) {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('errorPatterns', 'readwrite');
+          const store = tx.objectStore('errorPatterns');
+          store.add({
+            wordId: word,
+            wrongAnswer: wrongAnswer,
+            correctAnswer: correctAnswer,
+            timestamp: Date.now()
+          });
           tx.oncomplete = () => resolve();
           tx.onerror = () => reject(tx.error);
         });
@@ -245,7 +486,15 @@
           streak: 0,
           maxStreak: 0,
           finished: false,
-          otherAnswers: ''
+          otherAnswers: '',
+          // 错题讲解相关
+          showExplanation: false,
+          explanation: null,
+          isLoadingExplanation: false,
+          userAnswer: '',
+          correctAnswer: '',
+          followUpQuestion: '',
+          followUpAnswer: ''
         };
       },
       computed: {
@@ -293,7 +542,18 @@
           // 保存进度
           await db.saveProgress(this.currentWord.id, result.correct);
 
-          // 下一题
+          // 如果答错，显示错题讲解弹窗
+          if (!result.correct) {
+            this.showExplanation = true;
+            this.userAnswer = this.answer;
+            this.correctAnswer = isChinese ? this.currentWord.word : this.currentWord.translation;
+            this.loadExplanation();
+            // 记录错误模式
+            db.saveErrorPattern(this.currentWord.word, this.answer, this.correctAnswer);
+            return; // 不自动进入下一题，等待用户关闭弹窗
+          }
+
+          // 下一题（答对时）
           setTimeout(async () => {
             this.showResult = false;
             this.answer = '';
@@ -310,6 +570,75 @@
               });
             }
           }, 1500);
+        },
+
+        // 加载 AI 讲解
+        async loadExplanation() {
+          this.isLoadingExplanation = true;
+          try {
+            const result = await window.aiService.generateExplanation(
+              this.currentWord.word,
+              this.userAnswer,
+              this.correctAnswer
+            );
+            this.explanation = result;
+          } catch (error) {
+            this.explanation = {
+              content: '这道题要多复习几遍，注意词义的细微差别。'
+            };
+          }
+          this.isLoadingExplanation = false;
+        },
+
+        // 追问
+        async askFollowUp() {
+          if (!this.followUpQuestion.trim()) return;
+
+          const prompt = `
+请回答关于单词 "${this.currentWord.word}" 的问题：
+
+问题：${this.followUpQuestion}
+
+回答要求：简洁明了，100字以内，适合中学生理解。
+`;
+
+          try {
+            this.followUpAnswer = await window.aiService.callAPI(prompt);
+          } catch (e) {
+            this.followUpAnswer = '抱歉，暂时无法回答，请稍后再试。';
+          }
+          this.followUpQuestion = '';
+        },
+
+        // 关闭讲解
+        closeExplanation() {
+          this.showExplanation = false;
+          this.explanation = null;
+          this.followUpQuestion = '';
+          this.followUpAnswer = '';
+        },
+
+        // 继续测试
+        continueTest() {
+          this.closeExplanation();
+          this.showResult = false;
+          this.answer = '';
+          this.currentIndex++;
+
+          if (this.currentIndex >= this.words.length) {
+            this.finished = true;
+            this.saveStats();
+          }
+        },
+
+        // 保存统计
+        async saveStats() {
+          const stats = await db.getStats();
+          await db.saveStats({
+            ...stats,
+            maxStreak: this.maxStreak,
+            streak: this.streak
+          });
         }
       },
       async mounted() {
