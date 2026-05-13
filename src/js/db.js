@@ -190,6 +190,71 @@ class Database {
   }
 
   /**
+   * 获取所有故事缓存
+   * @returns {Promise<Array>} 所有故事数组
+   */
+  async getAllStories() {
+    if (!this.db) return [];
+    const tx = this.db.transaction('stories', 'readonly');
+    const store = tx.objectStore('stories');
+    return new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result || []);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  /**
+   * 清除过期故事缓存
+   * @param {number} maxAge - 最大缓存时间（毫秒），默认 7 天
+   */
+  async clearStories(maxAge = 7 * 24 * 60 * 60 * 1000) {
+    if (!this.db) return false;
+    try {
+      const allStories = await this.getAllStories();
+      const now = Date.now();
+      const tx = this.db.transaction('stories', 'readwrite');
+      const store = tx.objectStore('stories');
+
+      let clearedCount = 0;
+      for (const story of allStories) {
+        const cacheTime = story.cachedAt || story.createdAt || 0;
+        if (now - cacheTime > maxAge) {
+          store.delete(story.wordId);
+          clearedCount++;
+        }
+      }
+
+      return new Promise((resolve, reject) => {
+        tx.oncomplete = () => {
+          console.log(`已清除 ${clearedCount} 条过期故事缓存`);
+          resolve(true);
+        };
+        tx.onerror = () => reject(tx.error);
+      });
+    } catch (e) {
+      console.error('清除故事缓存失败', e);
+      return false;
+    }
+  }
+
+  /**
+   * 删除单个故事缓存
+   * @param {string} wordId - 单词ID
+   */
+  async deleteStory(wordId) {
+    if (!this.db) return false;
+    const tx = this.db.transaction('stories', 'readwrite');
+    const store = tx.objectStore('stories');
+    store.delete(wordId);
+
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
+  /**
    * 保存错误模式记录
    * @param {Object} pattern - 错误模式
    */
