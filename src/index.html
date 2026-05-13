@@ -75,6 +75,7 @@
           goTest() { window.router.navigate('/test'); },
           goReview() { window.router.navigate('/review'); },
           goProfile() { window.router.navigate('/profile'); },
+          goStory() { window.location.href = 'pages/story.html'; },
           async loadData() {
             if (window.store) {
               this.level = window.store.level?.value || 1;
@@ -137,6 +138,16 @@
             <button class="btn btn-primary start-btn" @click="startTest">
               {{ hasProgress ? '继续学习' : '开始测试' }}
             </button>
+
+            <!-- 故事入口 -->
+            <div class="story-entry" @click="goStory">
+              <div class="story-icon">📖</div>
+              <div class="story-info">
+                <h3>今日故事</h3>
+                <p>用故事记住单词</p>
+              </div>
+              <div class="story-arrow">→</div>
+            </div>
 
             <!-- 热力词云 -->
             <div class="word-cloud-section">
@@ -289,6 +300,55 @@
       color: var(--text-secondary);
       font-size: 14px;
       padding: 20px;
+    }
+
+    /* 故事入口样式 */
+    .story-entry {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .story-entry:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .story-entry:active {
+      transform: scale(0.98);
+    }
+
+    .story-icon {
+      font-size: 36px;
+      margin-right: 16px;
+    }
+
+    .story-info {
+      flex: 1;
+    }
+
+    .story-info h3 {
+      color: white;
+      font-size: 18px;
+      margin: 0 0 4px;
+    }
+
+    .story-info p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .story-arrow {
+      color: white;
+      font-size: 20px;
+      opacity: 0.8;
     }
   </style>
 </body>

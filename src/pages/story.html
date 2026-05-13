@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>语境故事 - HappyEnglish</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    body {
+      background: #f5f7fa;
+      min-height: 100vh;
+    }
+
+    .story-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .word-tag {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .story-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .story-content {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+
+    .example-section {
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .example-label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .example-text {
+      font-size: 16px;
+      color: #1a365d;
+      font-style: italic;
+    }
+
+    .memory-tip {
+      background: #fffbeb;
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid #f59e0b;
+      margin-bottom: 16px;
+    }
+
+    .memory-tip-label {
+      font-size: 14px;
+      color: #b45309;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .memory-tip-content {
+      font-size: 15px;
+      color: #92400e;
+      line-height: 1.6;
+    }
+
+    .story-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+    .helpful-btn, .next-btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .helpful-btn {
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .helpful-btn:hover {
+      background: #c7d2fe;
+    }
+
+    .helpful-btn.active {
+      background: #6366f1;
+      color: white;
+    }
+
+    .helpful-btn.active:hover {
+      background: #4f46e5;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .next-btn:hover {
+      transform: translateX(2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .loading-spinner {
+      font-size: 48px;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .loading-text {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .no-story {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .no-story-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .no-story h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .no-story p {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
+
+    .generate-btn {
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .generate-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .error-tip {
+      background: #fef2f2;
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid #ef4444;
+      color: #991b1b;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="story-container">
+      <!-- 加载状态 -->
+      <div v-if="isLoading" class="loading">
+        <div class="loading-spinner">📚</div>
+        <div class="loading-text">AI 正在生成故事...</div>
+      </div>
+
+      <!-- 无故事状态 -->
+      <div v-else-if="!currentStory" class="no-story">
+        <div class="no-story-icon">📖</div>
+        <h2>今日故事</h2>
+        <p>点击下方按钮开始今日单词故事学习</p>
+        <button class="generate-btn" @click="generateStory">
+          生成故事
+        </button>
+      </div>
+
+      <!-- 故事展示 -->
+      <div v-else>
+        <div class="story-header">
+          <button class="back-btn" @click="goBack">返回首页</button>
+          <span class="word-tag">{{ currentStory.word }}</span>
+        </div>
+
+        <div class="story-card">
+          <div class="story-content">
+            {{ currentStory.content }}
+          </div>
+
+          <div class="example-section" v-if="currentStory.example">
+            <div class="example-label">例句</div>
+            <div class="example-text">{{ currentStory.example }}</div>
+          </div>
+
+          <div class="memory-tip" v-if="currentStory.memoryTip">
+            <div class="memory-tip-label">记忆提示</div>
+            <div class="memory-tip-content">{{ currentStory.memoryTip }}</div>
+          </div>
+
+          <div class="story-footer">
+            <button
+              class="helpful-btn"
+              :class="{ active: isHelpful }"
+              @click="markHelpful"
+            >
+              {{ isHelpful ? '✓ 有帮助' : '👍 有帮助' }}
+            </button>
+            <button class="next-btn" @click="nextStory">
+              下一个 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 错误提示 -->
+        <div class="error-tip" v-if="errorMsg">
+          {{ errorMsg }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/ai-service.js"></script>
+  <script>
+    // 加载词汇数据
+    const vocabularyScript = document.createElement('script');
+    vocabularyScript.src = '../data/vocabulary.js';
+    vocabularyScript.onload = () => {
+      window.vocabularyData = window.vocabulary?.words || [];
+    };
+    document.head.appendChild(vocabularyScript);
+
+    const { createApp, ref, onMounted } = Vue;
+
+    const StoryApp = {
+      setup() {
+        const isLoading = ref(false);
+        const currentStory = ref(null);
+        const isHelpful = ref(false);
+        const errorMsg = ref('');
+        const viewedStoryWords = ref(new Set());
+
+        // 获取需要生成故事的单词列表
+        const getWordsForStory = async () => {
+          try {
+            const stories = await window.db.getAllStories();
+            const storyWords = new Set(stories.map(s => s.wordId));
+
+            // 从词汇表获取单词
+            const allWords = window.vocabularyData || [];
+
+            // 过滤出未生成故事的单词
+            const unviewedWords = allWords.filter(w => !storyWords.has(w.word) && !viewedStoryWords.value.has(w.word));
+
+            if (unviewedWords.length > 0) {
+              return unviewedWords;
+            }
+
+            // 如果所有单词都已查看过，重置并随机选一个
+            viewedStoryWords.value.clear();
+            return allWords;
+          } catch (e) {
+            console.error('获取单词列表失败:', e);
+            // 返回词汇表作为后备
+            return window.vocabularyData || [];
+          }
+        };
+
+        const generateStory = async () => {
+          const words = await getWordsForStory();
+          if (words.length === 0) {
+            errorMsg.value = '词汇库为空，请先添加单词';
+            return;
+          }
+
+          const word = words[Math.floor(Math.random() * words.length)];
+          await loadStory(word.word || word);
+        };
+
+        const loadStory = async (word) => {
+          isLoading.value = true;
+          errorMsg.value = '';
+
+          try {
+            // 先检查数据库中是否有缓存的故事
+            const cachedStory = await window.db.getStory(word);
+            if (cachedStory && cachedStory.story) {
+              currentStory.value = {
+                word: cachedStory.wordId,
+                content: cachedStory.story?.content || cachedStory.content || '',
+                example: cachedStory.story?.example || cachedStory.example || '',
+                memoryTip: cachedStory.story?.memoryTip || cachedStory.memoryTip || '',
+                helpful: cachedStory.helpful || false
+              };
+              isHelpful.value = currentStory.value.helpful;
+              isLoading.value = false;
+              return;
+            }
+
+            // 调用 AI 生成故事
+            const story = await window.aiService.generateContextStory(word);
+            currentStory.value = story;
+            viewedStoryWords.value.add(word);
+            isHelpful.value = false;
+          } catch (error) {
+            console.error('生成故事失败:', error);
+            errorMsg.value = '故事生成失败，请稍后重试';
+            // 使用默认故事
+            currentStory.value = {
+              word,
+              content: '这是一个关于 ' + word + ' 的故事...',
+              example: '',
+              memoryTip: '多复习几遍就能记住啦！'
+            };
+          }
+          isLoading.value = false;
+        };
+
+        const nextStory = async () => {
+          await generateStory();
+        };
+
+        const markHelpful = async () => {
+          if (currentStory.value) {
+            isHelpful.value = !isHelpful.value;
+            currentStory.value.helpful = isHelpful.value;
+            // 更新数据库中的标记
+            const word = currentStory.value.word;
+            const cached = await window.db.getStory(word);
+            if (cached) {
+              cached.helpful = isHelpful.value;
+              await window.db.saveStory(word, { ...cached });
+            }
+          }
+        };
+
+        const goBack = () => {
+          window.location.href = '../index.html';
+        };
+
+        onMounted(async () => {
+          await window.db.init();
+          // 尝试加载一个故事
+          await generateStory();
+        });
+
+        return {
+          isLoading,
+          currentStory,
+          isHelpful,
+          errorMsg,
+          generateStory,
+          nextStory,
+          markHelpful,
+          goBack
+        };
+      }
+    };
+
+    createApp(StoryApp).mount('#app');
+  </script>
+</body>
+</html>
