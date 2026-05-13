@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>词根词缀 - HappyEnglish</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: #f8fafc; min-height: 100vh; }
+
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+    .header { display: flex; align-items: center; margin-bottom: 24px; }
+    .back-btn {
+      padding: 8px 16px; background: white; border: none;
+      border-radius: 8px; cursor: pointer; font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .back-btn:hover { background: #f5f7fa; }
+    .header h1 { margin-left: 12px; font-size: 18px; color: #374151; }
+
+    .search-box { margin-bottom: 24px; }
+    .search-input {
+      width: 100%; padding: 14px 16px; font-size: 16px;
+      border: 2px solid #e5e7eb; border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { outline: none; border-color: #667eea; }
+
+    .word-card {
+      background: white; border-radius: 16px; padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 16px;
+    }
+
+    .word-title { font-size: 32px; font-weight: bold; color: #1a365d; margin-bottom: 16px; }
+
+    .etymology-section { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f3f4f6; }
+    .etymology-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .section-label { font-size: 14px; color: #667eea; font-weight: 600; margin-bottom: 8px; }
+
+    .prefix, .suffix, .root {
+      display: inline-block; padding: 8px 16px; border-radius: 8px;
+      font-size: 18px; font-weight: 600;
+    }
+    .prefix { background: #dbeafe; color: #1e40af; }
+    .suffix { background: #fce7f3; color: #9d174d; }
+    .root { background: #d1fae5; color: #065f46; }
+
+    .meaning { font-size: 16px; color: #374151; margin-top: 8px; }
+
+    .related-words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .related-word {
+      padding: 6px 12px; background: #f3f4f6; border-radius: 6px;
+      font-size: 14px; color: #374151; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .related-word:hover { background: #667eea; color: white; }
+
+    .explanation-box {
+      background: #fffbeb; border-left: 4px solid #f59e0b;
+      padding: 16px; border-radius: 8px; margin-top: 16px;
+    }
+    .explanation-title { font-size: 14px; color: #b45309; font-weight: 600; margin-bottom: 8px; }
+    .explanation-text { font-size: 16px; color: #374151; line-height: 1.6; }
+
+    .no-result { text-align: center; padding: 60px 20px; color: #6b7280; }
+    .no-result-icon { font-size: 48px; margin-bottom: 16px; }
+
+    .tip-section {
+      background: white; border-radius: 12px; padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-top: 16px;
+    }
+    .tip-section h4 { font-size: 14px; color: #667eea; margin-bottom: 12px; }
+    .tip-item {
+      display: flex; align-items: center; padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .tip-item:last-child { border-bottom: none; }
+    .tip-label { font-size: 14px; color: #374151; font-weight: 500; min-width: 60px; }
+    .tip-value { font-size: 14px; color: #6b7280; }
+
+    .history-section {
+      background: white; border-radius: 12px; padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-top: 16px;
+    }
+    .history-section h4 { font-size: 14px; color: #667eea; margin-bottom: 12px; }
+    .history-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .history-item {
+      padding: 6px 12px; background: #f3f4f6; border-radius: 6px;
+      font-size: 14px; color: #374151; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .history-item:hover { background: #667eea; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <button class="back-btn" onclick="history.back()">← 返回</button>
+      <h1>词根词缀</h1>
+    </div>
+
+    <div class="search-box">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="输入单词查看词根词缀分析..."
+        id="searchInput"
+        onkeyup="handleSearch(event)"
+      >
+    </div>
+
+    <div id="resultContainer">
+      <div class="no-result">
+        <div class="no-result-icon">🔍</div>
+        <p>输入单词开始分析</p>
+      </div>
+    </div>
+
+    <!-- 学习技巧 -->
+    <div class="tip-section">
+      <h4>💡 学习技巧</h4>
+      <div class="tip-item">
+        <span class="tip-label">前缀</span>
+        <span class="tip-value">改变单词含义，如 un- 表示否定</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-label">后缀</span>
+        <span class="tip-value">决定单词词性，如 -tion 变为名词</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-label">词根</span>
+        <span class="tip-value">单词核心含义，举一反三记多个词</span>
+      </div>
+    </div>
+
+    <!-- 查询历史 -->
+    <div class="history-section" id="historySection" style="display: none;">
+      <h4>📜 历史查询</h4>
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </div>
+
+  <script src="../../src/data/etymology.js"></script>
+  <script src="../../src/js/etymology.js"></script>
+  <script>
+    // 历史记录
+    let searchHistory = [];
+
+    // 从 localStorage 加载历史
+    function loadHistory() {
+      const saved = localStorage.getItem('etymologyHistory');
+      if (saved) {
+        searchHistory = JSON.parse(saved);
+        renderHistory();
+      }
+    }
+
+    // 保存历史到 localStorage
+    function saveHistory() {
+      localStorage.setItem('etymologyHistory', JSON.stringify(searchHistory));
+    }
+
+    // 渲染历史
+    function renderHistory() {
+      const section = document.getElementById('historySection');
+      const list = document.getElementById('historyList');
+      if (searchHistory.length > 0) {
+        section.style.display = 'block';
+        list.innerHTML = searchHistory.map(w =>
+          `<span class="history-item" onclick="showAnalysis('${w}')">${w}</span>`
+        ).join('');
+      } else {
+        section.style.display = 'none';
+      }
+    }
+
+    // 处理搜索
+    function handleSearch(event) {
+      if (event.key === 'Enter') {
+        const word = event.target.value.trim();
+        if (word) {
+          showAnalysis(word);
+          // 添加到历史
+          if (!searchHistory.includes(word.toLowerCase())) {
+            searchHistory.unshift(word.toLowerCase());
+            if (searchHistory.length > 10) searchHistory.pop();
+            saveHistory();
+            renderHistory();
+          }
+        }
+      }
+    }
+
+    // 显示分析结果
+    function showAnalysis(word) {
+      const result = window.etymologyService.analyzeWord(word);
+      const container = document.getElementById('resultContainer');
+
+      if (!result.prefix && !result.root && !result.suffix) {
+        container.innerHTML = `
+          <div class="word-card">
+            <div class="word-title">${word}</div>
+            <div class="meaning">未找到词根词缀信息，但可以通过词根词缀来记忆其他单词哦！</div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `<div class="word-card"><div class="word-title">${word}</div>`;
+
+      // 词根展示
+      if (result.root) {
+        html += `
+          <div class="etymology-section">
+            <div class="section-label">词根 Root</div>
+            <span class="root">${result.root.root}</span>
+            <div class="meaning">${result.root.meaning}</div>
+            ${result.relatedWords.length > 0 ? `
+              <div class="related-words">
+                ${result.relatedWords.map(w => `<span class="related-word" onclick="showAnalysis('${w}')">${w}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      // 前缀展示
+      if (result.prefix) {
+        html += `
+          <div class="etymology-section">
+            <div class="section-label">前缀 Prefix</div>
+            <span class="prefix">${result.prefix.prefix}</span>
+            <div class="meaning">${result.prefix.meaning}</div>
+          </div>
+        `;
+      }
+
+      // 后缀展示
+      if (result.suffix) {
+        html += `
+          <div class="etymology-section">
+            <div class="section-label">后缀 Suffix</div>
+            <span class="suffix">${result.suffix.suffix}</span>
+            <div class="meaning">${result.suffix.meaning}</div>
+          </div>
+        `;
+      }
+
+      // 解释框
+      if (result.explanation) {
+        html += `
+          <div class="explanation-box">
+            <div class="explanation-title">💡 记忆技巧</div>
+            <div class="explanation-text">${result.explanation}</div>
+          </div>
+        `;
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    // 初始化
+    loadHistory();
+  </script>
+</body>
+</html>

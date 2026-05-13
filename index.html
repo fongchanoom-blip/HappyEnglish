@@ -138,6 +138,21 @@
           {{ reportLoading ? 'AI 分析中...' : '生成 AI 学习报告' }}
         </button>
 
+        <!-- 词根词缀入口 -->
+        <div class="etymology-entry" @click="goPage('etymology')" style="
+          background: white; border-radius: 12px; padding: 16px;
+          display: flex; align-items: center; gap: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer;
+          margin-bottom: 16px; transition: transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+          <span style="font-size: 28px;">📚</span>
+          <div style="flex: 1;">
+            <h3 style="font-size: 16px; color: #1a365d; margin: 0 0 4px;">词根词缀</h3>
+            <p style="font-size: 13px; color: #6b7280; margin: 0;">举一反三记单词</p>
+          </div>
+          <span style="color: #6b7280;">→</span>
+        </div>
+
         <!-- 热力词云 -->
         <div class="word-cloud-section">
           <h3>掌握较好 <span class="count">({{ goodWords.length }}词)</span></h3>
