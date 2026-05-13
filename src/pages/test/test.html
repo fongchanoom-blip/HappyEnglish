@@ -371,6 +371,10 @@
 
   <!-- 引入Vue -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- 引入学习伙伴服务 -->
+  <script src="../../js/learning-companion.js"></script>
+  <!-- 引入学习伙伴组件 -->
+  <script src="../../components/companion-widget.js"></script>
   <!-- 引入词汇数据 -->
   <script src="../../data/vocabulary.js"></script>
   <!-- 引入数据库 -->
@@ -449,6 +453,20 @@
             correctCount.value++;
             streak.value++;
 
+            // 学习伙伴：答对时显示鼓励
+            if (window.companionWidget) {
+              const context = {
+                streak: streak.value,
+                accuracy: accuracyPercent.value,
+                wordsLearned: correctCount.value + wrongCount.value
+              };
+              // 根据正确数显示鼓励（每3题显示一次，避免过于频繁）
+              if (correctCount.value % 3 === 0) {
+                window.companionWidget.showEncouragement(context);
+              }
+              window.learningCompanion.addExp(5);
+            }
+
             // 更新 userState 奖励系统
             if (window.userState) {
               // 计算词汇等级
@@ -466,6 +484,11 @@
           } else {
             wrongCount.value++;
             streak.value = 0;
+
+            // 学习伙伴：答错时显示安慰
+            if (window.companionWidget) {
+              window.companionWidget.showErrorComfort();
+            }
           }
 
           if (window.userState) {
@@ -483,7 +506,16 @@
             isCorrect.value = false;
 
             if (currentIndex.value === 0) {
-              // 一轮完成
+              // 一轮完成，学习伙伴检查里程碑
+              if (window.companionWidget) {
+                const context = {
+                  streak: window.learningCompanion.streak,
+                  accuracy: accuracyPercent.value,
+                  wordsLearned: correctCount.value + wrongCount.value
+                };
+                window.companionWidget.checkAndCelebrate(context);
+              }
+
               if (window.store) {
                 window.store.showToast('恭喜完成一轮测试！');
               }
@@ -493,6 +525,11 @@
 
         // 初始化
         onMounted(async () => {
+          // 初始化学习伙伴组件
+          if (window.companionWidget) {
+            window.companionWidget.init(true);
+          }
+
           // 获取词汇数据
           if (window.vocabulary && window.vocabulary.words) {
             words.value = [...window.vocabulary.words];

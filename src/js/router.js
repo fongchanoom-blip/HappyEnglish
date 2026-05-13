@@ -71,6 +71,11 @@ class Router {
         if (window.initReportApp) {
           window.initReportApp();
         }
+
+        // 初始化学习伙伴组件
+        if (window.companionWidget) {
+          window.companionWidget.init(true);
+        }
       } catch (e) {
         console.error('加载页面失败:', e);
         app.innerHTML = '<p>页面加载失败</p>';

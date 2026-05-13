@@ -14,10 +14,13 @@
   </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="src/js/learning-companion.js"></script>
+  <script src="src/components/companion-widget.js"></script>
   <script src="src/js/router.js"></script>
   <script src="src/js/store.js"></script>
   <script src="src/js/db.js"></script>
   <script src="src/js/spaced-repetition.js"></script>
+  <script src="src/js/analytics.js"></script>
   <script type="module">
     // 初始化数据库
     window.db.init().then(() => {
@@ -50,7 +53,9 @@
             accuracy: 0,
             streak: 0,
             goodWords: [],
-            weakWords: []
+            weakWords: [],
+            todayWords: 0,
+            todayReviews: 0
           };
         },
         computed: {
@@ -76,6 +81,7 @@
           goReview() { window.router.navigate('/review'); },
           goProfile() { window.router.navigate('/profile'); },
           goStory() { window.location.href = 'pages/story.html'; },
+          goReport() { window.location.href = 'pages/report.html'; },
           async loadData() {
             if (window.store) {
               this.level = window.store.level?.value || 1;
@@ -98,6 +104,13 @@
                 total += (p.correctCount || 0) + (p.wrongCount || 0);
               });
               this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+            }
+
+            // 加载分析统计数据
+            if (window.analytics) {
+              const stats = window.analytics.getLearningStats();
+              this.todayWords = stats.todayWords || 0;
+              this.todayReviews = stats.todayReviews || 0;
             }
           }
         },
@@ -134,6 +147,19 @@
               </div>
             </div>
 
+            <!-- 今日学习统计 -->
+            <div class="today-stats" v-if="todayWords > 0 || todayReviews > 0">
+              <div class="today-stat">
+                <span class="today-num">{{ todayWords }}</span>
+                <span class="today-label">今日学习</span>
+              </div>
+              <div class="today-divider">|</div>
+              <div class="today-stat">
+                <span class="today-num">{{ todayReviews }}</span>
+                <span class="today-label">今日复习</span>
+              </div>
+            </div>
+
             <!-- 开始测试按钮 -->
             <button class="btn btn-primary start-btn" @click="startTest">
               {{ hasProgress ? '继续学习' : '开始测试' }}
@@ -147,6 +173,16 @@
                 <p>用故事记住单词</p>
               </div>
               <div class="story-arrow">→</div>
+            </div>
+
+            <!-- 学习报告入口 -->
+            <div class="report-entry" @click="goReport">
+              <div class="report-icon">📊</div>
+              <div class="report-info">
+                <h3>学习报告</h3>
+                <p>查看进步轨迹</p>
+              </div>
+              <div class="report-arrow">→</div>
             </div>
 
             <!-- 热力词云 -->
