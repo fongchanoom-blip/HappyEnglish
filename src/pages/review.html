@@ -3,7 +3,12 @@
   <div class="header">
     <button class="btn-back" @click="goBack">← 返回</button>
     <h2>错题复习</h2>
-    <button class="btn-export" @click="exportWords">导出</button>
+    <div class="header-actions">
+      <button class="btn-smart" :class="{active: reviewMode === 'smart'}" @click="toggleReviewMode">
+        {{ reviewMode === 'smart' ? '智能复习' : '间隔复习' }}
+      </button>
+      <button class="btn-export" @click="exportWords">导出</button>
+    </div>
   </div>
 
   <!-- 统计 -->
@@ -16,10 +21,66 @@
       <span class="num">{{ unknownWords.length }}</span>
       <span class="label">陌生词</span>
     </div>
+    <div v-if="reviewMode === 'smart'" class="stat smart-stat">
+      <span class="num">{{ reviewStats.due }}</span>
+      <span class="label">待复习</span>
+    </div>
   </div>
 
-  <!-- 筛选 -->
-  <div class="filter-bar">
+  <!-- 智能复习模式 -->
+  <div v-if="reviewMode === 'smart'" class="smart-review">
+    <!-- 复习进度条 -->
+    <div v-if="reviewWords.length > 0" class="review-progress">
+      <div class="progress-info">
+        <span>复习进度</span>
+        <span>{{ reviewIndex + 1 }} / {{ reviewWords.length }}</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" :style="{width: progressPercent + '%'}"></div>
+      </div>
+    </div>
+
+    <!-- 复习卡片 -->
+    <div v-if="currentReviewWord" class="review-card">
+      <div class="review-word">{{ currentReviewWord.word }}</div>
+      <div class="review-phonetic">{{ currentReviewWord.phonetic }}</div>
+      <div class="review-hint" v-if="showAnswer">
+        {{ currentReviewWord.translation }}
+      </div>
+      <div v-else class="review-question">
+        认识这个单词吗？
+      </div>
+    </div>
+
+    <!-- 空状态 -->
+    <div v-else-if="!isLoading" class="empty-state">
+      <div class="empty-icon">🎉</div>
+      <div class="empty-text">太棒了！没有待复习的单词！</div>
+      <button class="btn btn-secondary" @click="reviewMode = 'list'">查看单词列表</button>
+    </div>
+
+    <!-- 复习按钮 -->
+    <div v-if="currentReviewWord" class="review-actions">
+      <button
+        v-if="!showAnswer"
+        class="btn btn-reveal"
+        @click="showAnswer = true"
+      >
+        显示答案
+      </button>
+      <template v-else>
+        <button class="btn btn-forgot" @click="handleReview(false)">
+          不认识
+        </button>
+        <button class="btn btn-known" @click="handleReview(true)">
+          认识
+        </button>
+      </template>
+    </div>
+  </div>
+
+  <!-- 筛选 (列表模式) -->
+  <div v-if="reviewMode === 'list'" class="filter-bar">
     <button
       :class="{active: filter === 'all'}"
       @click="filter = 'all'"
@@ -34,8 +95,8 @@
     >陌生</button>
   </div>
 
-  <!-- 错题列表 -->
-  <div class="words-list">
+  <!-- 错题列表 (列表模式) -->
+  <div v-if="reviewMode === 'list'" class="words-list">
     <div
       v-for="word in filteredWords"
       :key="word.id"
@@ -95,6 +156,10 @@
   margin-bottom: 16px;
 }
 .header h2 { font-size: 18px; }
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
 .btn-back {
   background: none;
   border: none;
@@ -102,14 +167,22 @@
   color: var(--primary);
   cursor: pointer;
 }
-.btn-export {
+.btn-export, .btn-smart {
   padding: 6px 12px;
-  background: var(--success);
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 12px;
   cursor: pointer;
+}
+.btn-export {
+  background: var(--success);
+}
+.btn-smart {
+  background: var(--accent, #9C27B0);
+}
+.btn-smart.active {
+  background: var(--primary);
 }
 
 .stats-bar {
@@ -126,6 +199,8 @@
 }
 .stat .num { font-size: 24px; font-weight: 700; color: var(--primary); }
 .stat .label { font-size: 12px; color: var(--text-secondary); }
+.smart-stat { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.smart-stat .num, .smart-stat .label { color: white; }
 
 .filter-bar {
   display: flex;
@@ -144,6 +219,109 @@
   background: var(--primary);
   color: white;
   border-color: var(--primary);
+}
+
+/* 智能复习样式 */
+.smart-review {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-progress {
+  margin-bottom: 20px;
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.progress-bar {
+  height: 8px;
+  background: #E4E7ED;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.review-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+.review-word {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.review-phonetic {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.review-hint {
+  font-size: 20px;
+  color: var(--primary);
+  padding: 16px 24px;
+  background: rgba(64, 158, 255, 0.1);
+  border-radius: 12px;
+}
+.review-question {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.review-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+.review-actions .btn {
+  flex: 1;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.review-actions .btn:active {
+  transform: scale(0.95);
+}
+.btn-reveal {
+  background: var(--primary);
+  color: white;
+}
+.btn-known {
+  background: var(--success);
+  color: white;
+}
+.btn-forgot {
+  background: var(--danger, #F56C6C);
+  color: white;
+}
+.btn-secondary {
+  background: var(--text-secondary);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .words-list { display: flex; flex-direction: column; gap: 12px; }
@@ -182,7 +360,7 @@
 
 .empty-state { text-align: center; padding: 40px; }
 .empty-icon { font-size: 48px; margin-bottom: 12px; }
-.empty-text { color: var(--text-secondary); }
+.empty-text { color: var(--text-secondary); margin-bottom: 16px; }
 
 .modal {
   position: fixed;
@@ -243,6 +421,19 @@ function initReviewApp() {
           familiar: '熟悉',
           weak: '薄弱',
           unknown: '陌生'
+        },
+        // 智能复习相关
+        reviewMode: 'list', // 'list' | 'smart'
+        reviewWords: [],
+        reviewIndex: 0,
+        showAnswer: false,
+        isLoading: false,
+        reviewStats: {
+          total: 0,
+          due: 0,
+          mastered: 0,
+          learning: 0,
+          masteredRate: 0
         }
       };
     },
@@ -254,6 +445,16 @@ function initReviewApp() {
         if (this.filter === 'weak') return this.weakWords;
         if (this.filter === 'unknown') return this.unknownWords;
         return [];
+      },
+      currentReviewWord() {
+        if (this.reviewIndex < this.reviewWords.length) {
+          return this.reviewWords[this.reviewIndex];
+        }
+        return null;
+      },
+      progressPercent() {
+        if (this.reviewWords.length === 0) return 0;
+        return Math.round((this.reviewIndex / this.reviewWords.length) * 100);
       }
     },
     methods: {
@@ -294,6 +495,88 @@ function initReviewApp() {
 
           this.weakWords = grouped.weak || [];
           this.unknownWords = grouped.unknown || [];
+        }
+      },
+      // 切换复习模式
+      async toggleReviewMode() {
+        if (this.reviewMode === 'list') {
+          this.reviewMode = 'smart';
+          await this.loadSmartReview();
+        } else {
+          this.reviewMode = 'list';
+        }
+      },
+      // 加载智能复习数据
+      async loadSmartReview() {
+        this.isLoading = true;
+        try {
+          // 获取所有掌握度数据
+          const allMastery = await window.db.getAllMastery() || [];
+
+          // 使用复习引擎获取待复习单词
+          if (window.spacedRepetition) {
+            const dueWords = window.spacedRepetition.getWordsForReview(allMastery, 20);
+
+            // 获取单词详情
+            const allWords = window.vocabulary?.words || [];
+
+            // 合并数据
+            this.reviewWords = dueWords.map(m => {
+              const wordInfo = allWords.find(w => w.id === m.wordId) || {};
+              return {
+                ...wordInfo,
+                mastery: m
+              };
+            }).filter(w => w.word); // 只保留有单词信息的
+
+            // 更新统计
+            this.reviewStats = window.spacedRepetition.getReviewStats(allMastery);
+          } else {
+            this.reviewWords = [];
+          }
+
+          this.reviewIndex = 0;
+          this.showAnswer = false;
+        } catch (e) {
+          console.error('加载复习数据失败', e);
+          this.reviewWords = [];
+        } finally {
+          this.isLoading = false;
+        }
+      },
+      // 处理复习结果
+      async handleReview(correct) {
+        if (!this.currentReviewWord || !window.spacedRepetition) return;
+
+        try {
+          const result = { correct };
+          const mastery = this.currentReviewWord.mastery || {};
+
+          // 计算下次复习时间
+          const updatedMastery = window.spacedRepetition.scheduleNextReview(mastery, result);
+
+          // 保存到数据库
+          await window.db.saveMastery(this.currentReviewWord.id || this.currentReviewWord.wordId, {
+            interval: updatedMastery.interval,
+            nextReview: updatedMastery.nextReview,
+            easeFactor: updatedMastery.easeFactor,
+            lastReview: updatedMastery.lastReview,
+            errors: correct ? mastery.errors : (mastery.errors || 0) + 1,
+            known: correct ? Math.min(1, (mastery.known || 0) + 0.1) : Math.max(0, (mastery.known || 0) - 0.2),
+            recall: correct ? Math.min(1, (mastery.recall || 0) + 0.1) : Math.max(0, (mastery.recall || 0) - 0.2)
+          });
+
+          // 移动到下一个
+          this.reviewIndex++;
+          this.showAnswer = false;
+
+          // 如果完成，刷新统计
+          if (this.reviewIndex >= this.reviewWords.length) {
+            const allMastery = await window.db.getAllMastery() || [];
+            this.reviewStats = window.spacedRepetition.getReviewStats(allMastery);
+          }
+        } catch (e) {
+          console.error('保存复习结果失败', e);
         }
       }
     },
