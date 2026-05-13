@@ -403,6 +403,9 @@
         goReview() {
           window.router.navigate('/review');
         },
+        goReport() {
+          window.router.navigate('/report');
+        },
         resetData() {
           if (confirm('确定要重置所有学习数据吗？此操作不可恢复！')) {
             window.userState.reset();
@@ -566,6 +569,10 @@
             <div class="tab-item" @click="goReview">
               <span class="icon">📖</span>
               <span class="text">复习</span>
+            </div>
+            <div class="tab-item" @click="goReport">
+              <span class="icon">📊</span>
+              <span class="text">报告</span>
             </div>
             <div class="tab-item active">
               <span class="icon">👤</span>

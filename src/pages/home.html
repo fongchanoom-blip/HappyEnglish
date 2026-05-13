@@ -80,6 +80,10 @@
       <span class="icon">📖</span>
       <span class="text">复习</span>
     </div>
+    <div class="tab-item" @click="goReport">
+      <span class="icon">📊</span>
+      <span class="text">报告</span>
+    </div>
     <div class="tab-item" @click="goProfile">
       <span class="icon">👤</span>
       <span class="text">我的</span>
@@ -220,6 +224,7 @@ const homeApp = {
     },
     goTest() { window.router.navigate('/test'); },
     goReview() { window.router.navigate('/review'); },
+    goReport() { window.router.navigate('/report'); },
     goProfile() { window.router.navigate('/profile'); },
     async loadData() {
       // 从store和db加载数据

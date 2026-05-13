@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习报告 - HappyEnglish</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <style>
+    body {
+      background: #f8fafc;
+      min-height: 100vh;
+    }
+    .report-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .back-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .date {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* 统计卡片 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* 进步图表 */
+    .chart-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a365d;
+      margin-bottom: 16px;
+    }
+    .progress-bar {
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+
+    /* 薄弱词列表 */
+    .weak-words-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .word-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .word-item:last-child {
+      border-bottom: none;
+    }
+    .word-text {
+      font-size: 16px;
+      color: #1a365d;
+    }
+    .word-accuracy {
+      font-size: 14px;
+      color: #dc2626;
+      font-weight: 500;
+    }
+
+    /* AI 建议 */
+    .ai-suggestions {
+      background: linear-gradient(135deg, #667eea20, #764ba220);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      border: 1px solid #667eea30;
+    }
+    .suggestions-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a365d;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .suggestions-content {
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    /* 加载状态 */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .loading-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* 按钮 */
+    .refresh-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: white;
+      border: 2px solid #667eea;
+      color: #667eea;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .refresh-btn:hover {
+      background: #667eea;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="report-container" v-if="!isLoading">
+      <!-- 返回按钮 -->
+      <div class="report-header">
+        <button class="back-btn" @click="goBack">← 返回</button>
+        <span class="date">{{ currentDate }}</span>
+      </div>
+
+      <!-- 统计卡片 -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">{{ stats.totalWords }}</div>
+          <div class="stat-label">已学单词</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ stats.accuracy }}%</div>
+          <div class="stat-label">正确率</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ stats.streak }}</div>
+          <div class="stat-label">连续天数</div>
+        </div>
+      </div>
+
+      <!-- 掌握度图表 -->
+      <div class="chart-card">
+        <div class="chart-title">📈 掌握度</div>
+        <div class="progress-bar">
+          <div class="progress-fill" :style="{ width: stats.masteryRate + '%' }"></div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; color: #666; font-size: 14px;">
+          {{ stats.masteryRate }}% 词汇已掌握
+        </div>
+      </div>
+
+      <!-- 薄弱词 -->
+      <div class="weak-words-card">
+        <div class="chart-title">⚠️ 需要加强</div>
+        <div v-if="weakWords.length > 0">
+          <div v-for="word in weakWords" :key="word.wordId" class="word-item">
+            <span class="word-text">{{ word.wordId }}</span>
+            <span class="word-accuracy">{{ word.accuracy }}%</span>
+          </div>
+        </div>
+        <div v-else style="text-align: center; padding: 20px; color: #666;">
+          🎉 暂无薄弱词，继续保持！
+        </div>
+      </div>
+
+      <!-- AI 建议 -->
+      <div class="ai-suggestions" v-if="aiSuggestions">
+        <div class="suggestions-title">
+          <span>💡</span>
+          <span>AI 学习建议</span>
+        </div>
+        <div class="suggestions-content">{{ aiSuggestions }}</div>
+      </div>
+
+      <!-- 刷新按钮 -->
+      <button class="refresh-btn" @click="refreshReport">
+        🔄 刷新报告
+      </button>
+    </div>
+
+    <!-- 加载状态 -->
+    <div v-else class="loading">
+      <div class="loading-icon">📊</div>
+      <p>正在生成学习报告...</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="../../src/js/db.js"></script>
+  <script src="../../src/js/ai-service.js"></script>
+  <script>
+    // 报告页面 Vue 应用
+    const ReportApp = {
+      setup() {
+        const isLoading = ref(true);
+        const currentDate = ref('');
+        const stats = ref({
+          totalWords: 0,
+          accuracy: 0,
+          streak: 0,
+          masteryRate: 0
+        });
+        const weakWords = ref([]);
+        const aiSuggestions = ref('');
+
+        // 加载报告数据
+        const loadReport = async () => {
+          isLoading.value = true;
+
+          try {
+            // 获取所有掌握度数据
+            const masteryData = await db.getAllMastery();
+
+            // 计算统计数据
+            const totalWords = masteryData.length;
+            let totalCorrect = 0;
+            let totalAttempts = 0;
+            let weakList = [];
+
+            masteryData.forEach(m => {
+              if (m.correctCount !== undefined && m.wrongCount !== undefined) {
+                totalCorrect += m.correctCount || 0;
+                totalAttempts += (m.correctCount || 0) + (m.wrongCount || 0);
+              }
+              // 计算正确率低于70%的词
+              if (m.accuracy !== undefined && m.accuracy < 70) {
+                weakList.push({
+                  wordId: m.wordId,
+                  accuracy: m.accuracy || 0
+                });
+              }
+            });
+
+            const accuracy = totalAttempts > 0
+              ? Math.round((totalCorrect / totalAttempts) * 100)
+              : 0;
+
+            // 计算掌握度
+            const knownWords = masteryData.filter(m => m.known >= 0.85);
+            const masteryRate = totalWords > 0
+              ? Math.round((knownWords.length / totalWords) * 100)
+              : 0;
+
+            // 获取连续天数（从 localStorage 或 db）
+            const userProgress = JSON.parse(localStorage.getItem('happyenglish_progress') || '{}');
+            const streak = userProgress.streak || 0;
+
+            stats.value = {
+              totalWords,
+              accuracy,
+              streak,
+              masteryRate
+            };
+
+            // 排序薄弱词
+            weakWords.value = weakList
+              .sort((a, b) => a.accuracy - b.accuracy)
+              .slice(0, 10);
+
+            // 生成 AI 建议
+            const reportStats = {
+              totalWords,
+              accuracy,
+              weakWords: weakWords.value.map(w => w.wordId),
+              streak
+            };
+
+            aiSuggestions.value = await window.aiService.generateReport(reportStats);
+
+          } catch (error) {
+            console.error('加载报告失败:', error);
+            // 使用默认数据
+            stats.value = {
+              totalWords: 0,
+              accuracy: 0,
+              streak: 0,
+              masteryRate: 0
+            };
+            aiSuggestions.value = '继续加油学习，你一定可以掌握的！';
+          }
+
+          isLoading.value = false;
+        };
+
+        // 刷新报告
+        const refreshReport = () => {
+          loadReport();
+        };
+
+        // 返回
+        const goBack = () => {
+          window.router.navigate('/profile');
+        };
+
+        // 设置当前日期
+        const setCurrentDate = () => {
+          const now = new Date();
+          currentDate.value = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 周${['日','一','二','三','四','五','六'][now.getDay()]}`;
+        };
+
+        onMounted(async () => {
+          await db.init();
+          setCurrentDate();
+          await loadReport();
+        });
+
+        return {
+          isLoading,
+          currentDate,
+          stats,
+          weakWords,
+          aiSuggestions,
+          refreshReport,
+          goBack
+        };
+      }
+    };
+
+    // 初始化函数，供 router.js 调用
+    window.initReportApp = function() {
+      // Vue 3 已通过 CDN 全局加载
+      const { createApp, ref, onMounted } = Vue;
+      createApp(ReportApp).mount('#app');
+    };
+  </script>
+</body>
+</html>

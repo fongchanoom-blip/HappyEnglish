@@ -3,6 +3,7 @@ const routes = {
   '/test': 'test',
   '/review': 'review',
   '/stats': 'stats',
+  '/report': 'report',
   '/profile': 'profile'
 };
 
@@ -10,7 +11,8 @@ const routes = {
 const routeFiles = {
   'home': null,  // 首页在主文件 index.html 中
   'profile': 'src/pages/profile.html',
-  'review': 'src/pages/review.html'
+  'review': 'src/pages/review.html',
+  'report': 'src/pages/report.html'
 };
 
 class Router {
@@ -65,6 +67,9 @@ class Router {
         }
         if (window.initReviewApp) {
           window.initReviewApp();
+        }
+        if (window.initReportApp) {
+          window.initReportApp();
         }
       } catch (e) {
         console.error('加载页面失败:', e);
