@@ -50,7 +50,7 @@ class SpacedRepetitionEngine {
    * @param {number} limit - 返回数量限制
    * @returns {Array} 待复习单词列表
    */
-  getWordsForReview(progress, limit = 20) {
+  getWordsForReview(progress, limit = 20, errorPatterns = []) {
     const now = Date.now();
     return progress
       .filter(p => {
@@ -59,30 +59,94 @@ class SpacedRepetitionEngine {
         return p.nextReview <= now;
       })
       .sort((a, b) => {
-        // 优先级排序：高错误率 > 低掌握度 > 早到期
-        const aScore = this.calculatePriority(a);
-        const bScore = this.calculatePriority(b);
-        return bScore - aScore;
+        // 获取错误类型
+        const aErrors = errorPatterns.filter(e => e.wordId === a.wordId).map(e => e.type) || [];
+        const bErrors = errorPatterns.filter(e => e.wordId === b.wordId).map(e => e.type) || [];
+
+        // 优先级排序
+        const aResult = this.calculatePriority(a.wordId, a, aErrors);
+        const bResult = this.calculatePriority(b.wordId, b, bErrors);
+        return bResult.priority - aResult.priority;
       })
       .slice(0, limit);
   }
 
   /**
-   * 计算优先级分数
+   * 计算优先级分数（增强版）
+   * @param {string} wordId - 单词ID
    * @param {Object} mastery - 掌握度数据
-   * @returns {number} 优先级分数（越高越优先）
+   * @param {Array} errorTypes - 错误类型数组 ['spelling', 'meaning', 'phonetic', 'grammar']
+   * @returns {Object} { priority: number, nextReview: timestamp, reasons: string[] }
    */
-  calculatePriority(mastery) {
+  calculatePriority(wordId, mastery, errorTypes = []) {
     let score = 0;
+    const reasons = [];
+
     // 错误次数权重
-    score += (mastery.errors || 0) * 10;
+    const errors = mastery.errors || 0;
+    score += errors * 10;
+    if (errors > 0) {
+      reasons.push(`错误${errors}次`);
+    }
+
     // 掌握度权重（越低越优先）
-    score += (1 - (mastery.known || 0)) * 20;
+    const known = mastery.known || 0;
+    const knownWeight = (1 - known) * 20;
+    score += knownWeight;
+    if (known < 0.5) {
+      reasons.push(`掌握度较低(${Math.round(known * 100)}%)`);
+    }
+
+    // 错误类型权重（拼写错误权重更高）
+    errorTypes.forEach(type => {
+      switch (type) {
+        case 'spelling':
+          score += 15;
+          reasons.push('拼写困难');
+          break;
+        case 'meaning':
+          score += 10;
+          reasons.push('词义混淆');
+          break;
+        case 'phonetic':
+          score += 8;
+          reasons.push('发音困难');
+          break;
+        case 'grammar':
+          score += 5;
+          reasons.push('语法困难');
+          break;
+      }
+    });
+
     // 到期时间权重（越早到期越优先）
     if (mastery.nextReview) {
-      score -= (mastery.nextReview - Date.now()) / (1000 * 60 * 60); // 小时
+      const hoursUntilDue = (mastery.nextReview - Date.now()) / (1000 * 60 * 60);
+      score -= hoursUntilDue; // 负值表示越早到期分数越高
+      if (hoursUntilDue < 0) {
+        reasons.push('已逾期');
+      }
+    } else {
+      // 新单词，适度提升优先级
+      score += 5;
+      reasons.push('新单词');
     }
-    return score;
+
+    // 计算下次复习时间（基于记忆强度衰减）
+    let nextReview = mastery.nextReview || Date.now();
+    if (!mastery.nextReview) {
+      // 新单词安排在1天后
+      nextReview = Date.now() + 24 * 60 * 60 * 1000;
+    } else if (errors > 2) {
+      // 错误次数多，提前复习
+      nextReview = Math.min(nextReview, Date.now() + 2 * 60 * 60 * 1000); // 2小时后再试
+    }
+
+    return {
+      priority: score,
+      nextReview,
+      reasons
+    };
   }
 
   /**

@@ -11,7 +11,76 @@ class LearningCompanion {
     this.streak = parseInt(localStorage.getItem('companion_streak') || '0');
     this.milestones = this.loadMilestones();
     this.preferences = this.loadPreferences();
+
+    // 事件系统
+    this._eventHandlers = {};
   }
+
+  // ========== 事件系统 ==========
+
+  /**
+   * 监听事件
+   * @param {string} event - 事件名
+   * @param {Function} handler - 回调函数
+   */
+  on(event, handler) {
+    if (!this._eventHandlers[event]) {
+      this._eventHandlers[event] = [];
+    }
+    this._eventHandlers[event].push(handler);
+  }
+
+  /**
+   * 取消监听
+   * @param {string} event - 事件名
+   * @param {Function} handler - 回调函数
+   */
+  off(event, handler) {
+    if (!this._eventHandlers[event]) return;
+    this._eventHandlers[event] = this._eventHandlers[event].filter(h => h !== handler);
+  }
+
+  /**
+   * 触发事件
+   * @param {string} event - 事件名
+   * @param {*} data - 事件数据
+   */
+  trigger(event, data) {
+    const handlers = this._eventHandlers[event] || [];
+    handlers.forEach(handler => {
+      try {
+        handler(data);
+      } catch (e) {
+        console.error(`事件处理出错 [${event}]:`, e);
+      }
+    });
+  }
+
+  /**
+   * 触发里程碑事件
+   * @param {Object} data - { type: string, value: any }
+   */
+  triggerMilestone(data) {
+    this.trigger('milestone', data);
+  }
+
+  /**
+   * 触发学习建议事件
+   * @param {Object} data - { wordId: string, plan: Object }
+   */
+  triggerSuggestion(data) {
+    this.trigger('suggestion', data);
+  }
+
+  /**
+   * 触发成就事件
+   * @param {Object} data - { achievement: string, details: Object }
+   */
+  triggerAchievement(data) {
+    this.trigger('achievement', data);
+  }
+
+  // ========== 原有方法 ==========
 
   // 加载里程碑
   loadMilestones() {
@@ -175,6 +244,8 @@ class LearningCompanion {
     checks.forEach(check => {
       if (check.condition() && this.recordMilestone(check.milestone)) {
         newMilestones.push(check.milestone);
+        // 触发里程碑事件
+        this.triggerMilestone({ type: check.milestone, context });
       }
     });
 
