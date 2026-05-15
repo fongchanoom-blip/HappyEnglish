@@ -263,6 +263,24 @@
       background: #e64c4c;
     }
 
+    /* 成就墙按钮 */
+    .achievements-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .achievements-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
     /* 底部导航 */
     .tab-bar {
       position: fixed;
@@ -405,6 +423,9 @@
         },
         goReport() {
           window.router.navigate('/report');
+        },
+        goAchievements() {
+          window.router.navigate('/achievements');
         },
         resetData() {
           if (confirm('确定要重置所有学习数据吗？此操作不可恢复！')) {
@@ -549,6 +570,7 @@
                 <div v-else class="badge-condition">已获得</div>
               </div>
             </div>
+            <button class="achievements-btn" @click="goAchievements">查看成就墙</button>
           </div>
 
           <!-- 重置数据 -->

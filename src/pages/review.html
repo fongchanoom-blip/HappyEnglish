@@ -27,6 +27,17 @@
     </div>
   </div>
 
+  <!-- 每日目标进度 -->
+  <div v-if="reviewMode === 'smart'" class="daily-goal">
+    <div class="goal-info">
+      <span class="goal-label">今日目标</span>
+      <span class="goal-count">{{ dailyReviewed }}/{{ dailyGoal }}</span>
+    </div>
+    <div class="goal-bar">
+      <div class="goal-fill" :style="{width: Math.min(100, (dailyReviewed / dailyGoal) * 100) + '%'}" :class="{complete: dailyReviewed >= dailyGoal}"></div>
+    </div>
+  </div>
+
   <!-- 智能复习模式 -->
   <div v-if="reviewMode === 'smart'" class="smart-review">
     <!-- 复习进度条 -->
@@ -41,9 +52,35 @@
     </div>
 
     <!-- 复习卡片 -->
-    <div v-if="currentReviewWord" class="review-card">
+    <div v-if="currentReviewWord" class="review-card" :class="{flipped: showAnswer}">
+      <!-- 优先级原因 -->
+      <div v-if="currentReviewWord.priorityReasons && currentReviewWord.priorityReasons.length > 0" class="priority-reasons">
+        <span v-for="(reason, idx) in currentReviewWord.priorityReasons" :key="idx" class="reason-tag">{{ reason }}</span>
+      </div>
+
       <div class="review-word">{{ currentReviewWord.word }}</div>
       <div class="review-phonetic">{{ currentReviewWord.phonetic }}</div>
+
+      <!-- 记忆强度进度条 -->
+      <div class="memory-strength">
+        <span class="strength-label">记忆强度</span>
+        <div class="strength-bar">
+          <div class="strength-fill" :style="{width: (currentReviewWord.known || 0.5) * 100 + '%'}"></div>
+        </div>
+        <span class="strength-value">{{ Math.round((currentReviewWord.known || 0.5) * 100) }}%</span>
+      </div>
+
+      <!-- 错误类型标签 -->
+      <div v-if="currentReviewWord.errorTypes && currentReviewWord.errorTypes.length > 0" class="error-tags">
+        <span v-for="(type, idx) in currentReviewWord.errorTypes" :key="idx" class="error-tag" :class="type">{{ errorTypeLabels[type] || type }}</span>
+      </div>
+
+      <!-- 预期复习时间 -->
+      <div v-if="currentReviewWord.nextReview" class="expect-time">
+        <span class="time-icon">⏰</span>
+        <span>{{ formatExpectTime(currentReviewWord.nextReview) }}</span>
+      </div>
+
       <div class="review-hint" v-if="showAnswer">
         {{ currentReviewWord.translation }}
       </div>
@@ -53,6 +90,30 @@
     </div>
 
     <!-- 空状态 -->
+    <div v-else-if="!isLoading && reviewComplete" class="complete-state">
+      <div class="complete-animation">
+        <div class="trophy">🏆</div>
+        <div class="confetti"></div>
+      </div>
+      <div class="complete-text">太棒了！本次复习完成！</div>
+      <div class="complete-stats">
+        <div class="stat-item">
+          <span class="stat-num">{{ sessionCorrect }}</span>
+          <span class="stat-label">答对</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">{{ sessionWrong }}</span>
+          <span class="stat-label">答错</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">{{ Math.round((sessionCorrect / Math.max(1, sessionCorrect + sessionWrong)) * 100) }}%</span>
+          <span class="stat-label">正确率</span>
+        </div>
+      </div>
+      <button class="btn btn-secondary" @click="reviewMode = 'list'">返回列表</button>
+      <button class="btn btn-known" @click="resetReview">继续复习</button>
+    </div>
+
     <div v-else-if="!isLoading" class="empty-state">
       <div class="empty-icon">🎉</div>
       <div class="empty-text">太棒了！没有待复习的单词！</div>
@@ -66,16 +127,23 @@
         class="btn btn-reveal"
         @click="showAnswer = true"
       >
-        显示答案
+        显示答案 <span class="shortcut-hint">Space</span>
       </button>
       <template v-else>
         <button class="btn btn-forgot" @click="handleReview(false)">
-          不认识
+          不认识 <span class="shortcut-hint">1</span>
         </button>
         <button class="btn btn-known" @click="handleReview(true)">
-          认识
+          认识 <span class="shortcut-hint">2</span>
         </button>
       </template>
+    </div>
+
+    <!-- 键盘快捷键提示 -->
+    <div v-if="currentReviewWord" class="keyboard-hint">
+      <span class="hint-item"><kbd>1</kbd> 不认识</span>
+      <span class="hint-item"><kbd>2</kbd> 认识</span>
+      <span class="hint-item"><kbd>Space</kbd> 显示答案</span>
     </div>
   </div>
 
@@ -202,6 +270,37 @@
 .smart-stat { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
 .smart-stat .num, .smart-stat .label { color: white; }
 
+/* 每日目标进度条 */
+.daily-goal {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.goal-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.goal-label { font-size: 14px; color: var(--text-secondary); }
+.goal-count { font-size: 14px; font-weight: 600; color: var(--primary); }
+.goal-bar {
+  height: 8px;
+  background: #E4E7ED;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.goal-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, #667eea 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.goal-fill.complete {
+  background: linear-gradient(90deg, #67C23A 0%, #85CE61 100%);
+}
+
 .filter-bar {
   display: flex;
   gap: 8px;
@@ -262,7 +361,33 @@
   justify-content: center;
   padding: 40px 20px;
   text-align: center;
+  transition: transform 0.3s ease;
 }
+.review-card.flipped {
+  animation: flipCard 0.5s ease;
+}
+@keyframes flipCard {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* 优先级原因标签 */
+.priority-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.reason-tag {
+  padding: 4px 12px;
+  background: rgba(245, 108, 108, 0.1);
+  color: #F56C6C;
+  border-radius: 16px;
+  font-size: 12px;
+}
+
 .review-word {
   font-size: 36px;
   font-weight: 700;
@@ -272,8 +397,73 @@
 .review-phonetic {
   font-size: 18px;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
+
+/* 记忆强度进度条 */
+.memory-strength {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 16px;
+}
+.strength-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.strength-bar {
+  flex: 1;
+  height: 6px;
+  background: #E4E7ED;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.strength-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F56C6C 0%, #E6A23C 50%, #67C23A 100%);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.strength-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* 错误类型标签 */
+.error-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.error-tag {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.error-tag.spelling { background: rgba(245, 108, 108, 0.15); color: #F56C6C; }
+.error-tag.meaning { background: rgba(230, 162, 60, 0.15); color: #E6A23C; }
+.error-tag.phonetic { background: rgba(64, 158, 255, 0.15); color: #409EFF; }
+.error-tag.grammar { background: rgba(156, 39, 176, 0.15); color: #9C27B0; }
+
+/* 预期复习时间 */
+.expect-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.time-icon { font-size: 14px; }
+
 .review-hint {
   font-size: 20px;
   color: var(--primary);
@@ -299,9 +489,19 @@
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 .review-actions .btn:active {
   transform: scale(0.95);
+}
+.shortcut-hint {
+  padding: 2px 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+  font-size: 11px;
 }
 .btn-reveal {
   background: var(--primary);
@@ -315,6 +515,104 @@
   background: var(--danger, #F56C6C);
   color: white;
 }
+
+/* 键盘快捷键提示 */
+.keyboard-hint {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #E4E7ED;
+}
+.hint-item {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hint-item kbd {
+  padding: 2px 8px;
+  background: #F5F7FA;
+  border: 1px solid #E4E7ED;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+/* 复习完成动画 */
+.complete-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.complete-animation {
+  position: relative;
+  margin-bottom: 24px;
+}
+.trophy {
+  font-size: 64px;
+  animation: bounce 1s ease infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: #F56C6C;
+  border-radius: 50%;
+  animation: confettiFall 1.5s ease-out infinite;
+}
+.confetti:nth-child(2) { background: #E6A23C; animation-delay: 0.2s; }
+.confetti:nth-child(3) { background: #67C23A; animation-delay: 0.4s; }
+.confetti:nth-child(4) { background: #409EFF; animation-delay: 0.6s; }
+.confetti:nth-child(5) { background: #9C27B0; animation-delay: 0.8s; }
+@keyframes confettiFall {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--x, 30px)), calc(-50% + var(--y, 100px))) scale(1); opacity: 0; }
+}
+.complete-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.complete-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  background: #F5F7FA;
+  border-radius: 12px;
+}
+.stat-item .stat-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.stat-item .stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
 .btn-secondary {
   background: var(--text-secondary);
   color: white;
@@ -404,6 +702,17 @@
   color: var(--text-secondary);
   font-size: 14px;
 }
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .review-word { font-size: 28px; }
+  .review-phonetic { font-size: 16px; }
+  .review-hint { font-size: 16px; padding: 12px 16px; }
+  .keyboard-hint { flex-wrap: wrap; gap: 8px; }
+  .complete-stats { gap: 12px; }
+  .stat-item { padding: 12px 16px; }
+  .stat-item .stat-num { font-size: 24px; }
+}
 </style>
 
 <script>
@@ -422,19 +731,33 @@ function initReviewApp() {
           weak: '薄弱',
           unknown: '陌生'
         },
+        errorTypeLabels: {
+          spelling: '拼写',
+          meaning: '词义',
+          phonetic: '发音',
+          grammar: '语法'
+        },
         // 智能复习相关
         reviewMode: 'list', // 'list' | 'smart'
         reviewWords: [],
         reviewIndex: 0,
         showAnswer: false,
         isLoading: false,
+        reviewComplete: false,
+        sessionCorrect: 0,
+        sessionWrong: 0,
+        // 每日目标
+        dailyGoal: 20,
+        dailyReviewed: 0,
         reviewStats: {
           total: 0,
           due: 0,
           mastered: 0,
           learning: 0,
           masteredRate: 0
-        }
+        },
+        // 键盘快捷键绑定状态
+        keyboardBound: false
       };
     },
     computed: {
@@ -495,37 +818,146 @@ function initReviewApp() {
 
           this.weakWords = grouped.weak || [];
           this.unknownWords = grouped.unknown || [];
+
+          // 加载每日复习进度
+          this.loadDailyProgress();
         }
+      },
+      // 格式化预期复习时间
+      formatExpectTime(timestamp) {
+        if (!timestamp) return '待安排';
+        const now = Date.now();
+        const diff = timestamp - now;
+        const hours = diff / (1000 * 60 * 60);
+        const days = hours / 24;
+
+        if (diff < 0) {
+          return '已逾期';
+        } else if (hours < 1) {
+          return `${Math.round(diff / (1000 * 60))}分钟后`;
+        } else if (hours < 24) {
+          return `${Math.round(hours)}小时后`;
+        } else {
+          return `${Math.round(days)}天后`;
+        }
+      },
+      // 加载每日复习进度
+      async loadDailyProgress() {
+        try {
+          const today = new Date().toDateString();
+          const stored = localStorage.getItem('happyenglish-daily-review');
+          if (stored) {
+            const data = JSON.parse(stored);
+            if (data.date === today) {
+              this.dailyReviewed = data.count || 0;
+            }
+          }
+        } catch (e) {
+          console.error('加载每日进度失败', e);
+        }
+      },
+      // 保存每日复习进度
+      async saveDailyProgress() {
+        try {
+          const today = new Date().toDateString();
+          localStorage.setItem('happyenglish-daily-review', JSON.stringify({
+            date: today,
+            count: this.dailyReviewed
+          }));
+        } catch (e) {
+          console.error('保存每日进度失败', e);
+        }
+      },
+      // 重置复习
+      resetReview() {
+        this.reviewComplete = false;
+        this.sessionCorrect = 0;
+        this.sessionWrong = 0;
+        this.reviewIndex = 0;
+        this.showAnswer = false;
+        this.loadSmartReview();
       },
       // 切换复习模式
       async toggleReviewMode() {
         if (this.reviewMode === 'list') {
           this.reviewMode = 'smart';
+          this.bindKeyboard();
           await this.loadSmartReview();
         } else {
           this.reviewMode = 'list';
+          this.unbindKeyboard();
+        }
+      },
+      // 绑定键盘快捷键
+      bindKeyboard() {
+        if (this.keyboardBound) return;
+        this.keyboardHandler = (e) => this.handleKeydown(e);
+        document.addEventListener('keydown', this.keyboardHandler);
+        this.keyboardBound = true;
+      },
+      // 解绑键盘快捷键
+      unbindKeyboard() {
+        if (!this.keyboardBound || !this.keyboardHandler) return;
+        document.removeEventListener('keydown', this.keyboardHandler);
+        this.keyboardBound = false;
+      },
+      // 处理键盘事件
+      handleKeydown(e) {
+        // 忽略输入框中的按键
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        switch (e.key) {
+          case '1':
+            if (this.currentReviewWord && this.showAnswer) {
+              this.handleReview(false);
+            }
+            break;
+          case '2':
+            if (this.currentReviewWord && this.showAnswer) {
+              this.handleReview(true);
+            }
+            break;
+          case ' ':
+          case 'Enter':
+            if (this.currentReviewWord && !this.showAnswer) {
+              e.preventDefault();
+              this.showAnswer = true;
+            }
+            break;
         }
       },
       // 加载智能复习数据
       async loadSmartReview() {
         this.isLoading = true;
+        this.reviewComplete = false;
         try {
           // 获取所有掌握度数据
           const allMastery = await window.db.getAllMastery() || [];
 
           // 使用复习引擎获取待复习单词
           if (window.spacedRepetition) {
-            const dueWords = window.spacedRepetition.getWordsForReview(allMastery, 20);
+            // 获取错误类型数据
+            const errorPatterns = await window.db.getErrorPatterns ? await window.db.getErrorPatterns() : [];
 
-            // 获取单词详情
+            const dueWords = window.spacedRepetition.getWordsForReview(allMastery, 20, errorPatterns);
+
+            // 获取单词详情并计算优先级原因
             const allWords = window.vocabulary?.words || [];
 
-            // 合并数据
             this.reviewWords = dueWords.map(m => {
               const wordInfo = allWords.find(w => w.id === m.wordId) || {};
+              const wordErrors = errorPatterns.filter(e => e.wordId === m.wordId).map(e => e.type);
+
+              // 计算优先级原因
+              const priorityResult = window.spacedRepetition.calculatePriority(m.wordId, m, wordErrors);
+
               return {
                 ...wordInfo,
-                mastery: m
+                mastery: m,
+                priorityReasons: priorityResult.reasons || [],
+                errorTypes: wordErrors,
+                known: m.known || 0.5,
+                nextReview: m.nextReview
               };
             }).filter(w => w.word); // 只保留有单词信息的
 
@@ -566,12 +998,24 @@ function initReviewApp() {
             recall: correct ? Math.min(1, (mastery.recall || 0) + 0.1) : Math.max(0, (mastery.recall || 0) - 0.2)
           });
 
+          // 更新本次会话统计
+          if (correct) {
+            this.sessionCorrect++;
+          } else {
+            this.sessionWrong++;
+          }
+
+          // 更新每日进度
+          this.dailyReviewed++;
+          this.saveDailyProgress();
+
           // 移动到下一个
           this.reviewIndex++;
           this.showAnswer = false;
 
-          // 如果完成，刷新统计
+          // 如果完成，显示完成状态
           if (this.reviewIndex >= this.reviewWords.length) {
+            this.reviewComplete = true;
             const allMastery = await window.db.getAllMastery() || [];
             this.reviewStats = window.spacedRepetition.getReviewStats(allMastery);
           }
@@ -582,6 +1026,9 @@ function initReviewApp() {
     },
     mounted() {
       this.loadData();
+    },
+    beforeUnmount() {
+      this.unbindKeyboard();
     }
   };
 

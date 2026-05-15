@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>成就墙 - HappyEnglish</title>
+  <style>
+    :root {
+      --primary: #4A90D9;
+      --success: #67C23A;
+      --warning: #E6A23C;
+      --gold: #FFD700;
+      --text-primary: #303133;
+      --text-secondary: #909399;
+      --bg-color: #F5F7FA;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-color);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* 页面容器 */
+    .achievements-page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* 页面标题 */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 8px 0;
+    }
+
+    .page-header .back-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .page-header h1 {
+      font-size: 20px;
+      color: var(--text-primary);
+    }
+
+    /* 统计卡片 */
+    .stats-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      padding: 20px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stats-item {
+      text-align: center;
+    }
+
+    .stats-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .stats-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .stats-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* 进度条 */
+    .progress-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      background: rgba(255,255,255,0.3);
+      border-radius: 10px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: white;
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+
+    /* 类别标签 */
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding: 4px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: white;
+      border: none;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .category-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .category-tab .count {
+      display: inline-block;
+      background: rgba(0,0,0,0.1);
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    .category-tab.active .count {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* 成就网格 */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .achievement-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .achievement-card.locked {
+      opacity: 0.6;
+    }
+
+    .achievement-card.locked .achievement-icon {
+      filter: grayscale(100%);
+    }
+
+    .achievement-card.unlocked {
+      background: linear-gradient(135deg, #fff 0%, #fff9e6 100%);
+    }
+
+    .achievement-card.unlocked::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), #FFA500);
+    }
+
+    .achievement-icon {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+
+    .achievement-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .achievement-description {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    /* 进度条 */
+    .achievement-progress {
+      margin-top: 8px;
+    }
+
+    .progress-text {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .progress-bar-small {
+      background: #E8E8E8;
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .progress-fill-small {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .achievement-card.unlocked .progress-fill-small {
+      background: linear-gradient(90deg, var(--gold), #FFA500);
+    }
+
+    /* 解锁时间 */
+    .unlocked-time {
+      font-size: 10px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    /* 积分标签 */
+    .points-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--gold);
+      color: #333;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    /* 新成就标签 */
+    .new-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #F56C6C;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 8px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* 最近解锁区域 */
+    .recent-section {
+      margin-top: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recent-list {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 4px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .recent-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .recent-card {
+      flex-shrink: 0;
+      width: 100px;
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .recent-card .achievement-icon {
+      font-size: 28px;
+    }
+
+    .recent-card .achievement-name {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .recent-card .unlocked-time {
+      font-size: 9px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* 底部导航 */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .tab-item.active, .tab-item:hover {
+      color: var(--primary);
+    }
+
+    .tab-item .icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .tab-item .text {
+      font-size: 11px;
+    }
+
+    /* 空状态 */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    /* 动画 */
+    .achievement-card.animate {
+      animation: unlock-animation 0.6s ease-out;
+    }
+
+    @keyframes unlock-animation {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="achievementsApp"></div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    // 成就类别名称
+    const CATEGORY_NAMES = {
+      learning: '学习成就',
+      streak: '连续成就',
+      accuracy: '准确率成就',
+      exploration: '探索成就',
+      ai: 'AI互动成就'
+    };
+
+    const achievementsApp = {
+      data() {
+        return {
+          currentCategory: 'all',
+          stats: {
+            total: 0,
+            unlocked: 0,
+            locked: 0,
+            percentage: 0,
+            totalPoints: 0,
+            earnedPoints: 0
+          },
+          achievements: [],
+          recentUnlocked: [],
+          categories: [
+            { id: 'all', name: '全部' },
+            { id: 'learning', name: '学习' },
+            { id: 'streak', name: '连续' },
+            { id: 'accuracy', name: '准确率' },
+            { id: 'exploration', name: '探索' },
+            { id: 'ai', name: 'AI互动' }
+          ]
+        };
+      },
+      computed: {
+        filteredAchievements() {
+          if (this.currentCategory === 'all') {
+            return this.achievements;
+          }
+          return this.achievements.filter(a => a.category === this.currentCategory);
+        },
+        categoryCount() {
+          const counts = {};
+          this.categories.forEach(cat => {
+            if (cat.id === 'all') {
+              counts[cat.id] = this.achievements.length;
+            } else {
+              counts[cat.id] = this.achievements.filter(a => a.category === cat.id).length;
+            }
+          });
+          return counts;
+        }
+      },
+      methods: {
+        goProfile() {
+          window.router.navigate('/profile');
+        },
+        goHome() {
+          window.router.navigate('/');
+        },
+        goTest() {
+          window.router.navigate('/test');
+        },
+        goReview() {
+          window.router.navigate('/review');
+        },
+        goReport() {
+          window.router.navigate('/report');
+        },
+        selectCategory(categoryId) {
+          this.currentCategory = categoryId;
+        },
+        formatTime(isoString) {
+          if (!isoString) return '';
+          const date = new Date(isoString);
+          const month = date.getMonth() + 1;
+          const day = date.getDate();
+          return `${month}月${day}日`;
+        },
+        getProgressPercent(progress) {
+          if (!progress) return 0;
+          const { current, target } = progress;
+          return Math.min(100, Math.round((current / target) * 100));
+        },
+        async loadData() {
+          // 等待 achievementSystem 加载
+          if (!window.achievementSystem) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+
+          if (window.achievementSystem) {
+            const system = window.achievementSystem;
+            this.stats = system.getStats();
+            this.achievements = system.getAllProgress();
+            this.recentUnlocked = system.getRecentlyUnlocked(5);
+          }
+        },
+        getNewBadgeTime() {
+          // 返回最近24小时内解锁的成就ID列表
+          if (!window.achievementSystem) return [];
+          const recent = window.achievementSystem.unlockedTimes;
+          const now = Date.now();
+          const dayInMs = 24 * 60 * 60 * 1000;
+          const newIds = [];
+
+          for (const id in recent) {
+            const time = new Date(recent[id]).getTime();
+            if (now - time < dayInMs) {
+              newIds.push(id);
+            }
+          }
+
+          return newIds;
+        }
+      },
+      mounted() {
+        this.loadData();
+        // 监听成就解锁事件
+        window.addEventListener('achievement-unlocked', () => {
+          this.loadData();
+        });
+      },
+      template: `
+        <div class="achievements-page">
+          <!-- 页面标题 -->
+          <div class="page-header">
+            <button class="back-btn" @click="goProfile">←</button>
+            <h1>成就墙</h1>
+          </div>
+
+          <!-- 统计卡片 -->
+          <div class="stats-card">
+            <div class="stats-row">
+              <div class="stats-item">
+                <div class="stats-value">{{ stats.unlocked }}/{{ stats.total }}</div>
+                <div class="stats-label">已解锁</div>
+              </div>
+              <div class="stats-divider"></div>
+              <div class="stats-item">
+                <div class="stats-value">{{ stats.percentage }}%</div>
+                <div class="stats-label">完成度</div>
+              </div>
+              <div class="stats-divider"></div>
+              <div class="stats-item">
+                <div class="stats-value">{{ stats.earnedPoints }}</div>
+                <div class="stats-label">获得积分</div>
+              </div>
+            </div>
+
+            <div class="progress-section">
+              <div class="progress-header">
+                <span>总进度</span>
+                <span>{{ stats.earnedPoints }}/{{ stats.totalPoints }} 积分</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" :style="{ width: stats.percentage + '%' }"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 类别标签 -->
+          <div class="category-tabs">
+            <button
+              v-for="cat in categories"
+              :key="cat.id"
+              :class="['category-tab', { active: currentCategory === cat.id }]"
+              @click="selectCategory(cat.id)"
+            >
+              {{ cat.name }}<span class="count">{{ categoryCount[cat.id] || 0 }}</span>
+            </button>
+          </div>
+
+          <!-- 成就网格 -->
+          <div class="achievements-grid">
+            <div
+              v-for="achievement in filteredAchievements"
+              :key="achievement.id"
+              :class="['achievement-card', achievement.isUnlocked ? 'unlocked' : 'locked']"
+            >
+              <div class="points-badge">+{{ achievement.points }}</div>
+              <div
+                v-if="getNewBadgeTime().includes(achievement.id)"
+                class="new-badge"
+              >NEW</div>
+
+              <div class="achievement-icon">{{ achievement.icon }}</div>
+              <div class="achievement-name">{{ achievement.name }}</div>
+              <div class="achievement-description">{{ achievement.description }}</div>
+
+              <div class="achievement-progress">
+                <div class="progress-text">
+                  {{ achievement.progress?.current || 0 }}/{{ achievement.progress?.target || 0 }}
+                </div>
+                <div class="progress-bar-small">
+                  <div
+                    class="progress-fill-small"
+                    :style="{ width: getProgressPercent(achievement.progress) + '%' }"
+                  ></div>
+                </div>
+              </div>
+
+              <div v-if="achievement.isUnlocked" class="unlocked-time">
+                {{ formatTime(achievement.unlockedTime) }} 解锁
+              </div>
+            </div>
+          </div>
+
+          <!-- 最近解锁 -->
+          <div v-if="recentUnlocked.length > 0" class="recent-section">
+            <div class="section-title">最近解锁 🔥</div>
+            <div class="recent-list">
+              <div
+                v-for="item in recentUnlocked"
+                :key="item.id"
+                class="recent-card"
+              >
+                <div class="achievement-icon">{{ item.icon }}</div>
+                <div class="achievement-name">{{ item.name }}</div>
+                <div class="unlocked-time">{{ formatTime(item.unlockedTime) }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 空状态 -->
+          <div v-if="filteredAchievements.length === 0" class="empty-state">
+            <div class="icon">🏆</div>
+            <div>暂无成就</div>
+          </div>
+
+          <!-- 底部导航 -->
+          <div class="tab-bar">
+            <div class="tab-item" @click="goHome">
+              <span class="icon">🏠</span>
+              <span class="text">首页</span>
+            </div>
+            <div class="tab-item" @click="goTest">
+              <span class="icon">📝</span>
+              <span class="text">测试</span>
+            </div>
+            <div class="tab-item" @click="goReview">
+              <span class="icon">📖</span>
+              <span class="text">复习</span>
+            </div>
+            <div class="tab-item" @click="goReport">
+              <span class="icon">📊</span>
+              <span class="text">报告</span>
+            </div>
+            <div class="tab-item active" @click="goProfile">
+              <span class="icon">👤</span>
+              <span class="text">我的</span>
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    // 导出初始化函数
+    window.initAchievementsApp = function() {
+      Vue.createApp(achievementsApp).mount('#achievementsApp');
+    };
+
+    // 立即初始化
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', window.initAchievementsApp);
+    } else {
+      window.initAchievementsApp();
+    }
+  </script>
+</body>
+</html>

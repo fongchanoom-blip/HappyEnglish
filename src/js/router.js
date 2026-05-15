@@ -4,7 +4,8 @@ const routes = {
   '/review': 'review',
   '/stats': 'stats',
   '/report': 'report',
-  '/profile': 'profile'
+  '/profile': 'profile',
+  '/achievements': 'achievements'
 };
 
 // 路由到 HTML 文件的映射
@@ -12,7 +13,8 @@ const routeFiles = {
   'home': null,  // 首页在主文件 index.html 中
   'profile': 'src/pages/profile.html',
   'review': 'src/pages/review.html',
-  'report': 'src/pages/report.html'
+  'report': 'src/pages/report.html',
+  'achievements': 'src/pages/achievements.html'
 };
 
 class Router {
@@ -70,6 +72,9 @@ class Router {
         }
         if (window.initReportApp) {
           window.initReportApp();
+        }
+        if (window.initAchievementsApp) {
+          window.initAchievementsApp();
         }
 
         // 初始化学习伙伴组件
