@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="HappyEnglish - 中考英语备考助手，帮助初中生高效复习英语词汇和语法">
   <title>HappyEnglish - 中考英语备考助手</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="app">
@@ -13,17 +13,17 @@
     <div id="homeApp"></div>
   </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="assets/js/app.js"></script>
-  <script src="src/js/learning-companion.js"></script>
-  <script src="src/js/trigger-engine.js"></script>
-  <script src="src/components/companion-widget.js"></script>
-  <script src="src/js/router.js"></script>
-  <script src="src/js/store.js"></script>
-  <script src="src/js/db.js"></script>
-  <script src="src/js/spaced-repetition.js"></script>
-  <script src="src/js/analytics.js"></script>
-  <script src="src/js/memory-profile.js"></script>
-  <script src="src/js/personalized-suggestions.js"></script>
+  <script src="app.js"></script>
+  <script src="js/learning-companion.js"></script>
+  <script src="js/trigger-engine.js"></script>
+  <script src="components/companion-widget.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/spaced-repetition.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/memory-profile.js"></script>
+  <script src="js/personalized-suggestions.js"></script>
   <script type="module">
     // 初始化触发引擎
     window.triggerEngine = new window.TriggerEngine();
@@ -52,7 +52,7 @@
     const vocabulary = window.vocabulary;
 
     // 导入掌握度模块
-    import('./src/js/level.js').then(module => {
+    import('./js/level.js').then(module => {
       const { calculateWordLevel, getWordsByLevel } = module;
       window.getWordsByLevel = getWordsByLevel;
       window.calculateWordLevel = calculateWordLevel;
