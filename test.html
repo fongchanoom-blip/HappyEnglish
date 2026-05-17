@@ -488,7 +488,7 @@
     <!-- 问题卡片 -->
     <div class="question-card" v-if="!finished && currentWord">
       <div class="prompt">{{ mode === 'cn2en' ? '请输入对应的英文单词' : '请输入对应的中文意思' }}</div>
-      <div class="question">{{ mode === 'cn2en' ? currentWord.translation : currentWord.word }}</div>
+      <div class="question">{{ mode === 'cn2en' ? (currentWord.translations?.[0] || '') : currentWord.word }}</div>
       <div class="phonetic" v-if="mode === 'en2cn'">{{ currentWord.phonetic }}</div>
       <input
         type="text"
@@ -510,7 +510,7 @@
       <div class="result-icon">{{ isCorrect ? '✓' : '✗' }}</div>
       <div class="result-text">{{ isCorrect ? '正确！' : '错误' }}</div>
       <div class="correct-answer" v-if="!isCorrect">
-        正确答案：{{ mode === 'cn2en' ? currentWord.word : currentWord.translation }}
+        正确答案：{{ mode === 'cn2en' ? currentWord.word : (currentWord.translations?.[0] || '') }}
       </div>
       <div class="all-answers" v-if="!isCorrect && currentWord.translations && currentWord.translations.length > 1">
         其他可接受答案：{{ otherAnswers }}
@@ -546,64 +546,6 @@
       <div class="stat">正确率: {{ accuracyPercent }}%</div>
     </div>
 
-    <!-- 错题讲解弹窗 -->
-  <div id="explanation-modal" v-if="showExplanation">
-    <div class="modal-backdrop" @click="closeExplanation"></div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>📚 错题讲解</h3>
-        <button class="close-btn" @click="closeExplanation">×</button>
-      </div>
-
-      <div class="modal-body">
-        <!-- 题目信息 -->
-        <div class="question-info">
-          <div class="word-display">{{ currentWord?.word }}</div>
-          <div class="your-answer">
-            <span class="label">你的答案：</span>
-            <span class="wrong">{{ userAnswer }}</span>
-          </div>
-          <div class="correct-answer">
-            <span class="label">正确答案：</span>
-            <span class="correct">{{ correctAnswer }}</span>
-          </div>
-        </div>
-
-        <!-- 加载状态 -->
-        <div v-if="isLoadingExplanation" class="loading">
-          <div class="loading-spinner"></div>
-          <p>AI 正在分析...</p>
-        </div>
-
-        <!-- 讲解内容 -->
-        <div v-else-if="explanation" class="explanation-content">
-          <div class="explanation-text">{{ explanation.content }}</div>
-        </div>
-
-        <!-- 追问区域 -->
-        <div class="follow-up-section" v-if="explanation">
-          <input
-            v-model="followUpQuestion"
-            placeholder="还有问题？问一问..."
-            @keyup.enter="askFollowUp"
-          />
-          <button @click="askFollowUp">提问</button>
-        </div>
-
-        <!-- 追问回答 -->
-        <div v-if="followUpAnswer" class="follow-up-answer">
-          {{ followUpAnswer }}
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="continue-btn" @click="continueTest">
-          继续练习 →
-        </button>
-      </div>
-    </div>
-  </div>
-
     <!-- 底部导航 -->
     <div class="tab-bar">
       <div class="tab-item" onclick="window.location.href='index.html'"><span class="icon">🏠</span><span class="text">首页</span></div>
@@ -614,6 +556,11 @@
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    // 设置 API Key（必须在加载 ai-service.js 之前）
+    sessionStorage.setItem('minimax_api_key', 'sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY');
+  </script>
+  <script src="src/js/ai-service.js"></script>
   <script>
     // ==================== 词汇数据 ====================
     const vocabulary = [{"id":"word_0001","word":"a","phonetic":"ə","pos":"art","translations":["一"]},{"id":"word_0002","word":"ability","phonetic":"ə'bɪləti","pos":"n","translations":["能力","才能"]},{"id":"word_0003","word":"able","phonetic":"'eɪbl","pos":"adj","translations":["能够","有才能的"]},{"id":"word_0004","word":"about","phonetic":"ə'baʊt","pos":"prep,adv","translations":["关于","大约","在各处"]},{"id":"word_0005","word":"above","phonetic":"ə'bʌv","pos":"prep","translations":["在……上面","在上面"]},{"id":"word_0006","word":"abroad","phonetic":"ə'brɔːd","pos":"adv","translations":["到","在国外"]},{"id":"word_0007","word":"absent","phonetic":"'æbsənt","pos":"adj","translations":["缺席的","不在的","缺乏的"]},{"id":"word_0008","word":"accept","phonetic":"ək'sept","pos":"v","translations":["接受","认可","同意"]},{"id":"word_0009","word":"accident","phonetic":"'æksɪdənt","pos":"n","translations":["事故","意外"]},{"id":"word_0010","word":"according","phonetic":"ə'kɔːdɪ","pos":"adj","translations":["相符的","相应的"]},{"id":"word_0011","word":"account","phonetic":"ə'kaʊnt","pos":"n","translations":["账户","账目","描述","解释"]},{"id":"word_0012","word":"ache","phonetic":"eɪk","pos":"n,v","translations":["疼痛","隐隐作痛"]},{"id":"word_0013","word":"achieve","phonetic":"ə'tʃiːv","pos":"v","translations":["完成","达到","实现"]},{"id":"word_0014","word":"across","phonetic":"ə'krɒs","pos":"prep,adv","translations":["穿过","横过","在对面"]},{"id":"word_0015","word":"act","phonetic":"ækt","pos":"v","translations":["表演","行动","行为","法令","一段表演"]},{"id":"word_0016","word":"action","phonetic":"'ækʃn","pos":"n","translations":["行动","行为","动作"]},{"id":"word_0017","word":"active","phonetic":"'æktɪv","pos":"adj","translations":["活跃的","积极的"]},{"id":"word_0018","word":"activity","phonetic":"æk'tɪvəti","pos":"n","translations":["活动"]},{"id":"word_0019","word":"actor","phonetic":"'æktə(r)","pos":"n","translations":["演员"]},{"id":"word_0020","word":"actually","phonetic":"'æktʃuəli","pos":"adv","translations":["实际上","事实上"]},{"id":"word_0021","word":"ad","phonetic":"æd","pos":"abbr","translations":["广告"]},{"id":"word_0022","word":"add","phonetic":"æd","pos":"v","translations":["增加","添加","补充说"]},{"id":"word_0023","word":"address","phonetic":"ə'dres","pos":"n","translations":["地址","演说"]},{"id":"word_0024","word":"admire","phonetic":"əd'maɪə(r)","pos":"v","translations":["欣赏","仰慕","钦佩","赞赏"]},{"id":"word_0025","word":"adult","phonetic":"ə'dʌlt","pos":"adj,n","translations":["成年的","成人的","成人"]},{"id":"word_0026","word":"advantage","phonetic":"əd'vɑːntɪdʒ","pos":"n","translations":["优点","有利条件"]},{"id":"word_0027","word":"advice","phonetic":"əd'vaɪs","pos":"n","translations":["劝告","建议"]},{"id":"word_0028","word":"advise","phonetic":"əd'vaɪz","pos":"v","translations":["劝告","建议"]},{"id":"word_0029","word":"afford","phonetic":"ə'fɔːd","pos":"v","translations":["承担得起","买得起"]},{"id":"word_0030","word":"afraid","phonetic":"ə'freɪd","pos":"adj","translations":["害怕的","担心的"]},{"id":"word_0031","word":"after","phonetic":"'ɑːftə(r)","pos":"prep,conj","translations":["在……后","以后"]},{"id":"word_0032","word":"afternoon","phonetic":"'ɑːftə'nuːn","pos":"n","translations":["下午"]},{"id":"word_0033","word":"again","phonetic":"ə'ɡen","pos":"adv","translations":["再一次","又一次"]},{"id":"word_0034","word":"against","phonetic":"ə'ɡenst","pos":"prep","translations":["对……不利","反对","倚","紧靠","对抗"]},{"id":"word_0035","word":"age","phonetic":"eɪdʒ","pos":"n","translations":["年龄","时代","老年"]},{"id":"word_0036","word":"ago","phonetic":"ə'ɡəʊ","pos":"adv","translations":["以前"]},{"id":"word_0037","word":"agree","phonetic":"ə'ɡriː","pos":"v","translations":["同意","赞成"]},{"id":"word_0038","word":"ahead","phonetic":"ə'hed","pos":"adv","translations":["在前面","向前"]},{"id":"word_0039","word":"aid","phonetic":"eɪd","pos":"n,v","translations":["帮助","援助","辅助工具"]},{"id":"word_0040","word":"aim","phonetic":"eɪm","pos":"n,v","translations":["目标","目的","瞄准","旨在"]},{"id":"word_0041","word":"air","phonetic":"eə(r)","pos":"n","translations":["空气","空中"]},{"id":"word_0042","word":"airport","phonetic":"'eəpɔːt","pos":"n","translations":["航空站","机场"]},{"id":"word_0043","word":"alarm","phonetic":"ə'lɑːm","pos":"n","translations":["闹钟","警报"]},{"id":"word_0044","word":"album","phonetic":"'ælbəm","pos":"n","translations":["相册","集邮册","音乐专辑"]},{"id":"word_0045","word":"alike","phonetic":"ə'laɪk","pos":"adj,adv","translations":["相像的","很像地"]},{"id":"word_0046","word":"alive","phonetic":"ə'laɪv","pos":"adj","translations":["活着的","活跃的"]},{"id":"word_0047","word":"all","phonetic":"ɔːl","pos":"adj,pron","translations":["全部的","所有的","全部"]},{"id":"word_0048","word":"allow","phonetic":"ə'laʊ","pos":"v","translations":["允许","准许"]},{"id":"word_0049","word":"almost","phonetic":"'ɔːlməʊst","pos":"adv","translations":["几乎","差不多"]},{"id":"word_0050","word":"alone","phonetic":"ə'ləʊn","pos":"adj,adv","translations":["单独的","独自"]}];
@@ -659,7 +606,7 @@
             const database = event.target.result;
             if (!database.objectStoreNames.contains('progress')) database.createObjectStore('progress', { keyPath: 'wordId' });
             if (!database.objectStoreNames.contains('stats')) database.createObjectStore('stats', { keyPath: 'id' });
-            if (!database.objectStoreNames.contains('errorPatterns')) database.createObjectStore('errorPatterns', { keyPath: 'wordId', autoIncrement: true });
+            if (!database.objectStoreNames.contains('errorPatterns')) database.createObjectStore('errorPatterns', { keyPath: 'id', autoIncrement: true });
           };
         });
       },
@@ -728,14 +675,6 @@
           maxStreak: 0,
           finished: false,
           otherAnswers: '',
-          // 错题讲解相关
-          showExplanation: false,
-          explanation: null,
-          isLoadingExplanation: false,
-          userAnswer: '',
-          correctAnswer: '',
-          followUpQuestion: '',
-          followUpAnswer: '',
           // 发音练习相关
           showPronunciation: false,
           isRecording: false,
@@ -803,15 +742,21 @@
           // 保存进度
           await db.saveProgress(this.currentWord.id, result.correct);
 
-          // 如果答错，显示错题讲解弹窗
+          // 如果答错，直接进入下一题
           if (!result.correct) {
-            this.showExplanation = true;
-            this.userAnswer = this.answer;
-            this.correctAnswer = isChinese ? this.currentWord.word : this.currentWord.translation;
-            this.loadExplanation();
             // 记录错误模式
             db.saveErrorPattern(this.currentWord.word, this.answer, this.correctAnswer);
-            return; // 不自动进入下一题，等待用户关闭弹窗
+            setTimeout(async () => {
+              this.showResult = false;
+              this.answer = '';
+              this.currentIndex++;
+              if (this.currentIndex >= this.words.length) {
+                this.finished = true;
+                const stats = await db.getStats();
+                await db.saveStats({ ...stats, maxStreak: this.maxStreak, streak: this.streak });
+              }
+            }, 1500);
+            return;
           }
 
           // 下一题（答对时）
@@ -851,32 +796,10 @@
           this.isLoadingExplanation = false;
         },
 
-        // 追问
-        async askFollowUp() {
-          if (!this.followUpQuestion.trim()) return;
-
-          const prompt = `
-请回答关于单词 "${this.currentWord.word}" 的问题：
-
-问题：${this.followUpQuestion}
-
-回答要求：简洁明了，100字以内，适合中学生理解。
-`;
-
-          try {
-            this.followUpAnswer = await window.aiService.callAPI(prompt);
-          } catch (e) {
-            this.followUpAnswer = '抱歉，暂时无法回答，请稍后再试。';
-          }
-          this.followUpQuestion = '';
-        },
-
         // 关闭讲解
         closeExplanation() {
           this.showExplanation = false;
           this.explanation = null;
-          this.followUpQuestion = '';
-          this.followUpAnswer = '';
         },
 
         // 继续测试

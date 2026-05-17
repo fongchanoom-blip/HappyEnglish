@@ -13,6 +13,11 @@
     <div id="homeApp"></div>
   </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    // 设置 API Key
+    window.minimaxApiKey = 'sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY';
+    sessionStorage.setItem('minimax_api_key', window.minimaxApiKey);
+  </script>
   <script src="app.js"></script>
   <script src="js/learning-companion.js"></script>
   <script src="js/trigger-engine.js"></script>
@@ -25,6 +30,8 @@
   <script src="js/memory-profile.js"></script>
   <script src="js/personalized-suggestions.js"></script>
   <script type="module">
+    // 注意：首页不需要初始化路由，内容通过 Vue 组件直接渲染
+
     // 初始化触发引擎
     window.triggerEngine = new window.TriggerEngine();
     console.log('触发引擎初始化完成，状态:', window.triggerEngine.getState());
@@ -92,16 +99,13 @@
             if (wrongCount <= 5) return 'small';
             return 'tiny';
           },
-          startTest() {
-            window.router.navigate('/test');
-          },
-          testWord(word) {
-            window.router.navigate('/test?word=' + word.id);
-          },
-          goTest() { window.router.navigate('/test'); },
-          goReview() { window.router.navigate('/review'); },
-          goProfile() { window.router.navigate('/profile'); },
+          startTest() { window.location.href = '../test.html'; },
+          testWord(word) { window.location.href = '../test.html?word=' + word.id; },
+          goTest() { window.location.href = '../test.html'; },
+          goReview() { window.location.href = 'pages/review.html'; },
+          goProfile() { window.location.href = 'pages/profile.html'; },
           goStory() { window.location.href = 'pages/story.html'; },
+          goBatchTest() { window.location.href = '../batch-test.html'; },
           goReport() { window.location.href = 'pages/report.html'; },
           async loadData() {
             if (window.store) {
@@ -184,6 +188,11 @@
             <!-- 开始测试按钮 -->
             <button class="btn btn-primary start-btn" @click="startTest">
               {{ hasProgress ? '继续学习' : '开始测试' }}
+            </button>
+
+            <!-- 批量测试按钮 -->
+            <button class="btn btn-batch start-btn" @click="goBatchTest">
+              📝 批量测试
             </button>
 
             <!-- 故事入口 -->
@@ -308,7 +317,15 @@
       width: 100%;
       padding: 16px;
       font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .btn-batch {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
       margin-bottom: 20px;
+    }
+    .btn-batch:active {
+      transform: scale(0.98);
     }
 
     .word-cloud-section {

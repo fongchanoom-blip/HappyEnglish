@@ -7,7 +7,7 @@ class AIService {
     // API 配置 - 使用 sessionStorage 存储，更安全（关闭浏览器后自动清除）
     this.apiKey = sessionStorage.getItem('minimax_api_key') || '';
     this.baseUrl = 'https://api.minimax.chat/v1';
-    this.model = 'sentiance-3';
+    this.model = 'MiniMax-M2.7';
 
     // 内存缓存 - 添加大小限制防止内存泄漏
     this.cache = new Map();

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>批量测试 - HappyEnglish</title>
+  <style>
+    :root {
+      --primary: #4A90D9;
+      --success: #67C23A;
+      --danger: #F56C6C;
+      --warning: #E6A23C;
+      --bg-page: #F5F7FA;
+      --text-primary: #303133;
+      --text-secondary: #909399;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+      background: var(--bg-page);
+      min-height: 100vh;
+      padding: 16px;
+      padding-bottom: 100px;
+    }
+
+    /* 顶部导航 */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .back-btn {
+      padding: 8px 16px;
+      background: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .mode-badge {
+      padding: 6px 12px;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    /* 进度指示 */
+    .progress-info {
+      max-width: 750px;
+      margin: 0 auto 16px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* 测试区容器 */
+    .test-container {
+      max-width: 750px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* 双列布局 */
+    .questions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* 单题行 */
+    .question-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .question-item:focus-within {
+      border-color: var(--primary);
+      background: #f0f7ff;
+    }
+    .question-item.correct {
+      background: #f0f9eb;
+      border-color: var(--success);
+    }
+    .question-item.wrong {
+      background: #fef0f0;
+      border-color: var(--danger);
+    }
+
+    .question-number {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .question-item.correct .question-number {
+      background: var(--success);
+    }
+    .question-item.wrong .question-number {
+      background: var(--danger);
+    }
+
+    .question-text {
+      flex: 1;
+      font-size: 16px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .answer-input {
+      width: 120px;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 2px solid #e4e7ed;
+      border-radius: 8px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .answer-input:focus {
+      border-color: var(--primary);
+    }
+    .answer-input.correct {
+      border-color: var(--success);
+      background: #f0f9eb;
+    }
+    .answer-input.wrong {
+      border-color: var(--danger);
+      background: #fef0f0;
+    }
+
+    /* 结果图标 */
+    .result-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* 底部按钮 */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 16px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+    .btn-secondary {
+      background: #f1f5f9;
+      color: var(--text-secondary);
+    }
+
+    /* 结果弹窗 */
+    .result-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .result-content {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .result-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .result-icon-big {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+    .result-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .result-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .stat-value.success { color: var(--success); }
+    .stat-value.danger { color: var(--danger); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* 结果表格样式 */
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    .result-table th {
+      background: #f1f5f9;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 2px solid #e4e7ed;
+    }
+    .result-table td {
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .result-table tr:nth-child(even) {
+      background: #fafafa;
+    }
+    .result-table .correct-answer {
+      color: var(--success);
+      font-weight: 600;
+    }
+    .result-table .wrong-answer {
+      color: var(--danger);
+      font-weight: 600;
+    }
+    .result-table .word-cell {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .result-icon-cell {
+      width: 40px;
+    }
+    .result-icon-cell .icon-correct {
+      color: var(--success);
+      font-size: 18px;
+    }
+    .result-icon-cell .icon-wrong {
+      color: var(--danger);
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部导航 -->
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+      <span class="title">批量测试</span>
+      <span class="mode-badge">中→英</span>
+    </div>
+
+    <!-- 进度 -->
+    <div class="progress-info">
+      第 <span id="groupNum">{{ groupIndex + 1 }}</span> 组 · 共 <span id="totalGroups">{{ totalGroups > 3 ? 3 : totalGroups }}</span> 组词汇
+    </div>
+
+    <!-- 测试区 -->
+    <div class="test-container">
+      <div class="questions-grid">
+        <div
+          v-for="(item, index) in currentBatch"
+          :key="item.id"
+          class="question-item"
+        >
+          <div class="question-number">{{ index + 1 }}</div>
+          <div class="question-text">{{ item.translations[0] }}</div>
+          <input
+            type="text"
+            class="answer-input"
+            v-model="item.userAnswer"
+            @keydown="handleKeydown($event, index)"
+            :ref="el => inputRefs[index] = el"
+            placeholder="输入答案"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部按钮 -->
+    <div class="bottom-bar">
+      <button class="btn btn-secondary" @click="goHome">返回首页</button>
+      <button class="btn btn-primary" @click="submitBatch">{{ groupIndex < 2 ? '下一组 →' : '完成测试' }}</button>
+    </div>
+
+    <!-- 结果弹窗 -->
+    <div class="result-modal" v-if="showResult" @click.self="closeResult">
+      <div class="result-content">
+        <div class="result-header">
+          <div class="result-icon-big">🎉</div>
+          <div class="result-title">测试完成！</div>
+        </div>
+        <div class="result-stats">
+          <div class="stat-item">
+            <div class="stat-value success">{{ correctCount }}</div>
+            <div class="stat-label">正确</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value danger">{{ wrongCount }}</div>
+            <div class="stat-label">错误</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">{{ accuracy }}%</div>
+            <div class="stat-label">正确率</div>
+          </div>
+        </div>
+
+        <!-- 答案表格 -->
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th class="result-icon-cell"></th>
+              <th>中文</th>
+              <th>学生答案</th>
+              <th>正确答案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in allResults" :key="item.id">
+              <td class="result-icon-cell">
+                <span v-if="item.isCorrect" class="icon-correct">✓</span>
+                <span v-else class="icon-wrong">✗</span>
+              </td>
+              <td class="word-cell">{{ item.translation }}</td>
+              <td :class="item.isCorrect ? 'correct-answer' : 'wrong-answer'">{{ item.userAnswer || '(空)' }}</td>
+              <td class="correct-answer">{{ item.correctAnswer }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="result-actions">
+          <button class="btn btn-secondary" @click="goHome">返回首页</button>
+          <button class="btn btn-primary" @click="restartTest">再来一轮 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const BATCH_SIZE = 10;
+
+    // 词汇数据
+    const vocabulary = [{"id":"word_0001","word":"a","phonetic":"ə","pos":"art","translations":["一"]},{"id":"word_0002","word":"ability","phonetic":"ə'bɪləti","pos":"n","translations":["能力","才能"]},{"id":"word_0003","word":"able","phonetic":"'eɪbl","pos":"adj","translations":["能够","有才能的"]},{"id":"word_0004","word":"about","phonetic":"ə'baʊt","pos":"prep,adv","translations":["关于","大约","在各处"]},{"id":"word_0005","word":"above","phonetic":"ə'bʌv","pos":"prep","translations":["在……上面","在上面"]},{"id":"word_0006","word":"abroad","phonetic":"ə'brɔːd","pos":"adv","translations":["到","在国外"]},{"id":"word_0007","word":"absent","phonetic":"'æbsənt","pos":"adj","translations":["缺席的","不在的","缺乏的"]},{"id":"word_0008","word":"accept","phonetic":"ək'sept","pos":"v","translations":["接受","认可","同意"]},{"id":"word_0009","word":"accident","phonetic":"'æksɪdənt","pos":"n","translations":["事故","意外"]},{"id":"word_0010","word":"according","phonetic":"ə'kɔːdɪ","pos":"adj","translations":["相符的","相应的"]},{"id":"word_0011","word":"account","phonetic":"ə'kaʊnt","pos":"n","translations":["账户","账目","描述","解释"]},{"id":"word_0012","word":"ache","phonetic":"eɪk","pos":"n,v","translations":["疼痛","隐隐作痛"]},{"id":"word_0013","word":"achieve","phonetic":"ə'tʃiːv","pos":"v","translations":["完成","达到","实现"]},{"id":"word_0014","word":"across","phonetic":"ə'krɒs","pos":"prep,adv","translations":["穿过","横过","在对面"]},{"id":"word_0015","word":"act","phonetic":"ækt","pos":"v","translations":["表演","行动","行为","法令","一段表演"]},{"id":"word_0016","word":"action","phonetic":"'ækʃn","pos":"n","translations":["行动","行为","动作"]},{"id":"word_0017","word":"active","phonetic":"'æktɪv","pos":"adj","translations":["活跃的","积极的"]},{"id":"word_0018","word":"activity","phonetic":"æk'tɪvəti","pos":"n","translations":["活动"]},{"id":"word_0019","word":"actor","phonetic":"'æktə(r)","pos":"n","translations":["演员"]},{"id":"word_0020","word":"actually","phonetic":"'æktʃuəli","pos":"adv","translations":["实际上","事实上"]},{"id":"word_0021","word":"ad","phonetic":"æd","pos":"abbr","translations":["广告"]},{"id":"word_0022","word":"add","phonetic":"æd","pos":"v","translations":["增加","添加","补充说"]},{"id":"word_0023","word":"address","phonetic":"ə'dres","pos":"n","translations":["地址","演说"]},{"id":"word_0024","word":"admire","phonetic":"əd'maɪə(r)","pos":"v","translations":["欣赏","仰慕","钦佩","赞赏"]},{"id":"word_0025","word":"adult","phonetic":"ə'dʌlt","pos":"adj,n","translations":["成年的","成人的","成人"]},{"id":"word_0026","word":"advantage","phonetic":"əd'vɑːntɪdʒ","pos":"n","translations":["优点","有利条件"]},{"id":"word_0027","word":"advice","phonetic":"əd'vaɪs","pos":"n","translations":["劝告","建议"]},{"id":"word_0028","word":"advise","phonetic":"əd'vaɪz","pos":"v","translations":["劝告","建议"]},{"id":"word_0029","word":"afford","phonetic":"ə'fɔːd","pos":"v","translations":["承担得起","买得起"]},{"id":"word_0030","word":"afraid","phonetic":"ə'freɪd","pos":"adj","translations":["害怕的","担心的"]}];
+
+    // 随机打乱词汇
+    function shuffleArray(arr) {
+      const result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    // 初始化词汇池
+    const vocabPool = shuffleArray(vocabulary);
+    let poolIndex = 0;
+
+    // 获取下一批词汇
+    function getNextBatch() {
+      const batch = [];
+      for (let i = 0; i < BATCH_SIZE; i++) {
+        if (poolIndex >= vocabPool.length) {
+          poolIndex = 0;
+          shuffleArray(vocabPool);
+        }
+        const word = vocabPool[poolIndex++];
+        batch.push({
+          ...word,
+          userAnswer: '',
+          isCorrect: false,
+          showResult: false
+        });
+      }
+      return batch;
+    }
+
+    // IndexedDB 保存错误模式
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open('HappyEnglish', 1);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('errorPatterns')) {
+            db.createObjectStore('errorPatterns', { keyPath: 'id' });
+          }
+        };
+      });
+    }
+
+    async function saveErrorPattern(wordId, word, wrongAnswer) {
+      try {
+        const db = await openDB();
+        const tx = db.transaction('errorPatterns', 'readwrite');
+        const store = tx.objectStore('errorPatterns');
+        store.put({
+          id: wordId + '_' + Date.now(),
+          wordId,
+          word,
+          wrongAnswer,
+          timestamp: Date.now()
+        });
+      } catch (e) {
+        console.error('保存错误记录失败:', e);
+      }
+    }
+
+    // Vue 应用
+    const app = Vue.createApp({
+      data() {
+        return {
+          currentBatch: getNextBatch(),
+          groupIndex: 0,
+          totalGroups: 3,  // 固定3组
+          showResult: false,
+          allResults: [],  // 收集所有题目的答题结果
+          correctCount: 0,
+          wrongCount: 0,
+          accuracy: 0,
+          focusedIndex: 0,
+          inputRefs: []
+        };
+      },
+      mounted() {
+        document.getElementById('totalGroups').textContent = this.totalGroups;
+      },
+      methods: {
+        handleKeydown(event, index) {
+          if (event.key === 'Enter') {
+            // 最后一个输入框则提交，否则移动到下一个
+            if (index === BATCH_SIZE - 1) {
+              this.submitBatch();
+            } else {
+              this.focusInput(index + 1);
+            }
+          } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            event.preventDefault();
+            this.focusInput(Math.min(index + 1, BATCH_SIZE - 1));
+          } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            this.focusInput(Math.max(index - 1, 0));
+          }
+        },
+        focusInput(index) {
+          this.$nextTick(() => {
+            const input = this.inputRefs[index];
+            if (input) input.focus();
+          });
+        },
+        submitBatch() {
+          // 收集当前组的答题结果
+          this.currentBatch.forEach(item => {
+            const normalized = item.userAnswer.trim().toLowerCase();
+            const correct = item.word.toLowerCase() === normalized;
+            this.allResults.push({
+              id: item.id,
+              word: item.word,
+              translation: item.translations[0],  // 中文翻译
+              userAnswer: item.userAnswer.trim(),
+              correctAnswer: item.word,
+              isCorrect: correct
+            });
+            if (correct) {
+              this.correctCount++;
+            } else {
+              this.wrongCount++;
+              // 保存错误到 IndexedDB
+              saveErrorPattern(item.id, item.word, item.userAnswer.trim());
+            }
+          });
+
+          this.groupIndex++;
+
+          // 只有完成所有3组才显示结果
+          if (this.groupIndex >= 3) {
+            this.accuracy = Math.round((this.correctCount / (BATCH_SIZE * 3)) * 100);
+            this.showResult = true;
+          } else {
+            // 加载下一组
+            this.currentBatch = getNextBatch();
+            this.$nextTick(() => {
+              this.focusInput(0);
+            });
+          }
+        },
+        nextBatch() {
+          this.showResult = false;
+          this.currentBatch = getNextBatch();
+          this.$nextTick(() => {
+            this.focusInput(0);
+          });
+        },
+        restartTest() {
+          this.currentBatch = getNextBatch();
+          this.groupIndex = 0;
+          this.totalGroups = 3;
+          this.showResult = false;
+          this.allResults = [];
+          this.correctCount = 0;
+          this.wrongCount = 0;
+          this.accuracy = 0;
+          this.$nextTick(() => {
+            this.focusInput(0);
+          });
+        },
+        closeResult() {
+          // 结果页面不允许点击外部关闭，只能点击按钮
+        },
+        goHome() {
+          window.location.href = 'index.html';
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
