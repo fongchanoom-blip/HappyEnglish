@@ -1,53 +1,3 @@
-/**
- * 计算编辑距离（Levenshtein Distance）
- */
-function levenshteinDistance(a, b) {
-  const matrix = [];
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i];
-  }
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j;
-  }
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) === a.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
-        );
-      }
-    }
-  }
-  return matrix[b.length][a.length];
-}
-
-/**
- * 自动分类错误类型
- */
-function classifyError(wrong, correct) {
-  const editDist = levenshteinDistance(wrong, correct);
-  if (editDist < 3 && Math.abs(wrong.length - correct.length) < 4) {
-    return 'spelling';
-  }
-  if (wrong.length >= 3 && correct.length >= 3) {
-    const wrongPrefix = wrong.slice(0, 3);
-    const correctPrefix = correct.slice(0, 3);
-    if (wrongPrefix === correctPrefix && editDist < 6) {
-      return 'phonetic';
-    }
-  }
-  const grammarSuffixes = ['ing', 'ed', 's', 'es', 'd', 'er', 'est', 'ly'];
-  const wrongHasSuffix = grammarSuffixes.some(s => wrong.endsWith(s));
-  const correctHasSuffix = grammarSuffixes.some(s => correct.endsWith(s));
-  if (wrongHasSuffix && correctHasSuffix && editDist < 5) {
-    return 'grammar';
-  }
-  return 'meaning';
-}
 
 /**
  * 计算错题掌握状态
@@ -433,8 +383,13 @@ class Database {
 
 /**
  * 保存错题分析
+ * @param {string} wordId - 单词ID
+ * @param {string} wrongAnswer - 错误答案
+ * @param {string} analysis - 分析内容
+ * @param {Object} mastery - 掌握度状态
+ * @param {string} type - 错误类型 (spelling/phonetic/grammar/meaning)
  */
-async saveErrorAnalysis(wordId, wrongAnswer, analysis, mastery) {
+async saveErrorAnalysis(wordId, wrongAnswer, analysis, mastery, type) {
   if (!this.db) return null;
   try {
     const tx = this.db.transaction('errorAnalysis', 'readwrite');
@@ -447,6 +402,7 @@ async saveErrorAnalysis(wordId, wrongAnswer, analysis, mastery) {
       id,
       wordId,
       wrongAnswer,
+      type: type || existing?.type,
       analysis: analysis || existing?.analysis,
       mastery: mastery || existing?.mastery || {
         correctCount: 0,
@@ -533,28 +489,33 @@ async getAllErrorAnalysis() {
  * 更新错题掌握度
  */
 async updateErrorMastery(wordId, wrongAnswer, correct) {
-  const existing = await this.getErrorAnalysis(wordId, wrongAnswer);
-  if (!existing) return null;
+  try {
+    const existing = await this.getErrorAnalysis(wordId, wrongAnswer);
+    if (!existing) return null;
 
-  const mastery = { ...existing.mastery };
+    const mastery = { ...existing.mastery };
 
-  if (correct) {
-    mastery.correctCount = (mastery.correctCount || 0) + 1;
-    mastery.streakCorrect = (mastery.streakCorrect || 0) + 1;
-  } else {
-    mastery.errorCount = (mastery.errorCount || 0) + 1;
-    mastery.streakCorrect = 0;
+    if (correct) {
+      mastery.correctCount = (mastery.correctCount || 0) + 1;
+      mastery.streakCorrect = (mastery.streakCorrect || 0) + 1;
+    } else {
+      mastery.errorCount = (mastery.errorCount || 0) + 1;
+      mastery.streakCorrect = 0;
+    }
+
+    mastery.lastPractice = Date.now();
+    mastery.status = calculateErrorStatus(
+      mastery.errorCount,
+      mastery.correctCount,
+      mastery.streakCorrect,
+      (mastery.correctCount || 0) / ((mastery.correctCount || 0) + (mastery.errorCount || 0)) || 0
+    );
+
+    return await this.saveErrorAnalysis(wordId, wrongAnswer, existing.analysis, mastery);
+  } catch (e) {
+    console.error('更新错题掌握度失败', e);
+    return null;
   }
-
-  mastery.lastPractice = Date.now();
-  mastery.status = calculateErrorStatus(
-    mastery.errorCount,
-    mastery.correctCount,
-    mastery.streakCorrect,
-    (mastery.correctCount || 0) / ((mastery.correctCount || 0) + (mastery.errorCount || 0)) || 0
-  );
-
-  return await this.saveErrorAnalysis(wordId, wrongAnswer, existing.analysis, mastery);
 }
 
 /**
