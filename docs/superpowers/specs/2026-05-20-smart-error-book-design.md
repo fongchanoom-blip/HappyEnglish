@@ -48,6 +48,20 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 
 ### 2.2 错题本标签内容
 
+**无错题空状态：**
+```
+┌─────────────────────────────────────────────┐
+│                                             │
+│              🎉                             │
+│                                             │
+│     暂无错题记录                            │
+│     做对的都是练过的题                       │
+│                                             │
+│     [去学习新单词]                           │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
 **分类侧边栏：**
 - 全部 (all) — 显示所有错题
 - 拼写错误 (spelling) — 3道
@@ -91,7 +105,28 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 └─────────────────────────────────────────────┘
 ```
 
-### 2.3 状态定义
+### 2.3 与智能复习的关系
+
+**数据流：**
+```
+错误发生 → errors 表 → 错题本(独立追踪)
+                ↓
+         同时更新 memory 表 → 智能复习(通用优先级)
+```
+
+**区别：**
+| 维度 | 错题本 | 智能复习 |
+|------|--------|----------|
+| 追踪对象 | 单次错误选择 | 单词整体掌握度 |
+| 更新触发 | 专项练习 | 任何练习 |
+| 目标 | 解决特定错误 | 优化整体记忆 |
+
+**交互：**
+- 错题本「开始练习」→ 进入专项练习模式，只出现同类错误单词
+- 练习结果同时更新 errors 表和 memory 表
+- 智能复习的优先级根据 memory 表重新计算
+
+### 2.4 状态定义
 
 | 状态 | 定义 | 颜色 |
 |------|------|------|
@@ -122,20 +157,21 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 **新增：错题分析缓存（errorAnalysis 表）：**
 ```javascript
 {
-  wordId: string,           // 单词ID (keyPath)
-  wrongAnswer: string,      // 错误答案 (keyPath)
+  id: string,               // 唯一ID = wordId + '_' + wrongAnswer (keyPath)
+  wordId: string,           // 单词ID
+  wrongAnswer: string,      // 错误答案
   analysis: {
     reason: string,         // AI 分析的错误原因
-    tips: string[],        // 记忆技巧数组
-    similarWords: string[], // 相似词辨析
-    examples: string[]      // 例句
+    tips: string[],          // 记忆技巧数组
+    similarWords: string[],  // 相似词辨析
+    examples: string[]        // 例句
   },
   mastery: {
-    correctCount: number,   // 正确次数
-    errorCount: number,     // 错误次数
-    streakCorrect: number,  // 连续正确次数
-    lastPractice: number,   // 最后练习时间
-    status: string          // '陌生' | '薄弱' | '掌握中' | '已掌握'
+    correctCount: number,    // 正确次数
+    errorCount: number,      // 错误次数
+    streakCorrect: number,   // 连续正确次数
+    lastPractice: number,     // 最后练习时间
+    status: string           // '陌生' | '薄弱' | '掌握中' | '已掌握'
   },
   cachedAt: number,         // 缓存时间
   updatedAt: number         // 更新时间
@@ -152,11 +188,82 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 - phonetic：用户选择的答案与正确答案发音相似（如 sheep/ship）
 - grammar：用户选择的答案语法形式错误（如时态、单复数）
 
+**分类算法：**
+```javascript
+/**
+ * 自动分类错误类型
+ * @param {string} wrong - 错误答案
+ * @param {string} correct - 正确答案
+ * @param {Object} word - 单词完整信息（含音标、词性等）
+ * @returns {string} 错误类型
+ */
+function classifyError(wrong, correct, word) {
+  // 1. 拼写检查：编辑距离 < 3 且长度差 < 4
+  const editDist = levenshteinDistance(wrong, correct);
+  if (editDist < 3 && Math.abs(wrong.length - correct.length) < 4) {
+    return 'spelling';
+  }
+
+  // 2. 发音检查：前3字符相同（基于音标前缀）
+  // 例如：abandon vs abandoned，前3音标相同
+  if (wrong.length >= 3 && correct.length >= 3) {
+    const wrongPrefix = wrong.slice(0, 3);
+    const correctPrefix = correct.slice(0, 3);
+    if (wrongPrefix === correctPrefix && editDist < 6) {
+      return 'phonetic';
+    }
+  }
+
+  // 3. 语法检查：常见语法后缀变化
+  const grammarSuffixes = ['ing', 'ed', 's', 'es', 'd', 'er', 'est', 'ly'];
+  const wrongHasSuffix = grammarSuffixes.some(s => wrong.endsWith(s));
+  const correctHasSuffix = grammarSuffixes.some(s => correct.endsWith(s));
+  if (wrongHasSuffix && correctHasSuffix && editDist < 5) {
+    return 'grammar';
+  }
+
+  // 4. 词义检查（默认）
+  return 'meaning';
+}
+
+/**
+ * 计算编辑距离（Levenshtein Distance）
+ */
+function levenshteinDistance(a, b) {
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= a.length; j++) {
+    matrix[0][j] = j;
+  }
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+```
+
 **分类时机：**
-- 用户提交答案错误时，自动根据答案特征分类
-- 用户点击「查看分析」时，调用 AI 补充分析
+- 用户提交答案错误时，自动根据答案特征分类 → 写入 errors 表
+- 用户点击「查看分析」时，调用 AI 补充分析 → 写入 errorAnalysis 表
 
 #### 3.2.2 AI 错题分析
+
+**数据流：**
+1. 错误发生 → 写入 `errors` 表 + 自动分类
+2. 用户点击「查看分析」→ 检查缓存 → 无缓存则调用 AI → 写入 `errorAnalysis` 表
+3. 练习更新 → 只更新 `errorAnalysis.mastery`，不触发 AI
 
 **调用时机：**
 - 用户首次点击某错题的「查看分析」时
@@ -173,7 +280,7 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 请生成包含以下内容的分析：
 1. 错误原因：为什么会选错（50字以内）
 2. 记忆技巧：如何记住正确区分（100字以内）
-3. 相似词辨析：列出2-3个易混淆词汇（50字以内）
+3. 相似词辨析：列出2-3个易混淆词汇（100字以内）
 
 要求：
 - 语言简洁，适合中学生理解
@@ -183,12 +290,44 @@ review.html 顶部导航栏已有三个按钮，复用 `btn-smart` 样式新增�
 #### 3.2.3 掌握度追踪
 
 **状态计算逻辑：**
-```
-if (errorCount === 0) → '已掌握'
-else if (streakCorrect >= 5 && mastery >= 0.95) → '已掌握'
-else if (streakCorrect >= 3 && mastery >= 0.80) → '掌握中'
-else if (correctCount > errorCount) → '薄弱'
-else → '陌生'
+```javascript
+/**
+ * 计算错题掌握状态
+ * @param {number} errorCount - 错误次数
+ * @param {number} correctCount - 正确次数
+ * @param {number} streakCorrect - 连续正确次数
+ * @param {number} mastery - 掌握度 (0-1)
+ * @returns {string} 状态
+ */
+function calculateErrorStatus(errorCount, correctCount, streakCorrect, mastery) {
+  // 新词从未练习 → 陌生
+  if (errorCount === 0 && correctCount === 0) {
+    return '陌生';
+  }
+
+  // 从未出错且有练习 → 已掌握
+  if (errorCount === 0 && correctCount > 0) {
+    return '已掌握';
+  }
+
+  // 连续5次正确 + 掌握度95%以上 → 已掌握
+  if (streakCorrect >= 5 && mastery >= 0.95) {
+    return '已掌握';
+  }
+
+  // 连续3次正确 + 掌握度80%以上 → 掌握中
+  if (streakCorrect >= 3 && mastery >= 0.80) {
+    return '掌握中';
+  }
+
+  // 正确次数 > 错误次数 → 薄弱
+  if (correctCount > errorCount) {
+    return '薄弱';
+  }
+
+  // 其他 → 陌生
+  return '陌生';
+}
 ```
 
 **练习流程：**
