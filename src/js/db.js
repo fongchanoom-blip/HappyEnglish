@@ -1,3 +1,66 @@
+/**
+ * 计算编辑距离（Levenshtein Distance）
+ */
+function levenshteinDistance(a, b) {
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= a.length; j++) {
+    matrix[0][j] = j;
+  }
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+/**
+ * 自动分类错误类型
+ */
+function classifyError(wrong, correct) {
+  const editDist = levenshteinDistance(wrong, correct);
+  if (editDist < 3 && Math.abs(wrong.length - correct.length) < 4) {
+    return 'spelling';
+  }
+  if (wrong.length >= 3 && correct.length >= 3) {
+    const wrongPrefix = wrong.slice(0, 3);
+    const correctPrefix = correct.slice(0, 3);
+    if (wrongPrefix === correctPrefix && editDist < 6) {
+      return 'phonetic';
+    }
+  }
+  const grammarSuffixes = ['ing', 'ed', 's', 'es', 'd', 'er', 'est', 'ly'];
+  const wrongHasSuffix = grammarSuffixes.some(s => wrong.endsWith(s));
+  const correctHasSuffix = grammarSuffixes.some(s => correct.endsWith(s));
+  if (wrongHasSuffix && correctHasSuffix && editDist < 5) {
+    return 'grammar';
+  }
+  return 'meaning';
+}
+
+/**
+ * 计算错题掌握状态
+ */
+function calculateErrorStatus(errorCount, correctCount, streakCorrect, mastery) {
+  if (errorCount === 0 && correctCount === 0) return '陌生';
+  if (errorCount === 0 && correctCount > 0) return '已掌握';
+  if (streakCorrect >= 5 && mastery >= 0.95) return '已掌握';
+  if (streakCorrect >= 3 && mastery >= 0.80) return '掌握中';
+  if (correctCount > errorCount) return '薄弱';
+  return '陌生';
+}
+
 class Database {
   constructor() {
     this.dbName = 'HappyEnglishDB';
@@ -48,6 +111,12 @@ class Database {
           const errorStore = db.createObjectStore('errors', { keyPath: 'id', autoIncrement: true });
           errorStore.createIndex('wordId', 'wordId', { unique: false });
           errorStore.createIndex('type', 'type', { unique: false });
+        }
+        // 错题分析缓存 - 存储 AI 生成的错题分析
+        if (!db.objectStoreNames.contains('errorAnalysis')) {
+          const analysisStore = db.createObjectStore('errorAnalysis', { keyPath: 'id' });
+          analysisStore.createIndex('wordId', 'wordId', { unique: false });
+          analysisStore.createIndex('type', 'type', { unique: false });
         }
       };
     });
@@ -360,7 +429,161 @@ class Database {
     });
   }
 
-  // ========== 原有方法保持不变 ==========
+  // ========== 错题分析相关方法 ==========
+
+/**
+ * 保存错题分析
+ */
+async saveErrorAnalysis(wordId, wrongAnswer, analysis, mastery) {
+  if (!this.db) return null;
+  try {
+    const tx = this.db.transaction('errorAnalysis', 'readwrite');
+    const store = tx.objectStore('errorAnalysis');
+
+    const id = `${wordId}_${wrongAnswer}`;
+    const existing = await this.getErrorAnalysis(wordId, wrongAnswer);
+
+    const record = {
+      id,
+      wordId,
+      wrongAnswer,
+      analysis: analysis || existing?.analysis,
+      mastery: mastery || existing?.mastery || {
+        correctCount: 0,
+        errorCount: 0,
+        streakCorrect: 0,
+        lastPractice: null,
+        status: '陌生'
+      },
+      cachedAt: existing?.cachedAt || Date.now(),
+      updatedAt: Date.now()
+    };
+
+    store.put(record);
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve(record);
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch (e) {
+    console.error('保存错题分析失败', e);
+    return null;
+  }
+}
+
+/**
+ * 获取错题分析
+ */
+async getErrorAnalysis(wordId, wrongAnswer) {
+  if (!this.db) return null;
+  const tx = this.db.transaction('errorAnalysis', 'readonly');
+  const store = tx.objectStore('errorAnalysis');
+  const id = `${wordId}_${wrongAnswer}`;
+  return new Promise((resolve, reject) => {
+    const request = store.get(id);
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+/**
+ * 获取某单词所有错题分析
+ */
+async getErrorAnalysisForWord(wordId) {
+  if (!this.db) return [];
+  const tx = this.db.transaction('errorAnalysis', 'readonly');
+  const store = tx.objectStore('errorAnalysis');
+  const index = store.index('wordId');
+  return new Promise((resolve, reject) => {
+    const request = index.getAll(wordId);
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+/**
+ * 批量获取错题分析（按类型筛选）
+ */
+async getErrorAnalysisByType(type) {
+  if (!this.db) return [];
+  const tx = this.db.transaction('errorAnalysis', 'readonly');
+  const store = tx.objectStore('errorAnalysis');
+  const index = store.index('type');
+  return new Promise((resolve, reject) => {
+    const request = index.getAll(type);
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+/**
+ * 获取所有错题分析
+ */
+async getAllErrorAnalysis() {
+  if (!this.db) return [];
+  const tx = this.db.transaction('errorAnalysis', 'readonly');
+  const store = tx.objectStore('errorAnalysis');
+  return new Promise((resolve, reject) => {
+    const request = store.getAll();
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+/**
+ * 更新错题掌握度
+ */
+async updateErrorMastery(wordId, wrongAnswer, correct) {
+  const existing = await this.getErrorAnalysis(wordId, wrongAnswer);
+  if (!existing) return null;
+
+  const mastery = { ...existing.mastery };
+
+  if (correct) {
+    mastery.correctCount = (mastery.correctCount || 0) + 1;
+    mastery.streakCorrect = (mastery.streakCorrect || 0) + 1;
+  } else {
+    mastery.errorCount = (mastery.errorCount || 0) + 1;
+    mastery.streakCorrect = 0;
+  }
+
+  mastery.lastPractice = Date.now();
+  mastery.status = calculateErrorStatus(
+    mastery.errorCount,
+    mastery.correctCount,
+    mastery.streakCorrect,
+    (mastery.correctCount || 0) / ((mastery.correctCount || 0) + (mastery.errorCount || 0)) || 0
+  );
+
+  return await this.saveErrorAnalysis(wordId, wrongAnswer, existing.analysis, mastery);
+}
+
+/**
+ * 清除过期错题分析缓存（7天）
+ */
+async clearExpiredErrorAnalysis() {
+  if (!this.db) return false;
+  const all = await this.getAllErrorAnalysis();
+  const now = Date.now();
+  const expireTime = 7 * 24 * 60 * 60 * 1000; // 7天
+
+  const tx = this.db.transaction('errorAnalysis', 'readwrite');
+  const store = tx.objectStore('errorAnalysis');
+
+  let cleared = 0;
+  for (const item of all) {
+    if (now - (item.cachedAt || 0) > expireTime) {
+      store.delete(item.id);
+      cleared++;
+    }
+  }
+
+  return new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve(cleared);
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+// ========== 原有方法保持不变 ==========
 
   async saveProgress(wordId, data) {
     // 同时保存到 IndexedDB 和 localStorage
