@@ -7,7 +7,7 @@ class AIService {
     // API 配置 - 使用 sessionStorage 存储，更安全（关闭浏览器后自动清除）
     this.apiKey = sessionStorage.getItem('minimax_api_key') || '';
     this.baseUrl = 'https://api.minimax.chat/v1';
-    this.model = 'MiniMax-M2.7';
+    this.model = 'MiniMax-M2.7-highspeed';
 
     // 内存缓存 - 添加大小限制防止内存泄漏
     this.cache = new Map();
@@ -306,6 +306,78 @@ class AIService {
       return '【故事】\n小明的英语学习之旅正在进行中...\n\n【例句】\nPractice makes perfect.\n\n【记忆提示】\n多读多写，自然记住！';
     }
     return 'AI 功能暂时不可用，请稍后再试。';
+  }
+
+  /**
+   * 生成错题分析
+   * @param {string} word - 目标单词
+   * @param {string} wrongAnswer - 错误答案
+   * @param {string} correctAnswer - 正确答案
+   * @returns {Promise<Object>} 错题分析对象
+   */
+  async generateErrorAnalysis(word, wrongAnswer, correctAnswer) {
+    const cacheKey = `error_${word}_${wrongAnswer}`;
+
+    // 检查缓存
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    const prompt = `
+请分析以下错题：
+
+单词：${word}
+错误答案：${wrongAnswer}
+正确答案：${correctAnswer}
+
+请生成包含以下内容的分析：
+1. 错误原因：为什么会选错（50字以内）
+2. 记忆技巧：如何记住正确区分（100字以内）
+3. 相似词辨析：列出2-3个易混淆词汇（100字以内）
+
+要求：
+- 语言简洁，适合中学生理解
+- 重点帮助区分相似选项
+`;
+
+    const response = await this.callAPI(prompt);
+    const analysis = this.parseErrorAnalysisResponse(response);
+
+    this.saveToCache(cacheKey, analysis);
+    return analysis;
+  }
+
+  /**
+   * 解析错题分析响应
+   */
+  parseErrorAnalysisResponse(response) {
+    const result = {
+      reason: '',
+      tips: [],
+      similarWords: [],
+      examples: []
+    };
+
+    // 解析错误原因
+    const reasonMatch = response.match(/错误原因[：:]([\s\S]*?)(?=记忆技巧|相似词|$)/i);
+    if (reasonMatch) {
+      result.reason = reasonMatch[1].trim();
+    }
+
+    // 解析记忆技巧
+    const tipsMatch = response.match(/记忆技巧[：:]([\s\S]*?)(?=相似词|$)/i);
+    if (tipsMatch) {
+      const tipsText = tipsMatch[1].trim();
+      result.tips = tipsText.split(/[；;]/).map(t => t.trim()).filter(t => t);
+    }
+
+    // 解析相似词
+    const similarMatch = response.match(/相似词[辨析:]([\s\S]*?)$/i);
+    if (similarMatch) {
+      const similarText = similarMatch[1].trim();
+      result.similarWords = similarText.split(/[,，/]/).map(w => w.trim()).filter(w => w);
+    }
+
+    return result;
   }
 
   /**
