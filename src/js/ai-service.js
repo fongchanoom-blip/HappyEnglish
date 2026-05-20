@@ -267,18 +267,6 @@ class AIService {
   }
 
   /**
-   * 保存数据到内存缓存
-   * @param {string} key - 缓存键
-   * @param {*} data - 要缓存的数据
-   */
-  saveToCache(key, data) {
-    this.cache.set(key, {
-      data,
-      timestamp: Date.now()
-    });
-  }
-
-  /**
    * 清除指定缓存
    * @param {string} key - 缓存键
    */
@@ -300,6 +288,9 @@ class AIService {
    */
   getFallbackResponse(prompt) {
     if (prompt.includes('错题讲解')) {
+      return '这道题要注意词义辨析，多复习几遍就能记住啦！';
+    }
+    if (prompt.includes('请分析以下错题')) {
       return '这道题要注意词义辨析，多复习几遍就能记住啦！';
     }
     if (prompt.includes('语境故事') || prompt.includes('生活化场景故事')) {
@@ -353,8 +344,7 @@ class AIService {
     const result = {
       reason: '',
       tips: [],
-      similarWords: [],
-      examples: []
+      similarWords: []
     };
 
     // 解析错误原因
