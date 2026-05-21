@@ -1,4 +1,9 @@
 <div class="review-page" id="reviewApp">
+  <!-- 错误提示 -->
+  <div v-if="errorMessage" class="error-toast" @click="errorMessage = ''">
+    {{ errorMessage }}
+  </div>
+
   <!-- 顶部 -->
   <div class="header">
     <button class="btn-back" @click="goBack">← 返回</button>
@@ -220,7 +225,7 @@
         </div>
 
         <div v-if="isLoadingAnalysis" class="analysis-loading">
-          <div class="loading-text">AI 正在分析...</div>
+          <div class="loading-spinner">AI 正在分析...</div>
         </div>
 
         <div v-else-if="selectedError.analysis" class="analysis-content">
@@ -331,6 +336,17 @@
 
 <style>
 .review-page { padding: 16px; }
+
+.error-toast {
+  background: #F56C6C;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
 
 .header {
   display: flex;
@@ -1090,7 +1106,11 @@ function initReviewApp() {
           masteredRate: 0
         },
         // 键盘快捷键绑定状态
-        keyboardBound: false
+        keyboardBound: false,
+        // 错误反馈
+        errorMessage: '',
+        // 组件卸载标记
+        _isMounted: true
       };
     },
     computed: {
@@ -1387,6 +1407,7 @@ function initReviewApp() {
       },
       async loadErrorBookData() {
         this.isLoading = true;
+        this.errorMessage = '';
         try {
           const allErrors = await window.db.getErrorPatterns ? await window.db.getErrorPatterns() : [];
           const allAnalysis = await window.db.getAllErrorAnalysis ? await window.db.getAllErrorAnalysis() : [];
@@ -1416,14 +1437,20 @@ function initReviewApp() {
             };
           });
 
-          this.errorBookData.sort((a, b) => b.lastError - a.lastError);
+          this.errorBookData.sort((a, b) => {
+            const timeA = a.lastError != null ? a.lastError : 0;
+            const timeB = b.lastError != null ? b.lastError : 0;
+            return timeB - timeA;
+          });
         } catch (e) {
           console.error('加载错题本数据失败', e);
+          this.errorMessage = '加载失败，请重试';
         } finally {
           this.isLoading = false;
         }
       },
       async showErrorAnalysis(error) {
+        if (!this._isMounted) return;
         this.selectedError = error;
         this.showErrorDetail = true;
 
@@ -1436,14 +1463,28 @@ function initReviewApp() {
               error.correctAnswer
             );
 
+            if (!this._isMounted) return;
+
             await window.db.saveErrorAnalysis(error.wordId, error.wrongAnswer, analysis, error.mastery);
 
-            error.analysis = analysis;
-            this.selectedError = { ...error };
+            const idx = this.errorBookData.findIndex(e => e.id === error.id);
+            if (idx !== -1) {
+              // 创建新对象而非直接修改，确保 Vue 2 响应式系统正常工作
+              const updatedError = Object.assign({}, error, { analysis });
+              this.errorBookData[idx] = updatedError;
+            }
+            if (this._isMounted) {
+              this.selectedError = Object.assign({}, error, { analysis });
+            }
           } catch (e) {
             console.error('生成错题分析失败', e);
+            if (this._isMounted) {
+              this.errorMessage = '分析生成失败，请重试';
+            }
           } finally {
-            this.isLoadingAnalysis = false;
+            if (this._isMounted) {
+              this.isLoadingAnalysis = false;
+            }
           }
         }
       },
@@ -1456,9 +1497,11 @@ function initReviewApp() {
       }
     },
     mounted() {
+      this._isMounted = true;
       this.loadData();
     },
     beforeUnmount() {
+      this._isMounted = false;
       this.unbindKeyboard();
     }
   };
