@@ -4,10 +4,10 @@
  */
 function calculateErrorStatus(errorCount, correctCount, streakCorrect, mastery) {
   if (errorCount === 0 && correctCount === 0) return '陌生';
-  if (errorCount === 0 && correctCount > 0) return '已掌握';
+  if (errorCount === 0 && correctCount >= 5 && streakCorrect >= 5) return '已掌握';
   if (streakCorrect >= 5 && mastery >= 0.95) return '已掌握';
   if (streakCorrect >= 3 && mastery >= 0.80) return '掌握中';
-  if (correctCount > errorCount) return '薄弱';
+  if (correctCount >= errorCount) return '薄弱';
   return '陌生';
 }
 
