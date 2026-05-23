@@ -59,6 +59,32 @@
 
     .spinner { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 批量测试样式 */
+    .batch-progress { text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 12px; }
+    .batch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 12px; }
+    .batch-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: #f8fafc; border-radius: 8px; }
+    .batch-num { width: 22px; height: 22px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+    .batch-text { flex: 1; font-size: 13px; color: var(--text-primary); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .batch-input { width: 80px; padding: 6px 8px; font-size: 13px; border: 2px solid #e4e7ed; border-radius: 6px; text-align: center; outline: none; }
+    .batch-input:focus { border-color: var(--primary); }
+    .batch-footer { display: flex; gap: 12px; margin-bottom: 16px; }
+    .batch-footer .btn { flex: 1; }
+
+    /* 结果弹窗 */
+    .result-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+    .result-content { background: white; border-radius: 16px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 16px; }
+    .result-header { text-align: center; margin-bottom: 12px; }
+    .result-icon-big { font-size: 36px; margin-bottom: 4px; }
+    .result-title { font-size: 16px; font-weight: 600; }
+    .result-stats { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 20px; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 11px; color: var(--text-secondary); }
+    .result-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .result-table th { background: #f1f5f9; padding: 6px 4px; text-align: center; border-bottom: 2px solid #e4e7ed; }
+    .result-table td { padding: 6px 4px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+    .result-actions { display: flex; gap: 12px; margin-top: 12px; }
   </style>
 </head>
 <body>
@@ -98,6 +124,132 @@
           </div>
         </div>
 
+        <!-- AI 学习报告 -->
+        <div class="ai-report-card" v-if="showReport">
+          <h3>🤖 AI 学习报告</h3>
+          <div v-if="reportLoading" class="loading">
+            <div class="spinner"></div>
+            <div>AI 分析中...</div>
+          </div>
+          <div v-else-if="aiReport" class="report-content">
+            <div class="report-section" v-if="aiReport.overview">
+              <h4>📊 学习概览</h4>
+              <div v-html="formatMarkdown(aiReport.overview)"></div>
+            </div>
+            <div class="report-section" v-if="aiReport.trend">
+              <h4>🔥 学习趋势</h4>
+              <div v-html="formatMarkdown(aiReport.trend)"></div>
+            </div>
+            <div class="report-section" v-if="aiReport.analysis">
+              <h4>💡 AI 分析</h4>
+              <div v-html="formatMarkdown(aiReport.analysis)"></div>
+            </div>
+            <div class="report-section" v-if="aiReport.goals">
+              <h4>🎯 下周目标</h4>
+              <div v-html="formatMarkdown(aiReport.goals)"></div>
+            </div>
+            <div class="report-section" v-if="aiReport.motivation">
+              <h4>🏆 激励语</h4>
+              <div v-html="formatMarkdown(aiReport.motivation)"></div>
+            </div>
+          </div>
+          <button class="btn-close" @click="showReport = false">关闭报告</button>
+        </div>
+
+        <!-- 按钮区 -->
+        <button class="btn btn-primary" @click="switchTab('batch')">
+          📋 批量测试
+        </button>
+
+        <!-- 批量测试模式 -->
+        <template v-if="activeTab === 'batch'">
+          <div class="batch-progress">第 {{ batch.groupIndex + 1 }} 组 · 共 {{ batch.totalGroups }} 组词汇</div>
+          <div class="batch-grid">
+            <div v-for="(item, index) in batch.currentBatch" :key="item.id" class="batch-item">
+              <div class="batch-num">{{ index + 1 }}</div>
+              <div class="batch-text">{{ item.translations[0] }}</div>
+              <input type="text" class="batch-input" v-model="item.userAnswer"
+                @keydown="handleKeydown($event, index)"
+                :ref="el => batch.inputRefs[index] = el"
+                placeholder="输入答案" />
+            </div>
+          </div>
+          <div class="batch-footer">
+            <button class="btn btn-secondary" @click="switchTab('normal')" style="background: #6b7280;">返回首页</button>
+            <button class="btn btn-primary" @click="submitBatch">
+              {{ batch.groupIndex < 2 ? '下一组 →' : '完成测试' }}
+            </button>
+          </div>
+
+          <!-- 结果弹窗 -->
+          <div class="result-modal" v-if="batch.showResult">
+            <div class="result-content">
+              <div class="result-header">
+                <div class="result-icon-big">🎉</div>
+                <div class="result-title">测试完成！</div>
+              </div>
+              <div class="result-stats">
+                <div class="stat-item">
+                  <div class="stat-value" style="color: var(--success)">{{ batch.correctCount }}</div>
+                  <div class="stat-label">正确</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value" style="color: var(--danger)">{{ batch.wrongCount }}</div>
+                  <div class="stat-label">错误</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">{{ batch.accuracy }}%</div>
+                  <div class="stat-label">正确率</div>
+                </div>
+              </div>
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>中文</th>
+                    <th>学生答案</th>
+                    <th>正确答案</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in batch.allResults" :key="item.id">
+                    <td>
+                      <span v-if="item.isCorrect" style="color: var(--success)">✓</span>
+                      <span v-else style="color: var(--danger)">✗</span>
+                    </td>
+                    <td>{{ item.translation }}</td>
+                    <td :style="item.isCorrect ? 'color: var(--success);font-weight:600' : 'color: var(--danger);font-weight:600'">
+                      {{ item.userAnswer || '(空)' }}
+                    </td>
+                    <td style="color: var(--success);font-weight:600">{{ item.correctAnswer }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- AI 错题分析 -->
+              <div v-if="wrongCountAnalysis" class="ai-analysis-section">
+                <h4 style="color: #667eea; margin: 12px 0 8px;">💡 AI 错题分析</h4>
+                <div v-html="formatMarkdown(wrongCountAnalysis)"></div>
+              </div>
+              <div v-else-if="analyzingWrong" class="ai-analysis-loading">
+                <div class="spinner"></div>
+                <div style="font-size: 13px; color: #666;">AI 分析中...</div>
+              </div>
+
+              <div class="result-actions">
+                <button class="btn btn-secondary" @click="switchTab('normal')" style="background: #6b7280; flex: 1;">返回首页</button>
+                <button class="btn btn-primary" @click="analyzeWrongWords" :disabled="analyzingWrong" style="flex: 1;">
+                  {{ analyzingWrong ? '分析中...' : 'AI 分析' }}
+                </button>
+              </div>
+              <div style="margin-top: 8px; text-align: center;">
+                <button class="btn btn-primary" @click="restartBatchTest" style="width: 100%;">再来一轮 →</button>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template v-else>
         <!-- AI 学习报告 -->
         <div class="ai-report-card" v-if="showReport">
           <h3>🤖 AI 学习报告</h3>
@@ -177,10 +329,11 @@
             <div v-if="weakWords.length === 0" class="empty-tip">太棒了！薄弱词已清空！</div>
           </div>
         </div>
+        </template>
 
         <!-- 底部导航 -->
         <div class="tab-bar">
-          <div class="tab-item active"><span class="icon">🏠</span><span class="text">首页</span></div>
+          <div class="tab-item" :class="{ active: activeTab === 'normal' }" @click="switchTab('normal')"><span class="icon">🏠</span><span class="text">首页</span></div>
           <div class="tab-item" @click="goPage('test')"><span class="icon">📝</span><span class="text">测试</span></div>
           <div class="tab-item" @click="goPage('review')"><span class="icon">📖</span><span class="text">复习</span></div>
           <div class="tab-item" @click="goPage('profile')"><span class="icon">👤</span><span class="text">我的</span></div>
@@ -190,12 +343,61 @@
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="data/vocabulary_full.js"></script>
   <script>
     // ==================== 词汇数据 ====================
-    const vocabulary = [{"id":"word_0001","word":"a","phonetic":"ə","pos":"art","translations":["一"]},{"id":"word_0002","word":"ability","phonetic":"ə'bɪləti","pos":"n","translations":["能力","才能"]},{"id":"word_0003","word":"able","phonetic":"'eɪbl","pos":"adj","translations":["能够","有才能的"]},{"id":"word_0004","word":"about","phonetic":"ə'baʊt","pos":"prep,adv","translations":["关于","大约","在各处"]},{"id":"word_0005","word":"above","phonetic":"ə'bʌv","pos":"prep","translations":["在……上面","在上面"]},{"id":"word_0006","word":"abroad","phonetic":"ə'brɔːd","pos":"adv","translations":["到","在国外"]},{"id":"word_0007","word":"absent","phonetic":"'æbsənt","pos":"adj","translations":["缺席的","不在的","缺乏的"]},{"id":"word_0008","word":"accept","phonetic":"ək'sept","pos":"v","translations":["接受","认可","同意"]},{"id":"word_0009","word":"accident","phonetic":"'æksɪdənt","pos":"n","translations":["事故","意外"]},{"id":"word_0010","word":"according","phonetic":"ə'kɔːdɪ","pos":"adj","translations":["相符的","相应的"]},{"id":"word_0011","word":"account","phonetic":"ə'kaʊnt","pos":"n","translations":["账户","账目","描述","解释"]},{"id":"word_0012","word":"ache","phonetic":"eɪk","pos":"n,v","translations":["疼痛","隐隐作痛"]},{"id":"word_0013","word":"achieve","phonetic":"ə'tʃiːv","pos":"v","translations":["完成","达到","实现"]},{"id":"word_0014","word":"across","phonetic":"ə'krɒs","pos":"prep,adv","translations":["穿过","横过","在对面"]},{"id":"word_0015","word":"act","phonetic":"ækt","pos":"v","translations":["表演","行动","行为","法令","一段表演"]},{"id":"word_0016","word":"action","phonetic":"'ækʃn","pos":"n","translations":["行动","行为","动作"]},{"id":"word_0017","word":"active","phonetic":"'æktɪv","pos":"adj","translations":["活跃的","积极的"]},{"id":"word_0018","word":"activity","phonetic":"æk'tɪvəti","pos":"n","translations":["活动"]},{"id":"word_0019","word":"actor","phonetic":"'æktə(r)","pos":"n","translations":["演员"]},{"id":"word_0020","word":"actually","phonetic":"'æktʃuəli","pos":"adv","translations":["实际上","事实上"]},{"id":"word_0021","word":"ad","phonetic":"æd","pos":"abbr","translations":["广告"]},{"id":"word_0022","word":"add","phonetic":"æd","pos":"v","translations":["增加","添加","补充说"]},{"id":"word_0023","word":"address","phonetic":"ə'dres","pos":"n","translations":["地址","演说"]},{"id":"word_0024","word":"admire","phonetic":"əd'maɪə(r)","pos":"v","translations":["欣赏","仰慕","钦佩","赞赏"]},{"id":"word_0025","word":"adult","phonetic":"ə'dʌlt","pos":"adj,n","translations":["成年的","成人的","成人"]},{"id":"word_0026","word":"advantage","phonetic":"əd'vɑːntɪdʒ","pos":"n","translations":["优点","有利条件"]},{"id":"word_0027","word":"advice","phonetic":"əd'vaɪs","pos":"n","translations":["劝告","建议"]},{"id":"word_0028","word":"advise","phonetic":"əd'vaɪz","pos":"v","translations":["劝告","建议"]},{"id":"word_0029","word":"afford","phonetic":"ə'fɔːd","pos":"v","translations":["承担得起","买得起"]},{"id":"word_0030","word":"afraid","phonetic":"ə'freɪd","pos":"adj","translations":["害怕的","担心的"]},{"id":"word_0031","word":"after","phonetic":"'ɑːftə(r)","pos":"prep,conj","translations":["在……后","以后"]},{"id":"word_0032","word":"afternoon","phonetic":"'ɑːftə'nuːn","pos":"n","translations":["下午"]},{"id":"word_0033","word":"again","phonetic":"ə'ɡen","pos":"adv","translations":["再一次","又一次"]},{"id":"word_0034","word":"against","phonetic":"ə'ɡenst","pos":"prep","translations":["对……不利","反对","倚","紧靠","对抗"]},{"id":"word_0035","word":"age","phonetic":"eɪdʒ","pos":"n","translations":["年龄","时代","老年"]},{"id":"word_0036","word":"ago","phonetic":"ə'ɡəʊ","pos":"adv","translations":["以前"]},{"id":"word_0037","word":"agree","phonetic":"ə'ɡriː","pos":"v","translations":["同意","赞成"]},{"id":"word_0038","word":"ahead","phonetic":"ə'hed","pos":"adv","translations":["在前面","向前"]},{"id":"word_0039","word":"aid","phonetic":"eɪd","pos":"n,v","translations":["帮助","援助","辅助工具"]},{"id":"word_0040","word":"aim","phonetic":"eɪm","pos":"n,v","translations":["目标","目的","瞄准","旨在"]},{"id":"word_0041","word":"air","phonetic":"eə(r)","pos":"n","translations":["空气","空中"]},{"id":"word_0042","word":"airport","phonetic":"'eəpɔːt","pos":"n","translations":["航空站","机场"]},{"id":"word_0043","word":"alarm","phonetic":"ə'lɑːm","pos":"n","translations":["闹钟","警报"]},{"id":"word_0044","word":"album","phonetic":"'ælbəm","pos":"n","translations":["相册","集邮册","音乐专辑"]},{"id":"word_0045","word":"alike","phonetic":"ə'laɪk","pos":"adj,adv","translations":["相像的","很像地"]},{"id":"word_0046","word":"alive","phonetic":"ə'laɪv","pos":"adj","translations":["活着的","活跃的"]},{"id":"word_0047","word":"all","phonetic":"ɔːl","pos":"adj,pron","translations":["全部的","所有的","全部"]},{"id":"word_0048","word":"allow","phonetic":"ə'laʊ","pos":"v","translations":["允许","准许"]},{"id":"word_0049","word":"almost","phonetic":"'ɔːlməʊst","pos":"adv","translations":["几乎","差不多"]},{"id":"word_0050","word":"alone","phonetic":"ə'ləʊn","pos":"adj,adv","translations":["单独的","独自"]}];
+    // 扩充后的词汇表（500词）- 中考英语核心词汇
+const vocabulary = [];
+    // 转换 vocabulary_full.js 格式为页面需要的格式（1594词）
+    if (window.vocabulary && window.vocabulary.words) {
+      const rawWords = window.vocabulary.words;
+      vocabulary = rawWords.map(w => {
+        let chinese = '';
+        if (w.translation) {
+          const parts = w.translation.split('.');
+          chinese = parts.slice(1).join('.').trim() || parts[0] || '';
+        }
+        return {
+          id: w.id,
+          word: w.word,
+          phonetic: (w.phonetic || '').replace(/[\[\]]/g, ''),
+          pos: w.partOfSpeech || '',
+          translations: [chinese || w.word]
+        };
+      });
+    }
+
+
 
     // 词汇库总数
-    const TOTAL_WORDS = 1675;
+    const TOTAL_WORDS = vocabulary.length;
+    const BATCH_SIZE = 10;
+
+    // 词汇池
+    function shuffleArray(arr) {
+      const result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    let vocabPool = shuffleArray(vocabulary);
+    let poolIndex = 0;
+
+    function getNextBatch() {
+      const batch = [];
+      for (let i = 0; i < BATCH_SIZE; i++) {
+        if (poolIndex >= vocabPool.length) {
+          poolIndex = 0;
+          vocabPool = shuffleArray(vocabPool);
+        }
+        const word = vocabPool[poolIndex++];
+        batch.push({ ...word, userAnswer: '' });
+      }
+      return batch;
+    }
 
     // ==================== 工具函数 ====================
     // 检查答案是否正确（支持多答案）
@@ -321,7 +523,7 @@
             'Authorization': 'Bearer sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY'
           },
           body: JSON.stringify({
-            model: 'sentiance-3',
+            model: 'MiniMax-M2.7-highspeed',
             max_tokens: 2000,
             messages: [{ role: 'user', content: prompt }]
           })
@@ -376,7 +578,21 @@
           showReport: false,
           reportLoading: false,
           aiReport: null,
-          totalWords: TOTAL_WORDS
+          totalWords: TOTAL_WORDS,
+          activeTab: 'normal',
+          batch: {
+            currentBatch: [],
+            groupIndex: 0,
+            totalGroups: 3,
+            showResult: false,
+            allResults: [],
+            correctCount: 0,
+            wrongCount: 0,
+            accuracy: 0,
+            inputRefs: []
+          },
+          analyzingWrong: false,
+          wrongCountAnalysis: null
         };
       },
       computed: {
@@ -413,6 +629,127 @@
 
           this.aiReport = result;
           this.reportLoading = false;
+        },
+        switchTab(tab) {
+          this.activeTab = tab;
+          if (tab === 'batch') {
+            this.batch.inputRefs = [];
+            this.initBatchTest();
+          }
+        },
+        initBatchTest() {
+          this.batch.currentBatch = getNextBatch();
+          this.batch.groupIndex = 0;
+          this.batch.showResult = false;
+          this.batch.allResults = [];
+          this.batch.correctCount = 0;
+          this.batch.wrongCount = 0;
+          this.batch.accuracy = 0;
+          this.$nextTick(() => this.focusInput(0));
+        },
+        handleKeydown(event, index) {
+          if (event.key === 'Enter') {
+            if (index === BATCH_SIZE - 1) {
+              this.submitBatch();
+            } else {
+              this.focusInput(index + 1);
+            }
+          }
+        },
+        focusInput(index) {
+          this.$nextTick(() => {
+            const input = this.batch.inputRefs[index];
+            if (input) input.focus();
+          });
+        },
+        submitBatch() {
+          this.batch.currentBatch.forEach(item => {
+            const normalized = item.userAnswer.trim().toLowerCase();
+            const correct = item.word.toLowerCase() === normalized;
+            this.batch.allResults.push({
+              id: item.id,
+              word: item.word,
+              translation: item.translations[0],
+              userAnswer: item.userAnswer.trim(),
+              correctAnswer: item.word,
+              isCorrect: correct
+            });
+            if (correct) {
+              this.batch.correctCount++;
+            } else {
+              this.batch.wrongCount++;
+            }
+          });
+          this.batch.groupIndex++;
+          if (this.batch.groupIndex >= 3) {
+            this.batch.accuracy = Math.round((this.batch.correctCount / (BATCH_SIZE * 3)) * 100);
+            this.batch.showResult = true;
+          } else {
+            this.batch.currentBatch = getNextBatch();
+            this.$nextTick(() => this.focusInput(0));
+          }
+        },
+        restartBatchTest() {
+          vocabPool = shuffleArray(vocabulary);
+          poolIndex = 0;
+          this.initBatchTest();
+          this.analyzingWrong = false;
+          this.wrongCountAnalysis = null;
+        },
+        async analyzeWrongWords() {
+          const wrongWords = this.batch.allResults.filter(r => !r.isCorrect);
+          if (wrongWords.length === 0) {
+            this.wrongCountAnalysis = '太棒了！本次练习没有错误！';
+            return;
+          }
+
+          this.analyzingWrong = true;
+          this.wrongCountAnalysis = null;
+
+          try {
+            const wrongList = wrongWords.map(w => `• ${w.correctAnswer} (你写的: ${w.userAnswer || '空'})`).join('\n');
+            const prompt = `你是HappyEnglish的AI英语学习顾问。用户刚刚完成了一轮30题的英语词汇测试，以下是用户答错的单词：
+
+${wrongList}
+
+请分析：
+1. 错误原因（为什么容易记错）
+2. 记忆技巧（如何记住这些单词）
+3. 复习建议（接下来怎么复习）
+
+要求：
+- 语言简洁，适合中学生理解
+- 直接给出实用建议
+- 控制在200字以内`;
+
+            const apiKey = sessionStorage.getItem('minimax_api_key') || 'sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY';
+
+            const response = await fetch('https://api.minimax.chat/v1/text/chatcompletion_v2', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                model: 'MiniMax-M2.7-highspeed',
+                max_tokens: 500,
+                messages: [{ role: 'user', content: prompt }]
+              })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              const content = data.choices?.[0]?.message?.content || '';
+              this.wrongCountAnalysis = content.replace(/\n/g, '<br>').replace(/[-*•]/g, '•');
+            } else {
+              this.wrongCountAnalysis = 'AI服务暂时不可用，请稍后再试。';
+            }
+          } catch (e) {
+            console.error('AI分析失败:', e);
+            this.wrongCountAnalysis = '分析失败，请检查网络连接。';
+          } finally {
+            this.analyzingWrong = false;
+          }
         },
         async loadData() {
           try {
