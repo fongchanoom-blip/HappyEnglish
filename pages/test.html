@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试 - HappyEnglish</title>
+  <style>
+    :root {
+      --primary: #4A90D9;
+      --success: #67C23A;
+      --danger: #F56C6C;
+      --text-primary: #303133;
+      --text-secondary: #909399;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: #F5F7FA; min-height: 100vh; }
+    .container { max-width: 750px; margin: 0 auto; padding: 16px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .back-btn { padding: 8px 16px; background: white; border: none; border-radius: 8px; cursor: pointer; }
+    .mode-toggle { display: flex; gap: 8px; }
+    .mode-toggle button { padding: 8px 16px; border: 1px solid var(--primary); background: white; border-radius: 8px; cursor: pointer; }
+    .mode-toggle button.active { background: var(--primary); color: white; }
+    .streak { padding: 8px 16px; background: #FFF3E0; border-radius: 20px; font-size: 18px; }
+    .question-card { background: white; border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .prompt { color: var(--text-secondary); font-size: 14px; margin-bottom: 8px; }
+    .question { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 24px; }
+    .answer-input { width: 100%; padding: 16px; font-size: 20px; text-align: center; border: 2px solid #E4E7ED; border-radius: 12px; outline: none; margin-bottom: 16px; }
+    .answer-input:focus { border-color: var(--primary); }
+    .answer-input.correct { border-color: var(--success); background: #F0F9EB; }
+    .answer-input.wrong { border-color: var(--danger); background: #FEF0F0; }
+    .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--primary); color: white; }
+    .result { padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
+    .result.correct { background: #F0F9EB; }
+    .result.wrong { background: #FEF0F0; }
+    .result-icon { font-size: 48px; margin-bottom: 8px; }
+    .result-text { font-size: 20px; font-weight: 600; }
+    .correct-answer { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+    .stats { display: flex; justify-content: space-around; padding: 16px; background: white; border-radius: 12px; }
+    .stat { font-size: 14px; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+      <div class="mode-toggle">
+        <button :class="{active: mode === 'cn2en'}" @click="mode = 'cn2en'">中→英</button>
+        <button :class="{active: mode === 'en2cn'}" @click="mode = 'en2cn'">英→中</button>
+      </div>
+      <div class="streak">🔥 {{ streak }}</div>
+    </div>
+
+    <div class="question-card" v-if="!finished">
+      <div class="prompt">{{ mode === 'cn2en' ? '请输入对应的英文单词' : '请输入对应的中文意思' }}</div>
+      <div class="question">{{ currentWord[mode === 'cn2en' ? 'translation' : 'word'] }}</div>
+      <input
+        type="text"
+        v-model="answer"
+        @keyup.enter="submitAnswer"
+        class="answer-input"
+        :class="{correct: showResult && isCorrect, wrong: showResult && !isCorrect}"
+        placeholder="输入答案后按回车"
+        autofocus
+      />
+      <button class="btn btn-primary" @click="submitAnswer" :disabled="!answer">确认</button>
+    </div>
+
+    <div class="result" :class="isCorrect ? 'correct' : 'wrong'" v-if="showResult">
+      <div class="result-icon">{{ isCorrect ? '✓' : '✗' }}</div>
+      <div class="result-text">{{ isCorrect ? '正确！' : '错误' }}</div>
+      <div class="correct-answer" v-if="!isCorrect">
+        正确答案：{{ mode === 'cn2en' ? currentWord.word : currentWord.translation }}
+      </div>
+    </div>
+
+    <div v-if="finished" class="question-card">
+      <div class="result-icon">🎉</div>
+      <div class="result-text">一轮完成！</div>
+      <div class="stats" style="margin-top: 20px;">
+        <div class="stat">正确: {{ correctCount }}</div>
+        <div class="stat">错误: {{ wrongCount }}</div>
+        <div class="stat">正确率: {{ accuracyPercent }}%</div>
+      </div>
+      <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='index.html'">返回首页</button>
+    </div>
+
+    <div class="stats" v-if="!finished">
+      <div class="stat">正确: {{ correctCount }}</div>
+      <div class="stat">错误: {{ wrongCount }}</div>
+      <div class="stat">正确率: {{ accuracyPercent }}%</div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="data/vocabulary_full.js"></script>
+  <script>
+    // IndexedDB 数据库封装
+    const DB = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        if (this.db) return this.db;
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 2);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+          request.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('progress')) {
+              db.createObjectStore('progress', { keyPath: 'wordId' });
+            }
+          };
+        });
+      },
+      async saveProgress(wordId, data) {
+        await this.init();
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readwrite');
+          const store = tx.objectStore('progress');
+          const getReq = store.get(wordId);
+          getReq.onsuccess = () => {
+            const existing = getReq.result || {};
+            const updated = { ...existing, wordId, ...data, updatedAt: Date.now() };
+            store.put(updated);
+            tx.oncomplete = () => resolve(updated);
+            tx.onerror = () => reject(tx.error);
+          };
+        });
+      },
+      async getProgress(wordId) {
+        await this.init();
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readonly');
+          const store = tx.objectStore('progress');
+          const req = store.get(wordId);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+    };
+
+    // 转换 vocabulary_full.js 格式为测试页面需要的格式（与 review.html 兼容）
+    let words = [];
+    if (window.vocabulary && window.vocabulary.words) {
+      words = window.vocabulary.words.map(w => {
+        // 提取中文释义（格式如 "n.能力；才能" -> "能力；才能"）
+        let chinese = '';
+        if (w.translation) {
+          const parts = w.translation.split('.');
+          chinese = parts.slice(1).join('.').trim() || parts[0] || '';
+        }
+        return {
+          id: w.id,
+          word: w.word,
+          translations: [chinese || w.word]
+        };
+      });
+    }
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          mode: 'cn2en',
+          words: words.sort(() => Math.random() - 0.5),
+          currentIndex: 0,
+          answer: '',
+          showResult: false,
+          isCorrect: false,
+          correctCount: 0,
+          wrongCount: 0,
+          streak: 0,
+          finished: false
+        };
+      },
+      computed: {
+        currentWord() {
+          const word = this.words[this.currentIndex] || {};
+          // 兼容旧格式：添加 translation 属性
+          if (word.translations && !word.translation) {
+            word.translation = word.translations[0];
+          }
+          return word;
+        },
+        accuracyPercent() {
+          const total = this.correctCount + this.wrongCount;
+          return total > 0 ? Math.round((this.correctCount / total) * 100) : 0;
+        }
+      },
+      methods: {
+        async submitAnswer() {
+          if (!this.answer.trim()) return;
+
+          const correct = this.answer.trim().toLowerCase() ===
+            (this.mode === 'cn2en'
+              ? this.currentWord.word.toLowerCase()
+              : this.currentWord.translations[0]);
+
+          this.isCorrect = correct;
+          this.showResult = true;
+
+          // 保存进度到 IndexedDB
+          try {
+            const wordId = this.currentWord.id;
+            await DB.saveProgress(wordId, {
+              correctCount: correct ? 1 : 0,
+              wrongCount: correct ? 0 : 1,
+              totalTests: 1
+            });
+          } catch (e) {
+            console.error('保存进度失败:', e);
+          }
+
+          if (correct) {
+            this.correctCount++;
+            this.streak++;
+          } else {
+            this.wrongCount++;
+            this.streak = 0;
+          }
+
+          setTimeout(() => {
+            this.showResult = false;
+            this.answer = '';
+            this.currentIndex++;
+            if (this.currentIndex >= this.words.length) {
+              this.finished = true;
+            }
+          }, 1000);
+        }
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>
