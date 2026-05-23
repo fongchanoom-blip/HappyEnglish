@@ -1187,7 +1187,10 @@ function initReviewApp() {
       async loadData() {
         if (window.getWordsByLevel && window.db) {
           const allProgress = await window.db.getAllProgress() || [];
-          const allWords = window.vocabulary?.words || [];
+          const allWords = (window.vocabulary?.words || []).concat(
+            window.vocabulary?.highFrequency || [],
+            window.vocabulary?.basic || []
+          );
           const grouped = window.getWordsByLevel(allProgress, allWords);
 
           this.weakWords = grouped.weak || [];
@@ -1316,7 +1319,10 @@ function initReviewApp() {
             const dueWords = window.spacedRepetition.getWordsForReview(allMastery, 20, errorPatterns);
 
             // 获取单词详情并计算优先级原因
-            const allWords = window.vocabulary?.words || [];
+            const allWords = (window.vocabulary?.words || []).concat(
+            window.vocabulary?.highFrequency || [],
+            window.vocabulary?.basic || []
+          );
 
             this.reviewWords = dueWords.map(m => {
               const wordInfo = allWords.find(w => w.id === m.wordId) || {};
@@ -1411,7 +1417,10 @@ function initReviewApp() {
         try {
           const allErrors = await window.db.getErrorPatterns ? await window.db.getErrorPatterns() : [];
           const allAnalysis = await window.db.getAllErrorAnalysis ? await window.db.getAllErrorAnalysis() : [];
-          const allWords = window.vocabulary?.words || [];
+          const allWords = (window.vocabulary?.words || []).concat(
+            window.vocabulary?.highFrequency || [],
+            window.vocabulary?.basic || []
+          );
 
           this.errorBookData = allErrors.map(error => {
             const wordInfo = allWords.find(w => w.id === error.wordId) || {};

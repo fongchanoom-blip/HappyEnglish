@@ -238,7 +238,10 @@ const homeApp = {
       if (typeof getWordsByLevel === 'function' && window.db) {
         await window.db.init();
         const allProgress = await window.db.getAllProgress() || [];
-        const allWords = window.vocabulary?.words || [];
+        const allWords = (window.vocabulary?.words || []).concat(
+          window.vocabulary?.highFrequency || [],
+          window.vocabulary?.basic || []
+        );
         const grouped = getWordsByLevel(allProgress, allWords);
 
         this.goodWords = [...grouped.master, ...grouped.familiar];
