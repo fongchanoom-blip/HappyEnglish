@@ -398,6 +398,11 @@
         const streak = ref(0);
         const totalWords = ref(0);
 
+        // Performance optimization: batch fetching
+        let allShuffledWords = []; // 非响应式，直接存储打乱后的完整词汇
+        let usedWordIds = new Set(); // 记录已用过的词ID，避免重复
+        const BATCH_SIZE = 30;
+
         const currentWord = computed(() => {
           return words.value[currentIndex.value] || {};
         });
@@ -413,6 +418,31 @@
 
         const setMode = (newMode) => {
           mode.value = newMode;
+        };
+
+        // 批量加载下一组词汇（用于性能优化）
+        const loadNextBatch = () => {
+          // 从未使用的词中随机选取BATCH_SIZE个
+          const remainingWords = allShuffledWords.filter(w => !usedWordIds.has(w.id));
+
+          if (remainingWords.length === 0) {
+            // 所有词都用完了，重置
+            usedWordIds.clear();
+            loadNextBatch();
+            return;
+          }
+
+          // 随机打乱剩余词汇并取BATCH_SIZE个
+          const shuffled = [...remainingWords].sort(() => Math.random() - 0.5);
+          const batch = shuffled.slice(0, BATCH_SIZE);
+
+          // 标记这些词为已使用
+          batch.forEach(w => usedWordIds.add(w.id));
+
+          // 冻结数据减少Vue响应式开销
+          words.value = Object.freeze(batch);
+          currentIndex.value = 0;
+          totalWords.value = batch.length;
         };
 
         const submitAnswer = async () => {
@@ -501,12 +531,12 @@
           setTimeout(() => {
             showResult.value = false;
             answer.value = '';
-            currentIndex.value = (currentIndex.value + 1) % words.value.length;
-            // 清空结果显示
+            currentIndex.value++;
             isCorrect.value = false;
 
-            if (currentIndex.value === 0) {
-              // 一轮完成，学习伙伴检查里程碑
+            // 当批次用完时，加载下一批词汇
+            if (currentIndex.value >= words.value.length) {
+              // 一轮批次完成，学习伙伴检查里程碑
               if (window.companionWidget) {
                 const context = {
                   streak: window.learningCompanion.streak,
@@ -519,6 +549,9 @@
               if (window.store) {
                 window.store.showToast('恭喜完成一轮测试！');
               }
+
+              // 加载下一批
+              loadNextBatch();
             }
           }, 1500);
         };
@@ -530,21 +563,25 @@
             window.companionWidget.init(true);
           }
 
-          // 获取词汇数据
+          // 获取全部词汇数据（冻结减少响应式开销）
+          let allWords = [];
           if (window.vocabulary && window.vocabulary.words) {
-            words.value = [...window.vocabulary.words];
+            allWords = window.vocabulary.words;
           } else if (window.vocabulary) {
-            // 合并所有词汇
-            words.value = [
+            allWords = [
               ...(window.vocabulary.highFrequency || []),
               ...(window.vocabulary.basic || [])
             ];
           }
 
-          // 随机打乱顺序
-          words.value.sort(() => Math.random() - 0.5);
+          // 冻结全部词汇数据（性能优化）
+          allWords = Object.freeze(allWords);
 
-          totalWords.value = words.value.length;
+          // 随机打乱顺序存储
+          allShuffledWords = [...allWords].sort(() => Math.random() - 0.5);
+
+          // 加载第一批
+          loadNextBatch();
 
           // 从URL参数获取模式
           const urlParams = new URLSearchParams(window.location.search);
