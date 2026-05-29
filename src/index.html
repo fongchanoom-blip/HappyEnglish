@@ -132,6 +132,7 @@
           goTest() { window.location.href = '../test.html'; },
           goReview() { window.location.href = 'pages/review.html'; },
           goProfile() { window.location.href = 'pages/profile.html'; },
+          goEtymology() { window.location.href = 'pages/etymology.html'; },
           goStory() { window.location.href = 'pages/story.html'; },
           goReport() { window.location.href = 'pages/report.html'; },
           async loadData() {
@@ -411,6 +412,10 @@
               <div class="tab-item" @click="goProfile">
                 <span class="icon">👤</span>
                 <span class="text">我的</span>
+              </div>
+              <div class="tab-item" @click="goEtymology">
+                <span class="icon">📚</span>
+                <span class="text">词根</span>
               </div>
             </div>
           </div>

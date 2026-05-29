@@ -4,8 +4,11 @@
  */
 class AIService {
   constructor() {
-    // API 配置 - 使用 sessionStorage 存储，更安全（关闭浏览器后自动清除）
-    this.apiKey = sessionStorage.getItem('minimax_api_key') || '';
+    // API 配置 - 使用 localStorage 持久化存储，同时兼容 sessionStorage
+    // localStorage: 永久存储，跨会话保留
+    // sessionStorage: 备用，仅当 localStorage 不可用时
+    this.apiKey = localStorage.getItem('minimax_api_key')
+               || sessionStorage.getItem('minimax_api_key') || '';
     this.baseUrl = 'https://api.minimax.chat/v1';
     this.model = 'MiniMax-M2.7-highspeed';
 
@@ -23,12 +26,23 @@ class AIService {
   }
 
   /**
-   * 更新 API Key - 使用 sessionStorage 更安全
+   * 更新 API Key - 持久化到 localStorage
    * @param {string} apiKey - 新的 API Key
    */
   updateApiKey(apiKey) {
     this.apiKey = apiKey;
+    localStorage.setItem('minimax_api_key', apiKey);
+    // 同时保留一份到 sessionStorage 作为备用
     sessionStorage.setItem('minimax_api_key', apiKey);
+  }
+
+  /**
+   * 清除 API Key
+   */
+  clearApiKey() {
+    this.apiKey = '';
+    localStorage.removeItem('minimax_api_key');
+    sessionStorage.removeItem('minimax_api_key');
   }
 
   /**

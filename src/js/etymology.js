@@ -27,7 +27,6 @@ class EtymologyService {
     }
 
     const result = {
-    const result = {
       word,
       prefix: null,
       suffix: null,

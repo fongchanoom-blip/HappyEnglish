@@ -4,3 +4,26 @@ node_modules/
 .DS_Store
 *.log
 api/node_modules/
+.vercel
+
+# 临时文件和调试脚本
+*.png
+*.jpg
+*.gif
+check_*.py
+debug*.py
+fix_*.py
+clean-*.js
+test_*.py
+*.tmp
+*.bak
+
+# 生成的文档
+*.docx
+docs/HappyEnglish-*.docx
+
+# 编译输出
+dist/
+build/
+*.pyc
+__pycache__/

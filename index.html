@@ -127,6 +127,18 @@
         <!-- AI 学习报告 -->
         <div class="ai-report-card" v-if="showReport">
           <h3>🤖 AI 学习报告</h3>
+
+          <!-- API Key 配置提示 -->
+          <div v-if="!reportLoading && !aiReport" class="report-content" style="text-align: center; padding: 20px;">
+            <p style="color: #666; margin-bottom: 12px;">首次使用 AI 报告需要配置 MiniMax API Key</p>
+            <input type="password" v-model="apiKeyInput" placeholder="输入 MiniMax API Key"
+              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box;" />
+            <button class="btn btn-primary" @click="saveApiKey" style="width: 100%;">保存并生成报告</button>
+            <p style="color: #999; font-size: 12px; margin-top: 10px;">
+              获取 API Key: <a href="https://www.minimax.io/" target="_blank" style="color: #667eea;">MiniMax 开放平台</a>
+            </p>
+          </div>
+
           <div v-if="reportLoading" class="loading">
             <div class="spinner"></div>
             <div>AI 分析中...</div>
@@ -253,6 +265,18 @@
         <!-- AI 学习报告 -->
         <div class="ai-report-card" v-if="showReport">
           <h3>🤖 AI 学习报告</h3>
+
+          <!-- API Key 配置提示 -->
+          <div v-if="!reportLoading && !aiReport" class="report-content" style="text-align: center; padding: 20px;">
+            <p style="color: #666; margin-bottom: 12px;">首次使用 AI 报告需要配置 MiniMax API Key</p>
+            <input type="password" v-model="apiKeyInput" placeholder="输入 MiniMax API Key"
+              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box;" />
+            <button class="btn btn-primary" @click="saveApiKey" style="width: 100%;">保存并生成报告</button>
+            <p style="color: #999; font-size: 12px; margin-top: 10px;">
+              获取 API Key: <a href="https://www.minimax.io/" target="_blank" style="color: #667eea;">MiniMax 开放平台</a>
+            </p>
+          </div>
+
           <div v-if="reportLoading" class="loading">
             <div class="spinner"></div>
             <div>AI 分析中...</div>
@@ -337,6 +361,7 @@
           <div class="tab-item" @click="goPage('test')"><span class="icon">📝</span><span class="text">测试</span></div>
           <div class="tab-item" @click="goPage('review')"><span class="icon">📖</span><span class="text">复习</span></div>
           <div class="tab-item" @click="goPage('profile')"><span class="icon">👤</span><span class="text">我的</span></div>
+          <div class="tab-item" @click="goPage('etymology')"><span class="icon">📚</span><span class="text">词根</span></div>
         </div>
       </div>
     </div>
@@ -344,6 +369,7 @@
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="data/vocabulary_full.js"></script>
+  <script src="src/js/ai-service.js"></script>
   <script>
     // ==================== 词汇数据 ====================
     // 扩充后的词汇表（500词）- 中考英语核心词汇
@@ -578,6 +604,7 @@ let vocabulary = [];
           showReport: false,
           reportLoading: false,
           aiReport: null,
+          apiKeyInput: '',
           totalWords: TOTAL_WORDS,
           activeTab: 'normal',
           batch: {
@@ -608,7 +635,13 @@ let vocabulary = [];
         },
         startTest() { window.location.href = 'test.html'; },
         testWord(word) { window.location.href = 'test.html?word=' + word.id; },
-        goPage(page) { window.location.href = page + '.html'; },
+        goPage(page) {
+          if (page === 'etymology') {
+            window.location.href = 'src/pages/etymology.html';
+          } else {
+            window.location.href = page + '.html';
+          }
+        },
         formatMarkdown(text) {
           if (!text) return '';
           return text.replace(/\n/g, '<br>').replace(/[-*]/g, '•');
@@ -619,16 +652,34 @@ let vocabulary = [];
 
           const stats = await db.getStats();
           const allProgress = await db.getAllProgress();
-          const weakWords = allProgress.filter(p => p.wrongCount > p.correctCount).map(p => p.wordId);
 
-          const result = await generateAIReport({
-            ...stats,
-            learnedWords: allProgress.length,
-            weakWords: weakWords
+          // 使用 aiService 生成报告
+          const weakWordsList = allProgress.filter(p => p.wrongCount > p.correctCount).map(p => {
+            const word = vocabulary.find(w => w.id === p.wordId);
+            return word ? word.word : p.wordId;
           });
 
-          this.aiReport = result;
+          const result = await window.aiService.generateReport({
+            totalWords: allProgress.length,
+            accuracy: stats.totalTests > 0 ? Math.round((stats.correctCount / stats.totalTests) * 100) : 0,
+            weakWords: weakWordsList,
+            totalMinutes: stats.daysActive * 15, // 估算
+            streak: stats.streak || 0
+          });
+
+          // 解析报告
+          this.aiReport = parseReport(result);
           this.reportLoading = false;
+        },
+        async saveApiKey() {
+          if (!this.apiKeyInput.trim()) {
+            alert('请输入有效的 API Key');
+            return;
+          }
+          window.aiService.updateApiKey(this.apiKeyInput.trim());
+          this.apiKeyInput = '';
+          // 重新生成报告
+          await this.generateAIReport();
         },
         switchTab(tab) {
           this.activeTab = tab;
