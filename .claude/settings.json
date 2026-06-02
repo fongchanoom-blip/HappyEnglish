@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "minimax": {
+      "command": "node",
+      "args": ["mcp-server/minimax-server.js"],
+      "env": {
+        "MINIMAX_API_KEY": "sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY"
+      }
+    }
+  }
+}

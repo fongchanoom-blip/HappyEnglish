@@ -1,0 +1,2 @@
+Found backgroun at index: 19019
+Context repr: '    { id: \'word_0105\', word: \'backgroun\nd\', phonetic: "[\'bækɡraʊnd]", translatio'

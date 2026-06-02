@@ -1,0 +1,6 @@
+Line containing word_0105:
+Length: 39
+Contains CR: False
+Contains LF: False
+backgroun at: 30
+Segment: "word: 'backgroun"

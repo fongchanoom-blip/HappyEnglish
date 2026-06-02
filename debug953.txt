@@ -1,0 +1,5 @@
+Line 953 length: 179
+Line 953 repr: '    { id: \'word_0934\', word: \'o\'clock\', phonetic: "[ə\'klɒk]", translation: "adv.(表示整点)……点钟", partOfSpeech: \'adv.\', category: \'adv\', examples: [], examPoints: [], difficulty: 1 },\n'
+Found embedded LF!
+o clock found at index: 30
+Segment: "o'clock', phonetic: "

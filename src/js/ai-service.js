@@ -10,7 +10,7 @@ class AIService {
     this.apiKey = localStorage.getItem('minimax_api_key')
                || sessionStorage.getItem('minimax_api_key') || '';
     this.baseUrl = 'https://api.minimax.chat/v1';
-    this.model = 'MiniMax-M2.7-highspeed';
+    this.model = 'MiniMax-M3-highspeed';
 
     // 内存缓存 - 添加大小限制防止内存泄漏
     this.cache = new Map();

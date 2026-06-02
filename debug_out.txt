@@ -1,0 +1,8 @@
+Context: '    { id: \'word_0105\', word: \'backgroun\nd\', phonetic: "[\'bækɡraʊnd]", translation: "n.背景",'
+Pattern "word: '([A-Za-z]+)\\n([A-Za-z\\(][^']*)',\\s*": 2 matches
+  First: ('backgroun', 'd')
+Pattern "word: '([A-Za-z]+)\\n([A-Za-z]+)',": 1 matches
+  First: ('backgroun', 'd')
+Pattern "word: 'backgroun\\n": 1 matches
+  First: word: 'backgroun
+

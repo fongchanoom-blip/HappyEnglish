@@ -69,7 +69,7 @@ export async function onRequest(context) {
         'Authorization': `Bearer ${MINIMAX_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'MiniMax-M2.7-highspeed',
+        model: 'MiniMax-M3-highspeed',
         max_tokens: 2000,
         messages: [
           {

@@ -1,0 +1,5 @@
+Found 1594 phonetic entries
+Problematic (contain straight single quote): 818
+  Index 1: "[ə'bɪləti]"
+  Index 2: "['eɪbl]"
+  Index 3: "[ə'baʊt]"

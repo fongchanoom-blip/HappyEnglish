@@ -1,0 +1,466 @@
+
+  
+    HappyEnglishAI 智能学习助手Lv.10分1594词库总数0已学词0%正确率0连击 📋 批量测试 开始测试生成 AI 学习报告📚词根词缀举一反三记单词→掌握较好 (0词)还没有掌握很好的词，继续加油！需要加强 (1594词)a/anabilityableaboutaboveabroadabsentacceptaccidentaccordingaccountacheachieveacrossactactionactiveactivityactoractuallyadaddaddressadmireadultadvantageadviceadviseaffordafraidafterafternoonagainagainstageagoagreeaheadAIaidaimairairportalarmaliveallallowalmostalonealong🏠首页📝测试📖复习👤我的
+  
+
+  
+  
+  
+    // ==================== 词汇数据 ====================
+    // 扩充后的词汇表（500词）- 中考英语核心词汇
+let vocabulary = [];
+    // 转换 vocabulary_full.js 格式为页面需要的格式（1594词）
+    if (window.vocabulary && window.vocabulary.words) {
+      const rawWords = window.vocabulary.words;
+      vocabulary = rawWords.map(w => {
+        let chinese = '';
+        if (w.translation) {
+          const parts = w.translation.split('.');
+          chinese = parts.slice(1).join('.').trim() || parts[0] || '';
+        }
+        return {
+          id: w.id,
+          word: w.word,
+          phonetic: (w.phonetic || '').replace(/[\[\]]/g, ''),
+          pos: w.partOfSpeech || '',
+          translations: [chinese || w.word]
+        };
+      });
+    }
+
+
+
+    // 词汇库总数
+    const TOTAL_WORDS = vocabulary.length;
+    const BATCH_SIZE = 10;
+
+    // 词汇池
+    function shuffleArray(arr) {
+      const result = [...arr];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    let vocabPool = shuffleArray(vocabulary);
+    let poolIndex = 0;
+
+    function getNextBatch() {
+      const batch = [];
+      for (let i = 0; i < BATCH_SIZE; i++) {
+        if (poolIndex >= vocabPool.length) {
+          poolIndex = 0;
+          vocabPool = shuffleArray(vocabPool);
+        }
+        const word = vocabPool[poolIndex++];
+        batch.push({ ...word, userAnswer: '' });
+      }
+      return batch;
+    }
+
+    // ==================== 工具函数 ====================
+    // 检查答案是否正确（支持多答案）
+    function checkAnswer(word, userAnswer) {
+      const entry = vocabulary.find(v => v.word.toLowerCase() === word.toLowerCase());
+      if (!entry || !entry.translations || entry.translations.length === 0) return false;
+      const normalized = userAnswer.trim().replace(/\s+/g, '');
+      return entry.translations.some(t => {
+        const cleanT = t.replace(/\s+/g, '');
+        return cleanT === normalized || cleanT.includes(normalized) || normalized.includes(cleanT);
+      });
+    }
+
+    // 获取单词翻译
+    function getTranslations(word) {
+      const entry = vocabulary.find(v => v.word.toLowerCase() === word.toLowerCase());
+      return entry ? entry.translations : [];
+    }
+
+    // ==================== IndexedDB ====================
+    const db = {
+      dbName: 'HappyEnglishDB',
+      db: null,
+      async init() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(this.dbName, 2);
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => { this.db = request.result; resolve(this.db); };
+          request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('progress')) db.createObjectStore('progress', { keyPath: 'wordId' });
+            if (!db.objectStoreNames.contains('stats')) db.createObjectStore('stats', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('daily')) db.createObjectStore('daily', { keyPath: 'date' });
+          };
+        });
+      },
+      async getAllProgress() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readonly');
+          const store = tx.objectStore('progress');
+          const request = store.getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      },
+      async saveProgress(wordId, correct) {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('progress', 'readwrite');
+          const store = tx.objectStore('progress');
+          const getReq = store.get(wordId);
+          getReq.onsuccess = () => {
+            let data = getReq.result || { wordId, totalTests: 0, correctCount: 0, wrongCount: 0 };
+            data.totalTests++;
+            if (correct) data.correctCount++; else data.wrongCount++;
+            store.put(data);
+          };
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      },
+      async getStats() {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('stats', 'readonly');
+          const store = tx.objectStore('stats');
+          const request = store.get('main');
+          request.onsuccess = () => resolve(request.result || { level: 1, points: 0, maxStreak: 0, streak: 0, daysActive: 1, totalTests: 0, correctCount: 0 });
+          request.onerror = () => reject(request.error);
+        });
+      },
+      async saveStats(stats) {
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction('stats', 'readwrite');
+          const store = tx.objectStore('stats');
+          store.put({ id: 'main', ...stats });
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+    };
+
+    // ==================== AI 报告生成 ====================
+    async function generateAIReport(stats) {
+      const accuracy = stats.totalTests > 0 ? Math.round((stats.correctCount / stats.totalTests) * 100) : 0;
+
+      const prompt = `你是 HappyEnglish 的 AI 学习顾问。用户刚刚完成了一轮英语单词测试，请根据以下数据生成一份个性化的学习报告。
+
+## 用户数据
+- 总测试次数: ${stats.totalTests}
+- 正确次数: ${stats.correctCount}
+- 错误次数: ${stats.totalTests - stats.correctCount}
+- 当前正确率: ${accuracy}%
+- 当前连击: ${stats.streak}
+- 最高连击: ${stats.maxStreak}
+- 已学习词数: ${stats.learnedWords || vocabulary.length}
+- 学习天数: ${stats.daysActive}天
+
+## 请生成以下格式的报告（使用 Markdown）
+
+### 📊 学习概览
+[分析整体学习情况，给出简短评价]
+
+### 🔥 学习趋势
+- 正确率: ${accuracy}%
+- 薄弱词攻克进度
+
+### 💡 AI 分析
+[分析薄弱词的特点，给出记忆建议]
+
+### 🎯 下周目标
+[给出3-5个具体可行的学习目标]
+
+### 🏆 激励语
+[一句鼓励的话]
+
+---
+请用中文回复，保持简洁，控制在 500 字以内。`;
+
+      try {
+        const response = await fetch('https://api.minimaxi.com/anthropic/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY'
+          },
+          body: JSON.stringify({
+            model: 'MiniMax-M2.7-highspeed',
+            max_tokens: 2000,
+            messages: [{ role: 'user', content: prompt }]
+          })
+        });
+
+        if (!response.ok) throw new Error('API Error: ' + response.status);
+
+        const result = await response.json();
+        const content = result.choices?.[0]?.message?.content || '';
+
+        // 解析报告
+        return parseReport(content);
+      } catch (error) {
+        console.error('AI Report Error:', error);
+        return null;
+      }
+    }
+
+    function parseReport(content) {
+      const sections = { overview: '', trend: '', analysis: '', goals: '', motivation: '' };
+      const matches = content.match(/###\s*([^\n]+)\n([\s\S]*?)(?=###|$)/g) || [];
+      matches.forEach(match => {
+        const titleMatch = match.match(/###\s*([^\n]+)/);
+        const contentMatch = match.match(/###\s*[^\n]+\n([\s\S]*?)$/);
+        if (titleMatch && contentMatch) {
+          const title = titleMatch[1];
+          const text = contentMatch[1].trim();
+          if (title.includes('概览')) sections.overview = text;
+          else if (title.includes('趋势')) sections.trend = text;
+          else if (title.includes('分析')) sections.analysis = text;
+          else if (title.includes('目标')) sections.goals = text;
+          else if (title.includes('激励')) sections.motivation = text;
+        }
+      });
+      if (!sections.overview) sections.overview = content.substring(0, 500);
+      return sections;
+    }
+
+    // ==================== Vue 应用 ====================
+    const app = Vue.createApp({
+      data() {
+        return {
+          loading: true,
+          level: 1,
+          points: 0,
+          streak: 0,
+          maxStreak: 0,
+          learnedWords: 0,
+          accuracy: 0,
+          goodWords: [],
+          weakWords: [],
+          showReport: false,
+          reportLoading: false,
+          aiReport: null,
+          totalWords: TOTAL_WORDS,
+          activeTab: 'normal',
+          batch: {
+            currentBatch: [],
+            groupIndex: 0,
+            totalGroups: 3,
+            showResult: false,
+            allResults: [],
+            correctCount: 0,
+            wrongCount: 0,
+            accuracy: 0,
+            inputRefs: []
+          },
+          analyzingWrong: false,
+          wrongCountAnalysis: null
+        };
+      },
+      computed: {
+        hasProgress() { return this.learnedWords > 0; }
+      },
+      methods: {
+        getSize(word) {
+          const wrongCount = word.progress?.wrongCount || 0;
+          if (wrongCount <= 1) return 'lg';
+          if (wrongCount <= 3) return 'md';
+          if (wrongCount <= 5) return 'sm';
+          return 'xs';
+        },
+        startTest() { window.location.href = 'test.html'; },
+        testWord(word) { window.location.href = 'test.html?word=' + word.id; },
+        goPage(page) { window.location.href = page + '.html'; },
+        formatMarkdown(text) {
+          if (!text) return '';
+          return text.replace(/\n/g, '<br>').replace(/[-*]/g, '•');
+        },
+        async generateAIReport() {
+          this.reportLoading = true;
+          this.showReport = true;
+
+          const stats = await db.getStats();
+          const allProgress = await db.getAllProgress();
+          const weakWords = allProgress.filter(p => p.wrongCount > p.correctCount).map(p => p.wordId);
+
+          const result = await generateAIReport({
+            ...stats,
+            learnedWords: allProgress.length,
+            weakWords: weakWords
+          });
+
+          this.aiReport = result;
+          this.reportLoading = false;
+        },
+        switchTab(tab) {
+          this.activeTab = tab;
+          if (tab === 'batch') {
+            this.batch.inputRefs = [];
+            this.initBatchTest();
+          }
+        },
+        initBatchTest() {
+          this.batch.currentBatch = getNextBatch();
+          this.batch.groupIndex = 0;
+          this.batch.showResult = false;
+          this.batch.allResults = [];
+          this.batch.correctCount = 0;
+          this.batch.wrongCount = 0;
+          this.batch.accuracy = 0;
+          this.$nextTick(() => this.focusInput(0));
+        },
+        handleKeydown(event, index) {
+          if (event.key === 'Enter') {
+            if (index === BATCH_SIZE - 1) {
+              this.submitBatch();
+            } else {
+              this.focusInput(index + 1);
+            }
+          }
+        },
+        focusInput(index) {
+          this.$nextTick(() => {
+            const input = this.batch.inputRefs[index];
+            if (input) input.focus();
+          });
+        },
+        submitBatch() {
+          this.batch.currentBatch.forEach(item => {
+            const normalized = item.userAnswer.trim().toLowerCase();
+            const correct = item.word.toLowerCase() === normalized;
+            this.batch.allResults.push({
+              id: item.id,
+              word: item.word,
+              translation: item.translations[0],
+              userAnswer: item.userAnswer.trim(),
+              correctAnswer: item.word,
+              isCorrect: correct
+            });
+            if (correct) {
+              this.batch.correctCount++;
+            } else {
+              this.batch.wrongCount++;
+            }
+          });
+          this.batch.groupIndex++;
+          if (this.batch.groupIndex >= 3) {
+            this.batch.accuracy = Math.round((this.batch.correctCount / (BATCH_SIZE * 3)) * 100);
+            this.batch.showResult = true;
+          } else {
+            this.batch.currentBatch = getNextBatch();
+            this.$nextTick(() => this.focusInput(0));
+          }
+        },
+        restartBatchTest() {
+          vocabPool = shuffleArray(vocabulary);
+          poolIndex = 0;
+          this.initBatchTest();
+          this.analyzingWrong = false;
+          this.wrongCountAnalysis = null;
+        },
+        async analyzeWrongWords() {
+          const wrongWords = this.batch.allResults.filter(r => !r.isCorrect);
+          if (wrongWords.length === 0) {
+            this.wrongCountAnalysis = '太棒了！本次练习没有错误！';
+            return;
+          }
+
+          this.analyzingWrong = true;
+          this.wrongCountAnalysis = null;
+
+          try {
+            const wrongList = wrongWords.map(w => `• ${w.correctAnswer} (你写的: ${w.userAnswer || '空'})`).join('\n');
+            const prompt = `你是HappyEnglish的AI英语学习顾问。用户刚刚完成了一轮30题的英语词汇测试，以下是用户答错的单词：
+
+${wrongList}
+
+请分析：
+1. 错误原因（为什么容易记错）
+2. 记忆技巧（如何记住这些单词）
+3. 复习建议（接下来怎么复习）
+
+要求：
+- 语言简洁，适合中学生理解
+- 直接给出实用建议
+- 控制在200字以内`;
+
+            const apiKey = sessionStorage.getItem('minimax_api_key') || 'sk-cp-2Is80W66tsPfys3wMgI2Xd9Vn5tLGZCkVcMZNo222Nru2bSMEESIfJ6QSpLW0O9keTYnveHdQOtVX-9UY9flpuIAKJh0fOr0o_WxlTIWgVoEtz5k4EmXgUY';
+
+            const response = await fetch('https://api.minimax.chat/v1/text/chatcompletion_v2', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                model: 'MiniMax-M2.7-highspeed',
+                max_tokens: 500,
+                messages: [{ role: 'user', content: prompt }]
+              })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              const content = data.choices?.[0]?.message?.content || '';
+              this.wrongCountAnalysis = content.replace(/\n/g, '<br>').replace(/[-*•]/g, '•');
+            } else {
+              this.wrongCountAnalysis = 'AI服务暂时不可用，请稍后再试。';
+            }
+          } catch (e) {
+            console.error('AI分析失败:', e);
+            this.wrongCountAnalysis = '分析失败，请检查网络连接。';
+          } finally {
+            this.analyzingWrong = false;
+          }
+        },
+        async loadData() {
+          try {
+            await db.init();
+            const allProgress = await db.getAllProgress();
+            const stats = await db.getStats();
+
+            // 分类词汇
+            const levels = { master: [], familiar: [], weak: [], unknown: [] };
+            vocabulary.forEach(word => {
+              const progress = allProgress.find(p => p.wordId === word.id) || {};
+              let level = 'unknown';
+              if (progress.totalTests > 0) {
+                const acc = (progress.correctCount / progress.totalTests) * 100;
+                if (acc >= 90 && progress.wrongCount <= 1) level = 'master';
+                else if (acc >= 70) level = 'familiar';
+                else if (acc >= 40) level = 'weak';
+              }
+              levels[level].push({ ...word, progress, level });
+            });
+
+            this.goodWords = [...levels.master, ...levels.familiar];
+            this.weakWords = [...levels.weak, ...levels.unknown];
+            this.learnedWords = allProgress.length;
+            this.level = stats.level || 1;
+            this.points = stats.points || 0;
+            this.streak = stats.streak || 0;
+            this.maxStreak = stats.maxStreak || 0;
+
+            let correct = 0, total = 0;
+            allProgress.forEach(p => {
+              correct += p.correctCount || 0;
+              total += (p.correctCount || 0) + (p.wrongCount || 0);
+            });
+            this.accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+          } catch (e) {
+            console.error('加载数据失败:', e);
+          } finally {
+            this.loading = false;
+          }
+        }
+      },
+      mounted() {
+        this.loadData();
+      }
+    });
+
+    app.mount('#app');
+  
+
+Button 0:  📋 批量测试 
+Button 1: 开始测试
+Button 2: 生成 AI 学习报告
