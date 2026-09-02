@@ -25,6 +25,9 @@ test_*.py
 *.docx
 docs/HappyEnglish-*.docx
 
+# 例外：软著补正的 docx 也是正式交付物（申请内容/说明书/源代码 docx），需要入库
+!docs/软著补正-工作目录/*.docx
+
 # 编译输出
 dist/
 build/
