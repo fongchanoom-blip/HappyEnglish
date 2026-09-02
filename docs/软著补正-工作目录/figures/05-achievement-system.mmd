@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> Locked
+    Locked --> InProgress: 首次达成部分条件
+    InProgress --> Unlocked: 完成所有条件
+    Unlocked --> Claimed: 用户点击领取
+    Claimed --> [*]
+
+    note right of Locked: 默认状态<br/>显示灰色锁图标
+    note right of InProgress: 进度条显示<br/>如 7/10 天
+    note right of Unlocked: 弹窗通知<br/>奖励发放
+    note right of Claimed: 标记已读<br/>加入成就墙

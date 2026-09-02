@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant Client as Claude Code
+    participant MCP as MCP Server<br/>(minimax-server.js)
+    participant API as MiniMax API
+
+    Client->>MCP: tools/list
+    MCP-->>Client: [{ name: "minimax_chat", inputSchema: {...} }]
+
+    Client->>MCP: tools/call { name: "minimax_chat", arguments: { prompt, system, max_tokens } }
+    MCP->>API: POST /text/chatcompletion_v2<br/>Bearer ${MINIMAX_API_KEY}
+    API-->>MCP: { choices: [{ message: { content: "..." } }] }
+    MCP-->>Client: { content: [{ type: "text", text: "..." }] }

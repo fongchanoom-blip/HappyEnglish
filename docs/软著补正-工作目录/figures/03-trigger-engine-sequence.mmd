@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User
+    participant App as src/index.html
+    participant TE as TriggerEngine
+    participant PS as PersonalizedSuggestions
+    participant DB as IndexedDB
+
+    User->>App: 完成一组测试
+    App->>TE: checkTriggers(context)
+    TE->>DB: query userStats, recentErrors
+    DB-->>TE: stats data
+    TE->>TE: 匹配规则<br/>(连续答对3题/连续答错2题/超时等)
+    TE-->>App: triggeredRules[]
+    App->>PS: generate(rules, userProfile)
+    PS->>DB: query memoryProfile
+    DB-->>PS: profile
+    PS-->>App: personalizedSuggestions[]
+    App->>User: 弹出学习伴侣气泡

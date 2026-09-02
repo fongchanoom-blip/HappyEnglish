@@ -1,0 +1,22 @@
+graph LR
+    subgraph 核心类[LearningCompanion]
+        State[state<br/>name, level, exp<br/>mood, streak]
+        Events[event system<br/>on/off/emit]
+        Milestones[milestones<br/>load/save]
+    end
+
+    subgraph Widget[CompanionWidget]
+        UI[bubble UI<br/>位置/动画/样式]
+        Inject[injectStyles<br/>动态注入 CSS]
+    end
+
+    subgraph 外部集成
+        Store[store.js<br/>响应式绑定]
+        Trigger[trigger-engine.js<br/>事件源]
+    end
+
+    State <--> Store
+    Events <--> Trigger
+    Widget -->|显示状态| State
+    Widget -->|响应事件| Events
+    Widget -->|注入样式| Inject

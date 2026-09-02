@@ -1,0 +1,29 @@
+graph TB
+    subgraph 浏览器前端
+        UI[src/index.html<br/>Vue 3 入口]
+        UI --> Store[src/js/store.js<br/>状态管理]
+        UI --> Router[src/js/router.js<br/>hash 路由]
+        UI --> Companion[src/js/learning-companion.js<br/>学习伴侣]
+        UI --> Trigger[src/js/trigger-engine.js<br/>触发引擎]
+        UI --> Spaced[src/js/spaced-repetition.js<br/>SM-2 艾宾浩斯]
+        UI --> Suggest[src/js/personalized-suggestions.js<br/>个性化推荐]
+        UI --> Achievement[src/js/achievement-system.js<br/>成就系统]
+        UI --> DB[(IndexedDB<br/>src/js/db.js)]
+    end
+
+    subgraph Vercel Edge
+        API[api/ai-report.js<br/>AI 报告 API]
+    end
+
+    subgraph MCP 服务
+        MCP[mcp-server/minimax-server.js<br/>MCP 服务器]
+    end
+
+    subgraph 外部 AI
+        Minimax[MiniMax API<br/>MiniMax-M3-highspeed]
+    end
+
+    UI -->|fetch| API
+    UI -.->|stdin/stdout| MCP
+    API -->|HTTPS| Minimax
+    MCP -->|HTTPS| Minimax

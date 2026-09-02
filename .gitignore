@@ -10,6 +10,9 @@ api/node_modules/
 *.png
 *.jpg
 *.gif
+
+# 例外：软著补正图集是正式交付物，需要入库
+!docs/软著补正-工作目录/figures/*.png
 check_*.py
 debug*.py
 fix_*.py

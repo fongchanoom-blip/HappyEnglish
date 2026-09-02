@@ -1,0 +1,12 @@
+flowchart TD
+    A[用户答题<br/>单词 word] --> B{是否首次?}
+    B -- 是 --> C[初始化 mastery<br/>memoryParameter=S0<br/>lastReviewAt=now]
+    B -- 否 --> D[读取 mastery]
+    C --> E[判定错误类型<br/>spelling/meaning/phonetic/grammar]
+    D --> E
+    E --> F[应用错误权重<br/>w_spelling=15<br/>w_meaning=10<br/>w_phonetic=8<br/>w_grammar=5]
+    F --> G["计算记忆强度 R<br/>R = e^(-t/S)"]
+    G --> H[计算半衰期<br/>halfLife = S × ln2]
+    H --> I[更新 mastery<br/>memoryParameter += delta]
+    I --> J[保存到 IndexedDB]
+    J --> K[返回下次复习时间<br/>nextReviewAt = now + interval]
